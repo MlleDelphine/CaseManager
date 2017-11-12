@@ -1,0 +1,33 @@
+{
+  "name": "casemanager",
+  "description": "SF3 project for dealing with public works cases",
+  "main": "",
+  "authors": [
+    "Delphine GRAFTIEAUX"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-datepicker": "^1.7.1",
+    "gentelella": "^1.4.0",
+    "bootstrap-fileinput": "^4.4.5",
+    "components-font-awesome": "^4.7.0",
+    "tinymce": "^4.7.2",
+    "featherlight": "^1.7.9",
+    "ace-builds": "^1.2.9",
+    "select2-bootstrap-css": "^1.4.6",
+    "bootstrap-toggle": "^2.2.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "seiyria-bootstrap-slider": "^10.0.0",
+    "symfony-collection": "^2.1.19",
+    "x-editable": "^1.5.1"
+  }
+}

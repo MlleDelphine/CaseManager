@@ -1,0 +1,9 @@
+{% set currentItem = knp_menu_get('AppBundle:MenuBuilder:myBreadCrumb').getBreadcrumbsArray %}
+
+{% for item in currentItem %}
+    {% if loop.index != 1 %}
+        {% if loop.index > 2 %} > {% endif %}
+        {% if not loop.last %}<a href="{{ item.uri }}">{{ item.label }}</a>
+        {% else %}<span>{{ item.label }}</span>{% endif %}
+    {% endif %}
+{% endfor %}

@@ -1,13 +1,148 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %} FSOnline Service {% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css') }}" >
+    {#<!-- Font Awesome -->#}
+    <link rel="stylesheet" href="{{ asset('vendor/components-font-awesome/css/font-awesome.css') }}" >
+    {#<!-- Custom Theme Style -->#}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/custom.css') }}">
+    {#<!-- BS File input CSS -->#}
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-fileinput/css/fileinput.min.css') }}"  />
+
+    <!-- GRID CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/u/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.12,b-1.2.1,b-colvis-1.2.1,b-flash-1.2.1,b-html5-1.2.1,b-print-1.2.1,r-2.1.0/datatables.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('vendor/featherlight/src/featherlight.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/select2/dist/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/iCheck/skins/flat/orange.css') }}" />
+    {% block stylesheets %}
+    {% endblock %}
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+        {% include '::admin/sidebar.html.twig' %}
+        {% include 'admin/topnav.html.twig' %}
+
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+                </div>
+
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                {% block breadcrumb %}{% endblock breadcrumb %}
+            </ol>
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!-- /page content -->
+        {% include 'admin/footer.html.twig' %}
+    </div>
+</div>
+
+{% javascripts
+
+'vendor/gentelella/vendors/jquery/dist/jquery.min.js'
+'vendor/gentelella/vendors/fastclick/lib/fastclick.js'
+'vendor/gentelella/vendors/nprogress/nprogress.js'
+'vendor/gentelella/production/js/moment/moment.min.js'
+'vendor/gentelella/vendors/moment/min/moment-with-locales.min.js'
+'vendor/gentelella/vendors/select2/dist/js/select2.full.js'
+'vendor/bootstrap/dist/js/bootstrap.min.js'
+'vendor/bootstrap-fileinput/js/fileinput.min.js'
+'vendor/bootstrap-toggle/js/bootstrap-toggle.min.js'
+'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'
+'vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js'
+'vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js'
+'vendor/ace-builds/src-min-noconflict/ace.js'
+'vendor/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js'
+'vendor/highlight/src/highlight.js'
+'vendor/datatables/media/js/jquery.dataTables.min.js'
+'vendor/featherlight/release/featherlight.min.js'
+'vendor/gentelella/vendors/morris.js/morris.js'
+'vendor/gentelella/vendors/iCheck/icheck.min.js'
+'vendor/gentelella/vendors/validator/validator.js'
+'vendor/gentelella/vendors/parsleyjs/dist/parsley.min.js'
+'vendor/tinymce/jquery.tinymce.min.js'
+
+%}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+{#<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>#}
+
+<script src="https://cdn.datatables.net/u/bs/jszip-2.5.0,pdfmake-0.1.18,dt-1.10.12,b-1.2.1,b-colvis-1.2.1,b-flash-1.2.1,b-html5-1.2.1,b-print-1.2.1,r-2.1.0/datatables.min.js"></script>
+
+<script type="application/javascript">
+    {% block custom_javascripts %}
+    //Accordion : Open/Close all
+    $('.closeall').click(function(){
+        $('.panel-collapse.in')
+            .collapse('hide');
+    });
+    $('.openall').click(function(){
+        $('.panel-collapse:not(".in")')
+            .collapse('show');
+    });
+
+    $(document).ready(function(){
+        //iCheck (radio + check) :ORANGE
+        $('input.orange-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-orange',
+            radioClass: 'iradio_flat'
+        });
+        //Error color input above
+        if($('.field-error').length >0){
+            console.log('ADD');
+            $('.field-error').prev('input').addClass('parsley-error');
+        }
+        else{
+            console.log('remove');
+            $('.field-error').prev('input').removeClass('parsley-error');
+        }
+    });
+
+    {% endblock %}
+</script>
+
+{% block plain_js_bundle %}
+{% endblock %}
+
+{% block datatable_js %}
+{% endblock %}
+
+</body>
 </html>
