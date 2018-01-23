@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "": "src/"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -26,6 +26,7 @@
         "doctrine/orm": "^2.5",
         "friendsofsymfony/jsrouting-bundle": "^2.0",
         "friendsofsymfony/rest-bundle": "^2.2",
+        "friendsofsymfony/user-bundle": "^2.0",
         "gedmo/doctrine-extensions": "^2.4",
         "genemu/form-bundle": "^3.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",

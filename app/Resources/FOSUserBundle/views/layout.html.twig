@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Casemanager | Login</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('vendor/components-font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{ asset('vendor/gentelella/vendors/animate.css/animate.min.css') }}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('vendor/gentelella/build/css/custom.min.css') }}" rel="stylesheet">
+</head>
+
+<body class="login">
+<div>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+    {% endif %}
+</div>
+
+{% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    {% block fos_user_content %}{% endblock %}
+
+
+    {#<div id="register" class="animate form registration_form">#}
+    {#<section class="login_content">#}
+    {#<form>#}
+    {#<h1>Create Account</h1>#}
+    {#<div>#}
+    {#<input type="text" class="form-control" placeholder="Username" required="" />#}
+    {#</div>#}
+    {#<div>#}
+    {#<input type="email" class="form-control" placeholder="Email" value=" " required="" />#}
+    {#</div>#}
+    {#<div>#}
+    {#<input type="password" class="form-control" placeholder="Password" required="" />#}
+    {#</div>#}
+    {#<div>#}
+    {#<a class="btn btn-default submit" href="#">Submit</a>#}
+    {#</div>#}
+
+    {#<div class="clearfix"></div>#}
+
+    {#<div class="separator">#}
+    {#<p class="change_link">Already a member ?#}
+    {#<a href="#signin" class="to_register"> Log in </a>#}
+    {#</p>#}
+
+    {#<div class="clearfix"></div>#}
+    {#<br />#}
+
+    {#<div>#}
+    {#<h1><i class="fa fa-paw"></i> casemanager Service!</h1>#}
+    {#<p>©2016 All Rights Reserved. casemanager service is a Fime product. Privacy and Terms</p>#}
+    {#</div>#}
+    {#</div>#}
+    {#</form>#}
+    {#</section>#}
+    {#</div>#}
+</div>
+</body>
+</html>
