@@ -14,7 +14,7 @@ security:
 #        in_memory:
 #            memory: ~
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -27,10 +27,9 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-#                check_path: casemanager_backend_login
-#                use_referer: true
-#                default_target_path: /
-#                target_path_parameter: redirect_url
+                use_referer: true
+                default_target_path: /
+                target_path_parameter: redirect_url
             logout: true
             anonymous: true
 
