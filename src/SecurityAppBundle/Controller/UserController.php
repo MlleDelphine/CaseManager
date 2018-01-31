@@ -10,17 +10,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * User controller.
  *
- * @Route("user")
+ * @Route("{role}/user", requirements={"role"= "admin|public"})
  */
 class UserController extends Controller
 {
     /**
      * Lists all user entities.
      *
-     * @Route("/", name="user_index")
+     * @Route("/all", name="user_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request, $role)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -28,6 +28,7 @@ class UserController extends Controller
 
         return $this->render('SecurityAppBundle:user:index.html.twig', array(
             'users' => $users,
+            'role' => $role
         ));
     }
 

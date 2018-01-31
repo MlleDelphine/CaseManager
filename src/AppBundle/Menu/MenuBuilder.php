@@ -50,16 +50,18 @@ class MenuBuilder implements ContainerAwareInterface
 
         //ADMIN ACTIONS FIRST LEVEL MENU
 
-        $menu->addChild('Admin actions',
+        $menu->addChild('admin_users',
             array(
-                'label' => 'Admin actions',
+                'label' => 'Gestion utilisateurs',
                 'uri' => ' '
             )
         )
             ->setAttribute('prev-icon', 'fa fa-cogs')
             ->setAttribute('icon', 'fa fa-chevron-down');
 
-//        $menu['Admin actions']->addChild('Service Types', array('route' => 'fs_projects_type_list'))->setAttribute('prev-icon', 'fa fa-bolt');
+        $menu['admin_users']->addChild('Tous', array('route' => 'user_index', 'routeParameters' => ['role' => "admin"]))->setAttribute('prev-icon', 'fa fa-bolt');
+        $menu['admin_users']->addChild('Tous', array('route' => 'user_new', 'routeParameters' => ['role' => "admin"]))->setAttribute('prev-icon', 'fa fa-bolt');
+//        $menu['admin_users']->addChild('Tous', array('route' => 'user_index', 'routeParameters' => ['role' => "admin"]))->setAttribute('prev-icon', 'fa fa-bolt');
 //        $menu['Admin actions']->addChild('Issuing/Acquiring data', array('route' => 'bankactivity_homepage'))->setAttribute('prev-icon', 'fa fa-database');
 //        $menu['Admin actions']->addChild('API Documentation', array('route' => 'nelmio_api_doc_index', 'linkAttributes' => ['target' =>'_blank']))->setAttribute('prev-icon', 'fa fa-database');
 //

@@ -14,6 +14,7 @@ security:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
 gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
     prefix: /media/gallery

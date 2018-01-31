@@ -28,6 +28,8 @@
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "seiyria-bootstrap-slider": "^10.0.0",
     "symfony-collection": "^2.1.19",
-    "x-editable": "^1.5.1"
+    "x-editable": "^1.5.1",
+    "highlight": "^9.12.0",
+    "datatables": "^1.10.16"
   }
 }

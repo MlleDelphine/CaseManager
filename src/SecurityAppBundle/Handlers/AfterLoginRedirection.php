@@ -46,5 +46,5 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
             $response = new RedirectResponse($referer_url);
         }
         return $response;
-    }!: 
+    }
 }
