@@ -30,6 +30,7 @@ class AppKernel extends Kernel
 
             //new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new AdminBundle\AdminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
