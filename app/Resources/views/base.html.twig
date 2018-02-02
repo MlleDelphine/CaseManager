@@ -42,13 +42,13 @@
         <div class="right_col" role="main">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+                    <h3>{% block page_title %}Tableau de bord{% endblock %}</h3>
                 </div>
 
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
+                            <input type="text" class="form-control" placeholder="Rechercher...">
                             <span class="input-group-btn">
                       <button class="btn btn-default" type="button">Go!</button>
                     </span>
@@ -60,7 +60,7 @@
             <div class="clearfix"></div>
 
             <ol class="breadcrumb">
-                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li><a href="{{ path('homepage') }}">Accueil</a></li>
                 {% block breadcrumb %}{% endblock breadcrumb %}
             </ol>
             {% block body %}
@@ -76,6 +76,7 @@
 'vendor/gentelella/vendors/jquery/dist/jquery.min.js'
 'vendor/gentelella/vendors/fastclick/lib/fastclick.js'
 'vendor/gentelella/vendors/nprogress/nprogress.js'
+'bundles/app/js/custom.js'
 'vendor/gentelella/production/js/moment/moment.min.js'
 'vendor/gentelella/vendors/moment/min/moment-with-locales.min.js'
 'vendor/gentelella/vendors/select2/dist/js/select2.full.js'

@@ -41,7 +41,61 @@ twig:
     strict_variables: '%kernel.debug%'
 #    form_theme:
 #        - 'bootstrap_3_horizontal_layout.html.twig'
+services:
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
+    gedmo.listener.translatable:
+        class: Gedmo\Translatable\TranslatableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+            - [ setDefaultLocale, [ '%locale%' ] ]
+            - [ setTranslationFallback, [ false ] ]
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+genemu_form:
+    tinymce:
+        enabled: true
+        theme: modern
+        configs:
+            entity_encoding: raw
+            plugins : 'advlist autolink link image lists charmap print preview'
+
+    date: ~
+    image: ~
+    select2:
+        enabled: true
+        configs:
+            placeholder: Chose
+            width: off
+            allowClear: false
+            minimumInputLength: 0
 # Doctrine Configuration
 doctrine:
     dbal:

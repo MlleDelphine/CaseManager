@@ -1,2 +1,17 @@
-{% block password_widget %}
+{% block _securityappbundle_user_plainPassword_first_row %}
+    <div class="form-group">
+        <label for="{{ form.vars.id }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.vars.label }}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _securityappbundle_user_plainPassword_second_row %}
+    <div class="form-group">
+        <label for="{{ form.vars.id }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.vars.label }}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+        </div>
+    </div>
 {% endblock %}
