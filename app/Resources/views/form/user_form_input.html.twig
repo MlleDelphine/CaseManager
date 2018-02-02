@@ -1,2 +1,11 @@
-{% block password_widget %}
+{% block _fos_user_registration_form_plainPassword_first_row %}
+    {% spaceless %}
+        {{ form_widget(form, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+    {% endspaceless %}
 {% endblock %}
+{% block _fos_user_registration_form_plainPassword_second_row %}
+    {% spaceless %}
+        {{ form_widget(form, {'attr': {'class': 'form-control', 'placeholder': 'Confirmation du mot de passe'}}) }}
+    {% endspaceless %}
+{% endblock %}
+

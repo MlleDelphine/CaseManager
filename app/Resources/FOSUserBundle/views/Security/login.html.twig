@@ -1,8 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% extends "FOSUserBundle::layout.html.twig" %}
+{% form_theme registerForm 'form/user_form_input.html.twig' %}
 {% block fos_user_content %}
-    {#{{ include('@FOSUserBundle/Security/login_content.html.twig') }}#}
-
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
@@ -10,41 +9,41 @@
                     {% if csrf_token %}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     {% endif %}
-                    <h1>Login Form</h1>
+                    <h1>Connexion</h1>
                     {% if error %}
                         <div class="alert alert-danger top-alert-error" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>
+                            <span class="sr-only">Erreur:</span>
                             {{ error.messageKey|trans(error.messageData, 'security') }}
                         </div>
                     {% endif %}
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="Username" value="{{ last_username }}">
+                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="Email" value="{{ last_username }}">
                         <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input name="_password" id="password" type="password" class="form-control has-feedback-left" placeholder="Password" value="{{ last_username }}" required="">
+                        <input name="_password" id="password" type="password" class="form-control has-feedback-left" placeholder="Mot de passe" value="{{ last_username }}" required="">
                         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
                         <input type="hidden" name="_target_path" value="account" />
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-info submit">Log in</button>
+                        <button type="submit" class="btn btn-info submit">Connexion</button>
                         {#<a class="reset_pass" href="#">Lost your password?</a>#}
                     </div>
 
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">New to site?
-                            <a href="#signup" class="to_register"> Create Account </a>
+                        <p class="change_link">Pas encore de compte ?
+                            <a href="#signup" class="to_register">S'enregister </a>
                         </p>
                         <div class="clearfix"></div>
                         <br />
 
                         <div>
                             <h1><i class="fa fa-paw"></i> Casemanager Service!</h1>
-                            <p>©2017 All Rights Reserved. Casemanager service is a DelphiGX product. Privacy and Terms</p>
+                            <p>©2018 Tous droits réservés. Casemanager service is a DelphiGX product. Privacy and Terms</p>
                         </div>
                     </div>
                 </form>
@@ -52,43 +51,34 @@
         </div>
         <div id="register" class="animate form registration_form">
             <section class="login_content">
+                {#{{ dump(registerForm) }}#}
                 {{ form_start(registerForm, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
                 {#{{ form_widget(registerForm) }}#}
-                <h1>Create Account</h1>
+                <h1>Créer un compte</h1>
                 <div>
-                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
                 </div>
                 <div>
-                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'}}) }}
                 </div>
-                    {{ form_widget(registerForm.plainPassword, {'attr': {'class' : 'prou'}}) }}
-
-                {#<div>#}
-                {#<input type="text" class="form-control" placeholder="Username" required="" />#}
-                {#</div>#}
-                {#<div>#}
-                {#<input type="email" class="form-control" placeholder="Email" value=" " required="" />#}
-                {#</div>#}
-                {#<div>#}
-                {#<input type="password" class="form-control" placeholder="Password" required="" />#}
-                {#</div>#}
+                    {{ form_row(registerForm.plainPassword) }}
                 <div>
-                    <a class="btn btn-default submit" href="#">Submit</a>
+                    <button type="submit" class="btn btn-default submit btn-info" href="#">Créer</button>
                 </div>
 
                 <div class="clearfix"></div>
 
                 <div class="separator">
-                    <p class="change_link">Already a member ?
-                        <a href="#signin" class="to_register"> Log in </a>
+                    <p class="change_link">Déjà enregistré ?
+                        <a href="#signin" class="to_register">Se connecter</a>
                     </p>
 
                     <div class="clearfix"></div>
                     <br />
 
                     <div>
-                        <h1><i class="fa fa-paw"></i> casemanager Service!</h1>
-                        <p>©2016 All Rights Reserved. casemanager service is a DelphiGx product. Privacy and Terms</p>
+                        <h1><i class="fa fa-paw"></i> CaseManager Service!</h1>
+                        <p>©2018 Tous droits réservés. CaseManager service is a DelphiGx product. Privacy and Terms</p>
                     </div>
                 </div>
                 {{ form_end(registerForm) }}

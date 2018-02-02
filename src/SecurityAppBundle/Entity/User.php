@@ -45,7 +45,7 @@ class User extends BaseUser
     protected $slug;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $phoneNumber;
 
