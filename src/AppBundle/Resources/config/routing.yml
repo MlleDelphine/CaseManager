@@ -1,0 +1,4 @@
+app_jobstatus:
+    resource: "@AppBundle/Resources/config/routing/jobstatus.yml"
+    prefix:   /admin/jobstatus
+

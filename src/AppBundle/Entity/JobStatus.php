@@ -35,7 +35,6 @@ class JobStatus
      */
     private $name;
 
-
     /**
      * @var string
      *
@@ -157,5 +156,62 @@ class JobStatus
         return $this->updated;
     }
 
-}
 
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return JobStatus
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \SecurityAppBundle\Entity\User $user
+     *
+     * @return JobStatus
+     */
+    public function addUser(\SecurityAppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \SecurityAppBundle\Entity\User $user
+     */
+    public function removeUser(\SecurityAppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+}
