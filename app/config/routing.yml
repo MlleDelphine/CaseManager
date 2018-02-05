@@ -25,3 +25,7 @@ media:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+jobstatus:
+    resource: "@AppBundle/Resources/config/routing.yml"
+#    prefix:   /admin

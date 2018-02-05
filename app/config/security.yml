@@ -44,3 +44,4 @@ security:
         - { requires_channel: https, path: ^/, roles: ROLE_ACCESS_DENIED }
         - { requires_channel: https, path: ^/admin, role: ROLE_ADMIN }
         - { requires_channel: https, path: ^/public, role: ROLE_USER }
+        - { requires_channel: https, path: ^/, roles: ROLE_ACCESS_DENIED }

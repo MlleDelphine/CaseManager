@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="active">Tous les utilisateurs</li>
+    <li class="active">Tous les postes</li>
 {% endblock %}
 
 {% block page_title %}
-    Utilisateurs
+    Postes
 {% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-users"></i> Tous les utilisateurs</h2>
+                <h2><i class="fa fa-briefcase"></i> Tous les postes</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     {#<li>#}
                     {#<button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">#}
@@ -20,10 +20,10 @@
                     {#</button>#}
                     {#</li>#}
                     {#<li>#}
-                    {#<a type="button" class="btn btn-warning btn-li" href="{{ path('user_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Export all</a>#}
+                    {#<a type="button" class="btn btn-warning btn-li" href="{{ path('jobstatus_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Export all</a>#}
                     {#</li>#}
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("user_new", { 'role': role }) }}"><i class="fa fa-user-plus"></i> Ajout</a>
+                        <a class="btn btn-success btn-li" href="{{ path("jobstatus_new") }}"><i class="fa fa-plus"></i> Ajout</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -36,25 +36,20 @@
                 <a href="#" class="btn btn-default openall">Déplier</a> <a href="#" class="btn btn-default closeall">Replier</a>
                 <hr>
                 <!-- start accordion -->
-                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for user in users %}
+                <div class="panel-group accordion" id="accordion" utilisateur="tablist" aria-multiselectable="true">
+                    {% for jobStatus in jobStatuses %}
                         <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ user.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ user.id }}" aria-expanded="true" aria-controls="collapse{{ user.id }}">
-                                <h4 class="panel-title">{{ user.firstName ~ ' ' ~ user.lastName }}</h4>
+                            <a class="panel-heading" role="tab" id="heading{{ jobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ jobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ jobStatus.id }}">
+                                <h4 class="panel-title">{{ jobStatus.name }}</h4>
                             </a>
-                            <div id="collapse{{ user.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ user.id }}">
+                            <div id="collapse{{ jobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ jobStatus.id }}">
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Prénom</th>
-                                            <th>Nom</th>
-                                            <th>Identifiant</th>
-                                            <th>Email</th>
-                                            <th>Role(s)</th>
-                                            <th>Poste</th>
-                                            <th>Statut</th>
+                                            <th>Intitulé</th>
+                                            <th>Utilisateurs</th>
                                             <th>Créé le</th>
                                             <th>Dernière màj le</th>
                                             <th style="text-align: center;">Actions</th>
@@ -62,16 +57,13 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">{{ user.id }}</th>
-                                            <td>{{ user.firstName }}</td>
-                                            <td>{{ user.lastName }}</td>
-                                            <td>{{ user.username }}</td>
-                                            <td>{{ user.email }}</td>
+                                            <th scope="row">{{ jobStatus.id }}</th>
+                                            <td>{{ jobStatus.name }}</td>
                                             <td>
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>Role(s)</small></h2>
+                                                            <small>Utilisateur(s)</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -82,13 +74,15 @@
                                                         <table class="table table-bordered">
                                                             <thead>
                                                             <tr>
+                                                                <th>#</th>
                                                                 <th>Nom</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for role in user.roles %}
+                                                            {% for user in jobStatus.users %}
                                                                 <tr>
-                                                                    <td>{{ role }}</td>
+                                                                    <td>{{ user.id }}</td>
+                                                                    <td>{{ user }}</td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>
@@ -96,17 +90,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ user.jobStatus }}</td>
-                                            <td align="center">{% if user.enabled == true %}
-                                                    <i class="fa fa-check" aria-hidden="true" style="color:#1C9A71"></i>
-                                                {% else %}<i class="fa fa-times" aria-hidden="true" style="color:#D44950"></i>
-                                                {% endif %}
-                                            </td>
-                                            <td>{% if user.created %}{{ user.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if user.updated %}{{ user.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if jobStatus.created %}{{ jobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if jobStatus.updated %}{{ jobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('user_edit', { 'slug': user.slug, 'role': role }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                {#<a class="btn btn-sm btn-warning" href="{{ path('user_export', { 'slug': user.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>#}
+                                                <a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
+                                                {#<a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>#}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -122,10 +110,10 @@
     </div>
 
     <!-- Import Modal -->
-    {#<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-    {#<div class="modal-dialog" role="document">#}
+    {#<div class="modal fade" id="importModal" tabindex="-1" utilisateur="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#<div class="modal-dialog" utilisateur="document">#}
     {#<div class="modal-content">#}
-    {#<form method="post" action="{{ path('user_index', {'slug': user.slug }) }}" class="form-horizontal" enctype="multipart/form-data">#}
+    {#<form method="post" action="{{ path('jobstatus_index', {'slug': jobStatus.slug }) }}" class="form-horizontal" enctype="multipart/form-data">#}
     {#<div class="modal-header">#}
     {#<h5 class="modal-title" id="exampleModalLabel">Import global service type(s)</h5>#}
     {#<button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
@@ -135,7 +123,7 @@
     {#<div class="modal-body">#}
     {#<div class="panel-body">#}
     {#{% if error %}#}
-    {#<div class="alert alert-danger text-center" role="alert">{{ error }}</div>#}
+    {#<div class="alert alert-danger text-center" utilisateur="alert">{{ error }}</div>#}
     {#{% endif %}#}
     {#<div class="form-group">#}
     {#<label for="file" class="col-sm-2 control-label">File (*.json) </label>#}

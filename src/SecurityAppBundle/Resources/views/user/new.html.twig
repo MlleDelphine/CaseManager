@@ -1,16 +1,122 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'form/user_form_input.html.twig' %}
+
+{% block stylesheets %}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class=""><a href="{{ path('user_index', {'role': role }) }}">Utilisateurs</a></li>
+    <li class="active">Ajout</li>
+{% endblock %}
+
+{% block page_title %}Création d'utilisateur{% endblock %}
 
 {% block body %}
-    <h1>User creation</h1>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Créer un compte utilisateur</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.firstName, 'Prénom', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.firstName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.lastName, 'Nom', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.username, 'Identifiant/Pseudo', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.username, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.username) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.roles, 'Roles', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.roles, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.roles) }}
+                        </div>
+                    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+                    {#{{ form_label(form.plainPassword, 'Mot de passe', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}#}
+                    {{ form_row(form.plainPassword) }}
+                    {{ form_errors(form.plainPassword) }}
+
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.phoneNumber, 'Téléphone', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.phoneNumber) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.jobStatus, 'Poste', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.jobStatus, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.jobStatus) }}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        {{ form_label(form.enabled, 'Actif', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.enabled, {'attr': {'class': 'orange-icheck'}}) }}
+                            {{ form_errors(form.enabled) }}
+                        </div>
+                        {#<div class="form-group">#}
+                        {#{{ form_widget(form.image) }}#}
+                        {#{{ form_errors(form.image) }}#}
+                        {#</div>#}
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a href="{{ path('user_index', {'role': role }) }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Annuler</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Créer</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+{% endblock %}
+{% block plain_js_bundle %}
+    {{ form_javascript(form) }}
 {% endblock %}

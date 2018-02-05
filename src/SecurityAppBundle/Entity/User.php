@@ -67,9 +67,8 @@ class User extends BaseUser
      *
      * @var JobStatus
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users", cascade={"persist", "merge"})
-     * @Assert\NotBlank()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"bo_export_device"})
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $jobStatus;
 
@@ -77,6 +76,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->addRole("ROLE_USER");
         // your own logic
     }
 
@@ -228,4 +228,28 @@ class User extends BaseUser
         return $this->updated;
     }
 
+
+    /**
+     * Set jobStatus
+     *
+     * @param \AppBundle\Entity\JobStatus $jobStatus
+     *
+     * @return User
+     */
+    public function setJobStatus(\AppBundle\Entity\JobStatus $jobStatus = null)
+    {
+        $this->jobStatus = $jobStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get jobStatus
+     *
+     * @return \AppBundle\Entity\JobStatus
+     */
+    public function getJobStatus()
+    {
+        return $this->jobStatus;
+    }
 }

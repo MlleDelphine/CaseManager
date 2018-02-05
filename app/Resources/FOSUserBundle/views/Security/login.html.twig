@@ -9,7 +9,7 @@
                     {% if csrf_token %}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     {% endif %}
-                    <h1>Connexion</h1>
+                    <h1>Se connecter</h1>
                     {% if error %}
                         <div class="alert alert-danger top-alert-error" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -18,7 +18,7 @@
                         </div>
                     {% endif %}
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="Email" value="{{ last_username }}">
+                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="Identifiant" value="{{ last_username }}">
                         <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                     </div>
 
@@ -36,7 +36,7 @@
 
                     <div class="separator">
                         <p class="change_link">Pas encore de compte ?
-                            <a href="#signup" class="to_register">S'enregister </a>
+                            <a href="#signup" class="to_register">S'enregistrer</a>
                         </p>
                         <div class="clearfix"></div>
                         <br />

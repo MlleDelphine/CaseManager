@@ -18,3 +18,4 @@
 /web/vendor
 /.idea
 /bin/vendor
+*.orig
