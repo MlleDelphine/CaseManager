@@ -2,3 +2,6 @@ app_jobstatus:
     resource: "@AppBundle/Resources/config/routing/jobstatus.yml"
     prefix:   /admin/jobstatus
 
+app_team:
+    resource: "@AppBundle/Resources/config/routing/team.yml"
+    prefix:   /admin/team

@@ -12,9 +12,11 @@ namespace AppBundle\Services;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -25,7 +27,7 @@ class JsonExportImportData
     private $em;
     private $serializer;
 
-    public function __construct(EntityManager $em, Serializer $serializer)
+    public function __construct(EntityManagerInterface $em, SerializerInterface $serializer)
     {
         $this->em = $em;
         $this->serializer = $serializer;

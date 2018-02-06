@@ -12,8 +12,10 @@ namespace SecurityAppBundle\Handlers;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 
 class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
@@ -26,7 +28,7 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
      * @param Router $router
      * @param AuthorizationChecker $security
      */
-    public function __construct(Router $router, AuthorizationChecker $security)
+    public function __construct(RouterInterface $router, AuthorizationCheckerInterface $security)
     {
         $this->router = $router;
         $this->security = $security;

@@ -7,14 +7,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JobStatusType extends AbstractType
+class TeamType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, array('label' => 'Intitulé', 'required' => true));
+        $builder->add('name', TextType::class, array('label' => 'Nom', 'required' => true));
     }
     
     /**
@@ -23,7 +23,7 @@ class JobStatusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\JobStatus'
+            'data_class' => 'AppBundle\Entity\Team'
         ));
     }
 

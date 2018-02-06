@@ -41,7 +41,7 @@ services:
         arguments: ['@router', '@security.authorization_checker']
 
     object.eximportdatas:
-        class: BAppyBundle\Services\ExImportDatas
+        class: AppBundle\Services\JsonExportImportData
         arguments: ["@doctrine.orm.entity_manager", "@jms_serializer"]
 
 #To update child entity instead of adding new one

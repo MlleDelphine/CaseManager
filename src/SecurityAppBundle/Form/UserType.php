@@ -27,14 +27,15 @@ class UserType extends AbstractType
             ->add('email',EmailType::class, array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))
             ->add('roles', RoleType::class)
             ->add('username', TextType::class, array('label' => 'Identifiant', 'translation_domain' => 'FOSUserBundle'))
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'options' => array('translation_domain' => 'FOSUserBundle'),
-                'first_options' => array('label' => 'Mot de passe'),
-                'second_options' => array('label' => 'Confirmation mot de passe'),
-                'invalid_message' => 'fos_user.password.mismatch',
+//            ->add('plainPassword', RepeatedType::class, array(
+//                'type' => PasswordType::class,
+//                'options' => array('translation_domain' => 'FOSUserBundle'),
+//                'first_options' => array('label' => 'Mot de passe'),
+//                'second_options' => array('label' => 'Confirmation mot de passe'),
+//                'invalid_message' => 'fos_user.password.mismatch',
+//            ))
+            ->add('phoneNumber', IntegerType::class, array('label' => 'Téléphone'
             ))
-            ->add('phoneNumber', IntegerType::class, array('label' => 'Téléphone'))
             ->add('jobStatus',  Select2EntityType::class, array(
                 'class' => 'AppBundle:JobStatus',
                 'choice_label' => 'name',
@@ -42,6 +43,13 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'placeholder' => 'Sélectionner',
                 'required' => false))
+            ->add('team',  Select2EntityType::class, array(
+                'class' => 'AppBundle:Team',
+                'choice_label' => 'name',
+                'label' => 'Equipe',
+                'multiple' => false,
+//                'placeholder' => 'Sélectionner',
+                'required' => true))
             ->add('enabled', CheckboxType::class);
     }
 

@@ -3,6 +3,8 @@
 
 namespace SecurityAppBundle\Entity;
 
+use AppBundle\Entity\JobStatus;
+use AppBundle\Entity\Team;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -66,11 +68,20 @@ class User extends BaseUser
     /**
      *
      * @var JobStatus
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */
     protected $jobStatus;
+
+    /**
+     *
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $team;
 
 
     public function __construct()
@@ -251,5 +262,29 @@ class User extends BaseUser
     public function getJobStatus()
     {
         return $this->jobStatus;
+    }
+
+    /**
+     * Set team
+     *
+     * @param \AppBundle\Entity\Team $team
+     *
+     * @return User
+     */
+    public function setTeam(\AppBundle\Entity\Team $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }
