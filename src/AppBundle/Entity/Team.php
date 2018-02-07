@@ -61,7 +61,7 @@ class Team
     /**
      * @var User[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="team", fetch="EXTRA_LAZY", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="team", fetch="EXTRA_LAZY")
      */
     protected $users;
 
@@ -190,7 +190,10 @@ class Team
      */
     public function addUser(\SecurityAppBundle\Entity\User $user)
     {
+        dump("USERS!!");
+        die;
         $this->users[] = $user;
+        $user->setTeam($this);
 
         return $this;
     }
@@ -203,6 +206,7 @@ class Team
     public function removeUser(\SecurityAppBundle\Entity\User $user)
     {
         $this->users->removeElement($user);
+        $user->setTeam(null);
     }
 
     /**

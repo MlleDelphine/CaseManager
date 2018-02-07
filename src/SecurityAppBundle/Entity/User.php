@@ -68,7 +68,7 @@ class User extends BaseUser
     /**
      *
      * @var JobStatus
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users", cascade={"persist"})
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */
@@ -77,7 +77,7 @@ class User extends BaseUser
     /**
      *
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users", cascade={"persist", "detach"})
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */
