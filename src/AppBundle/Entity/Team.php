@@ -190,12 +190,7 @@ class Team
      */
     public function addUser(\SecurityAppBundle\Entity\User $user)
     {
-        dump("USERS!!");
-        die;
-        $this->users[] = $user;
         $user->setTeam($this);
-
-        return $this;
     }
 
     /**

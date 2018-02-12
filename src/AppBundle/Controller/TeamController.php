@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Team;
 use AppBundle\Form\TeamType;
+use Doctrine\Common\Collections\ArrayCollection;
 use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -100,12 +101,49 @@ class TeamController extends Controller
     {
         $deleteForm = $this->createDeleteForm($team);
         $editForm = $this->createForm(TeamType::class, $team);
+        if (!$team) {
+            throw $this->createNotFoundException('No team found for id '.$id);
+        }
+
+        $originalUsers = new ArrayCollection();
+
+        // Create an ArrayCollection of the current User objects in the database
+        foreach ($team->getUsers() as $user) {
+            $originalUsers->add($user);
+        }
+        dump($originalUsers);
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $users = $editForm->getData()->getUsers();
+//            dump($users);
+//            dump($team->getUsers());
+//            die;
+            //If user submitted not contained in original users array, add it
+            foreach ($users as $userAdd){
+                if (false === $originalUsers->contains($userAdd)) {
+                    $team->addUser($userAdd);
+                }
+            }
+            // If user originally contained but not contained in submitted remove the relationship between
+            foreach ($originalUsers as $userOriginal) {
+                if (false === $team->getUsers()->contains($userOriginal)) {
+                    // remove the Task from the Tag
+                    $userOriginal->getTeam()->removeElement($userOriginal);
 
-            //return $this->redirectToRoute('team_index');
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    // $tag->setTask(null);
+
+                    $em->persist($userOriginal);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    // $em->remove($tag);
+                }
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('team_index');
         }
 
         return $this->render('AppBundle:team:edit.html.twig', array(
@@ -147,7 +185,7 @@ class TeamController extends Controller
             ->setAction($this->generateUrl('team_delete', array('slug' => $team->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 
     /**
