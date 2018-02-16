@@ -59,8 +59,8 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute('prev-icon', 'fa fa-cogs')
             ->setAttribute('icon', 'fa fa-chevron-down');
 
-        $menu['admin_users']->addChild('Tous', array('route' => 'user_index', 'routeParameters' => ['role' => "admin"]))->setAttribute('prev-icon', 'fa fa-users');
-        $menu['admin_users']->addChild('Nouveau', array('route' => 'user_new', 'routeParameters' => ['role' => "admin"]))->setAttribute('prev-icon', 'fa fa-user-plus');
+        $menu['admin_users']->addChild('Tous', array('route' => 'user_index'))->setAttribute('prev-icon', 'fa fa-users');
+        $menu['admin_users']->addChild('Nouveau', array('route' => 'user_new'))->setAttribute('prev-icon', 'fa fa-user-plus');
         $menu['admin_users']->addChild('Postes', array('route' => 'jobstatus_index'))->setAttribute('prev-icon', 'fa fa-briefcase');
         $menu['admin_users']->addChild('Equipes', array('route' => 'team_index'))->setAttribute('prev-icon', 'fa fa-sitemap');
 //        $menu['Admin actions']->addChild('Issuing/Acquiring data', array('route' => 'bankactivity_homepage'))->setAttribute('prev-icon', 'fa fa-database');

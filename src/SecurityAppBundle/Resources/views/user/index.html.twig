@@ -23,7 +23,7 @@
                     {#<a type="button" class="btn btn-warning btn-li" href="{{ path('user_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Export all</a>#}
                     {#</li>#}
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("user_new", { 'role': role }) }}"><i class="fa fa-user-plus"></i> Ajout</a>
+                        <a class="btn btn-success btn-li" href="{{ path("user_new") }}"><i class="fa fa-user-plus"></i> Ajout</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -107,7 +107,7 @@
                                             <td>{% if user.created %}{{ user.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if user.updated %}{{ user.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('user_edit', { 'slug': user.slug, 'role': role }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('user_edit', { 'slug': user.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
                                                 {#<a class="btn btn-sm btn-warning" href="{{ path('user_export', { 'slug': user.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>#}
                                             </td>
                                         </tr>

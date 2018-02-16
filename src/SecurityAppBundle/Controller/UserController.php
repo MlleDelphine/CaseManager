@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * User controller.
  *
- * @Route("{role}/user", requirements={"role"= "admin|public"})
  */
 class UserController extends Controller
 {
@@ -26,10 +25,9 @@ class UserController extends Controller
      * @Method("GET")
      *
      * @param Request $request
-     * @param $role
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, $role)
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $error = false;
@@ -54,7 +52,6 @@ class UserController extends Controller
 
         return $this->render('SecurityAppBundle:user:index.html.twig', array(
             'users' => $users,
-            'role' => $role,
             'error' => $error
         ));
     }
@@ -65,10 +62,9 @@ class UserController extends Controller
      * @Route("/new", name="user_new")
      * @Method({"GET", "POST"})
      * @param Request $request
-     * @param $role
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request, $role)
+    public function newAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -79,12 +75,11 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_index', array('role' => $role));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('SecurityAppBundle:user:new.html.twig', array(
             'user' => $user,
-            'role' => $role,
             'form' => $form->createView(),
         ));
     }
@@ -96,12 +91,11 @@ class UserController extends Controller
      * @Method("GET")
      * @param Request $request
      * @param User $user
-     * @param $role
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Request $request, User $user, $role)
+    public function showAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user, $role);
+        $deleteForm = $this->createDeleteForm($user);
 
         return $this->render('SecurityAppBundle:user:show.html.twig', array(
             'user' => $user,
@@ -112,16 +106,14 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing user entity.
      *
-     * @Route("/{slug}/edit", name="user_edit")
      * @Method({"GET", "POST", "PATCH"})
      * @param Request $request
      * @param User $user
-     * @param $role
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, User $user, $role)
+    public function editAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user, $role);
+        $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm(UserType::class, $user, ["MODE_CREATE" => false]);
         $editForm->handleRequest($request);
 
@@ -129,12 +121,11 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('user_index', array('role' => $role));
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('SecurityAppBundle:user:edit.html.twig', array(
             'user' => $user,
-            'role' => $role,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -143,16 +134,13 @@ class UserController extends Controller
     /**
      * Deletes a user entity.
      *
-     * @Route("/{slug}", name="user_delete")
-     * @Method("DELETE")
      * @param Request $request
      * @param User $user
-     * @param $role
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, User $user, $role)
+    public function deleteAction(Request $request, User $user)
     {
-        $form = $this->createDeleteForm($user, $role);
+        $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -168,13 +156,12 @@ class UserController extends Controller
      * Creates a form to delete a user entity.
      *
      * @param User $user The user entity     *
-     * @param $role
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(User $user, $role)
+    private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('role' => $role, 'slug' => $user->getSlug())))
+            ->setAction($this->generateUrl('user_delete', array('slug' => $user->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
             ;

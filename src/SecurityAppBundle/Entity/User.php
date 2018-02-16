@@ -63,7 +63,8 @@ class User extends BaseUser
     protected $slug;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex("/^0[0-9]{9}$/")
      */
     protected $phoneNumber;
 

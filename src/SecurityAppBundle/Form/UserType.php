@@ -28,7 +28,7 @@ class UserType extends AbstractType
             ->add('email',EmailType::class, array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))
             ->add('roles', RoleType::class)
             ->add('username', TextType::class, array('label' => 'Identifiant', 'translation_domain' => 'FOSUserBundle'))
-            ->add('phoneNumber', IntegerType::class, array('label' => 'Téléphone', 'required' => false))
+            ->add('phoneNumber', TextType::class, array('label' => 'Téléphone', 'required' => false, "attr" => ['pattern' => "^0[0-9]{9}$"]))
             ->add('jobStatus',  Select2EntityType::class, array(
                 'class' => 'AppBundle:JobStatus',
                 'choice_label' => 'name',
