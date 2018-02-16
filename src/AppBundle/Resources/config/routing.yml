@@ -1,7 +1,14 @@
+app_dashboard:
+    resource: "@AppBundle/Resources/config/routing/default.yml"
+    prefix:   /
+    host: "%casemanager_front_url%"
+
 app_jobstatus:
     resource: "@AppBundle/Resources/config/routing/jobstatus.yml"
-    prefix:   /admin/jobstatus
+    prefix:   /jobstatus
+    host: "%casemanager_admin_url%"
 
 app_team:
     resource: "@AppBundle/Resources/config/routing/team.yml"
-    prefix:   /admin/team
+    prefix:   /team
+    host: "%casemanager_admin_url%"

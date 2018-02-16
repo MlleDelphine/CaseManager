@@ -1,0 +1,9 @@
+security_app_security:
+    resource: "@SecurityAppBundle/Resources/config/routing/security.yml"
+    prefix:   /security
+#    host: "%casemanager_admin_url%"
+
+security_app_user:
+    resource: "@SecurityAppBundle/Resources/config/routing/user.yml"
+    prefix:   /users
+#    host: "%casemanager_admin_url%"

@@ -22,8 +22,9 @@ class UserController extends Controller
     /**
      * Lists all user entities.
      *
-     * @Route("/all", name="user_index")
+     * @Route("/all", name="user_index", host="%casemanager_admin_url%")
      * @Method("GET")
+     *
      * @param Request $request
      * @param $role
      * @return \Symfony\Component\HttpFoundation\Response

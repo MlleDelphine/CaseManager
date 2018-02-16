@@ -1,3 +1,4 @@
 admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
+    host: "%casemanager_admin_url%"

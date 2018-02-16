@@ -1,0 +1,28 @@
+user_index:
+    path:     /all
+    defaults: { _controller: "SecurityAppBundle:User:index" }
+    methods:  GET
+    host: "%casemanager_admin_url%"
+
+user_show:
+    path:     /{slug}/show
+    defaults: { _controller: "SecurityAppBundle:User:show" }
+    methods:  GET
+
+user_new:
+    path:     /new
+    defaults: { _controller: "SecurityAppBundle:User:new" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+user_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "SecurityAppBundle:User:edit" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+user_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "SecurityAppBundle:User:delete" }
+    methods:  DELETE
+    host: "%casemanager_admin_url%"

@@ -1,31 +1,23 @@
-security_app_user:
-    resource: "@SecurityAppBundle/Controller/UserController.php"
-    type:     annotation
-
+#security_app_user:
+#    resource: "@SecurityAppBundle/Controller/UserController.php"
+#    type:     annotation
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /admin
-
-security:
-    resource: "@SecurityAppBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    host: "%casemanager_admin_url%"
 
 app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+security_app_user:
+    resource: "@SecurityAppBundle/Resources/config/routing.yml"
 
 gallery:
-    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    resource: "@SonataMediaBundle/Resources/config/routing/gallery.xml"
     prefix: /media/gallery
 
 media:
-    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    resource: "@SonataMediaBundle/Resources/config/routing/media.xml"
     prefix: /media
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-jobstatus:
-    resource: "@AppBundle/Resources/config/routing.yml"
-#    prefix:   /admin
