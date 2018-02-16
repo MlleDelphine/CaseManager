@@ -11,3 +11,4 @@ class SecurityAppBundle extends Bundle
         return 'FOSUserBundle';
     }
 }
+

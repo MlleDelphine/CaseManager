@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\JobStatus;
-use AppBundle\Form\JobStatusType;
+use AppBundle\Entity\Material;
+use AppBundle\Form\MaterialType;
 use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,10 +14,10 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * Jobstatus controller.
  *
  */
-class JobStatusController extends Controller
+class MaterialController extends Controller
 {
     /**
-     * Lists all jobStatus entities.
+     * Lists all material entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,7 +34,7 @@ class JobStatusController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_jobstatus", $jsonDatas, "AppBundle\Entity\User");
+                $deserialize = $this->get('object.eximportdatas')->import("bo_export_material", $jsonDatas, "AppBundle\Entity\User");
 
                 $error = $deserialize;
             }else{
@@ -42,109 +42,109 @@ class JobStatusController extends Controller
             }
         }
 
-        $jobStatuses = $em->getRepository('AppBundle:JobStatus')->findAll();
+        $materiales = $em->getRepository('AppBundle:Material')->findAll();
 
-        return $this->render('AppBundle:jobstatus:index.html.twig', array(
-            'jobStatuses' => $jobStatuses,
+        return $this->render('AppBundle:material:index.html.twig', array(
+            'materiales' => $materiales,
             'error' => $error
         ));
     }
 
     /**
-     * Creates a new jobStatus entity.
+     * Creates a new material entity.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $jobStatus = new JobStatus();
-        $form = $this->createForm(JobStatusType::class, $jobStatus);
+        $material = new Material();
+        $form = $this->createForm(MaterialType::class, $material);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($jobStatus);
+            $em->persist($material);
             $em->flush();
 
-            return $this->redirectToRoute('jobstatus_index');
+            return $this->redirectToRoute('material_index');
         }
 
-        return $this->render('AppBundle:jobstatus:new.html.twig', array(
-            'jobStatus' => $jobStatus,
+        return $this->render('AppBundle:material:new.html.twig', array(
+            'material' => $material,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a jobStatus entity.
-     * @param JobStatus $jobStatus
+     * Finds and displays a material entity.
+     * @param Material $material
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(JobStatus $jobStatus)
+    public function showAction(Material $material)
     {
-        $deleteForm = $this->createDeleteForm($jobStatus);
+        $deleteForm = $this->createDeleteForm($material);
 
-        return $this->render('AppBundle:jobstatus:show.html.twig', array(
-            'jobStatus' => $jobStatus,
+        return $this->render('AppBundle:material:show.html.twig', array(
+            'material' => $material,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing jobStatus entity.
+     * Displays a form to edit an existing material entity.
      * @param Request $request
-     * @param JobStatus $jobStatus
+     * @param Material $material
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, JobStatus $jobStatus)
+    public function editAction(Request $request, Material $material)
     {
-        $deleteForm = $this->createDeleteForm($jobStatus);
-        $editForm = $this->createForm(JobStatusType::class, $jobStatus);
+        $deleteForm = $this->createDeleteForm($material);
+        $editForm = $this->createForm(MaterialType::class, $material);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('jobstatus_index');
+            return $this->redirectToRoute('material_index');
         }
 
-        return $this->render('AppBundle:jobstatus:edit.html.twig', array(
-            'jobStatus' => $jobStatus,
+        return $this->render('AppBundle:material:edit.html.twig', array(
+            'material' => $material,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a jobStatus entity.
+     * Deletes a material entity.
      * @param Request $request
-     * @param JobStatus $jobStatus
+     * @param Material $material
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, JobStatus $jobStatus)
+    public function deleteAction(Request $request, Material $material)
     {
-        $form = $this->createDeleteForm($jobStatus);
+        $form = $this->createDeleteForm($material);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($jobStatus);
+            $em->remove($material);
             $em->flush();
         }
 
-        return $this->redirectToRoute('jobstatus_index');
+        return $this->redirectToRoute('material_index');
     }
 
     /**
-     * Creates a form to delete a jobStatus entity.
+     * Creates a form to delete a material entity.
      *
-     * @param JobStatus $jobStatus The jobStatus entity
+     * @param Material $material The material entity
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(JobStatus $jobStatus)
+    private function createDeleteForm(Material $material)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('jobstatus_delete', array('slug' => $jobStatus->getSlug())))
+            ->setAction($this->generateUrl('material_delete', array('slug' => $material->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
         ;
@@ -157,7 +157,7 @@ class JobStatusController extends Controller
      */
     public function exportUserAction(Request $request, User $user){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_jobstatus', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('bo_export_material', $user)->prepare($request);
 
         return $response;
     }
@@ -167,7 +167,7 @@ class JobStatusController extends Controller
      * @return StreamedResponse
      */
     public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_jobstatus","AppBundle:User", "Users" )->prepare($request);
+        $response = $this->get("object.eximportdatas")->exportAll("bo_export_material","AppBundle:User", "Users" )->prepare($request);
 
         return $response;
     }
