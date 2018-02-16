@@ -63,6 +63,9 @@ class UserController extends Controller
      *
      * @Route("/new", name="user_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param $role
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request, $role)
     {
@@ -109,7 +112,7 @@ class UserController extends Controller
      * Displays a form to edit an existing user entity.
      *
      * @Route("/{slug}/edit", name="user_edit")
-     * @Method({"GET", "POST"})
+     * @Method({"GET", "POST", "PATCH"})
      * @param Request $request
      * @param User $user
      * @param $role
@@ -118,11 +121,12 @@ class UserController extends Controller
     public function editAction(Request $request, User $user, $role)
     {
         $deleteForm = $this->createDeleteForm($user, $role);
-        $editForm = $this->createForm(UserType::class, $user);
+        $editForm = $this->createForm(UserType::class, $user, ["MODE_CREATE" => false]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
 
             return $this->redirectToRoute('user_index', array('role' => $role));
         }
@@ -172,7 +176,7 @@ class UserController extends Controller
             ->setAction($this->generateUrl('user_delete', array('role' => $role, 'slug' => $user->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 
     /**

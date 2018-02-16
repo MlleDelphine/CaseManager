@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi: ~
@@ -39,7 +39,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-#    form_theme:
+    form_theme:
+        - 'form/common_form_rules.html.twig'
 #        - 'bootstrap_3_horizontal_layout.html.twig'
 services:
     gedmo.listener.tree:

@@ -1,0 +1,7 @@
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        {%- for error in errors -%}
+            <ul class="parsley-errors-list field-error filled" id="parsley-id-7"><li class="parsley-required">{{ error.message }}</li></ul>
+        {% endfor %}
+    {% endif %}
+{% endblock form_errors%}

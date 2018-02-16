@@ -61,7 +61,7 @@ class Team
     /**
      * @var User[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="team", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="team", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $users;
 
@@ -190,6 +190,7 @@ class Team
      */
     public function addUser(\SecurityAppBundle\Entity\User $user)
     {
+        $this->users[] = $user;
         $user->setTeam($this);
     }
 

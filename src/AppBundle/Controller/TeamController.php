@@ -63,6 +63,11 @@ class TeamController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $users = $form->getData()->getUsers();
+            //If user submitted not contained in original users array, add it
+            foreach ($users as $userAdd){
+                $team->addUser($userAdd);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
             $em->flush();
@@ -111,16 +116,12 @@ class TeamController extends Controller
         foreach ($team->getUsers() as $user) {
             $originalUsers->add($user);
         }
-        dump($originalUsers);
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $users = $editForm->getData()->getUsers();
-//            dump($users);
-//            dump($team->getUsers());
-//            die;
             //If user submitted not contained in original users array, add it
             foreach ($users as $userAdd){
                 if (false === $originalUsers->contains($userAdd)) {
@@ -131,7 +132,7 @@ class TeamController extends Controller
             foreach ($originalUsers as $userOriginal) {
                 if (false === $team->getUsers()->contains($userOriginal)) {
                     // remove the Task from the Tag
-                    $userOriginal->getTeam()->removeElement($userOriginal);
+                    $userOriginal->getTeam()->removeUser($userOriginal);
 
                     // if it was a many-to-one relationship, remove the relationship like this
                     // $tag->setTask(null);

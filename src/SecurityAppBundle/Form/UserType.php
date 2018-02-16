@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
+    const MODE_CREATE = true;
     /**
      * {@inheritdoc}
      */
@@ -27,15 +28,7 @@ class UserType extends AbstractType
             ->add('email',EmailType::class, array('label' => 'Email', 'translation_domain' => 'FOSUserBundle'))
             ->add('roles', RoleType::class)
             ->add('username', TextType::class, array('label' => 'Identifiant', 'translation_domain' => 'FOSUserBundle'))
-//            ->add('plainPassword', RepeatedType::class, array(
-//                'type' => PasswordType::class,
-//                'options' => array('translation_domain' => 'FOSUserBundle'),
-//                'first_options' => array('label' => 'Mot de passe'),
-//                'second_options' => array('label' => 'Confirmation mot de passe'),
-//                'invalid_message' => 'fos_user.password.mismatch',
-//            ))
-            ->add('phoneNumber', IntegerType::class, array('label' => 'Téléphone'
-            ))
+            ->add('phoneNumber', IntegerType::class, array('label' => 'Téléphone', 'required' => false))
             ->add('jobStatus',  Select2EntityType::class, array(
                 'class' => 'AppBundle:JobStatus',
                 'choice_label' => 'name',
@@ -48,9 +41,21 @@ class UserType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Equipe',
                 'multiple' => false,
-//                'placeholder' => 'Sélectionner',
-                'required' => true))
+                'placeholder' => '-',
+                'required' => false,
+                ))
             ->add('enabled', CheckboxType::class);
+
+        if($options["MODE_CREATE"]){
+            $builder
+                ->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'Mot de passe'),
+                    'second_options' => array('label' => 'Confirmation mot de passe'),
+                    'invalid_message' => 'fos_user.password.mismatch',
+                ));
+        }
     }
 
     /**
@@ -59,7 +64,8 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SecurityAppBundle\Entity\User'
+            'data_class' => 'SecurityAppBundle\Entity\User',
+            'MODE_CREATE' => self::MODE_CREATE
         ));
     }
 

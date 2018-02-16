@@ -8,6 +8,7 @@ use AppBundle\Entity\Team;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
@@ -29,13 +30,28 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $firstName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     *
      */
     protected $lastName;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $username;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     * @var string
+     */
+    protected $email;
 
     /**
      * @var string
@@ -75,9 +91,8 @@ class User extends BaseUser
     protected $jobStatus;
 
     /**
-     *
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users", cascade={"persist", "detach"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */
