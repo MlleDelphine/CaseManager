@@ -5365,3 +5365,9 @@ ul.notifications {
 .rwd-line {
     display: inline;
 }
+
+/****** COLLECTIONA CTIONS BUTTON ******/
+
+div[class$="-collection-actions"]{
+    float: right;
+}

@@ -30,6 +30,7 @@ class MaterialType extends AbstractType
                         "Pièce" => "Pièce"]))
             ->add("timePrices", CollectionType::class, array(
                 "entry_type" => TimePriceType::class,
+                "entry_options" => ["label" => false],
                 "allow_add" => true,
                 "allow_delete" => true,
                 "delete_empty" => true,
