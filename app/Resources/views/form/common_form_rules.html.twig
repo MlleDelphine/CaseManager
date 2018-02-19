@@ -19,6 +19,7 @@
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
         {#{{ dump(attr) }}#}
         {{ block('form_widget') }}
+        <div class="ln_solid"></div>
     {% endspaceless %}
 {% endblock collection_widget %}
 
@@ -30,11 +31,12 @@
 
 {% block _appbundle_material_timePrices_entry_widget %}
     {% spaceless %}
+        <div class="ln_solid"></div>
         {% for child in form %}
             <div class="form-group">
                 {{ form_label(child, form.vars.label_format, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {{ form_widget(child, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                    {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
                     {{ form_errors(child) }}
                 </div>
             </div>

@@ -5369,5 +5369,10 @@ ul.notifications {
 /****** COLLECTIONA CTIONS BUTTON ******/
 
 div[class$="-collection-actions"]{
-    float: right;
+    text-align: right;
+    margin-bottom: 10px;
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
 }

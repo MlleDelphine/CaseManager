@@ -40,6 +40,7 @@ class TimePrice
      *
      * @ORM\Column(name="fromDate", type="datetime")
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Assert\Date()
      */
     private $fromDate;

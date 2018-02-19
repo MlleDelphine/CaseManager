@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('material_index') }}">matériaux</a></li>
-    <li class="active">Ajout</li>
+    <li class=""><a href="{{ path('material_index') }}">Matériaux</a></li>
+    <li class="active">Ajouter</li>
 {% endblock %}
 
 {% block page_title %}Création de matériau{% endblock %}
@@ -28,28 +28,28 @@
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.name, 'Libellé', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.name) }}
                         </div>
                     </div>
                     <div class="item form-group">
-                        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.description, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.description) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.unit, "Unité de mesure", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.unit, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.unit, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.unit) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.timePrices, "Prix", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.timePrices, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.timePrices) }}
                             {{ form_errors(form.timePrices) }}
@@ -87,14 +87,10 @@
                 allow_remove: true,
                 min: 0,
                 max: 12,
-                // after_add: function (collection, element) {
-                //     //Launch fileInput JS for new file input generated
-                //     var id = element.find("input:file").attr("id");
-                //     $root.find("#"+id).fileinput();
-                // }
                 add: '<a href="#" class="collection-add btn btn-default btn-success" title="Add file"><span class="glyphicon glyphicon-plus-sign"></span></a>',
                 remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Delete file"><span class="glyphicon glyphicon-trash"></span></a>'
-        });
+            });
+            $(".tinymce-textarea").tinymce();
         });
     </script>
 {% endblock %}

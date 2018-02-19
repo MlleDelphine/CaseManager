@@ -99,7 +99,7 @@ class MaterialController extends Controller
     public function editAction(Request $request, Material $material)
     {
         $deleteForm = $this->createDeleteForm($material);
-        $editForm = $this->createForm(MaterialType::class, $material);
+        $editForm = $this->createForm(MaterialType::class, $material, ["MODE_CREATE" => false]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

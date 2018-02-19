@@ -39,7 +39,7 @@ class Material
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -47,6 +47,7 @@ class Material
      * @var string
      *
      * @ORM\Column(name="unit", type="string")
+     * @Assert\NotNull()
      */
     private $unit;
 
@@ -76,6 +77,7 @@ class Material
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="material", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
      *
      */
     protected $timePrices;

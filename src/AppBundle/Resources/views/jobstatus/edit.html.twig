@@ -6,17 +6,17 @@
 
 {% block breadcrumb %}
     <li class=""><a href="{{ path('jobstatus_index') }}">Postes</a></li>
-    <li class="active">Ajout</li>
+    <li class="active">Modifier</li>
 {% endblock %}
 
-{% block page_title %}Création de poste{% endblock %}
+{% block page_title %}Modification de poste{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Créer un poste</h2>
+                    <h2>Modification du poste <em>{{ jpbstatus.name }}</em></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>

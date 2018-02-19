@@ -12,7 +12,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-briefcase"></i> Tous les matériaux</h2>
+                <h2><i class="fa fa-flask"></i> Tous les matériaux</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     {#<li>#}
                     {#<button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">#}
@@ -48,8 +48,9 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Intitulé</th>
-                                            <th>Utilisateurs</th>
+                                            <th>Libellé</th>
+                                            <th>Unité</th>
+                                            <th>Prix</th>
                                             <th>Créé le</th>
                                             <th>Dernière màj le</th>
                                             <th style="text-align: center;">Actions</th>
@@ -59,11 +60,12 @@
                                         <tr>
                                             <th scope="row">{{ material.id }}</th>
                                             <td>{{ material.name }}</td>
+                                            <td>{{ material.unit }}</td>
                                             <td>
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if material.users|length == 1 %}Utilisateur{% elseif material.users|length > 1 %}Utilisateurs{% else %}Aucun utilisateur{% endif %}</small></h2>
+                                                            <small>{% if material.timePrices|length == 1 %}Utilisateur{% elseif material.timePrices|length > 1 %}Prix{% else %}Aucun utilisateur{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -75,14 +77,18 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nom</th>
+                                                                <th>De</th>
+                                                                <th>Jusqu'à</th>
+                                                                <th>Coût (€)</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for user in material.users %}
+                                                            {% for timePrice in material.timePrices %}
                                                                 <tr>
-                                                                    <td>{{ user.id }}</td>
-                                                                    <td>{{ user }}</td>
+                                                                    <td>{{ timePrice.id }}</td>
+                                                                    <td>{{ timePrice.fromDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ timePrice.untilDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ timePrice.unitaryPrice }}</td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>
