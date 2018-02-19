@@ -34,7 +34,7 @@ class MaterialController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_material", $jsonDatas, "AppBundle\Entity\User");
+                $deserialize = $this->get('object.eximportdatas')->import("bo_export_material", $jsonDatas, "AppBundle\Entity\Material");
 
                 $error = $deserialize;
             }else{

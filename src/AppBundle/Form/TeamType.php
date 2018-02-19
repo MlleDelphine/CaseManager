@@ -43,7 +43,7 @@ class TeamType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_jobstatus';
+        return 'appbundle_team';
     }
 
 

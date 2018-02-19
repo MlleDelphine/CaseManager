@@ -1,3 +1,5 @@
+{#{% extends 'bootstrap_3_horizontal_layout.html.twig' %}#}
+
 {% block form_errors %}
     {% if errors|length > 0 %}
         {%- for error in errors -%}
@@ -5,3 +7,37 @@
         {% endfor %}
     {% endif %}
 {% endblock form_errors%}
+
+{% block collection_widget %}
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+        {#{{ dump(attr) }}#}
+        {{ block('form_widget') }}
+    {% endspaceless %}
+{% endblock collection_widget %}
+
+{% block _appbundle_material_timePrices_widget %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock _appbundle_material_timePrices_widget %}
+
+{% block _appbundle_material_timePrices_entry_widget %}
+    {% spaceless %}
+        {% for child in form %}
+            <div class="form-group">
+                {{ form_label(child, form.vars.label_format, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form_widget(child, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                    {{ form_errors(child) }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock _appbundle_material_timePrices_entry_widget %}

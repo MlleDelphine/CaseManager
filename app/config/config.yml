@@ -97,6 +97,7 @@ genemu_form:
             width: off
             allowClear: false
             minimumInputLength: 0
+    date: ~
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -107,6 +108,7 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+        server_version: 5.6
         types:
             json: Sonata\Doctrine\Types\JsonType
         # if using pdo_sqlite as your database driver:

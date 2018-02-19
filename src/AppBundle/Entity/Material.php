@@ -32,6 +32,7 @@ class Material
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -43,18 +44,11 @@ class Material
     private $description;
 
     /**
- * @var string
- *
- * @ORM\Column(name="quantity", type="integer", options={"default" : 0})
- */
-    private $quantity;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="unitary_price", type="integer", options={"default" : 0})
+     * @ORM\Column(name="unit", type="string")
      */
-    private $unitaryPrice;
+    private $unit;
 
     /**
      * @var string
@@ -79,16 +73,23 @@ class Material
      */
     protected $updated;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="material", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     */
+    protected $timePrices;
+
 //    /**
-//     * @var User[]|ArrayCollection
+//     * @var ConstructionSite[]|ArrayCollection
 //     *
-//     * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="jobStatus", fetch="EXTRA_LAZY")
+//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ConstructionSite", mappedBy="jobStatus", fetch="EXTRA_LAZY")
 //     */
-//    protected $users;
+//    protected $constructionSites;
 
     public function __construct()
     {
-//        $this->users = new ArrayCollection();
+         $this->timePrices = new ArrayCollection();
     }
 
     public function __toString()
@@ -154,51 +155,27 @@ class Material
     }
 
     /**
-     * Set quantity
+     * Set unit
      *
-     * @param integer $quantity
+     * @param integer $unit
      *
      * @return Material
      */
-    public function setQuantity($quantity)
+    public function setUnit($unit)
     {
-        $this->quantity = $quantity;
+        $this->unit = $unit;
 
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get unit
      *
      * @return integer
      */
-    public function getQuantity()
+    public function getUnit()
     {
-        return $this->quantity;
-    }
-
-    /**
-     * Set unitaryPrice
-     *
-     * @param integer $unitaryPrice
-     *
-     * @return Material
-     */
-    public function setUnitaryPrice($unitaryPrice)
-    {
-        $this->unitaryPrice = $unitaryPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get unitaryPrice
-     *
-     * @return integer
-     */
-    public function getUnitaryPrice()
-    {
-        return $this->unitaryPrice;
+        return $this->unit;
     }
 
     /**
@@ -274,37 +251,72 @@ class Material
         return $this->slug;
     }
 
+    /**
+     * Add timePrice
+     *
+     * @param \AppBundle\Entity\TimePrice $timePrice
+     *
+     * @return Material
+     */
+    public function addTimePrice(\AppBundle\Entity\TimePrice $timePrice)
+    {
+        $this->timePrices[] = $timePrice;
+        $timePrice->setMaterial($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove timePrice
+     *
+     * @param \AppBundle\Entity\TimePrice $timePrice
+     */
+    public function removeTimePrice(\AppBundle\Entity\TimePrice $timePrice)
+    {
+        $this->timePrices->removeElement($timePrice);
+    }
+
+    /**
+     * Get timePrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimePrices()
+    {
+        return $this->timePrices;
+    }
+
 //    /**
-//     * Add user
+//     * Add constructionSite
 //     *
-//     * @param \SecurityAppBundle\Entity\User $user
+//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
 //     *
 //     * @return Material
 //     */
-//    public function addUser(\SecurityAppBundle\Entity\User $user)
+//    public function addConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
 //    {
-//        $this->users[] = $user;
+//        $this->constructionSites[] = $constructionSite;
 //
 //        return $this;
 //    }
 //
 //    /**
-//     * Remove user
+//     * Remove constructionSite
 //     *
-//     * @param \SecurityAppBundle\Entity\User $user
+//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
 //     */
-//    public function removeUser(\SecurityAppBundle\Entity\User $user)
+//    public function removeConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
 //    {
-//        $this->users->removeElement($user);
+//        $this->constructionSites->removeElement($constructionSite);
 //    }
 //
 //    /**
-//     * Get users
+//     * Get constructionSites
 //     *
 //     * @return \Doctrine\Common\Collections\Collection
 //     */
-//    public function getUsers()
+//    public function getConstructionSites()
 //    {
-//        return $this->users;
+//        return $this->constructionSites;
 //    }
 }

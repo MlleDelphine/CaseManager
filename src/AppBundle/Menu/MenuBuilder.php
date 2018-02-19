@@ -63,7 +63,18 @@ class MenuBuilder implements ContainerAwareInterface
         $menu['admin_users']->addChild('Nouveau', array('route' => 'user_new'))->setAttribute('prev-icon', 'fa fa-user-plus');
         $menu['admin_users']->addChild('Postes', array('route' => 'jobstatus_index'))->setAttribute('prev-icon', 'fa fa-briefcase');
         $menu['admin_users']->addChild('Equipes', array('route' => 'team_index'))->setAttribute('prev-icon', 'fa fa-sitemap');
-//        $menu['Admin actions']->addChild('Issuing/Acquiring data', array('route' => 'bankactivity_homepage'))->setAttribute('prev-icon', 'fa fa-database');
+
+
+        $menu->addChild('admin_resources',
+            array(
+                'label' => 'Gestion des resources',
+                'uri' => ' '
+            )
+        )
+            ->setAttribute('prev-icon', 'fa fa-book')
+            ->setAttribute('icon', 'fa fa-chevron-down');
+
+        $menu['admin_resources']->addChild('Matériaux', array('route' => 'material_index'))->setAttribute('prev-icon', 'fa fa-flask');
 //        $menu['Admin actions']->addChild('API Documentation', array('route' => 'nelmio_api_doc_index', 'linkAttributes' => ['target' =>'_blank']))->setAttribute('prev-icon', 'fa fa-database');
 //
 //

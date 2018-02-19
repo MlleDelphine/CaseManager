@@ -1,0 +1,24 @@
+material_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Material:index" }
+    methods:  GET
+
+material_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AppBundle:Material:show" }
+    methods:  GET
+
+material_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Material:new" }
+    methods:  [GET, POST]
+
+material_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AppBundle:Material:edit" }
+    methods:  [GET, POST]
+
+material_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AppBundle:Material:delete" }
+    methods:  DELETE

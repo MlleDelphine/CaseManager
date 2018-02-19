@@ -12,3 +12,8 @@ app_team:
     resource: "@AppBundle/Resources/config/routing/team.yml"
     prefix:   /team
     host: "%casemanager_admin_url%"
+
+app_material:
+    resource: "@AppBundle/Resources/config/routing/material.yml"
+    prefix:   /material
+    host: "%casemanager_admin_url%"
