@@ -20,9 +20,13 @@ class MaterialType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("name", TextType::class, array(
-            "label_format" => "Intitulé",
-            "required" => true))
+        $builder
+            ->add("name", TextType::class, array(
+                "label_format" => "Intitulé",
+                "required" => true))
+            ->add("reference", TextType::class, array(
+                "label_format" => "Référence unique",
+                "required" => true))
             ->add("description", CustomTinyMceType::class, array(
                 "label_format" => "Description",
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],

@@ -39,6 +39,14 @@ class Material
     /**
      * @var string
      *
+     * @ORM\Column(name="reference", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -130,6 +138,30 @@ class Material
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Material
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
     }
 
     /**

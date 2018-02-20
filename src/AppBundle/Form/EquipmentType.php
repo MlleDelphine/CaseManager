@@ -23,8 +23,8 @@ class EquipmentType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-            "label_format" => "Intitulé",
-            "required" => true))
+                "label_format" => "Intitulé",
+                "required" => true))
             ->add("reference", TextType::class, array(
                 "label_format" => "Référence unique",
                 "required" => true))

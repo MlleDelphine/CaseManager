@@ -124,7 +124,6 @@ class Equipment
         return $this->name;
     }
 
-
     /**
      * Set reference
      *
