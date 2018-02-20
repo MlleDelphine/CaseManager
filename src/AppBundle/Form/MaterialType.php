@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\TimePrice;
+use AppBundle\Form\Type\CustomTinyMceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -22,8 +23,9 @@ class MaterialType extends AbstractType
         $builder->add("name", TextType::class, array(
             "label_format" => "Intitulé",
             "required" => true))
-            ->add("description", TextareaType::class, array(
+            ->add("description", CustomTinyMceType::class, array(
                 "label_format" => "Description",
+                "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]))
             ->add("unit", ChoiceType::class, array("label_format" => "Unité de mesure", "required" => true,

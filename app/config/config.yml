@@ -87,6 +87,7 @@ genemu_form:
         configs:
             entity_encoding: raw
             plugins : 'advlist autolink link image lists charmap print preview'
+        script_url: 'vendor/tinymce/tinymce.min.js'
 
     date: ~
     image: ~
