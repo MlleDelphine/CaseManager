@@ -1,0 +1,24 @@
+equipment_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Equipment:index" }
+    methods:  GET
+
+equipment_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AppBundle:Equipment:show" }
+    methods:  GET
+
+equipment_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Equipment:new" }
+    methods:  [GET, POST]
+
+equipment_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AppBundle:Equipment:edit" }
+    methods:  [GET, POST]
+
+equipment_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AppBundle:Equipment:delete" }
+    methods:  DELETE

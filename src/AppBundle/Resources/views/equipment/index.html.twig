@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">Tout le matériel</li>
+{% endblock %}
+
+{% block page_title %}
+    Matériels
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-flask"></i> Tout le matériel</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    {#<li>#}
+                    {#<button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">#}
+                    {#<i class="fa fa-upload" aria-hidden="true"></i> Import#}
+                    {#</button>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a type="button" class="btn btn-warning btn-li" href="{{ path('equipment_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Export all</a>#}
+                    {#</li>#}
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("equipment_new") }}"><i class="fa fa-plus"></i> Ajout</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall">Déplier</a> <a href="#" class="btn btn-default closeall">Replier</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for equipment in equipmentes %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ equipment.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ equipment.id }}" aria-expanded="true" aria-controls="collapse{{ equipment.id }}">
+                                <h4 class="panel-title">{{ equipment.name }}</h4>
+                            </a>
+                            <div id="collapse{{ equipment.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ equipment.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Libellé</th>
+                                            <th>Référence</th>
+                                            <th>Fonctionnel</th>
+                                            <th>Créé le</th>
+                                            <th>Dernière màj le</th>
+                                            <th style="text-align: center;">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ equipment.id }}</th>
+                                            <td>{{ equipment.name }}</td>
+                                            <td>{{ equipment.reference }}</td>
+                                            <td align="center">{% if equipment.working == true %}
+                                                    <i class="fa fa-check" aria-hidden="true" style="color:#1C9A71"></i>
+                                                {% else %}<i class="fa fa-times" aria-hidden="true" style="color:#D44950"></i>
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if equipment.created %}{{ equipment.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if equipment.updated %}{{ equipment.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('equipment_edit', { 'slug': equipment.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
+                                                {#<a class="btn btn-sm btn-warning" href="{{ path('equipment_export', { 'slug': equipment.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>#}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    {#<div class="modal fade" id="importModal" tabindex="-1" utilisateur="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#<div class="modal-dialog" utilisateur="document">#}
+    {#<div class="modal-content">#}
+    {#<form method="post" action="{{ path('equipment_index', {'slug': equipment.slug }) }}" class="form-horizontal" enctype="multipart/form-data">#}
+    {#<div class="modal-header">#}
+    {#<h5 class="modal-title" id="exampleModalLabel">Import global service type(s)</h5>#}
+    {#<button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+    {#<span aria-hidden="true">&times;</span>#}
+    {#</button>#}
+    {#</div>#}
+    {#<div class="modal-body">#}
+    {#<div class="panel-body">#}
+    {#{% if error %}#}
+    {#<div class="alert alert-danger text-center" utilisateur="alert">{{ error }}</div>#}
+    {#{% endif %}#}
+    {#<div class="form-group">#}
+    {#<label for="file" class="col-sm-2 control-label">File (*.json) </label>#}
+    {#<div class="col-sm-10">#}
+    {#<input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />#}
+    {#</div>#}
+    {#</div>#}
+    {#</div>#}
+    {#</div>#}
+    {#<div class="modal-footer">#}
+    {#<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>#}
+    {#<button type="submit" class="btn btn-primary">Save changes</button>#}
+    {#</div>#}
+    {#</form>#}
+    {#</div>#}
+    {#</div>#}
+    {#</div>#}
+
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+
+{% endblock %}

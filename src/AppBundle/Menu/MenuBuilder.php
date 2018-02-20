@@ -75,6 +75,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute('icon', 'fa fa-chevron-down');
 
         $menu['admin_resources']->addChild('Matériaux', array('route' => 'material_index'))->setAttribute('prev-icon', 'fa fa-flask');
+        $menu['admin_resources']->addChild('Matériels', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
 //        $menu['Admin actions']->addChild('API Documentation', array('route' => 'nelmio_api_doc_index', 'linkAttributes' => ['target' =>'_blank']))->setAttribute('prev-icon', 'fa fa-database');
 //
 //

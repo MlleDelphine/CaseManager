@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/featherlight/src/featherlight.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/select2/dist/css/select2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/iCheck/skins/flat/orange.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/iCheck/skins/flat/_all.css') }}" />
     {% block stylesheets %}
     {% endblock %}
 </head>
@@ -122,11 +122,64 @@
     });
 
     $(document).ready(function(){
-        //iCheck (radio + check) :ORANGE
+        /**
+         *  iCheck (radio + check)
+         */
+        // BLACK
+        $('input.flat-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-flat',
+            radioClass: 'iradio_flat'
+        });
+        // ORANGE
         $('input.orange-icheck').iCheck({
             checkboxClass: 'icheckbox_flat-orange',
             radioClass: 'iradio_flat'
         });
+        // GREEN
+        $('input.green-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat'
+        });
+        // BLUE
+        $('input.blue-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat'
+        });
+        // RED
+        $('input.red-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat'
+        });
+        // AERO
+        $('input.aero-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-aero',
+            radioClass: 'iradio_flat'
+        });
+        // GREY
+        $('input.grey-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-grey',
+            radioClass: 'iradio_flat'
+        });
+        // YELLOW
+        $('input.yellow-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-yellow',
+            radioClass: 'iradio_flat'
+        });
+        // PINK
+        $('input.pink-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-pink',
+            radioClass: 'iradio_flat'
+        });
+        // PURPLE
+        $('input.purple-icheck').iCheck({
+            checkboxClass: 'icheckbox_flat-purple',
+            radioClass: 'iradio_flat'
+        });
+
+        /**
+         * END iCheck
+         */
+
         //Error color input above
         if($('.field-error').length >0){
             console.log('ADD');

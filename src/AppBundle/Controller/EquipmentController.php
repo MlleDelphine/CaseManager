@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Material;
-use AppBundle\Form\MaterialType;
+use AppBundle\Entity\Equipment;
+use AppBundle\Form\EquipmentType;
 use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
- * Material controller.
+ * Equipment controller.
  *
  */
-class MaterialController extends Controller
+class EquipmentController extends Controller
 {
     /**
-     * Lists all material entities.
+     * Lists all equipment entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,7 +34,7 @@ class MaterialController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_material", $jsonDatas, "AppBundle\Entity\Material");
+                $deserialize = $this->get('object.eximportdatas')->import("bo_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
 
                 $error = $deserialize;
             }else{
@@ -42,109 +42,109 @@ class MaterialController extends Controller
             }
         }
 
-        $materiales = $em->getRepository('AppBundle:Material')->findAll();
+        $equipmentes = $em->getRepository('AppBundle:Equipment')->findAll();
 
-        return $this->render('AppBundle:material:index.html.twig', array(
-            'materiales' => $materiales,
+        return $this->render('AppBundle:equipment:index.html.twig', array(
+            'equipmentes' => $equipmentes,
             'error' => $error
         ));
     }
 
     /**
-     * Creates a new material entity.
+     * Creates a new equipment entity.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $material = new Material();
-        $form = $this->createForm(MaterialType::class, $material);
+        $equipment = new Equipment();
+        $form = $this->createForm(EquipmentType::class, $equipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($material);
+            $em->persist($equipment);
             $em->flush();
 
-            return $this->redirectToRoute('material_index');
+            return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('AppBundle:material:new.html.twig', array(
-            'material' => $material,
+        return $this->render('AppBundle:equipment:new.html.twig', array(
+            'equipment' => $equipment,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a material entity.
-     * @param Material $material
+     * Finds and displays a equipment entity.
+     * @param Equipment $equipment
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Material $material)
+    public function showAction(Equipment $equipment)
     {
-        $deleteForm = $this->createDeleteForm($material);
+        $deleteForm = $this->createDeleteForm($equipment);
 
-        return $this->render('AppBundle:material:show.html.twig', array(
-            'material' => $material,
+        return $this->render('AppBundle:equipment:show.html.twig', array(
+            'equipment' => $equipment,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing material entity.
+     * Displays a form to edit an existing equipment entity.
      * @param Request $request
-     * @param Material $material
+     * @param Equipment $equipment
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, Material $material)
+    public function editAction(Request $request, Equipment $equipment)
     {
-        $deleteForm = $this->createDeleteForm($material);
-        $editForm = $this->createForm(MaterialType::class, $material, ["MODE_CREATE" => false]);
+        $deleteForm = $this->createDeleteForm($equipment);
+        $editForm = $this->createForm(EquipmentType::class, $equipment, ["MODE_CREATE" => false]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('material_index');
+            return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('AppBundle:material:edit.html.twig', array(
-            'material' => $material,
+        return $this->render('AppBundle:equipment:edit.html.twig', array(
+            'equipment' => $equipment,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a material entity.
+     * Deletes a equipment entity.
      * @param Request $request
-     * @param Material $material
+     * @param Equipment $equipment
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, Material $material)
+    public function deleteAction(Request $request, Equipment $equipment)
     {
-        $form = $this->createDeleteForm($material);
+        $form = $this->createDeleteForm($equipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($material);
+            $em->remove($equipment);
             $em->flush();
         }
 
-        return $this->redirectToRoute('material_index');
+        return $this->redirectToRoute('equipment_index');
     }
 
     /**
-     * Creates a form to delete a material entity.
+     * Creates a form to delete a equipment entity.
      *
-     * @param Material $material The material entity
+     * @param Equipment $equipment The equipment entity
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(Material $material)
+    private function createDeleteForm(Equipment $equipment)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('material_delete', array('slug' => $material->getSlug())))
+            ->setAction($this->generateUrl('equipment_delete', array('slug' => $equipment->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
         ;
@@ -157,7 +157,7 @@ class MaterialController extends Controller
      */
     public function exportUserAction(Request $request, User $user){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_material', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('bo_export_equipment', $user)->prepare($request);
 
         return $response;
     }
@@ -167,7 +167,7 @@ class MaterialController extends Controller
      * @return StreamedResponse
      */
     public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_material","AppBundle:User", "Users" )->prepare($request);
+        $response = $this->get("object.eximportdatas")->exportAll("bo_export_equipment","AppBundle:User", "Users" )->prepare($request);
 
         return $response;
     }
