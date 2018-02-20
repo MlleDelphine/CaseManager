@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Team;
 use AppBundle\Form\TeamType;
 use Doctrine\Common\Collections\ArrayCollection;
-use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +34,7 @@ class TeamController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_team", $jsonDatas, "AppBundle\Entity\User");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_team", $jsonDatas, "AppBundle\Entity\Team");
 
                 $error = $deserialize;
             }else{
@@ -63,10 +62,10 @@ class TeamController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $users = $form->getData()->getUsers();
+            $users = $form->getData()->getTeams();
             //If user submitted not contained in original users array, add it
             foreach ($users as $userAdd){
-                $team->addUser($userAdd);
+                $team->addTeam($userAdd);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
@@ -110,29 +109,29 @@ class TeamController extends Controller
             throw $this->createNotFoundException('No team found for id '.$id);
         }
 
-        $originalUsers = new ArrayCollection();
+        $originalTeams = new ArrayCollection();
 
-        // Create an ArrayCollection of the current User objects in the database
-        foreach ($team->getUsers() as $user) {
-            $originalUsers->add($user);
+        // Create an ArrayCollection of the current Team objects in the database
+        foreach ($team->getTeams() as $user) {
+            $originalTeams->add($user);
         }
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $users = $editForm->getData()->getUsers();
+            $users = $editForm->getData()->getTeams();
             //If user submitted not contained in original users array, add it
             foreach ($users as $userAdd){
-                if (false === $originalUsers->contains($userAdd)) {
-                    $team->addUser($userAdd);
+                if (false === $originalTeams->contains($userAdd)) {
+                    $team->addTeam($userAdd);
                 }
             }
             // If user originally contained but not contained in submitted remove the relationship between
-            foreach ($originalUsers as $userOriginal) {
-                if (false === $team->getUsers()->contains($userOriginal)) {
+            foreach ($originalTeams as $userOriginal) {
+                if (false === $team->getTeams()->contains($userOriginal)) {
                     // remove the Task from the Tag
-                    $userOriginal->getTeam()->removeUser($userOriginal);
+                    $userOriginal->getTeam()->removeTeam($userOriginal);
 
                     // if it was a many-to-one relationship, remove the relationship like this
                     // $tag->setTask(null);
@@ -191,12 +190,12 @@ class TeamController extends Controller
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param Team $user
      * @return StreamedResponse
      */
-    public function exportUserAction(Request $request, User $user){
+    public function exportTeamAction(Request $request, Team $user){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_team', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_team', $user)->prepare($request);
 
         return $response;
     }
@@ -205,8 +204,8 @@ class TeamController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_team","AppBundle:User", "Users" )->prepare($request);
+    public function exportAllTeamAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_team","AppBundle:Team", "Teams" )->prepare($request);
 
         return $response;
     }

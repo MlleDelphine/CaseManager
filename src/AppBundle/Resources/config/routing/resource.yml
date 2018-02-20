@@ -1,0 +1,32 @@
+resource_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Resource:index" }
+    methods:  GET
+
+resource_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AppBundle:Resource:show" }
+    methods:  GET
+
+resource_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Resource:new" }
+    methods:  [GET, POST]
+
+resource_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AppBundle:Resource:edit" }
+    methods:  [GET, POST]
+
+resource_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AppBundle:Resource:delete" }
+    methods:  DELETE
+    
+resource_export:
+    path: /export/{slug}
+    defaults: { _controller: "AppBundle:Resource:exportResource" }
+
+resource_export_all:
+    path: /export
+    defaults: { _controller: "AppBundle:Resource:exportAllResource" }

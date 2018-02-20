@@ -25,6 +25,9 @@ class Team
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     private $id;
 
@@ -32,6 +35,9 @@ class Team
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user", "admin_export_team"})
      */
     private $name;
 
@@ -40,7 +46,6 @@ class Team
      *
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
-     *
      */
     protected $slug;
 

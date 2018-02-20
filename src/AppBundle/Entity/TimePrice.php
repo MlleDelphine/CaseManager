@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * TimePrice
@@ -13,6 +14,7 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\Table(name="time_price")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TimePriceRepository")
  * @ORM\HasLifecycleCallbacks()
+ *
  *
  * @JMSSer\ExclusionPolicy("all")
  */
@@ -24,6 +26,7 @@ class TimePrice
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
@@ -32,6 +35,11 @@ class TimePrice
      *
      * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2)
      * @Assert\Currency()
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
      */
     private $unitaryPrice;
 
@@ -42,6 +50,9 @@ class TimePrice
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Date()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
      */
     private $fromDate;
 
@@ -49,8 +60,15 @@ class TimePrice
      * @var \DateTime
      *
      * @ORM\Column(name="untilDate", type="datetime", nullable=true)
+     *
+     * @Assert\IsNull()
+     * @Assert\Date()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
      */
     private $untilDate;
+
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
@@ -66,18 +84,46 @@ class TimePrice
     private $updated;
 
     /**
-     *
      * @var Material
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Material", inversedBy="timePrices", cascade={"persist", "merge"})
      * @Assert\NotBlank()
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"bo_export_timePrice"})
      */
     protected $material;
 
+    /**
+     * @var Resource
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Resource", inversedBy="timePrices", cascade={"persist", "merge"})
+     * @Assert\NotBlank()
+     */
+    protected $resource;
+
     public function __construct()
     {
+        $now = new \DateTime();
+        $this->untilDate = $now->add(new \DateInterval("P2Y"));
 //        $this->constructionSites = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback()
+     *
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        $start = $this->getFromDate();
+        $end = $this->getUntilDate();
+
+        if ($end < $start) {
+            $context
+                ->buildViolation('La date de fin doit être postérieure à la date de départ.')
+                ->atPath('untilDate')
+                ->addViolation();
+        }
+        dump("Price");
+        die;
+
     }
 
     /**
@@ -185,6 +231,31 @@ class TimePrice
     {
         return $this->material;
     }
+
+    /**
+     * Set resource
+     *
+     * @param \AppBundle\Entity\Resource $resource
+     *
+     * @return TimePrice
+     */
+    public function setResource(\AppBundle\Entity\Resource $resource = null)
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Get resource
+     *
+     * @return \AppBundle\Entity\Resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+    
     /**
      * Set created
      *
@@ -232,5 +303,7 @@ class TimePrice
     {
         return $this->updated;
     }
+
+
 }
 

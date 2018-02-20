@@ -40,7 +40,7 @@ class UserController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_user", $jsonDatas, "AppBundle\Entity\User");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_user", $jsonDatas, "AppBundle\Entity\User");
 
                 $error = $deserialize;
             }else{
@@ -174,7 +174,7 @@ class UserController extends Controller
      */
     public function exportUserAction(Request $request, User $user){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_user', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_user', $user)->prepare($request);
 
         return $response;
     }
@@ -184,7 +184,7 @@ class UserController extends Controller
      * @return StreamedResponse
      */
     public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_user","AppBundle:User", "Users" )->prepare($request);
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_user","SecurityAppBundle:User", "Users" )->prepare($request);
 
         return $response;
     }

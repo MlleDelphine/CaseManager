@@ -22,3 +22,8 @@ app_equipment:
     resource: "@AppBundle/Resources/config/routing/equipment.yml"
     prefix:   /equipment
     host: "%casemanager_admin_url%"
+
+app_resource:
+    resource: "@AppBundle/Resources/config/routing/resource.yml"
+    prefix:   /resource
+    host: "%casemanager_admin_url%"

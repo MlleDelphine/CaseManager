@@ -7,7 +7,7 @@ tinymce.addI18n('fr_FR',{
 "Select all": "Tout s\u00e9lectionner",
 "New document": "Nouveau document",
 "Ok": "Ok",
-"Cancel": "Annuler",
+"Annuler": "Annuler",
 "Visual aids": "Aides visuelle",
 "Bold": "Gras",
 "Italic": "Italique",

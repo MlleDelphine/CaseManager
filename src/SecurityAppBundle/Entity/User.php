@@ -8,7 +8,6 @@ use AppBundle\Entity\Team;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
@@ -25,31 +24,40 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $firstName;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      *
      */
     protected $lastName;
 
     /**
      * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $username;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Email()
-     * @var string
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $email;
 
@@ -65,6 +73,8 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Regex("/^0[0-9]{9}$/")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     protected $phoneNumber;
 
@@ -83,9 +93,9 @@ class User extends BaseUser
     protected $updated;
 
     /**
-     *
      * @var JobStatus
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\JobStatus", inversedBy="users", cascade={"persist", "merge"})
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */
@@ -93,7 +103,8 @@ class User extends BaseUser
 
     /**
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users", cascade={"persist", "merge"})
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */

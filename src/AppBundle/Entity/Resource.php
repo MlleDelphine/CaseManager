@@ -9,15 +9,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * Equipment
+ * Resource
  *
- * @ORM\Table(name="equipment")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\EquipmentRepository")
+ * @ORM\Table(name="resource")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ResourceRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class Equipment
+class Resource
 {
     /**
      * @var int
@@ -25,17 +25,19 @@ class Equipment
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"bo_export_timeprice"})
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"bo_export_timeprice", "bo_export_resource"})
      */
     private $name;
 
@@ -46,7 +48,7 @@ class Equipment
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"bo_export_resource"})
      */
     private $reference;
 
@@ -56,20 +58,20 @@ class Equipment
      * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"bo_export_resource"})
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="working", type="boolean", options={"default": 1})
+     * @ORM\Column(name="unit", type="string")
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"bo_export_resource"})
      */
-    private $working;
+    private $unit;
 
     /**
      * @var string
@@ -94,8 +96,26 @@ class Equipment
      */
     protected $updated;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="resource", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"bo_export_resource"})
+     */
+    protected $timePrices;
+
+//    /**
+//     * @var ConstructionSite[]|ArrayCollection
+//     *
+//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ConstructionSite", mappedBy="jobStatus", fetch="EXTRA_LAZY")
+//     */
+//    protected $constructionSites;
+
     public function __construct()
     {
+         $this->timePrices = new ArrayCollection();
     }
 
     public function __toString()
@@ -117,7 +137,7 @@ class Equipment
      *
      * @param string $name
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setName($name)
     {
@@ -141,7 +161,7 @@ class Equipment
      *
      * @param string $reference
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setReference($reference)
     {
@@ -165,7 +185,7 @@ class Equipment
      *
      * @param string $description
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setDescription($description)
     {
@@ -185,27 +205,27 @@ class Equipment
     }
 
     /**
-     * Set working
+     * Set unit
      *
-     * @param integer $working
+     * @param integer $unit
      *
-     * @return Equipment
+     * @return Resource
      */
-    public function setWorking($working)
+    public function setUnit($unit)
     {
-        $this->working = $working;
+        $this->unit = $unit;
 
         return $this;
     }
 
     /**
-     * Get working
+     * Get unit
      *
      * @return integer
      */
-    public function getWorking()
+    public function getUnit()
     {
-        return $this->working;
+        return $this->unit;
     }
 
     /**
@@ -213,7 +233,7 @@ class Equipment
      *
      * @param \DateTime $created
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setCreated($created)
     {
@@ -237,7 +257,7 @@ class Equipment
      *
      * @param \DateTime $updated
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setUpdated($updated)
     {
@@ -262,7 +282,7 @@ class Equipment
      *
      * @param string $slug
      *
-     * @return Equipment
+     * @return Resource
      */
     public function setSlug($slug)
     {
@@ -280,4 +300,73 @@ class Equipment
     {
         return $this->slug;
     }
+
+    /**
+     * Add timePrice
+     *
+     * @param \AppBundle\Entity\TimePrice $timePrice
+     *
+     * @return Resource
+     */
+    public function addTimePrice(\AppBundle\Entity\TimePrice $timePrice)
+    {
+        $this->timePrices[] = $timePrice;
+        $timePrice->setResource($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove timePrice
+     *
+     * @param \AppBundle\Entity\TimePrice $timePrice
+     */
+    public function removeTimePrice(\AppBundle\Entity\TimePrice $timePrice)
+    {
+        $this->timePrices->removeElement($timePrice);
+    }
+
+    /**
+     * Get timePrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimePrices()
+    {
+        return $this->timePrices;
+    }
+
+//    /**
+//     * Add constructionSite
+//     *
+//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
+//     *
+//     * @return Resource
+//     */
+//    public function addConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
+//    {
+//        $this->constructionSites[] = $constructionSite;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Remove constructionSite
+//     *
+//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
+//     */
+//    public function removeConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
+//    {
+//        $this->constructionSites->removeElement($constructionSite);
+//    }
+//
+//    /**
+//     * Get constructionSites
+//     *
+//     * @return \Doctrine\Common\Collections\Collection
+//     */
+//    public function getConstructionSites()
+//    {
+//        return $this->constructionSites;
+//    }
 }

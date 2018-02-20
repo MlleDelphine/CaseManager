@@ -26,3 +26,11 @@ user_delete:
     defaults: { _controller: "SecurityAppBundle:User:delete" }
     methods:  DELETE
     host: "%casemanager_admin_url%"
+    
+user_export:
+    path: /export/{slug}
+    defaults: { _controller: "SecurityAppBundle:User:exportUser" }
+
+user_export_all:
+    path: /export
+    defaults: { _controller: "SecurityAppBundle:User:exportAllUser" }

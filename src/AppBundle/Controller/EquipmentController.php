@@ -34,7 +34,7 @@ class EquipmentController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
 
                 $error = $deserialize;
             }else{
@@ -152,12 +152,12 @@ class EquipmentController extends Controller
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param Equipment $equipment
      * @return StreamedResponse
      */
-    public function exportUserAction(Request $request, User $user){
+    public function exportEquipmentAction(Request $request, Equipment $equipment){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_equipment', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_equipment', $equipment)->prepare($request);
 
         return $response;
     }
@@ -166,8 +166,8 @@ class EquipmentController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_equipment","AppBundle:User", "Users" )->prepare($request);
+    public function exportAllEquipmentAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_equipment","AppBundle:Equipment", "Equipments" )->prepare($request);
 
         return $response;
     }

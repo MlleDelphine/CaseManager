@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="active">Tous les postes</li>
+    <li class="active">Toutes les ressource</li>
 {% endblock %}
 
 {% block page_title %}
-    Postes
+    Ressources
 {% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-briefcase"></i> Tous les postes</h2>
+                <h2><i class="fa fa-flask"></i> Toutes les ressources</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
@@ -20,10 +20,10 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('jobstatus_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('resource_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("jobstatus_new") }}"><i class="fa fa-plus"></i> Ajout</a>
+                        <a class="btn btn-success btn-li" href="{{ path("resource_new") }}"><i class="fa fa-plus"></i> Ajout</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -37,19 +37,21 @@
                 <hr>
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for jobStatus in jobStatuses %}
+                    {% for resource in resources %}
                         <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ jobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ jobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ jobStatus.id }}">
-                                <h4 class="panel-title">{{ jobStatus.name }}</h4>
+                            <a class="panel-heading" role="tab" id="heading{{ resource.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ resource.id }}" aria-expanded="true" aria-controls="collapse{{ resource.id }}">
+                                <h4 class="panel-title">{{ resource.name }}</h4>
                             </a>
-                            <div id="collapse{{ jobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ jobStatus.id }}">
+                            <div id="collapse{{ resource.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ resource.id }}">
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Intitulé</th>
-                                            <th>Utilisateurs</th>
+                                            <th>Libellé</th>
+                                            <th>Référence</th>
+                                            <th>Unité</th>
+                                            <th>Prix</th>
                                             <th>Créé le</th>
                                             <th>Dernière màj le</th>
                                             <th style="text-align: center;">Actions</th>
@@ -57,13 +59,15 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">{{ jobStatus.id }}</th>
-                                            <td>{{ jobStatus.name }}</td>
+                                            <th scope="row">{{ resource.id }}</th>
+                                            <td>{{ resource.name }}</td>
+                                            <td>{{ resource.reference }}</td>
+                                            <td>{{ resource.unit }}</td>
                                             <td>
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if jobStatus.users|length == 1 %}Utilisateur{% elseif jobStatus.users|length > 1 %}Utilisateurs{% else %}Aucun utilisateur{% endif %}</small></h2>
+                                                            <small>{% if resource.timePrices|length > 0 %}Prix{% else %}Aucun prix{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -75,14 +79,18 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nom</th>
+                                                                <th>De</th>
+                                                                <th>Jusqu'à</th>
+                                                                <th>Coût (€)</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for user in jobStatus.users %}
+                                                            {% for timePrice in resource.timePrices %}
                                                                 <tr>
-                                                                    <td>{{ user.id }}</td>
-                                                                    <td>{{ user }}</td>
+                                                                    <td>{{ timePrice.id }}</td>
+                                                                    <td>{{ timePrice.fromDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ timePrice.untilDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ timePrice.unitaryPrice }}</td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>
@@ -90,11 +98,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{% if jobStatus.created %}{{ jobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if jobStatus.updated %}{{ jobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if resource.created %}{{ resource.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if resource.updated %}{{ resource.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('resource_edit', { 'slug': resource.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('resource_export', { 'slug': resource.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -113,9 +121,9 @@
     <div class="modal fade" id="importModal" tabindex="-1" utilisateur="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" utilisateur="document">
             <div class="modal-content">
-                <form method="post" action="{{ path('jobstatus_index') }}" class="form-horizontal" enctype="multipart/form-data">
+                <form method="post" action="{{ path('resource_index') }}" class="form-horizontal" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Importer des postes</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Importer des ressources</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

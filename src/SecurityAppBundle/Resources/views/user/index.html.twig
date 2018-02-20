@@ -14,14 +14,14 @@
             <div class="x_title">
                 <h2><i class="fa fa-users"></i> Tous les utilisateurs</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    {#<li>#}
-                    {#<button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">#}
-                    {#<i class="fa fa-upload" aria-hidden="true"></i> Import#}
-                    {#</button>#}
-                    {#</li>#}
-                    {#<li>#}
-                    {#<a type="button" class="btn btn-warning btn-li" href="{{ path('user_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Export all</a>#}
-                    {#</li>#}
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> Import
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('user_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
+                    </li>
                     <li class="inherit-li">
                         <a class="btn btn-success btn-li" href="{{ path("user_new") }}"><i class="fa fa-user-plus"></i> Ajout</a>
                     </li>
@@ -108,7 +108,7 @@
                                             <td>{% if user.updated %}{{ user.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('user_edit', { 'slug': user.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                {#<a class="btn btn-sm btn-warning" href="{{ path('user_export', { 'slug': user.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>#}
+                                                <a class="btn btn-sm btn-warning" href="{{ path('user_export', { 'slug': user.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -124,37 +124,37 @@
     </div>
 
     <!-- Import Modal -->
-    {#<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-    {#<div class="modal-dialog" role="document">#}
-    {#<div class="modal-content">#}
-    {#<form method="post" action="{{ path('user_index', {'slug': user.slug }) }}" class="form-horizontal" enctype="multipart/form-data">#}
-    {#<div class="modal-header">#}
-    {#<h5 class="modal-title" id="exampleModalLabel">Import global service type(s)</h5>#}
-    {#<button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-    {#<span aria-hidden="true">&times;</span>#}
-    {#</button>#}
-    {#</div>#}
-    {#<div class="modal-body">#}
-    {#<div class="panel-body">#}
-    {#{% if error %}#}
-    {#<div class="alert alert-danger text-center" role="alert">{{ error }}</div>#}
-    {#{% endif %}#}
-    {#<div class="form-group">#}
-    {#<label for="file" class="col-sm-2 control-label">File (*.json) </label>#}
-    {#<div class="col-sm-10">#}
-    {#<input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />#}
-    {#</div>#}
-    {#</div>#}
-    {#</div>#}
-    {#</div>#}
-    {#<div class="modal-footer">#}
-    {#<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>#}
-    {#<button type="submit" class="btn btn-primary">Save changes</button>#}
-    {#</div>#}
-    {#</form>#}
-    {#</div>#}
-    {#</div>#}
-    {#</div>#}
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="{{ path('user_index') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Importer des utilisateurs</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body">
+                            {% if error %}
+                                <div class="alert alert-danger text-center" role="alert">{{ error }}</div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label for="file" class="col-sm-2 control-label">File (*.json) </label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

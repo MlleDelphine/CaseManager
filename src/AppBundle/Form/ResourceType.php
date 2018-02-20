@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MaterialType extends AbstractType
+class ResourceType extends AbstractType
 {
     const MODE_CREATE = true;
     /**
@@ -53,6 +53,7 @@ class MaterialType extends AbstractType
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],
+                "data" => [new TimePrice()],
                 "label_format" => "Définition des prix :",
                 "required" => false));
         }
@@ -79,7 +80,7 @@ class MaterialType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            "data_class" => "AppBundle\Entity\Material",
+            "data_class" => "AppBundle\Entity\Resource",
             "MODE_CREATE" => self::MODE_CREATE
         ));
     }
@@ -89,7 +90,7 @@ class MaterialType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return "appbundle_material";
+        return "appbundle_resource";
     }
 
 

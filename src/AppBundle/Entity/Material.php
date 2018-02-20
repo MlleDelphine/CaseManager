@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Material
@@ -25,6 +26,9 @@ class Material
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_timeprice"})
      */
     private $id;
 
@@ -33,6 +37,9 @@ class Material
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
      */
     private $name;
 
@@ -41,6 +48,8 @@ class Material
      *
      * @ORM\Column(name="reference", type="string", length=255, unique=true)
      * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
      */
     private $reference;
 
@@ -48,6 +57,8 @@ class Material
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
      */
     private $description;
 
@@ -56,6 +67,8 @@ class Material
      *
      * @ORM\Column(name="unit", type="string")
      * @Assert\NotNull()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
      */
     private $unit;
 
@@ -86,6 +99,8 @@ class Material
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="material", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
      * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_material"})
      *
      */
     protected $timePrices;
@@ -99,7 +114,29 @@ class Material
 
     public function __construct()
     {
-         $this->timePrices = new ArrayCollection();
+        $this->timePrices = new ArrayCollection();
+    }
+
+    /**
+     *
+     * @Assert\Callback()
+     *
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        $prices = $this->getTimePrices();
+
+        foreach ($prices as $price) {
+            $start = $price->getFromDate();
+            $end = $price->getUntilDate();
+            if ($end < $start) {
+                $context->buildViolation('La date de fin doit être postérieure à la date de départ.')
+                    ->atPath('untilDate')
+                    ->addViolation();
+            }
+        }
     }
 
     public function __toString()

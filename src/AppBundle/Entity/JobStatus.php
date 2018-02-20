@@ -25,6 +25,8 @@ class JobStatus
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
      */
     private $id;
 
@@ -32,6 +34,8 @@ class JobStatus
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user", "admin_export_jobstatus"})
      */
     private $name;
 
@@ -64,6 +68,7 @@ class JobStatus
      * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="jobStatus", fetch="EXTRA_LAZY")
      */
     protected $users;
+
 
     public function __construct()
     {

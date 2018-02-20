@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\JobStatus;
 use AppBundle\Form\JobStatusType;
-use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,7 @@ class JobStatusController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("bo_export_jobstatus", $jsonDatas, "AppBundle\Entity\User");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_jobstatus", $jsonDatas, "AppBundle\Entity\JobStatus");
 
                 $error = $deserialize;
             }else{
@@ -152,12 +151,12 @@ class JobStatusController extends Controller
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param JobStatus $jobStatus
      * @return StreamedResponse
      */
-    public function exportUserAction(Request $request, User $user){
+    public function exportJobStatusAction(Request $request, JobStatus $jobStatus){
 
-        $response = $this->get("object.eximportdatas")->export('bo_export_jobstatus', $user)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_jobstatus', $jobStatus)->prepare($request);
 
         return $response;
     }
@@ -166,8 +165,8 @@ class JobStatusController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllUserAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("bo_export_jobstatus","AppBundle:User", "Users" )->prepare($request);
+    public function exportAllJobStatusAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_jobstatus","AppBundle:JobStatus", "JobStatuses" )->prepare($request);
 
         return $response;
     }
