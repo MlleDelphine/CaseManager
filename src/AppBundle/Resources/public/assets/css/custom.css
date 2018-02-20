@@ -4085,33 +4085,70 @@ a.hiddenanchor {
 }
 
 .registration_form,
-.login_form {
+.login_form,
+.pwdreset_form {
     position: absolute;
     top: 0px;
     width: 100%
 }
 
-.registration_form {
-    z-index: 21;
+.pwdreset_form {
+    z-index: 20;
     opacity: 0;
     width: 100%
 }
+
+.registration_form {
+      z-index: 21;
+      opacity: 0;
+      width: 100%
+  }
 
 .login_form {
     z-index: 22
 }
 
+/**START**/
 #signup:target ~ .login_wrapper .registration_form,
-#signin:target ~ .login_wrapper .login_form {
+#signin:target ~ .login_wrapper .login_form,
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
     z-index: 22;
     animation-name: fadeInLeft;
     animation-delay: .1s
 }
 
+#signin:target ~ .login_wrapper .login_form,
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+    z-index: 22;
+    animation-name: fadeInLeft;
+    animation-delay: .1s
+}
+
+
+#signup:target ~ .login_wrapper .registration_form,
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+    z-index: 22;
+    animation-name: fadeInLeft;
+    animation-delay: .1s
+}
+/***END***/
+
+/***START***/
 #signup:target ~ .login_wrapper .login_form,
 #signin:target ~ .login_wrapper .registration_form {
     animation-name: fadeOutLeft
 }
+
+#signup:target ~ .login_wrapper .login_form,
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+    animation-name: fadeOutLeft
+}
+
+#signin:target ~ .login_wrapper .registration_form,
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+    animation-name: fadeOutLeft
+}
+/***END***/
 
 .animate {
     -webkit-animation-duration: 0.5s;

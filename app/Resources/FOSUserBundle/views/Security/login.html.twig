@@ -2,14 +2,14 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% form_theme registerForm 'form/user_form_input.html.twig' %}
 {% block fos_user_content %}
-    <div class="login_wrapper">
+    <div class="login_wrapper" xmlns="http://www.w3.org/1999/html">
         <div class="animate form login_form">
             <section class="login_content">
                 <form role="form" action="{{ path("fos_user_security_check") }}" method="post">
+                    <h1>Se connecter</h1>
                     {% if csrf_token %}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     {% endif %}
-                    <h1>Se connecter</h1>
                     {% if error %}
                         <div class="alert alert-danger top-alert-error" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -31,7 +31,6 @@
                         <button type="submit" class="btn btn-info submit">Connexion</button>
                         {#<a class="reset_pass" href="#">Lost your password?</a>#}
                     </div>
-
                     <div class="clearfix"></div>
 
                     <div class="separator">
@@ -40,7 +39,11 @@
                         </p>
                         <div class="clearfix"></div>
                         <br />
-
+                        <p class="change_link">Mot de passe oublié ?
+                            <a href="#pwd-forgotten" class="to_pwd-forgotten">Réinitialiser</a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <br />
                         <div>
                             <h1><i class="fa fa-paw"></i> Casemanager Service!</h1>
                             <p>©2018 Tous droits réservés. Casemanager service is a DelphiGX product. Privacy and Terms</p>
@@ -49,6 +52,7 @@
                 </form>
             </section>
         </div>
+
         <div id="register" class="animate form registration_form">
             <section class="login_content">
                 {#{{ dump(registerForm) }}#}
@@ -61,11 +65,10 @@
                 <div>
                     {{ form_widget(registerForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'}}) }}
                 </div>
-                    {{ form_row(registerForm.plainPassword) }}
+                {{ form_row(registerForm.plainPassword) }}
                 <div>
                     <button type="submit" class="btn btn-default submit btn-info" href="#">Créer</button>
                 </div>
-
                 <div class="clearfix"></div>
 
                 <div class="separator">
@@ -82,6 +85,35 @@
                     </div>
                 </div>
                 {{ form_end(registerForm) }}
+            </section>
+        </div>
+
+        <div id="pwd-forgotten" class="animate form pwdreset_form">
+            <section class="pwdreset_content login_content">
+                <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                    <div>
+                        <label for="username">{{ 'resetting.request.username'|trans }}</label>
+                        <input type="text" id="username" name="username" required="required" />
+                    </div>
+                    <div>
+                        <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">Déjà enregistré ?
+                            <a href="#signin" class="to_register">Se connecter</a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <h1><i class="fa fa-paw"></i> CaseManager Service!</h1>
+                            <p>©2018 Tous droits réservés. CaseManager service is a DelphiGx product. Privacy and Terms</p>
+                        </div>
+                    </div>
+                </form>
             </section>
         </div>
     </div>

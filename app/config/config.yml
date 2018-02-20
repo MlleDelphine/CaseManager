@@ -143,9 +143,18 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: SecurityAppBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+    change_password:
+        form:
+            type: me_user_change_password
+    resetting:
+        email:
+           template: email/password_resetting.email.twig
+#                token_ttl: 43200
 
 sonata_media:
     # if you don't use default namespace configuration
