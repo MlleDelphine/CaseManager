@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('user_index', {'role': role }) }}">Utilisateurs</a></li>
+    <li class=""><a href="{{ path('user_index') }}">Utilisateurs</a></li>
     <li class="active">Ajout</li>
 {% endblock %}
 
@@ -108,7 +108,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('user_index', {'role': role }) }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Annuler</a>
+                            <a href="{{ path('user_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Annuler</a>
                             <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Créer</button>
                         </div>
                     </div>

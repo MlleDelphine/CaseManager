@@ -1,0 +1,40 @@
+# Profile
+profile:
+    fields:
+        gender: Civilité
+        firstname: Prénom
+        lastname: Nom
+        address: Adresse
+        zip_code: Code postal
+        phone: Tél.
+        email: E-mail
+        password_first: Mot de passe
+        password_second: Mot de passe (validation)
+
+# Register
+register:
+    fields:
+        firstname: Prénom
+
+# Resetting account
+resetting:
+    email:
+        subject: |
+            [EDTPE - Casemanager] - Réinitialisation de votre mot de passe
+        message:  |
+            <p>Pour réinitialiser votre mot de passe, merci de cliquer sur le lien suivant :</p>
+            <p><a href="%confirmationUrl%">%confirmationUrl%</a></p>
+        end_message_text: |
+            If you are not the initiator of this request, please discard this message.
+            Please do not reply directly to this e-mail. This e-mail was sent from a notification-only address that cannot accept incoming e-mail.
+            If you have questions or need assistance
+
+# Registration
+registration:
+    confirmed: Votre compte est maintenant activé.
+    email:
+        subject: |
+            Confirmation de l'inscription
+        message:  |
+            <p>Pour valider votre compte utilisateur, merci de vous rendre sur :</p>
+            <p><a href="%confirmationUrl%">%confirmationUrl%</a></p>

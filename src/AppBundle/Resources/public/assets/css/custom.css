@@ -4108,46 +4108,33 @@ a.hiddenanchor {
     z-index: 22
 }
 
-/**START**/
+/**START - SHOW RIGHT BLOCK**/
 #signup:target ~ .login_wrapper .registration_form,
 #signin:target ~ .login_wrapper .login_form,
-#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
-    z-index: 22;
-    animation-name: fadeInLeft;
-    animation-delay: .1s
-}
-
-#signin:target ~ .login_wrapper .login_form,
-#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
-    z-index: 22;
-    animation-name: fadeInLeft;
-    animation-delay: .1s
-}
-
-
-#signup:target ~ .login_wrapper .registration_form,
-#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+#pwd-forgotten:target ~ .login_wrapper .pwdreset_form{
     z-index: 22;
     animation-name: fadeInLeft;
     animation-delay: .1s
 }
 /***END***/
 
-/***START***/
-#signup:target ~ .login_wrapper .login_form,
-#signin:target ~ .login_wrapper .registration_form {
-    animation-name: fadeOutLeft
-}
-
-#signup:target ~ .login_wrapper .login_form,
-#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
-    animation-name: fadeOutLeft
-}
+/***START - HIDE OTHERS BLOCKS***/
 
 #signin:target ~ .login_wrapper .registration_form,
-#pwd-forgotten:target ~ .login_wrapper .pwdreset_form {
+#signin:target ~ .login_wrapper .pwdreset_form {
     animation-name: fadeOutLeft
 }
+
+#signup:target ~ .login_wrapper .login_form,
+#signup:target ~ .login_wrapper .pwdreset_form {
+    animation-name: fadeOutLeft
+}
+
+#pwd-forgotten:target ~ .login_wrapper .login_form,
+#pwd-forgotten:target ~ .login_wrapper.registration_form{
+    animation-name: fadeOutLeft
+}
+
 /***END***/
 
 .animate {

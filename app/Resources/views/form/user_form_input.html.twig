@@ -1,3 +1,19 @@
+{# PUBLIC PAGE #}
+{% block _fos_user_registration_form_plainPassword_first_row %}
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+        {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left'}}) }}
+        <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
+    </div>
+{% endblock %}
+
+{% block _fos_user_registration_form_plainPassword_second_row %}
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+        {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left'}}) }}
+        <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
+    </div>
+{% endblock %}
+
+{# ADMIN MANAGEMENT #}
 {% block _securityappbundle_user_plainPassword_first_row %}
     <div class="form-group">
         <label for="{{ form.vars.id }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.vars.label }}</label>
@@ -15,9 +31,3 @@
         </div>
     </div>
 {% endblock %}
-{% block _fos_user_registration_form_plainPassword_second_row %}
-    {% spaceless %}
-        {{ form_widget(form, {'attr': {'class': 'form-control', 'placeholder': 'Confirmation du mot de passe'}}) }}
-    {% endspaceless %}
-{% endblock %}
-

@@ -39,3 +39,8 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+swiftmailer:
+    transport:  smtp
+    host:       127.0.0.1
+    port:       1025
+    spool: { type: memory }

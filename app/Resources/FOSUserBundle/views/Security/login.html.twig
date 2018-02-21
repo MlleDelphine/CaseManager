@@ -28,7 +28,7 @@
                         <input type="hidden" name="_target_path" value="account" />
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-info submit">Connexion</button>
+                        <button type="submit" class="btn btn-success submit">Connexion</button>
                         {#<a class="reset_pass" href="#">Lost your password?</a>#}
                     </div>
                     <div class="clearfix"></div>
@@ -55,15 +55,15 @@
 
         <div id="register" class="animate form registration_form">
             <section class="login_content">
-                {#{{ dump(registerForm) }}#}
                 {{ form_start(registerForm, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-                {#{{ form_widget(registerForm) }}#}
                 <h1>Créer un compte</h1>
-                <div>
-                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': 'Email'} }) }}
+                    <span aria-hidden="true" class="fa fa-at form-control-feedback left"></span>
                 </div>
-                <div>
-                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'}}) }}
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': 'Pseudo'}}) }}
+                    <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                 </div>
                 {{ form_row(registerForm.plainPassword) }}
                 <div>
@@ -91,23 +91,26 @@
         <div id="pwd-forgotten" class="animate form pwdreset_form">
             <section class="pwdreset_content login_content">
                 <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                    <h1>Mot de passe oublié</h1>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input name="username" id="username" type="text" class="form-control has-feedback-left" placeholder="{{ 'resetting.request.username'|trans }}" required="required" value="{{ last_username }}">
+                            <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
+                        </div>
                     <div>
-                        <label for="username">{{ 'resetting.request.username'|trans }}</label>
-                        <input type="text" id="username" name="username" required="required" />
-                    </div>
-                    <div>
-                        <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+                        <button type="submit" class="btn btn-primary submit">{{ 'resetting.request.submit'|trans }}</button>
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">Déjà enregistré ?
+                        <p class="change_link">On s'en souvient ?
                             <a href="#signin" class="to_register">Se connecter</a>
+                        </p>  <div class="clearfix"></div>
+                        <br />
+                        <p class="change_link">Pas encore de compte ?
+                            <a href="#signup" class="to_register">S'enregistrer</a>
                         </p>
-
                         <div class="clearfix"></div>
                         <br />
-
                         <div>
                             <h1><i class="fa fa-paw"></i> CaseManager Service!</h1>
                             <p>©2018 Tous droits réservés. CaseManager service is a DelphiGx product. Privacy and Terms</p>

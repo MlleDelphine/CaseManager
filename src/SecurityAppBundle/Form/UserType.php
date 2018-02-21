@@ -31,14 +31,14 @@ class UserType extends AbstractType
             ->add("phoneNumber", TextType::class, array("label_format" => "Téléphone", "required" => false, "attr" => ["pattern" => "^0[0-9]{9}$"]))
             ->add("jobStatus",  Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",
-                "choice_label_format" => "name",
+                "choice_label" => "name",
                 "label_format" => "Poste",
                 "multiple" => false,
                 "placeholder" => "Sélectionner",
                 "required" => false))
             ->add("team",  Select2EntityType::class, array(
                 "class" => "AppBundle:Team",
-                "choice_label_format" => "name",
+                "choice_label" => "name",
                 "label_format" => "Equipe",
                 "multiple" => false,
                 "placeholder" => "-",
