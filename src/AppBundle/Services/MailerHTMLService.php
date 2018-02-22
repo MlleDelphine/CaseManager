@@ -86,7 +86,7 @@ class MailerHTMLService implements MailerInterface
 
         $template = $this->parameters['resetting.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);
-        $resetRequestUrl = $this->router->generate('fos_user_login', [], UrlGeneratorInterface::ABSOLUTE_URL)."#pwd-forgotten";
+        $resetRequestUrl = $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL)."#pwd-forgotten";
         $twigParameters = array(
             'user' => $user,
             'confirmationUrl' => $url,

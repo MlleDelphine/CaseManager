@@ -1,6 +1,9 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% form_theme registerForm 'form/user_form_input.html.twig' %}
+
+{% block page_title %}Connexion{% endblock %}
+
 {% block fos_user_content %}
     <div class="login_wrapper" xmlns="http://www.w3.org/1999/html">
         <div class="animate form login_form">
@@ -44,10 +47,7 @@
                         </p>
                         <div class="clearfix"></div>
                         <br />
-                        <div>
-                            <h1><i class="fa fa-paw"></i> Casemanager Service!</h1>
-                            <p>©2018 Tous droits réservés. Casemanager service is a DelphiGX product. Privacy and Terms</p>
-                        </div>
+                        {% include ":common:public_footer.html.twig"%}
                     </div>
                 </form>
             </section>
@@ -79,10 +79,7 @@
                     <div class="clearfix"></div>
                     <br />
 
-                    <div>
-                        <h1><i class="fa fa-paw"></i> CaseManager Service!</h1>
-                        <p>©2018 Tous droits réservés. CaseManager service is a DelphiGx product. Privacy and Terms</p>
-                    </div>
+                    {% include ":common:public_footer.html.twig"%}
                 </div>
                 {{ form_end(registerForm) }}
             </section>
@@ -111,10 +108,7 @@
                         </p>
                         <div class="clearfix"></div>
                         <br />
-                        <div>
-                            <h1><i class="fa fa-paw"></i> CaseManager Service!</h1>
-                            <p>©2018 Tous droits réservés. CaseManager service is a DelphiGx product. Privacy and Terms</p>
-                        </div>
+                        {% include ":common:public_footer.html.twig"%}
                     </div>
                 </form>
             </section>

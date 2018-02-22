@@ -1,0 +1,21 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'form/user_form_input.html.twig' %}
+
+<div class="login_wrapper" xmlns="http://www.w3.org/1999/html">
+    <div class="animate form login_form">
+        <section class="login_content">
+            {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+            <h1>Réinitialisation</h1>
+            {{ form_widget(form) }}
+            <div>
+                <button type="submit" class="btn btn-success submit">{{ 'resetting.reset.submit'|trans }}</button>
+            </div>
+            <div class="clearfix"></div>
+            <div class="separator">
+                {% include ":common:public_footer.html.twig"%}
+            </div>
+            {{ form_end(form) }}
+        </section>
+    </div>
+</div>
+

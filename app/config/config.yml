@@ -156,7 +156,8 @@ fos_user:
     resetting:
         email:
            template: "email/password_resetting.email.html.twig"
-        token_ttl: 10 #10sec
+        token_ttl: 7200 #Time to reset : 2h
+        retry_ttl: 3600 #Time before submitting new request
 
 sonata_media:
     # if you don't use default namespace configuration
