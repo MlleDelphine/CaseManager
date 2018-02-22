@@ -78,6 +78,22 @@ class User extends BaseUser
      */
     protected $phoneNumber;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2, options={"default":"0"})
+     * @Assert\Regex(
+     *     pattern="/^\d+(,|.)\d{2}$/"
+     * )
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user", "admin_export_resource"})
+     */
+    private $unitaryPrice;
+
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
@@ -218,6 +234,31 @@ class User extends BaseUser
     {
         return $this->phoneNumber;
     }
+
+    /**
+     * Set unitaryPrice
+     *
+     * @param string $unitaryPrice
+     *
+     * @return User
+     */
+    public function setUnitaryPrice($unitaryPrice)
+    {
+        $this->unitaryPrice = $unitaryPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get unitaryPrice
+     *
+     * @return string
+     */
+    public function getUnitaryPrice()
+    {
+        return $this->unitaryPrice;
+    }
+
     /**
      * Set created
      *

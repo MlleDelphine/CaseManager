@@ -1,13 +1,15 @@
-Connection: Connexion
-Log in: Connexion
-Log out: Déconnexion
-Submit: Valider
-User: Utilisateur
-Users: Utilisateurs
-Create: Créer
-Update: Modifier
-Modify: Modifier
-Updated: Mis à jour
-Deleted: Supprimé
-New: Nouveau
-Welcome: Bonjour
+connection: Connexion
+log_in: Connexion
+log_out: Déconnexion
+submit: Valider
+user: Utilisateur
+users: Utilisateurs
+create: Créer
+update: Modifier
+modify: Modifier
+updated: Mis à jour
+deleted: Supprimé
+new: Nouveau
+welcome: Bonjour
+search: Rechercher
+dashboard: tableau de bord

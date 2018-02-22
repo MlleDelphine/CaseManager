@@ -9,14 +9,16 @@
     <li class="active">Ajout</li>
 {% endblock %}
 
-{% block page_title %}Création d'équipe{% endblock %}
+{% block page_title %}Modification d'équipe{% endblock %}
+
+{% block title %}Modification d'équipe{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Créer une équipe</h2>
+                    <h2>Modifier une équipe</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -28,7 +30,7 @@
                     {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(edit_form.name, 'Intitulé', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(edit_form.name) }}
@@ -36,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(edit_form.users, 'Utilisateurs', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(edit_form.users, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.users, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(edit_form.users) }}

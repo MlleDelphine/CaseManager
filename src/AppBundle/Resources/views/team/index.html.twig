@@ -4,9 +4,9 @@
     <li class="active">Toutes les équipes</li>
 {% endblock %}
 
-{% block page_title %}
-    Equipes
-{% endblock %}
+{% block page_title %}Equipes{% endblock %}
+
+{% block title %}Equipes{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -20,7 +20,7 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('team_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
+                        <a class="btn btn-warning btn-li" href="{{ path('team_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
                     </li>
                     <li class="inherit-li">
                         <a class="btn btn-success btn-li" href="{{ path("team_new") }}"><i class="fa fa-plus"></i> Ajout</a>

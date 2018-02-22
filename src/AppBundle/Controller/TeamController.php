@@ -62,10 +62,10 @@ class TeamController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $users = $form->getData()->getTeams();
+            $users = $form->getData()->getUsers();
             //If user submitted not contained in original users array, add it
             foreach ($users as $userAdd){
-                $team->addTeam($userAdd);
+                $team->addUser($userAdd);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
@@ -106,32 +106,32 @@ class TeamController extends Controller
         $deleteForm = $this->createDeleteForm($team);
         $editForm = $this->createForm(TeamType::class, $team);
         if (!$team) {
-            throw $this->createNotFoundException('No team found for id '.$id);
+            throw $this->createNotFoundException('No team found for given slug');
         }
 
-        $originalTeams = new ArrayCollection();
+        $originalUsers = new ArrayCollection();
 
-        // Create an ArrayCollection of the current Team objects in the database
-        foreach ($team->getTeams() as $user) {
-            $originalTeams->add($user);
+        // Create an ArrayCollection of the current User objects in the database
+        foreach ($team->getUsers() as $user) {
+            $originalUsers->add($user);
         }
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $users = $editForm->getData()->getTeams();
+            $users = $editForm->getData()->getUsers();
             //If user submitted not contained in original users array, add it
             foreach ($users as $userAdd){
-                if (false === $originalTeams->contains($userAdd)) {
-                    $team->addTeam($userAdd);
+                if (false === $originalUsers->contains($userAdd)) {
+                    $team->addUser($userAdd);
                 }
             }
             // If user originally contained but not contained in submitted remove the relationship between
-            foreach ($originalTeams as $userOriginal) {
-                if (false === $team->getTeams()->contains($userOriginal)) {
-                    // remove the Task from the Tag
-                    $userOriginal->getTeam()->removeTeam($userOriginal);
+            foreach ($originalUsers as $userOriginal) {
+                if (false === $team->getUsers()->contains($userOriginal)) {
+                    // remove the User from the Team
+                    $userOriginal->getTeam()->removeUser($userOriginal);
 
                     // if it was a many-to-one relationship, remove the relationship like this
                     // $tag->setTask(null);

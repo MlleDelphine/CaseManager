@@ -11,6 +11,10 @@
 
 {% block page_title %}Création d'une équipe{% endblock %}
 
+{% block title %}
+    Création d'une équipe
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +32,7 @@
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.name, 'Intitulé', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.name) }}
@@ -36,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.users, 'Utilisateurs', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.users, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.users, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.users) }}

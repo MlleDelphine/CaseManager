@@ -15,17 +15,18 @@ class TeamType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, array('label' => 'Nom', 'required' => true))
-            ->add('users',  Select2EntityType::class, array(
-                'class' => 'SecurityAppBundle:User',
-                'choice_label' => function ($user){
-                    return $user->getFirstname().' '.$user->getLastName();
+        $builder->add("name", TextType::class, array(
+            "label" => "Intitulé",
+            "required" => true))
+            ->add("users",  Select2EntityType::class, array(
+                "class" => "SecurityAppBundle:User",
+                "choice_label" => function ($user){
+                    return $user->getFirstname()." ".$user->getLastName();
                     },
-                'label' => 'utilisateurs',
-                'multiple' => true,
-                'by_reference' => true,
-//                'placeholder' => 'Sélectionner',
-                'required' => false));
+                "label" => "Utilisateurs",
+                "multiple" => true,
+                "by_reference" => true,
+                "required" => false));
     }
     
     /**
@@ -34,7 +35,7 @@ class TeamType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Team'
+            "data_class" => "AppBundle\Entity\Team"
         ));
     }
 
@@ -43,7 +44,7 @@ class TeamType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_team';
+        return "appbundle_team";
     }
 
 

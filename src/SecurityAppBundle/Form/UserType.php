@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,12 +24,28 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("firstName", TextType::class, array("label_format" => "Prénom", "required" => true))
-            ->add("lastName", TextType::class, array("label_format" => "Nom", "required" => true))
-            ->add("email",EmailType::class, array("label_format" => "Email", "translation_domain" => "FOSUserBundle"))
-            ->add("roles", RoleType::class)
-            ->add("username", TextType::class, array("label_format" => "Identifiant", "translation_domain" => "FOSUserBundle"))
-            ->add("phoneNumber", TextType::class, array("label_format" => "Téléphone", "required" => false, "attr" => ["pattern" => "^0[0-9]{9}$"]))
+            ->add("firstName", TextType::class, array(
+                "label_format" => "Prénom",
+                "required" => true))
+            ->add("lastName", TextType::class, array(
+                "label_format" => "Nom",
+                "required" => true))
+            ->add("email",EmailType::class, array(
+                "label_format" => "Email",
+                "translation_domain" => "FOSUserBundle"))
+            ->add("roles", RoleType::class, array(
+                "label_format" => "Roles"))
+            ->add("username", TextType::class, array(
+                "label_format" => "Identifiant/Pseudo",
+                "translation_domain" => "FOSUserBundle"))
+            ->add("phoneNumber", TextType::class, array(
+                "label_format" => "Téléphone",
+                "required" => false,
+                "attr" => ["pattern" => "^0[0-9]{9}$"]))
+            ->add("unitaryPrice", MoneyType::class,array(
+                "label_format" => "Taux horaire",
+                "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
+                "invalid_message" => "Cette valeur doit être un nombre décimal."))
             ->add("jobStatus",  Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",
                 "choice_label" => "name",
@@ -42,9 +59,8 @@ class UserType extends AbstractType
                 "label_format" => "Equipe",
                 "multiple" => false,
                 "placeholder" => "-",
-                "required" => false,
-                ))
-            ->add("enabled", CheckboxType::class);
+                "required" => false))
+            ->add("enabled", CheckboxType::class,  array("label_format" => "Connexion autorisée"));
 
         if($options["MODE_CREATE"]){
             $builder

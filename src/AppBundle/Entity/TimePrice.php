@@ -34,7 +34,9 @@ class TimePrice
      * @var string
      *
      * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2)
-     * @Assert\Currency()
+     * @Assert\Regex(
+     *     pattern="/^\d+(,|.)\d{2}$/"
+     * )
      * @Assert\NotNull()
      * @Assert\NotBlank()
      *
@@ -121,9 +123,6 @@ class TimePrice
                 ->atPath('untilDate')
                 ->addViolation();
         }
-        dump("Price");
-        die;
-
     }
 
     /**
@@ -209,54 +208,6 @@ class TimePrice
     }
 
     /**
-     * Set material
-     *
-     * @param \AppBundle\Entity\Material $material
-     *
-     * @return TimePrice
-     */
-    public function setMaterial(\AppBundle\Entity\Material $material = null)
-    {
-        $this->material = $material;
-
-        return $this;
-    }
-
-    /**
-     * Get material
-     *
-     * @return \AppBundle\Entity\Material
-     */
-    public function getMaterial()
-    {
-        return $this->material;
-    }
-
-    /**
-     * Set resource
-     *
-     * @param \AppBundle\Entity\Resource $resource
-     *
-     * @return TimePrice
-     */
-    public function setResource(\AppBundle\Entity\Resource $resource = null)
-    {
-        $this->resource = $resource;
-
-        return $this;
-    }
-
-    /**
-     * Get resource
-     *
-     * @return \AppBundle\Entity\Resource
-     */
-    public function getResource()
-    {
-        return $this->resource;
-    }
-    
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -304,6 +255,52 @@ class TimePrice
         return $this->updated;
     }
 
+    /**
+     * Set material
+     *
+     * @param \AppBundle\Entity\Material $material
+     *
+     * @return TimePrice
+     */
+    public function setMaterial(\AppBundle\Entity\Material $material = null)
+    {
+        $this->material = $material;
 
+        return $this;
+    }
+
+    /**
+     * Get material
+     *
+     * @return \AppBundle\Entity\Material
+     */
+    public function getMaterial()
+    {
+        return $this->material;
+    }
+
+    /**
+     * Set resource
+     *
+     * @param \AppBundle\Entity\Resource $resource
+     *
+     * @return TimePrice
+     */
+    public function setResource(\AppBundle\Entity\Resource $resource = null)
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Get resource
+     *
+     * @return \AppBundle\Entity\Resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
 }
 

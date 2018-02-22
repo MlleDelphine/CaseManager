@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Casemanager | {% block page_title %}Accueil{% endblock %}</title>
+    <title>Casemanager | {% block title %}{% endblock %}</title>
 
     <!-- Bootstrap -->
     <link href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -15,8 +15,9 @@
     <link href="{{ asset('vendor/components-font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- Animate.css -->
     <link href="{{ asset('vendor/gentelella/vendors/animate.css/animate.min.css') }}" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('bundles/app/assets/css/custom.css') }}" rel="stylesheet">
+    <!-- Custom GentelellaTheme Style -->
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/build/css/custom.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/assets/css/casemanager-custom.css') }}">
 </head>
 
 <body class="login">

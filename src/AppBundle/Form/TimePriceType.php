@@ -28,7 +28,7 @@ class TimePriceType extends AbstractType
                     "widget" => "single_text"))
             ->add("unitaryPrice", MoneyType::class,
                 array("label_format" => "Coût",
-                    "attr" => ["required" => true],
+                    "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
                     "invalid_message" => "Cette valeur doit être un nombre décimal."));
 
     }
