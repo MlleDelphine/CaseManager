@@ -1,23 +1,22 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace CustomerBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * Equipment
+ * CorporationGroup
  *
- * @ORM\Table(name="equipment")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\EquipmentRepository")
+ * @ORM\Table(name="corporation_group")
+ * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationGroupRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class Equipment
+class CorporationGroup
 {
     /**
      * @var int
@@ -31,45 +30,13 @@ class Equipment
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_CorporationGroup"})
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="reference", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
-     */
-    private $reference;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="working", type="boolean", options={"default": 1})
-     * @Assert\NotNull()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
-     */
-    private $working;
 
     /**
      * @var string
@@ -79,6 +46,17 @@ class Equipment
      *
      */
     protected $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="legalStatus", type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_CorporationGroup"})
+     */
+    private $legalStatus;
 
     /**
      * @var \DateTime
@@ -102,6 +80,7 @@ class Equipment
     {
         return $this->name;
     }
+
     /**
      * Get id
      *
@@ -117,7 +96,7 @@ class Equipment
      *
      * @param string $name
      *
-     * @return Equipment
+     * @return CorporationGroup
      */
     public function setName($name)
     {
@@ -137,75 +116,51 @@ class Equipment
     }
 
     /**
-     * Set reference
+     * Set slug
      *
-     * @param string $reference
+     * @param string $slug
      *
-     * @return Equipment
+     * @return CorporationGroup
      */
-    public function setReference($reference)
+    public function setSlug($slug)
     {
-        $this->reference = $reference;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get reference
+     * Get slug
      *
      * @return string
      */
-    public function getReference()
+    public function getSlug()
     {
-        return $this->reference;
+        return $this->slug;
     }
 
     /**
-     * Set description
+     * Set legalStatus
      *
-     * @param string $description
+     * @param string $legalStatus
      *
-     * @return Equipment
+     * @return CorporationGroup
      */
-    public function setDescription($description)
+    public function setLegalStatus($legalStatus)
     {
-        $this->description = $description;
+        $this->legalStatus = $legalStatus;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get legalStatus
      *
      * @return string
      */
-    public function getDescription()
+    public function getLegalStatus()
     {
-        return $this->description;
-    }
-
-    /**
-     * Set working
-     *
-     * @param integer $working
-     *
-     * @return Equipment
-     */
-    public function setWorking($working)
-    {
-        $this->working = $working;
-
-        return $this;
-    }
-
-    /**
-     * Get working
-     *
-     * @return integer
-     */
-    public function getWorking()
-    {
-        return $this->working;
+        return $this->legalStatus;
     }
 
     /**
@@ -213,7 +168,7 @@ class Equipment
      *
      * @param \DateTime $created
      *
-     * @return Equipment
+     * @return CorporationGroup
      */
     public function setCreated($created)
     {
@@ -237,7 +192,7 @@ class Equipment
      *
      * @param \DateTime $updated
      *
-     * @return Equipment
+     * @return CorporationGroup
      */
     public function setUpdated($updated)
     {
@@ -255,28 +210,5 @@ class Equipment
     {
         return $this->updated;
     }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Equipment
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
 }
+
