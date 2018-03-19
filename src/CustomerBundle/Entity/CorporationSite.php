@@ -2,22 +2,21 @@
 
 namespace CustomerBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * CorporationGroup
+ * CorporationSite
  *
- * @ORM\Table(name="corporation_group")
- * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationGroupRepository")
+ * @ORM\Table(name="corporation_site")
+ * @ORM\Entity(repositoryClass="CustomerBundle\Repository\CorporationSiteRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationGroup
+class CorporationSite
 {
     /**
      * @var int
@@ -31,33 +30,31 @@ class CorporationGroup
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @JMSSer\Groups({"admin_export_corporationsite"})
      */
     private $name;
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     *
+     * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
+     * @Assert\Regex("/^0[0-9]{9}$/")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_corporationsite"})
      */
-    protected $slug;
+    private $phoneNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legalStatus", type="string", length=255)
-     * @Assert\NotBlank()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
+     * @ORM\Column(length=128, unique=true)
      */
-    private $legalStatus;
+    private $slug;
 
     /**
      * @var \DateTime
@@ -74,15 +71,16 @@ class CorporationGroup
     protected $updated;
 
     /**
-     * @var User[]|ArrayCollection
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", inversedBy="corporationSites", cascade={"persist", "merge", "detach"})
      *
-     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="corporationGroup", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_corporationsite"})
      */
-    protected $corporationSites;
+    protected $corporationGroup;
 
     public function __construct()
     {
-        $this->corporationSites = new ArrayCollection();
     }
 
     public function __toString()
@@ -105,7 +103,7 @@ class CorporationGroup
      *
      * @param string $name
      *
-     * @return CorporationGroup
+     * @return CorporationSite
      */
     public function setName($name)
     {
@@ -125,11 +123,35 @@ class CorporationGroup
     }
 
     /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     *
+     * @return CorporationSite
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
      *
-     * @return CorporationGroup
+     * @return CorporationSite
      */
     public function setSlug($slug)
     {
@@ -149,35 +171,11 @@ class CorporationGroup
     }
 
     /**
-     * Set legalStatus
-     *
-     * @param string $legalStatus
-     *
-     * @return CorporationGroup
-     */
-    public function setLegalStatus($legalStatus)
-    {
-        $this->legalStatus = $legalStatus;
-
-        return $this;
-    }
-
-    /**
-     * Get legalStatus
-     *
-     * @return string
-     */
-    public function getLegalStatus()
-    {
-        return $this->legalStatus;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
      *
-     * @return CorporationGroup
+     * @return CorporationSite
      */
     public function setCreated($created)
     {
@@ -201,7 +199,7 @@ class CorporationGroup
      *
      * @param \DateTime $updated
      *
-     * @return CorporationGroup
+     * @return CorporationSite
      */
     public function setUpdated($updated)
     {
@@ -221,36 +219,26 @@ class CorporationGroup
     }
 
     /**
-     * Add corporationSite
+     * Set corporationGroup
      *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     * @param \CustomerBundle\Entity\CorporationGroup $corporationGroup
      *
-     * @return CorporationGroup
+     * @return CorporationSite
      */
-    public function addCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite)
+    public function setCorporationGroup(\CustomerBundle\Entity\CorporationGroup $corporationGroup = null)
     {
-        $this->corporationSites[] = $corporationSite;
+        $this->corporationGroup = $corporationGroup;
 
         return $this;
     }
 
     /**
-     * Remove corporationSite
+     * Get corporationGroup
      *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     * @return \CustomerBundle\Entity\CorporationGroup
      */
-    public function removeCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite)
+    public function getCorporationGroup()
     {
-        $this->corporationSites->removeElement($corporationSite);
-    }
-
-    /**
-     * Get corporationSites
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCorporationSites()
-    {
-        return $this->corporationSites;
+        return $this->corporationGroup;
     }
 }

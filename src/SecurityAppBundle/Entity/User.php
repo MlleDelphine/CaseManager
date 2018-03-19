@@ -78,7 +78,6 @@ class User extends BaseUser
      */
     protected $phoneNumber;
 
-
     /**
      * @var string
      *
