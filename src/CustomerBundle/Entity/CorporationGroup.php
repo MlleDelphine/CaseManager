@@ -25,8 +25,11 @@ class CorporationGroup
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_corporationgroup"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -37,7 +40,7 @@ class CorporationGroup
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup"})
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
@@ -57,7 +60,7 @@ class CorporationGroup
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup"})
      */
-    private $legalStatus;
+    protected $legalStatus;
 
     /**
      * @var \DateTime
@@ -79,6 +82,15 @@ class CorporationGroup
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="corporationGroup", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $corporationSites;
+
+    /**
+     * @var
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationGroup", cascade={"all"}, orphanRemoval=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     */
+    protected $postalAddress;
 
     public function __construct()
     {
@@ -252,5 +264,30 @@ class CorporationGroup
     public function getCorporationSites()
     {
         return $this->corporationSites;
+    }
+
+    /**
+     * Set postalAddress
+     *
+     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
+     *
+     * @return CorporationGroup
+     */
+    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
+    {
+        $this->postalAddress = $postalAddress;
+        $postalAddress->setCorporationGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Get postalAddress
+     *
+     * @return \CustomerBundle\Entity\PostalAddress
+     */
+    public function getPostalAddress()
+    {
+        return $this->postalAddress;
     }
 }

@@ -24,15 +24,21 @@ class PostalAddress
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_postaladdress"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="streetNumber", type="string", length=10, nullable=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
-    private $streetNumber;
+    protected $streetNumber;
 
     /**
      * @var string
@@ -41,16 +47,19 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress"})
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
-    private $streetName;
+    protected $streetName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="complement", type="string", length=255, nullable=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
-    private $complement;
+    protected $complement;
 
     /**
      * @var string
@@ -59,9 +68,9 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress"})
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
-    private $postalCode;
+    protected $postalCode;
 
     /**
      * @var string
@@ -70,9 +79,9 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress"})
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
@@ -83,7 +92,7 @@ class PostalAddress
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_postaladdress"})
      */
-    private $country;
+    protected $country;
 
     /**
      * @var string
@@ -107,6 +116,20 @@ class PostalAddress
      * @ORM\Column(name="updated", type="datetime")
      */
     protected $updated;
+
+    /**
+     * @var
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", mappedBy="postalAddress")
+     *
+     */
+    public $corporationGroup;
+
+    /**
+     * @var
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="postalAddress")
+     *
+     */
+    public $corporationSite;
 
 
     public function __construct()
@@ -339,5 +362,52 @@ class PostalAddress
     {
         return $this->slug;
     }
-}
 
+    /**
+     * Set corporationGroup
+     *
+     * @param \CustomerBundle\Entity\CorporationGroup $corporationGroup
+     *
+     * @return PostalAddress
+     */
+    public function setCorporationGroup(\CustomerBundle\Entity\CorporationGroup $corporationGroup = null)
+    {
+        $this->corporationGroup = $corporationGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get corporationGroup
+     *
+     * @return \CustomerBundle\Entity\CorporationGroup
+     */
+    public function getCorporationGroup()
+    {
+        return $this->corporationGroup;
+    }
+
+    /**
+     * Set corporationSite
+     *
+     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     *
+     * @return PostalAddress
+     */
+    public function setCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite = null)
+    {
+        $this->corporationSite = $corporationSite;
+
+        return $this;
+    }
+
+    /**
+     * Get corporationSite
+     *
+     * @return \CustomerBundle\Entity\CorporationSite
+     */
+    public function getCorporationSite()
+    {
+        return $this->corporationSite;
+    }
+}
