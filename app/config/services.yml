@@ -25,16 +25,18 @@ services:
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
-    AppBundle\Controller\:
-        resource: '../../src/AppBundle/Controller'
-        public: true
-        tags: ['controller.service_arguments']
 
-    SecurityAppBundle\:
-        resource: '../../src/SecurityAppBundle/*'
-            # you can exclude directories or files
-            # but if a service is unused, it's removed anyway
-        exclude: '../../src/SecurityAppBundle/{Entity,Repository,Tests}'
+    #UPGRADE TO SF 3.4
+#    AppBundle\Controller\:
+#        resource: '../../src/AppBundle/Controller'
+#        public: true
+#        tags: ['controller.service_arguments']
+    #UPGRADE TO SF 3.4
+#    SecurityAppBundle\:
+#        resource: '../../src/SecurityAppBundle/*'
+#            # you can exclude directories or files
+#            # but if a service is unused, it's removed anyway
+#        exclude: '../../src/SecurityAppBundle/{Entity,Repository,Tests}'
 
     redirect.after.login:
         class: SecurityAppBundle\Handlers\AfterLoginRedirection
@@ -49,15 +51,6 @@ services:
         alias: jms_serializer.doctrine_object_constructor
         public: false
 
-#    AppBundle\Services\MailerHTMLService:
-##        class: AppBundle\Services\MailerHTMLService
-#        arguments:
-#            $parameters:
-#                - confirmation.template: '%fos_user.registration.confirmation.template%'
-#                - resetting.template: '%fos_user.resetting.email.template%'
-#                - from_email:
-#                    - confirmation: '%fos_user.registration.confirmation.from_email%'
-#                    - resetting: '%fos_user.resetting.email.from_email%'
     app.mailerhtml.service:
         class: AppBundle\Services\MailerHTMLService
         arguments:
@@ -70,3 +63,6 @@ services:
 #OVERRIDE : genemu bundle which called older form.renderer object
     genemu.twig.extension.form:
         class: AppBundle\Twig\Extension\GenemuFormExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['@twig.form.renderer']

@@ -31,6 +31,7 @@ security:
                 success_handler: redirect.after.login
             logout: true
             anonymous: ~
+            logout_on_user_change: true
 
 
     access_control:

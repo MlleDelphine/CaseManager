@@ -31,7 +31,7 @@
         "genemu/form-bundle": "^3.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",
         "jms/serializer-bundle": "^2.2",
-        "knplabs/knp-menu-bundle": "^2.1",
+        "knplabs/knp-menu-bundle": "^2.2",
         "leaseweb/doctrine-pdo-dblib": "^1.1",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
