@@ -3,12 +3,17 @@
 namespace CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMSSer;
 /**
  * CorporationEmployee
  *
  * @ORM\Table(name="corporation_employee")
  * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationEmployeeRepository")
+ * @ORM\HasLifecycleCallbacks()
+ *
+ * @JMSSer\ExclusionPolicy("all")
  */
 class CorporationEmployee
 {
@@ -18,36 +23,61 @@ class CorporationEmployee
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="firstName", type="string", length=255)
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      */
-    private $firstName;
+    protected $firstName;
 
     /**
-     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      *
-     * @ORM\Column(name="lastName", type="string", length=255)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
+     *
+     * @Assert\Regex("/^0[0-9]{9}$/")
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mailAddress", type="string", length=255, nullable=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      */
     private $mailAddress;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
+     * @ORM\Column(length=128, unique=true)
+     *
+     */
+    protected $slug;
 
     /**
      * @var string
@@ -56,6 +86,28 @@ class CorporationEmployee
      */
     private $honorific;
 
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    protected $created;
+
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    protected $updated;
+
+    /**
+     * @var CorporationSite
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationSite", inversedBy="employees", cascade={"persist", "merge"})
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
+     */
+    protected $corporationSite;
 
     /**
      * Get id
@@ -186,5 +238,101 @@ class CorporationEmployee
     {
         return $this->honorific;
     }
-}
 
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return CorporationEmployee
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return CorporationEmployee
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return CorporationEmployee
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set corporationSite
+     *
+     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     *
+     * @return CorporationEmployee
+     */
+    public function setCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite = null)
+    {
+        $this->corporationSite = $corporationSite;
+        $corporationSite->addEmployee($this);
+
+        return $this;
+    }
+
+    /**
+     * Get corporationSite
+     *
+     * @return \CustomerBundle\Entity\CorporationSite
+     */
+    public function getCorporationSite()
+    {
+        return $this->corporationSite;
+    }
+}

@@ -31,6 +31,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string")
+     *
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
@@ -56,6 +57,7 @@ class User extends BaseUser
     /**
      * @Assert\NotBlank()
      * @Assert\Email()
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      */

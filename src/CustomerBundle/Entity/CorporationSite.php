@@ -3,6 +3,7 @@
 namespace CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
@@ -88,8 +89,16 @@ class CorporationSite
      */
     protected $postalAddress;
 
+    /**
+     * @var CorporationEmployee[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="coprorationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
+     */
+    protected $employees;
+
     public function __construct()
     {
+        $this->employees = new ArrayCollection();
     }
 
     public function __toString()
@@ -274,5 +283,39 @@ class CorporationSite
     public function getPostalAddress()
     {
         return $this->postalAddress;
+    }
+
+    /**
+     * Add employee
+     *
+     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     *
+     * @return CorporationSite
+     */
+    public function addEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    {
+        $this->employees[] = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Remove employee
+     *
+     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     */
+    public function removeEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    {
+        $this->employees->removeElement($employee);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
     }
 }

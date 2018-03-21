@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %} CaseManagerTP Service {% endblock %}</title>
+    <title>{% block page_title %} CaseManagerTP Service {% endblock %}</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css') }}" >
@@ -36,7 +36,6 @@
 
         {% include '::admin/sidebar.html.twig' %}
         {% include 'admin/topnav.html.twig' %}
-
 
         <!-- page content -->
         <div class="right_col" role="main">

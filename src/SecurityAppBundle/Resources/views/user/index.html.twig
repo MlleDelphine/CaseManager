@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="active">Tous les utilisateurs</li>
+    <li class="active">{{ "all_users"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
-{% block title %}
-    Utilisateurs
-{% endblock %}
+{%  block page_title %} {{ "users"|trans|capitalize}} {% endblock %}
+{% block title %} {{ "users"|trans|capitalize }} {% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-users"></i> Tous les utilisateurs</h2>
+                <h2><i class="fa fa-users"></i> {{ "all_users"|trans|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">

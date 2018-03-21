@@ -13,7 +13,7 @@
                 <img src="{{ asset('bundles/app/assets/img/edtpe-logo.jpg') }}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-                <span>Welcome,</span>
+                <span>{{ "welcome"|trans|capitalize }},</span>
                 <h2>{{ app.user.firstName ~ " " ~ app.user.lastName }} </h2>
             </div>
         </div>
@@ -72,7 +72,7 @@
 
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="{{ "log_out"|trans }}" href="{{ path('fos_user_security_logout') }}"> {#{#}
+            <a data-toggle="tooltip" data-placement="top" title="{{ "log_out"|trans|capitalize }}" href="{{ path('fos_user_security_logout') }}"> {#{#}
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
         </div>

@@ -1,25 +1,63 @@
-connection: Connexion
-log_in: Connexion
-log_out: Déconnexion
-submit: Valider
-user: Utilisateur
-users: Utilisateurs
-create: Créer
-update: Modifier
-modify: Modifier
-updated: Mis à jour
-deleted: Supprimé
-new: Nouveau
-welcome: Bonjour
-search: Rechercher
+#USER AUTHENTICATION
+connection: connexion
+log_in: connexion
+log_out: déconnexion
+welcome: bienvenu
+hello: bonjour
+
+#FORM ACTIONS
+submit: valider
+create: créer
+update: modifier
+modify: modifier
+
+#ADMIN SPACE
+user: utilisateur
+users: utilisateurs
+all_users: tous les utilisateurs
 dashboard: tableau de bord
-users_management: Gestion utilisateurs
-employees: Personnel
-teams: Equipes
-jobs: Postes
-materials: Matériaux
-material: Matériau
-equipments: Matériels
-equipment: Matériel
-resources_management: Gestion des ressources
-other_resources: Autres ressources
+users_management: gestion utilisateurs
+resources_management: gestion des ressources
+
+#OBJECTS LEXICAL
+employees: personnel
+team: équipe
+teams: équipes
+job: poste
+jobs: postes
+material: matériau
+materials: matériaux
+equipment: matériel
+equipments: matériels
+other_resource: autre ressource
+other_resources: autres ressources
+
+#OBJECTS STATES
+created_m_s: créé
+created_m_p: créés
+created_f_s: créée
+created_f_p: créées
+updated_m_s: mis à jour
+updated_m_p: mis à jour
+updated_f_s: mise à jour
+updated_f_p: mises à jour
+deleted_m_s: supprimé
+deleted_m_p: supprimés
+deleted_f_s: supprimée
+deleted_f_p: supprimées
+new_m_s: nouveau
+new_m_s_vowel: nouvel
+new_m_p: nouveaux
+new_f_s: nouvelle
+new_f_p: nouvelles
+
+#GLOBAL/COMMON ACTION
+search: rechercher
+import_verb: importer
+export_verb: exporter
+
+#GLOBAL/COMMON TERMS
+import: import
+export: export
+
+
