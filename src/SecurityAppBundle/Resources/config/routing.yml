@@ -1,3 +1,7 @@
+fos_user_security_login_override:
+    path: /login
+    defaults: { _controller: SecurityAppBundle:Security:login }
+
 security_app_security:
     resource: "@SecurityAppBundle/Resources/config/routing/security.yml"
     prefix:   /security
