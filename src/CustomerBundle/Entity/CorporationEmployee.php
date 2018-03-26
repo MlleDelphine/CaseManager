@@ -83,6 +83,9 @@ class CorporationEmployee
      * @var string
      *
      * @ORM\Column(name="honorific", type="string", length=10)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
      */
     private $honorific;
 
@@ -101,6 +104,15 @@ class CorporationEmployee
     protected $updated;
 
     /**
+     * @var CorporationJobStatus
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="employees", cascade={"persist", "merge"})
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_employee"})
+     */
+    protected $corporationJobStatus;
+
+    /**
      * @var CorporationSite
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationSite", inversedBy="employees", cascade={"persist", "merge"})
      *
@@ -108,6 +120,15 @@ class CorporationEmployee
      * @JMSSer\Groups({"admin_export_employee"})
      */
     protected $corporationSite;
+
+    public function __construct()
+    {
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstName()." ".$this->getLastName();
+    }
 
     /**
      * Get id
@@ -309,6 +330,31 @@ class CorporationEmployee
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set corporationJobStatus
+     *
+     * @param \CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus
+     *
+     * @return CorporationEmployee
+     */
+    public function setCorporationJobStatus(\CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus = null)
+    {
+        $this->corporationJobStatus = $corporationJobStatus;
+        $corporationJobStatus->addEmployee($this);
+
+        return $this;
+    }
+
+    /**
+     * Get corporationJobStatus
+     *
+     * @return \CustomerBundle\Entity\CorporationJobStatus
+     */
+    public function getCorporationJobStatus()
+    {
+        return $this->corporationJobStatus;
     }
 
     /**

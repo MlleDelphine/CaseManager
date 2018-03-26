@@ -1,0 +1,24 @@
+corporation_group_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:CorporationGroup:index" }
+    methods:  GET
+
+corporation_group_show:
+    path:     /{slug}/show
+    defaults: { _controller: "CustomerBundle:CorporationGroup:show" }
+    methods:  GET
+
+corporation_group_new:
+    path:     /new
+    defaults: { _controller: "CustomerBundle:CorporationGroup:new" }
+    methods:  [GET, POST]
+
+corporation_group_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "CustomerBundle:CorporationGroup:edit" }
+    methods:  [GET, POST]
+
+corporation_group_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "CustomerBundle:CorporationGroup:delete" }
+    methods:  DELETE

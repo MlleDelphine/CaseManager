@@ -1,0 +1,24 @@
+corporation-site_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:CorporationSite:index" }
+    methods:  GET
+
+corporation-site_show:
+    path:     /{id}/show
+    defaults: { _controller: "CustomerBundle:CorporationSite:show" }
+    methods:  GET
+
+corporation-site_new:
+    path:     /new
+    defaults: { _controller: "CustomerBundle:CorporationSite:new" }
+    methods:  [GET, POST]
+
+corporation-site_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CustomerBundle:CorporationSite:edit" }
+    methods:  [GET, POST]
+
+corporation-site_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CustomerBundle:CorporationSite:delete" }
+    methods:  DELETE

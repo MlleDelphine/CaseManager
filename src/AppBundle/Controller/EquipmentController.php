@@ -42,10 +42,10 @@ class EquipmentController extends Controller
             }
         }
 
-        $equipmentes = $em->getRepository('AppBundle:Equipment')->findAll();
+        $equipments = $em->getRepository('AppBundle:Equipment')->findAll();
 
         return $this->render('AppBundle:equipment:index.html.twig', array(
-            'equipmentes' => $equipmentes,
+            'equipments' => $equipments,
             'error' => $error
         ));
     }

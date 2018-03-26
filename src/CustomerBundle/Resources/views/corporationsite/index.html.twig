@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Corporationsites list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phonenumber</th>
+                <th>Slug</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for corporationSite in corporationSites %}
+            <tr>
+                <td><a href="{{ path('corporation_site_show', { 'slug': corporationSite.slug }) }}">{{ corporationSite.slug }}</a></td>
+                <td>{{ corporationSite.name }}</td>
+                <td>{{ corporationSite.phoneNumber }}</td>
+                <td>{{ corporationSite.slug }}</td>
+                <td>{% if corporationSite.created %}{{ corporationSite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if corporationSite.updated %}{{ corporationSite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('corporation_site_show', { 'slug': corporationSite.slug }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('corporation_site_edit', { 'slug': corporationSite.slug }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('corporation_site_new') }}">Create a new corporationSite</a>
+        </li>
+    </ul>
+{% endblock %}

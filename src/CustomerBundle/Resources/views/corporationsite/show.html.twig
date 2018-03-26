@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Corporationsite</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ corporationSite.slug }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ corporationSite.name }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ corporationSite.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ corporationSite.slug }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if corporationSite.created %}{{ corporationSite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if corporationSite.updated %}{{ corporationSite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('corporation_site_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('corporation_site_edit', { 'slug': corporationSite.slug }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

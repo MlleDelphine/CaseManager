@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Corporationgroups list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Legalstatus</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for corporationGroup in corporationGroups %}
+            <tr>
+                <td><a href="{{ path('corporation_group_show', { 'slug': corporationGroup.slug }) }}">{{ corporationGroup.slug }}</a></td>
+                <td>{{ corporationGroup.name }}</td>
+                <td>{{ corporationGroup.slug }}</td>
+                <td>{{ corporationGroup.legalStatus }}</td>
+                <td>{% if corporationGroup.created %}{{ corporationGroup.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if corporationGroup.updated %}{{ corporationGroup.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('corporation_group_show', { 'slug': corporationGroup.slug }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('corporation_group_edit', { 'slug': corporationGroup.slug }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('corporation_group_new') }}">Create a new corporationGroup</a>
+        </li>
+    </ul>
+{% endblock %}
