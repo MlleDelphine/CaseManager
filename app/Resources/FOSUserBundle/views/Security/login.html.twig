@@ -1,49 +1,49 @@
-{% trans_default_domain 'FOSUserBundle' %}
+{#{% trans_default_domain 'FOSUserBundle' %}#}
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% form_theme registerForm 'form/user_form_input.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{{ "connection"|trans|capitalize }}{% endblock %}
 
 {% block fos_user_content %}
     <div class="login_wrapper" xmlns="http://www.w3.org/1999/html">
+        {# LOGIN FORM #}
         <div class="animate form login_form">
             <section class="login_content">
                 <form role="form" action="{{ path("fos_user_security_check") }}" method="post">
-                    <h1>Se connecter</h1>
+                    <h1>{{ "connect"|trans|capitalize }}</h1>
                     {% if csrf_token %}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     {% endif %}
                     {% if error %}
                         <div class="alert alert-danger top-alert-error" role="alert">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Erreur:</span>
+                            <span class="sr-only">{{ "error"|trans|capitalize }} :</span>
                             {{ error.messageKey|trans(error.messageData, 'security') }}
                         </div>
                     {% endif %}
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="Identifiant" value="{{ last_username }}">
+                        <input name="_username" id="username" type="text" class="form-control has-feedback-left" placeholder="{{ "id_or_nickname"|trans|capitalize}}" value="{{ last_username }}">
                         <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                        <input name="_password" id="password" type="password" class="form-control has-feedback-left" placeholder="Mot de passe" value="{{ last_username }}" required="">
+                        <input name="_password" id="password" type="password" class="form-control has-feedback-left" placeholder="{{ "password"|trans|capitalize}}" value="{{ last_username }}" required="">
                         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
                         <input type="hidden" name="_target_path" value="account" />
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-success submit">Connexion</button>
-                        {#<a class="reset_pass" href="#">Lost your password?</a>#}
+                        <button type="submit" class="btn btn-success submit">{{ "connection"|trans|capitalize }}</button>
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="separator">
-                        <p class="change_link">Pas encore de compte ?
-                            <a href="#signup" class="to_register">S'enregistrer</a>
+                        <p class="change_link">{{ "not_yet_registered"|trans|capitalize}}
+                            <a href="#signup" class="to_register">{{ "register"|trans|capitalize}}</a>
                         </p>
                         <div class="clearfix"></div>
                         <br />
-                        <p class="change_link">Mot de passe oublié ?
-                            <a href="#pwd-forgotten" class="to_pwd-forgotten">Réinitialiser</a>
+                        <p class="change_link">{{ "forgotten_password"|trans|capitalize }} ?
+                            <a href="#pwd-forgotten" class="to_pwd-forgotten">{{ "reset"|trans|capitalize }}</a>
                         </p>
                         <div class="clearfix"></div>
                         <br />
@@ -53,27 +53,28 @@
             </section>
         </div>
 
+        {# REGISTER FORM #}
         <div id="register" class="animate form registration_form">
             <section class="login_content">
                 {{ form_start(registerForm, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-                <h1>Créer un compte</h1>
+                <h1>{{ "create_an_account"|trans|capitalize}}</h1>
                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': 'Email'} }) }}
+                    {{ form_widget(registerForm.email, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': "email"|trans|capitalize }} ) }}
                     <span aria-hidden="true" class="fa fa-at form-control-feedback left"></span>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': 'Pseudo'}}) }}
+                    {{ form_widget(registerForm.username, {'attr': {'class': 'form-control has-feedback-left', 'placeholder': "nickname"|trans|capitalize }} ) }}
                     <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                 </div>
                 {{ form_row(registerForm.plainPassword) }}
                 <div>
-                    <button type="submit" class="btn btn-default submit btn-info" href="#">Créer</button>
+                    <button type="submit" class="btn btn-default submit btn-info" href="#">{{ "create"|trans|capitalize }}</button>
                 </div>
                 <div class="clearfix"></div>
 
                 <div class="separator">
-                    <p class="change_link">Déjà enregistré ?
-                        <a href="#signin" class="to_register">Se connecter</a>
+                    <p class="change_link">{{ "already_have_account"|trans|capitalize }} ?
+                        <a href="#signin" class="to_register">{{ "connect"|trans|capitalize }}</a>
                     </p>
 
                     <div class="clearfix"></div>
@@ -85,26 +86,27 @@
             </section>
         </div>
 
+        {# PWD RESET FORM #}
         <div id="pwd-forgotten" class="animate form pwdreset_form">
             <section class="pwdreset_content login_content">
                 <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-                    <h1>Mot de passe oublié</h1>
+                    <h1>{{ "forgotten_password"|trans|capitalize }}</h1>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                            <input name="username" id="username" type="text" class="form-control has-feedback-left" placeholder="{{ 'resetting.request.username'|trans }}" required="required" value="{{ last_username }}">
+                            <input name="username" id="username" type="text" class="form-control has-feedback-left" placeholder="{{ 'id_or_nickname'|trans|capitalize }}" required="required" value="{{ last_username }}">
                             <span aria-hidden="true" class="fa fa-user form-control-feedback left"></span>
                         </div>
                     <div>
-                        <button type="submit" class="btn btn-primary submit">{{ 'resetting.request.submit'|trans }}</button>
+                        <button type="submit" class="btn btn-primary submit">{{ 'reset'|trans|capitalize}}</button>
                     </div>
                     <div class="clearfix"></div>
 
                     <div class="separator">
                         <p class="change_link">On s'en souvient ?
-                            <a href="#signin" class="to_register">Se connecter</a>
+                            <a href="#signin" class="to_register">{{ "connect"|trans|capitalize }}</a>
                         </p>  <div class="clearfix"></div>
                         <br />
-                        <p class="change_link">Pas encore de compte ?
-                            <a href="#signup" class="to_register">S'enregistrer</a>
+                        <p class="change_link">{{ "not_yet_registered"|trans|capitalize}} ?
+                            <a href="#signup" class="to_register">{{ "register"|trans|capitalize }}</a>
                         </p>
                         <div class="clearfix"></div>
                         <br />

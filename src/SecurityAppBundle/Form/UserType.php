@@ -31,13 +31,11 @@ class UserType extends AbstractType
                 "label_format" => "Nom",
                 "required" => true))
             ->add("email",EmailType::class, array(
-                "label_format" => "Email",
-                "translation_domain" => "FOSUserBundle"))
+                "label_format" => "email"))
             ->add("roles", RoleType::class, array(
                 "label_format" => "Roles"))
             ->add("username", TextType::class, array(
-                "label_format" => "Identifiant/Pseudo",
-                "translation_domain" => "FOSUserBundle"))
+                "label_format" => "id_or_nickname"))
             ->add("phoneNumber", TextType::class, array(
                 "label_format" => "Téléphone",
                 "required" => false,
@@ -66,9 +64,9 @@ class UserType extends AbstractType
             $builder
                 ->add("plainPassword", RepeatedType::class, array(
                     "type" => PasswordType::class,
-                    "options" => array("translation_domain" => "FOSUserBundle"),
-                    "first_options" => array("label_format" => "Mot de passe"),
-                    "second_options" => array("label_format" => "Confirmation mot de passe"),
+                    // "options" => array("translation_domain" => "FOSUserBundle"),
+                    "first_options" => array("label_format" => "password"),
+                    "second_options" => array("label_format" => "password_confirmation"),
                     "invalid_message" => "fos_user.password.mismatch",
                 ));
         }

@@ -4,6 +4,19 @@ log_in: connexion
 log_out: déconnexion
 welcome: bienvenu
 hello: bonjour
+email: email
+nickname: pseudo
+id_or_nickname: identifiant/pseudo
+password: mot de passe
+password_confirmation: confirmation du mot de passe
+connect: se connecter
+forgotten_password: mot de passe oublié
+new_password: nouveau mot de passe
+reset: réinitialiser
+register: s'enregistrer
+already_have_account: déjà enregistré(e)
+not_yet_registered: pas encore de compte
+create_an_account: créer un compte
 
 #FORM ACTIONS
 submit: valider
@@ -59,5 +72,6 @@ export_verb: exporter
 #GLOBAL/COMMON TERMS
 import: import
 export: export
+error: erreur
 
 

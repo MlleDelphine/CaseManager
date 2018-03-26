@@ -8,7 +8,6 @@
 
 namespace SecurityAppBundle\Handlers;
 
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
@@ -25,8 +24,8 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
 
     /**
      * AfterLoginRedirection constructor.
-     * @param Router $router
-     * @param AuthorizationChecker $security
+     * @param RouterInterface               $router
+     * @param AuthorizationCheckerInterface $security
      */
     public function __construct(RouterInterface $router, AuthorizationCheckerInterface $security)
     {
@@ -34,7 +33,11 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
         $this->security = $security;
     }
 
-
+    /**
+     * @param Request        $request
+     * @param TokenInterface $token
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         if ($this->security->isGranted('ROLE_ADMIN')) {
