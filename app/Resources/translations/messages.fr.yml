@@ -54,9 +54,13 @@ other_resources: autres ressources
 all_equipments: tout le matériel
 all_resources: toutes les ressources
 all_materials: tous les matériaux
+all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
 corporation_group: société (groupe)
 a_corporation_group: une société (groupe)
+several_corporation_groups: plusieurs sociétés (groupes)
+some_corporation_groups: des sociétés (groupes)
+
 
 #OBJECTS STATES
 created_m_s: créé
@@ -80,6 +84,8 @@ new_f_p: nouvelles
 #GLOBAL/COMMON ACTION
 search: rechercher
 import_verb: importer
+import_all: tout importer
+export_all: tout exporter
 export_verb: exporter
 add: ajouter
 addition: ajout
@@ -94,6 +100,9 @@ cancellation: annulation
 file: fichier
 name: nom
 label: intitulé
+fold: replier
+unfold: déplier
+
 
 #GLOBAL/COMMON TERMS
 import: import
@@ -101,13 +110,7 @@ export: export
 error: erreur
 home: accueil
 measure_unit: unité de mesure
-legal_status: statut juridique
-address_street_number: N°
-address_street_name: nom de voie
-address_complement: "complément d'adresse"
-address_postal_code: "code postal"
-address_city: "ville"
-address_country: "pays"
+actions: actions
 
 #CUSTOMER SPECIFICS
 corporation_legal_status_ei: "(EI) Entreprise individuelle"
@@ -124,6 +127,12 @@ corporation_legal_status_scs: "(SCS) Société en commandite simple"
 corporation_legal_status_sel: "(SEL) Société d'exercice libéral"
 corporation_legal_status_snc: "(SNC) Société en nom collectif"
 corporation_legal_status_other: "(N/P) Non précisé"
-
+legal_status: statut juridique
+address_street_number: N°
+address_street_name: nom de voie
+address_complement: "complément d'adresse"
+address_postal_code: "code postal"
+address_city: "ville"
+address_country: "pays"
 
 

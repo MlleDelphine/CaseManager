@@ -15,16 +15,34 @@ class CorporationGroupController extends Controller
 {
     /**
      * Lists all corporationGroup entities.
-     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $error = false;
+        if ($request->isMethod('POST')) {
+
+            /** @var UploadedFile $file */
+            $file = $request->files->get('file');
+
+            if($file) {
+
+                $jsonDatas = file_get_contents($file->getRealPath());
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
+
+                $error = $deserialize;
+            }else{
+                $error = "You must provide a file!";
+            }
+        }
 
         $corporationGroups = $em->getRepository('CustomerBundle:CorporationGroup')->findAll();
 
         return $this->render('CustomerBundle:corporationgroup:index.html.twig', array(
             'corporationGroups' => $corporationGroups,
+            "error" => $error
         ));
     }
 
@@ -126,6 +144,6 @@ class CorporationGroupController extends Controller
             ->setAction($this->generateUrl('corporation_group_delete', array('slug' => $corporationGroup->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }
