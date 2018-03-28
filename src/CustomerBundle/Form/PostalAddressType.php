@@ -40,7 +40,7 @@ class PostalAddressType extends AbstractType {
                 "label_format" => "Pays",
                 "required" => true));
     }
-    
+
     /**
      * {@inheritdoc}
      */

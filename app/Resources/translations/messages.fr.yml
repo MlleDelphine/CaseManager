@@ -37,6 +37,7 @@ users_management: gestion utilisateurs
 resources_management: gestion des ressources
 customers_management: gestion des clients
 creation_of_corporation_group: création d'une société (groupe)
+edition_of_corporation_group: édition d'une société (groupe)
 
 #OBJECTS LEXICAL
 employees: personnel

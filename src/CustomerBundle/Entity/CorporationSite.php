@@ -92,7 +92,7 @@ class CorporationSite
     /**
      * @var CorporationEmployee[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="coprorationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="corporationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $employees;
 
