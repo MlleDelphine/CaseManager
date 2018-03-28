@@ -102,5 +102,28 @@ error: erreur
 home: accueil
 measure_unit: unité de mesure
 legal_status: statut juridique
+address_street_number: N°
+address_street_name: nom de voie
+address_complement: "complément d'adresse"
+address_postal_code: "code postal"
+address_city: "ville"
+address_country: "pays"
+
+#CUSTOMER SPECIFICS
+corporation_legal_status_ei: "(EI) Entreprise individuelle"
+corporation_legal_status_eirl: "(EIRL) Entreprise individuelle à responsabilité limitée"
+corporation_legal_status_eurl: "(EURL) Entreprise unipersonnelle à responsabilité limitée"
+corporation_legal_status_sa: "(SA) Société anonyme"
+corporation_legal_status_sarl: "(SARL) Société à responsabilité limitée"
+corporation_legal_status_sas: "(SAS) Société par actions simplifiée"
+corporation_legal_status_sasu: "(SASU) Société par actions simplifiée unipersonnelle"
+corporation_legal_status_sca: "(SCA) Société en commandite par actions"
+corporation_legal_status_sci: "(SCI) Société civile immobilière"
+corporation_legal_status_scp: "(SCP) Société civile professionnelle"
+corporation_legal_status_scs: "(SCS) Société en commandite simple"
+corporation_legal_status_sel: "(SEL) Société d'exercice libéral"
+corporation_legal_status_snc: "(SNC) Société en nom collectif"
+corporation_legal_status_other: "(N/P) Non précisé"
+
 
 

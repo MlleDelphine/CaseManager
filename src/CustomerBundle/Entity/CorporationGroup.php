@@ -294,18 +294,21 @@ class CorporationGroup
     public static function getAllLegalStatus(){
 
         return
-            ["(EI) Entreprise individuelle" => "EI",
-                "(EIRL) Entreprise individuelle à responsabilité limitée" => "EIRL",
-                "(EURL) Entreprise unipersonnelle à responsabilité limitée" => "EURL",
-                "(SA) Société anonyme" => "SA",
-                "(SARL) Société à responsabilité limitée" => "SARL",
-                "(SAS) Société par actions simplifiée" => "SAS",
-                "(SASU) Société par actions simplifiée unipersonnelle" => "SASU",
-                "(SCA) Société en commandite par actions" => "SCA",
-                "(SCI) Société civile immobilière",
-                "(SCP) Société civile professionnelle" => "SCP",
-                "(SCS) Société en commandite simple" => "SCS",
-                "(SEL) Société d'exercice libéral" => "SEL",
-                "(SNC) Société en nom collectif" => "SNC"];
+            [
+                "corporation_legal_status_ei" => "EI",
+                "corporation_legal_status_eirl" => "EIRL",
+                "corporation_legal_status_eurl" => "EURL",
+                "corporation_legal_status_sa" => "SA",
+                "corporation_legal_status_sarl" => "SARL",
+                "corporation_legal_status_sas" => "SAS",
+                "corporation_legal_status_sasu" => "SASU",
+                "corporation_legal_status_sca" => "SCA",
+                "corporation_legal_status_sci" => "SCI",
+                "corporation_legal_status_scp" => "SCP",
+                "corporation_legal_status_scs" => "SCS",
+                "corporation_legal_status_sel" => "SEL",
+                "corporation_legal_status_snc" => "SNC",
+                "corporation_legal_status_other" => "N/P"
+            ];
     }
 }

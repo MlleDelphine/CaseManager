@@ -22,22 +22,22 @@ class PostalAddressType extends AbstractType {
     {
         $builder
             ->add("streetNumber", TextType::class, array(
-                "label_format" => "N°",
+                "label_format" => "address_street_number",
                 "required" => true))
             ->add("streetName", TextType::class, array(
-                "label_format" => "Nom de rue",
+                "label_format" => "address_street_name",
                 "required" => true))
             ->add("complement", TextType::class, array(
-                "label_format" => "Complément",
+                "label_format" => "address_complement",
                 "required" => false))
             ->add("postalCode", TextType::class, array(
-                "label_format" => "Code postal",
+                "label_format" => "address_postal_code",
                 "required" => true))
             ->add("city", TextType::class, array(
-                "label_format" => "Ville",
+                "label_format" => "address_city",
                 "required" => true))
             ->add("country", CountrySelect2Type::class, array(
-                "label_format" => "Pays",
+                "label_format" => "address_country",
                 "required" => true));
     }
 
