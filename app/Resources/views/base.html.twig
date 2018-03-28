@@ -43,7 +43,7 @@
         <div class="right_col" role="main">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>{% block title %}Tableau de bord{% endblock %}</h3>
+                    <h3>{% block title %}{% endblock %}</h3>
                 </div>
 
                 <div class="title_right">
@@ -61,7 +61,7 @@
             <div class="clearfix"></div>
 
             <ol class="breadcrumb">
-                <li><a href="{{ path('homepage') }}">Accueil</a></li>
+                <li><a href="{{ path('homepage') }}">{{ "home"|trans|capitalize }}</a></li>
                 {% block breadcrumb %}{% endblock breadcrumb %}
             </ol>
             {% block body %}

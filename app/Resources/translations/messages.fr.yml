@@ -20,9 +20,13 @@ create_an_account: créer un compte
 
 #FORM ACTIONS
 submit: valider
+submission: soumission
 create: créer
-update: modifier
+creation: création
+update: mettre à jour
+an_update: mise à jour
 modify: modifier
+modification: modification
 
 #ADMIN SPACE
 user: utilisateur
@@ -31,6 +35,8 @@ all_users: tous les utilisateurs
 dashboard: tableau de bord
 users_management: gestion utilisateurs
 resources_management: gestion des ressources
+customers_management: gestion des clients
+creation_of_corporation_group: création d'une société (groupe)
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -44,6 +50,12 @@ equipment: matériel
 equipments: matériels
 other_resource: autre ressource
 other_resources: autres ressources
+all_equipments: tout le matériel
+all_resources: toutes les ressources
+all_materials: tous les matériaux
+corporation_groups: sociétés (groupes)
+corporation_group: société (groupe)
+a_corporation_group: une société (groupe)
 
 #OBJECTS STATES
 created_m_s: créé
@@ -68,10 +80,26 @@ new_f_p: nouvelles
 search: rechercher
 import_verb: importer
 export_verb: exporter
+add: ajouter
+addition: ajout
+remove: supprimer
+supression: suppression
+open: ouvrir
+an_open: ouverture
+close: fermer
+a_close: fermeture
+cancel: annuler
+cancellation: annulation
+file: fichier
+name: nom
+label: intitulé
 
 #GLOBAL/COMMON TERMS
 import: import
 export: export
 error: erreur
+home: accueil
+measure_unit: unité de mesure
+legal_status: statut juridique
 
 

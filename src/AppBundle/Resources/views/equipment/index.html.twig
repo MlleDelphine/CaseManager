@@ -4,15 +4,15 @@
     <li class="active">Tout le matériel</li>
 {% endblock %}
 
-{% block page_title %}Matériels{% endblock %}
+{% block page_title %}{{ "equipments"|trans|capitalize }}{% endblock %}
 
-{% block title %}Matériels{% endblock %}
+{% block title %}{{ "equipments"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-flask"></i> Tout le matériel</h2>
+                <h2><i class="fa fa-flask"></i>{{ "all_equipments"|trans|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
@@ -102,7 +102,7 @@
                                 <div class="alert alert-danger text-center" utilisateur="alert">{{ error }}</div>
                             {% endif %}
                             <div class="form-group">
-                                <label for="file" class="col-sm-2 control-label">Fichier (*.json) </label>
+                                <label for="file" class="col-sm-2 control-label">{{ "file"|trans|capitalize }} (*.json) </label>
                                 <div class="col-sm-10">
                                     <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
                                 </div>
@@ -110,8 +110,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Importer</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
+                        <button type="submit" class="btn btn-primary">{{ "import_verb"|trans|capitalize }}</button>
                     </div>
                 </form>
             </div>

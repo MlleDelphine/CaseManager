@@ -76,6 +76,21 @@ class MenuBuilder implements ContainerAwareInterface
         $menu['admin_resources']->addChild('materials', array('route' => 'material_index'))->setAttribute('prev-icon', 'fa fa-flask');
         $menu['admin_resources']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
         $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');
+
+        $menu->addChild('admin_customers',
+            array(
+                'label' => 'customers_management',
+                'uri' => ' '
+            )
+        )
+            ->setAttribute('prev-icon', 'fa fa-building')
+            ->setAttribute('icon', 'fa fa-chevron-down');
+
+        $menu['admin_customers']->addChild('corporation_groups', array('route' => 'corporation_group_index'))->setAttribute('prev-icon', 'fa fa-building');
+//        $menu['admin_customers']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
+//        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');
+
+
 //        $menu['Admin actions']->addChild('API Documentation', array('route' => 'nelmio_api_doc_index', 'linkAttributes' => ['target' =>'_blank']))->setAttribute('prev-icon', 'fa fa-database');
 //
 //

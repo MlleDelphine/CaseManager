@@ -32,11 +32,11 @@ services:
 #        public: true
 #        tags: ['controller.service_arguments']
     #UPGRADE TO SF 3.4
-#    SecurityAppBundle\:
-#        resource: '../../src/SecurityAppBundle/*'
-#            # you can exclude directories or files
-#            # but if a service is unused, it's removed anyway
-#        exclude: '../../src/SecurityAppBundle/{Entity,Repository,Tests}'
+    SecurityAppBundle\:
+        resource: '../../src/SecurityAppBundle/*'
+            # you can exclude directories or files
+            # but if a service is unused, it's removed anyway
+        exclude: '../../src/SecurityAppBundle/{Entity,Repository,Tests}'
 
     redirect.after.login:
         class: SecurityAppBundle\Handlers\AfterLoginRedirection

@@ -290,4 +290,21 @@ class CorporationGroup
     {
         return $this->postalAddress;
     }
+
+    public static function getAllLegalStatus(){
+
+        return ["EI" => "Entreprise individuelle",
+            "EIRL" => "Entreprise individuelle à responsabilité limitée (EIRL)",
+            "EURL" => "Entreprise unipersonnelle à responsabilité limitée (EURL)",
+            "SA" => "Société anonyme (SA)",
+            "SARL" => "Société à responsabilité limitée (SARL)",
+            "SAS" => "Société par actions simplifiée (SAS)",
+            "SASU" => "Société par actions simplifiée unipersonnelle (SASU)",
+            "SCA" => "Société en commandite par actions (SCA)",
+            "SCI" => "Société civile immobilière",
+            "SCP" => "Société civile professionnelle (SCP)",
+            "SCS" => "Société en commandite simple (SCS)",
+            "SEL" => "Société d'exercice libéral (SEL) : Société d'exercice libéral à responsabilité limitée (SELARL), par exemple",
+            "SNC" => "Société en nom collectif (SNC)"];
+    }
 }
