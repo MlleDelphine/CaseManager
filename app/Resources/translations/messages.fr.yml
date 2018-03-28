@@ -80,6 +80,8 @@ new_m_s_vowel: nouvel
 new_m_p: nouveaux
 new_f_s: nouvelle
 new_f_p: nouvelles
+on_date: le
+on_time: à
 
 #GLOBAL/COMMON ACTION
 search: rechercher
