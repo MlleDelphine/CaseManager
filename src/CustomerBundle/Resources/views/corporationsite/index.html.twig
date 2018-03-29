@@ -1,47 +1,135 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    <li class="active">{{ "all_corporation_sites"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{%  block page_title %} {{ "corporation_sites"|trans|capitalize}} {% endblock %}
+{% block title %} {{ "corporation_sites"|trans|capitalize }} {% endblock %}
+
 {% block body %}
-    <h1>Corporationsites list</h1>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-building"></i> {{ "all_corporation_sites"|trans|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('corporation_site_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("corporation_site_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall">{{ "unfold"|trans|capitalize }}</a>
+                <a href="#" class="btn btn-default closeall">{{ "fold"|trans|capitalize }}</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for corporationSite in corporationSites %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ corporationSite.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ corporationSite.id }}" aria-expanded="true" aria-controls="collapse{{ corporationSite.id }}">
+                                <h4 class="panel-title">{{ corporationSite.name }}</h4>
+                            </a>
+                            <div id="collapse{{ corporationSite.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ corporationSite.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "name"|trans|capitalize }}</th>
+                                            <th>{{ "corporation_group"|trans|capitalize }}</th>
+                                            <th>{{ "address_street_number"|trans|capitalize }}</th>
+                                            <th>{{ "address_street_name"|trans|capitalize }}</th>
+                                            {#<th>{{ "address_complement"|trans|capitalize }}</th>#}
+                                            <th>{{ "address_postal_code"|trans|capitalize }}</th>
+                                            <th>{{ "address_city"|trans|capitalize }}</th>
+                                            <th>{{ "address_country"|trans|capitalize }}</th>
+                                            <th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ corporationSite.id }}</th>
+                                            <td>{{ corporationSite.name }}</td>
+                                            <td>{{ corporationSite.corporationGroup.name }}</td>
+                                            <td>{{ corporationSite.postalAddress.streetNumber }}</td>
+                                            <td>{{ corporationSite.postalAddress.streetName }}</td>
+                                            {#<td>{{ corporationSite.postalAddress.complement }}</td>#}
+                                            <td>{{ corporationSite.postalAddress.postalCode }}</td>
+                                            <td>{{ corporationSite.postalAddress.city }}</td>
+                                            <td>{{ corporationSite.postalAddress.country|country }}</td>
+                                            <td>{% if corporationSite.created %}{{ corporationSite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if corporationSite.updated %}{{ corporationSite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('corporation_site_edit', { 'slug': corporationSite.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('corporation_site_export', { 'slug': corporationSite.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phonenumber</th>
-                <th>Slug</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for corporationSite in corporationSites %}
-            <tr>
-                <td><a href="{{ path('corporation_site_show', { 'slug': corporationSite.slug }) }}">{{ corporationSite.slug }}</a></td>
-                <td>{{ corporationSite.name }}</td>
-                <td>{{ corporationSite.phoneNumber }}</td>
-                <td>{{ corporationSite.slug }}</td>
-                <td>{% if corporationSite.created %}{{ corporationSite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if corporationSite.updated %}{{ corporationSite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('corporation_site_show', { 'slug': corporationSite.slug }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('corporation_site_edit', { 'slug': corporationSite.slug }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="{{ path('corporation_site_index') }}" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ "import_verb"|trans|capitalize }} {{ "some_corporation_sites"|trans }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% if error %}
+                            <div class="alert alert-danger text-center" role="alert">{{ error }}</div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="file" class="col-sm-3 control-label">{{ "file"|trans|capitalize}} (*.json) </label>
+                            <div class="col-sm-9">
+                                <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
+                        <button type="submit" class="btn btn-primary">{{ "import_verb"|trans|capitalize }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('corporation_site_new') }}">Create a new corporationSite</a>
-        </li>
-    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+
 {% endblock %}

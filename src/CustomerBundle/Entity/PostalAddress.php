@@ -90,7 +90,7 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress"})
+     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $country;
 

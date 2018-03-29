@@ -1,4 +1,4 @@
-#USER AUTHENTICATION
+#USER AUTHENTICATION / PROFILE
 connection: connexion
 log_in: connexion
 log_out: déconnexion
@@ -17,6 +17,7 @@ register: s'enregistrer
 already_have_account: déjà enregistré(e)
 not_yet_registered: pas encore de compte
 create_an_account: créer un compte
+phone_number: Téléphone (num)
 
 #FORM ACTIONS
 submit: valider
@@ -27,6 +28,7 @@ update: mettre à jour
 an_update: mise à jour
 modify: modifier
 modification: modification
+select: Sélectionnez
 
 #ADMIN SPACE
 user: utilisateur
@@ -38,28 +40,46 @@ resources_management: gestion des ressources
 customers_management: gestion des clients
 creation_of_corporation_group: création d'une société (groupe)
 edition_of_corporation_group: édition d'une société (groupe)
+creation_of_corporation_site: création d'une société (site)
+edition_of_corporation_site: édition d'une société (site)
 
 #OBJECTS LEXICAL
 employees: personnel
+
 team: équipe
 teams: équipes
+
 job: poste
 jobs: postes
+
 material: matériau
 materials: matériaux
 equipment: matériel
 equipments: matériels
+
 other_resource: autre ressource
 other_resources: autres ressources
+
 all_equipments: tout le matériel
 all_resources: toutes les ressources
 all_materials: tous les matériaux
+
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
 corporation_group: société (groupe)
+corporation_group_parent: Appartient à la société (groupe)
 a_corporation_group: une société (groupe)
 several_corporation_groups: plusieurs sociétés (groupes)
 some_corporation_groups: des sociétés (groupes)
+
+all_corporation_sites: toutes les sociétés (sites)
+corporation_sites: sociétés (sites)
+corporation_site: société (site)
+corporation_group_site_children: Possède le(s) site(s)
+corporation_groups_site_children: Possèdent le(s) site(s)
+a_corporation_site: une société (site)
+several_corporation_sites: plusieurs sociétés (sites)
+some_corporation_sites: des sociétés (sites)
 
 
 #OBJECTS STATES

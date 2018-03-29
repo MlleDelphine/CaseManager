@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as JMSSer;
  * CorporationSite
  *
  * @ORM\Table(name="corporation_site")
- * @ORM\Entity(repositoryClass="CustomerBundle\Repository\CorporationSiteRepository")
+ * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationSiteRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
@@ -25,6 +25,9 @@ class CorporationSite
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_corporationsite"})
      */
     protected $id;
 
@@ -43,7 +46,7 @@ class CorporationSite
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
-     * @Assert\Regex("/^0[0-9]{9}$/")
+     * @Assert\Regex("/^((\+\d{2})|0)[0-9]{9}$/")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationsite"})
      */
@@ -75,6 +78,7 @@ class CorporationSite
      * @var CorporationGroup
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", inversedBy="corporationSites", cascade={"persist", "merge", "detach"})
      *
+     * @Assert\NotNull()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationsite"})
      */

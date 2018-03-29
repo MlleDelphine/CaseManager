@@ -38,7 +38,8 @@ class PostalAddressType extends AbstractType {
                 "required" => true))
             ->add("country", CountrySelect2Type::class, array(
                 "label_format" => "address_country",
-                "required" => true));
+                "required" => true,
+                "placeholder" => "select"));
     }
 
     /**

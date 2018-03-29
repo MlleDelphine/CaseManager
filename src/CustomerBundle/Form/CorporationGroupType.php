@@ -24,6 +24,7 @@ class CorporationGroupType extends AbstractType
             ->add("legalStatus", Select2ChoiceType::class, array(
                 "label_format" => "legal_status",
                 "required" => true,
+                "placeholder" => "select",
                 "choices" =>
                     CorporationGroup::getAllLegalStatus()))
             ->add('postalAddress', PostalAddressType::class, array(

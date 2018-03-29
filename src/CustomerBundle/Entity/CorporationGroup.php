@@ -27,7 +27,7 @@ class CorporationGroup
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $id;
 
@@ -38,7 +38,7 @@ class CorporationGroup
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $name;
 
@@ -58,7 +58,7 @@ class CorporationGroup
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $legalStatus;
 
@@ -88,7 +88,7 @@ class CorporationGroup
      * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationGroup", cascade={"all"}, orphanRemoval=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup"})
+     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $postalAddress;
 

@@ -15,16 +15,34 @@ class CorporationSiteController extends Controller
 {
     /**
      * Lists all corporationSite entities.
-     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $error = false;
+        if ($request->isMethod('POST')) {
+
+            /** @var UploadedFile $file */
+            $file = $request->files->get('file');
+
+            if($file) {
+
+                $jsonDatas = file_get_contents($file->getRealPath());
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_corporationsite", $jsonDatas, "CustomerBundle\Entity\CorporationSite");
+
+                $error = $deserialize;
+            }else{
+                $error = "You must provide a file!";
+            }
+        }
 
         $corporationSites = $em->getRepository('CustomerBundle:CorporationSite')->findAll();
 
         return $this->render('CustomerBundle:corporationsite:index.html.twig', array(
             'corporationSites' => $corporationSites,
+            "error" => $error
         ));
     }
 
@@ -70,7 +88,7 @@ class CorporationSiteController extends Controller
 
     /**
      * Displays a form to edit an existing corporationSite entity.
-     * @param Request         $request
+     * @param Request          $request
      * @param CorporationSite $corporationSite
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -95,7 +113,7 @@ class CorporationSiteController extends Controller
 
     /**
      * Deletes a corporationSite entity.
-     * @param Request         $request
+     * @param Request          $request
      * @param CorporationSite $corporationSite
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -126,6 +144,28 @@ class CorporationSiteController extends Controller
             ->setAction($this->generateUrl('corporation_site_delete', array('slug' => $corporationSite->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
+    }
+
+    /**
+     * @param Request $request
+     * @param CorporationSite $equipment
+     * @return StreamedResponse
+     */
+    public function exportCorporationSiteAction(Request $request, CorporationSite $equipment){
+
+        $response = $this->get("object.eximportdatas")->export('admin_export_corporationsite', $equipment)->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return StreamedResponse
+     */
+    public function exportAllCorporationSiteAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationsite","CustomerBundle:CorporationSite", "Corporation Sites" )->prepare($request);
+
+        return $response;
     }
 }
