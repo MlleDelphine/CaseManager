@@ -30,7 +30,7 @@ class CorporationGroupController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_corporationgroup", $jsonDatas, "CustomerBundle\Entity\CorporationGroup");
 
                 $error = $deserialize;
             }else{
@@ -145,5 +145,27 @@ class CorporationGroupController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    /**
+     * @param Request $request
+     * @param CorporationGroup $equipment
+     * @return StreamedResponse
+     */
+    public function exportCorporationGroupAction(Request $request, CorporationGroup $equipment){
+
+        $response = $this->get("object.eximportdatas")->export('admin_export_corporationgroup', $equipment)->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return StreamedResponse
+     */
+    public function exportAllCorporationGroupAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationgroup","CustomerBundle:CorporationGroup", "Corporation Groups" )->prepare($request);
+
+        return $response;
     }
 }

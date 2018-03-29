@@ -19,10 +19,10 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('user_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('corporation_group_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("user_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("corporation_group_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -75,8 +75,8 @@
                                             <td>{% if corporationGroup.created %}{{ corporationGroup.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if corporationGroup.updated %}{{ corporationGroup.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('user_edit', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('user_export', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('corporation_group_edit', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('corporation_group_export', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -95,7 +95,7 @@
     <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="post" action="{{ path('user_index') }}" class="form-horizontal" enctype="multipart/form-data">
+                <form method="post" action="{{ path('corporation_group_index') }}" class="form-horizontal" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">{{ "import_verb"|trans|capitalize }} {{ "some_corporation_groups"|trans }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
