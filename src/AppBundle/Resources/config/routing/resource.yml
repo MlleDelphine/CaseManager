@@ -1,7 +1,7 @@
 resource_index:
     path:     /
     defaults: { _controller: "AppBundle:Resource:index" }
-    methods:  GET
+    methods:   [GET, POST]
 
 resource_show:
     path:     /{slug}/show

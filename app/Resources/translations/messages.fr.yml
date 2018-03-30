@@ -18,6 +18,16 @@ already_have_account: déjà enregistré(e)
 not_yet_registered: pas encore de compte
 create_an_account: créer un compte
 phone_number: Téléphone (num)
+firstname: prénom
+lastname: nom de famille
+birthdate: date de naissance
+status: statut
+statuses: statuts
+state: état
+states: états
+role: rôle
+roles: rôles
+role(s): rôle(s)
 
 #FORM ACTIONS
 submit: valider
@@ -48,21 +58,33 @@ employees: personnel
 
 team: équipe
 teams: équipes
+all_teams: toutes les équipes
+some_teams: des équipes
 
 job: poste
 jobs: postes
+all_jobs: tous les postes
+some_jobs: des postes
 
-material: matériau
-materials: matériaux
 equipment: matériel
 equipments: matériels
+all_equipments: tout le matériel
+some_equipments: du matériel
 
 other_resource: autre ressource
 other_resources: autres ressources
+all_other_resources: toutes les autres ressources
+some_other_resources: d'autres ressources
 
-all_equipments: tout le matériel
+resource: ressource
+resources: ressources
 all_resources: toutes les ressources
+some_resources: des ressources
+
+material: matériau
+materials: matériaux
 all_materials: tous les matériaux
+some_materials: des matériaux
 
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
@@ -121,7 +143,6 @@ cancel: annuler
 cancellation: annulation
 file: fichier
 name: nom
-label: intitulé
 fold: replier
 unfold: déplier
 
@@ -133,6 +154,14 @@ error: erreur
 home: accueil
 measure_unit: unité de mesure
 actions: actions
+file_mandatory_error_msg: "Vous devez charger un fichier !"
+reference: référence
+price: prix
+unitary_price: prix unitaire
+unitary_prices: prix unitaires
+label: libellé
+unit: unité
+title: intitulé
 
 #CUSTOMER SPECIFICS
 corporation_legal_status_ei: "(EI) Entreprise individuelle"

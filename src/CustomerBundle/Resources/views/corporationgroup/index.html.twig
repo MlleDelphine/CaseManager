@@ -92,35 +92,7 @@
     </div>
 
     <!-- Import Modal -->
-    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="post" action="{{ path('corporation_group_index') }}" class="form-horizontal" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ "import_verb"|trans|capitalize }} {{ "some_corporation_groups"|trans }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {% if error %}
-                            <div class="alert alert-danger text-center" role="alert">{{ error }}</div>
-                        {% endif %}
-                        <div class="form-group">
-                            <label for="file" class="col-sm-3 control-label">{{ "file"|trans|capitalize}} (*.json) </label>
-                            <div class="col-sm-9">
-                                <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
-                        <button type="submit" class="btn btn-primary">{{ "import_verb"|trans|capitalize }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {% include  ":common:import_modal.html.twig" with { "action_path": "corporation_group_index", "object_title": "some_corporation_groups", "error": error } %}
 
 {% endblock %}
 

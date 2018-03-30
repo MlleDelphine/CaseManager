@@ -1,7 +1,7 @@
 corporation_group_index:
     path:     /
     defaults: { _controller: "CustomerBundle:CorporationGroup:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 corporation_group_show:
     path:     /{slug}/show

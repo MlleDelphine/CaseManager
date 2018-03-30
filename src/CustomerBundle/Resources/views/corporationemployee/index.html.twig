@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Corporationemployees list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Phonenumber</th>
+                <th>Mailaddress</th>
+                <th>Slug</th>
+                <th>Honorific</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for corporationEmployee in corporationEmployees %}
+            <tr>
+                <td><a href="{{ path('corporation-employee_show', { 'id': corporationEmployee.id }) }}">{{ corporationEmployee.id }}</a></td>
+                <td>{{ corporationEmployee.firstName }}</td>
+                <td>{{ corporationEmployee.lastName }}</td>
+                <td>{{ corporationEmployee.phoneNumber }}</td>
+                <td>{{ corporationEmployee.mailAddress }}</td>
+                <td>{{ corporationEmployee.slug }}</td>
+                <td>{{ corporationEmployee.honorific }}</td>
+                <td>{% if corporationEmployee.created %}{{ corporationEmployee.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if corporationEmployee.updated %}{{ corporationEmployee.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('corporation-employee_show', { 'id': corporationEmployee.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('corporation-employee_edit', { 'id': corporationEmployee.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('corporation-employee_new') }}">Create a new corporationEmployee</a>
+        </li>
+    </ul>
+{% endblock %}

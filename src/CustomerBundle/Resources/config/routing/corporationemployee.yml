@@ -1,0 +1,24 @@
+corporation_employee_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:CorporationEmployee:index" }
+    methods:  [GET, POST]
+
+corporation_employee_show:
+    path:     /{slug}/show
+    defaults: { _controller: "CustomerBundle:CorporationEmployee:show" }
+    methods:  GET
+
+corporation_employee_new:
+    path:     /new
+    defaults: { _controller: "CustomerBundle:CorporationEmployee:new" }
+    methods:  [GET, POST]
+
+corporation_employee_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "CustomerBundle:CorporationEmployee:edit" }
+    methods:  [GET, POST]
+
+corporation_employee_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "CustomerBundle:CorporationEmployee:delete" }
+    methods:  DELETE

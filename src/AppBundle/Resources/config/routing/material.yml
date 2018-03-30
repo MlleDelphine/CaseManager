@@ -1,7 +1,7 @@
 material_index:
     path:     /
     defaults: { _controller: "AppBundle:Material:index" }
-    methods:  GET
+    methods:   [GET, POST]
 
 material_show:
     path:     /{slug}/show

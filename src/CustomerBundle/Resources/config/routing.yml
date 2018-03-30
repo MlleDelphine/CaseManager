@@ -6,6 +6,11 @@ customer_corporation_site:
     resource: "@CustomerBundle/Resources/config/routing/corporationsite.yml"
     prefix:   /corporation-site
 
+customer_corporation_employee:
+    resource: "@CustomerBundle/Resources/config/routing/corporationemployee.yml"
+    prefix:   /corporation-employee
+
+
 customer_homepage:
     path: /
     defaults: { _controller: CustomerBundle:Default:index }

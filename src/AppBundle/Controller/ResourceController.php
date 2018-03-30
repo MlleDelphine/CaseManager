@@ -37,7 +37,7 @@ class ResourceController extends Controller
 
                 $error = $deserialize;
             }else{
-                $error = "You must provide a file!";
+                $error = "file_mandatory_error_msg";
             }
         }
 

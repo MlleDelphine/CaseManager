@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\Person;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +16,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationEmployee
+class CorporationEmployee extends Person
 {
     /**
      * @var int

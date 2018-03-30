@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\Corporation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -17,7 +18,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationGroup
+class CorporationGroup extends Corporation
 {
     /**
      * @var int
@@ -289,26 +290,5 @@ class CorporationGroup
     public function getPostalAddress()
     {
         return $this->postalAddress;
-    }
-
-    public static function getAllLegalStatus(){
-
-        return
-            [
-                "corporation_legal_status_ei" => "EI",
-                "corporation_legal_status_eirl" => "EIRL",
-                "corporation_legal_status_eurl" => "EURL",
-                "corporation_legal_status_sa" => "SA",
-                "corporation_legal_status_sarl" => "SARL",
-                "corporation_legal_status_sas" => "SAS",
-                "corporation_legal_status_sasu" => "SASU",
-                "corporation_legal_status_sca" => "SCA",
-                "corporation_legal_status_sci" => "SCI",
-                "corporation_legal_status_scp" => "SCP",
-                "corporation_legal_status_scs" => "SCS",
-                "corporation_legal_status_sel" => "SEL",
-                "corporation_legal_status_snc" => "SNC",
-                "corporation_legal_status_other" => "N/P"
-            ];
     }
 }

@@ -34,7 +34,7 @@ class CorporationGroupController extends Controller
 
                 $error = $deserialize;
             }else{
-                $error = "You must provide a file!";
+                $error = "file_mandatory_error_msg";
             }
         }
 
@@ -62,7 +62,7 @@ class CorporationGroupController extends Controller
             $em->persist($corporationGroup);
             $em->flush();
 
-            return $this->redirectToRoute('corporation_group_show', array('slug' => $corporationGroup->getSlug()));
+            return $this->redirectToRoute('corporation_group_index');
         }
 
         return $this->render('CustomerBundle:corporationgroup:new.html.twig', array(
@@ -101,7 +101,7 @@ class CorporationGroupController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('corporation_group_edit', array('slug' => $corporationGroup->getSlug()));
+            return $this->redirectToRoute('corporation_group_index');
         }
 
         return $this->render('CustomerBundle:corporationgroup:edit.html.twig', array(

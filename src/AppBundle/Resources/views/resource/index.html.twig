@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="active">Toutes les ressource</li>
+    <li class="active">{{ "all_resources"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}Ressources{% endblock %}
+{% block page_title %}{{ "resources"|trans|capitalize }}{% endblock %}
 
-{% block title %}Ressources{% endblock %}
+{% block title %}{{ "resources"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-flask"></i> Toutes les ressources</h2>
+                <h2><i class="fa fa-cubes"></i> {{ "all_resources"|trans|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
-                            <i class="fa fa-upload" aria-hidden="true"></i> Import
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('resource_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> Tout exporter</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('resource_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
                         <a class="btn btn-success btn-li" href="{{ path("resource_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
@@ -33,7 +33,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content container">
-                <a href="#" class="btn btn-default openall">Déplier</a> <a href="#" class="btn btn-default closeall">Replier</a>
+                <a href="#" class="btn btn-default openall">{{ "unfold"|trans|capitalize }}</a> <a href="#" class="btn btn-default closeall">{{ "fold"|trans|capitalize }}</a>
                 <hr>
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
@@ -118,37 +118,7 @@
     </div>
 
     <!-- Import Modal -->
-    <div class="modal fade" id="importModal" tabindex="-1" utilisateur="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" utilisateur="document">
-            <div class="modal-content">
-                <form method="post" action="{{ path('resource_index') }}" class="form-horizontal" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Importer des ressources</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="panel-body">
-                            {% if error %}
-                                <div class="alert alert-danger text-center" utilisateur="alert">{{ error }}</div>
-                            {% endif %}
-                            <div class="form-group">
-                                <label for="file" class="col-sm-2 control-label">Fichier (*.json) </label>
-                                <div class="col-sm-10">
-                                    <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Importer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    {% include  ":common:import_modal.html.twig" with { "action_path": "resource_index", "object_title": "some_resources", "error": error } %}
 
 {% endblock %}
 

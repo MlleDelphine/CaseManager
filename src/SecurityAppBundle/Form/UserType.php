@@ -25,15 +25,15 @@ class UserType extends AbstractType
     {
         $builder
             ->add("firstName", TextType::class, array(
-                "label_format" => "Prénom",
+                "label_format" => "firstname",
                 "required" => true))
             ->add("lastName", TextType::class, array(
-                "label_format" => "Nom",
+                "label_format" => "lastname",
                 "required" => true))
             ->add("email",EmailType::class, array(
                 "label_format" => "email"))
             ->add("roles", RoleType::class, array(
-                "label_format" => "Roles"))
+                "label_format" => "roles"))
             ->add("username", TextType::class, array(
                 "label_format" => "id_or_nickname"))
             ->add("phoneNumber", TextType::class, array(
@@ -44,7 +44,7 @@ class UserType extends AbstractType
                 "label_format" => "Taux horaire",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
                 "invalid_message" => "Cette valeur doit être un nombre décimal."))
-            ->add("jobStatus",  Select2EntityType::class, array(
+            ->add("jobStatus",Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",
                 "choice_label" => "name",
                 "label_format" => "Poste",
@@ -58,7 +58,8 @@ class UserType extends AbstractType
                 "multiple" => false,
                 "placeholder" => "-",
                 "required" => false))
-            ->add("enabled", CheckboxType::class,  array("label_format" => "Connexion autorisée"));
+            ->add("enabled", CheckboxType::class,  array(
+                "label_format" => "Connexion autorisée"));
 
         if($options["MODE_CREATE"]){
             $builder

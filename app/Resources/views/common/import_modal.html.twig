@@ -1,0 +1,29 @@
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="{{ path(action_path) }}" class="form-horizontal" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ "import_verb"|trans|capitalize }} {{ object_title|trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if error %}
+                        <div class="alert alert-danger text-center" role="alert">{{ error|trans }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="file" class="col-sm-3 control-label">{{ "file"|trans|capitalize}} (*.json) </label>
+                        <div class="col-sm-9">
+                            <input type="file" id="file" name="file" class="file form-control" data-show-upload="false" data-show-caption="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
+                    <button type="submit" class="btn btn-primary">{{ "import_verb"|trans|capitalize }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

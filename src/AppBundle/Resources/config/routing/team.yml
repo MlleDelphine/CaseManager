@@ -1,7 +1,7 @@
 team_index:
     path:     /
     defaults: { _controller: "AppBundle:Team:index" }
-    methods:  GET
+    methods:   [GET, POST]
 
 team_show:
     path:     /{slug}/show

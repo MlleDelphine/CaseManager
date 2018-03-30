@@ -1,7 +1,7 @@
 jobstatus_index:
     path:     /
     defaults: { _controller: "AppBundle:JobStatus:index" }
-    methods:  GET
+    methods:   [GET, POST]
 
 jobstatus_show:
     path:     /{slug}/show

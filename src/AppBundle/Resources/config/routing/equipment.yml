@@ -1,7 +1,7 @@
 equipment_index:
     path:     /
     defaults: { _controller: "AppBundle:Equipment:index" }
-    methods:  GET
+    methods:   [GET, POST]
 
 equipment_show:
     path:     /{slug}/show

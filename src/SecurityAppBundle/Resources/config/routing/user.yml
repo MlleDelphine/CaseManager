@@ -1,7 +1,7 @@
 user_index:
     path:     /all
     defaults: { _controller: "SecurityAppBundle:User:index" }
-    methods:  GET
+    methods:   [GET, POST]
     host: "%casemanager_admin_url%"
 
 user_show:
