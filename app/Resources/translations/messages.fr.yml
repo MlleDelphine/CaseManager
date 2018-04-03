@@ -38,6 +38,8 @@ update: mettre à jour
 an_update: mise à jour
 modify: modifier
 modification: modification
+add_contact: ajouter un contact
+add_site: ajouter un site
 #Capitalize
 select: Sélectionnez
 honorific: Civilité
@@ -54,6 +56,8 @@ creation_of_corporation_group: création d'une société (groupe)
 edition_of_corporation_group: édition d'une société (groupe)
 creation_of_corporation_site: création d'une société (site)
 edition_of_corporation_site: édition d'une société (site)
+creation_of_corporation_employee: création d'un contact (société)
+edition_of_corporation_employee: édition d'une contact (société)
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -104,6 +108,14 @@ corporation_groups_site_children: Possèdent le(s) site(s)
 a_corporation_site: une société (site)
 several_corporation_sites: plusieurs sociétés (sites)
 some_corporation_sites: des sociétés (sites)
+
+all_corporation_employees: tous les contacts
+corporation_employees: contacts (sociétés)
+corporation_employee: contact
+corporation_site_parent: Rattaché(e) à la société
+a_corporation_employee: un contact
+several_corporation_employees: plusieurs contacts
+some_corporation_employees: des contacts
 
 
 #OBJECTS STATES
@@ -180,12 +192,19 @@ corporation_legal_status_scs: "(SCS) Société en commandite simple"
 corporation_legal_status_sel: "(SEL) Société d'exercice libéral"
 corporation_legal_status_snc: "(SNC) Société en nom collectif"
 corporation_legal_status_other: "(N/P) Non précisé"
+
 legal_status: statut juridique
+
 address_street_number: N°
 address_street_name: nom de voie
 address_complement: "complément d'adresse"
 address_postal_code: "code postal"
 address_city: "ville"
 address_country: "pays"
+
+mister: Monsieur
+miss: Mademoiselle
+madam: Madame
+
 
 

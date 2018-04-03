@@ -31,7 +31,7 @@ class CorporationEmployeeType extends AbstractType
                 "label_format" => "phone_number",
                 "required" => true,
                 "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"])) //  "^0[0-9]{9}$"
-            ->add("CorporationJobStatus",Select2EntityType::class, array(
+            ->add("corporationJobStatus",Select2EntityType::class, array(
                 "class" => "CustomerBundle:CorporationJobStatus",
                 "choice_label" => "name",
                 "label_format" => "job",
@@ -43,7 +43,7 @@ class CorporationEmployeeType extends AbstractType
                 "choice_label" => "name",
                 "label_format" => "corporation_site",
                 "multiple" => false,
-                "placeholder" => "-",
+                "placeholder" => "select",
                 "required" => true))
             ->add('honorific', Select2ChoiceType::class, array(
                 "label_format" => "honorific",

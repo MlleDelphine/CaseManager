@@ -3,7 +3,9 @@
 namespace CustomerBundle\Controller;
 
 use CustomerBundle\Entity\CorporationEmployee;
+use CustomerBundle\Entity\CorporationSite;
 use CustomerBundle\Form\CorporationEmployeeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -49,11 +51,17 @@ class CorporationEmployeeController extends Controller
     /**
      * Creates a new corporationEmployee entity.
      * @param Request $request
+     * @param CorporationSite $corporationSite
+     *
+     * @ParamConverter("corporationSite", class="CustomerBundle:CorporationSite", options={"mapping": {"slugCorpSite" : "slug"}}, isOptional="true" )
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, CorporationSite $corporationSite = null)
     {
-        $corporationEmployee = new Corporationsite();
+        $corporationEmployee = new CorporationEmployee();
+        if(isset($corporationSite)){
+            $corporationEmployee->setCorporationSite($corporationSite);
+        }
         $form = $this->createForm(CorporationEmployeeType::class, $corporationEmployee);
         $form->handleRequest($request);
 

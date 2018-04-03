@@ -1,16 +1,108 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class=""><a href="{{ path('corporation_employee_index') }}">{{ "corporation_employees"|trans|capitalize }}</a></li>
+    <li class="active">{{ "addition"|trans|capitalize }}</li>
+{% endblock %}
+
+{% block page_title %}{{ "creation_of_corporation_employee"|trans|capitalize }}{% endblock %}
+
+{% block title %}
+    {{ "creation_of_corporation_employee"|trans|capitalize }}
+{% endblock %}
+
 {% block body %}
-    <h1>Corporationemployee creation</h1>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{ "create"|trans|capitalize }} {{ "a_corporation_employee"|trans }}</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.honorific, "honorific"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.honorific, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.honorific) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.firstName, "firstname"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.firstName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.lastName, "lastname"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.phoneNumber, "phone_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.phoneNumber) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.corporationJobStatus, "job"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.corporationJobStatus, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.corporationJobStatus) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.mailAddress, "email"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.mailAddress, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.mailAddress) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.corporationSite, "corporation_site_parent"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.corporationSite, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.corporationSite) }}
+                        </div>
+                    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a href="{{ path('corporation_employee_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "create"|trans|capitalize }}</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('corporation-employee_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block custom_javascripts %}
+    {{ parent() }}
+{% endblock %}
+{% block plain_js_bundle %}
+    {{ form_javascript(form) }}
 {% endblock %}

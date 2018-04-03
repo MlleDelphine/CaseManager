@@ -9,8 +9,8 @@ corporation_site_show:
     methods:  GET
 
 corporation_site_new:
-    path:     /new
-    defaults: { _controller: "CustomerBundle:CorporationSite:new" }
+    path:     /new/{slugCorpGroup}
+    defaults: { _controller: "CustomerBundle:CorporationSite:new", slugCorpGroup: ~ }
     methods:  [GET, POST]
 
 corporation_site_edit:

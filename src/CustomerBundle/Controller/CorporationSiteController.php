@@ -2,9 +2,12 @@
 
 namespace CustomerBundle\Controller;
 
+use CustomerBundle\Entity\CorporationGroup;
 use CustomerBundle\Entity\CorporationSite;
 use CustomerBundle\Form\CorporationSiteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -49,11 +52,17 @@ class CorporationSiteController extends Controller
     /**
      * Creates a new corporationSite entity.
      * @param Request $request
+     * @param CorporationGroup $corporationGroup
+     *
+     * @ParamConverter("corporationGroup", class="CustomerBundle:CorporationGroup", options={"mapping": {"slugCorpGroup" : "slug"}}, isOptional="true")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, CorporationGroup $corporationGroup = null)
     {
         $corporationSite = new Corporationsite();
+        if(isset($corporationGroup)){
+            $corporationSite->setCorporationGroup($corporationGroup);
+        }
         $form = $this->createForm(CorporationSiteType::class, $corporationSite);
         $form->handleRequest($request);
 

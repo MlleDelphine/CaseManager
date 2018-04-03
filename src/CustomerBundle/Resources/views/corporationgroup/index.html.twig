@@ -76,6 +76,7 @@
                                             <td>{% if corporationGroup.updated %}{{ corporationGroup.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('corporation_group_edit', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-primary" href="{{ path('corporation_site_new', { 'slugCorpGroup': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "add_site"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('corporation_group_export', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
                                             </td>
                                         </tr>
