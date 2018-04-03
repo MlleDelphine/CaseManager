@@ -14,7 +14,7 @@ interface PersonInterface {
     /**
      * @return array
      */
-    public function getAllHonorifics();
+    public static function getAllHonorifics();
 
     /**
      * @param string $honorificKey

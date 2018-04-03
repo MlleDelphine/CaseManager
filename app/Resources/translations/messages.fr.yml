@@ -38,7 +38,9 @@ update: mettre à jour
 an_update: mise à jour
 modify: modifier
 modification: modification
+#Capitalize
 select: Sélectionnez
+honorific: Civilité
 
 #ADMIN SPACE
 user: utilisateur

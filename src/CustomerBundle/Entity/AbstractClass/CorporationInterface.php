@@ -14,7 +14,7 @@ interface CorporationInterface {
     /**
      * @return array
      */
-    public function getAllLegalStatus();
+    public static function getAllLegalStatus();
 
     /**
      * @param string $legalStatusKey

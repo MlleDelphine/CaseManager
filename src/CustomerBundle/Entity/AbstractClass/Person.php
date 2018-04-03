@@ -14,7 +14,7 @@ class Person implements PersonInterface {
     /**
      * @return array
      */
-    public function getAllHonorifics()
+    public static function getAllHonorifics()
     {
         return
             [

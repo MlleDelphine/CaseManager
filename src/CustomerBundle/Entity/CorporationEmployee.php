@@ -52,7 +52,7 @@ class CorporationEmployee extends Person
      *
      * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
      *
-     * @Assert\Regex("/^0[0-9]{9}$/")
+     * @Assert\Regex("/^((\+\d{2})|0)[0-9]{9}$/")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      */

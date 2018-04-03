@@ -2,7 +2,9 @@
 
 namespace CustomerBundle\Form;
 
+use AppBundle\Form\Type\Select2ChoiceType;
 use AppBundle\Form\Type\Select2EntityType;
+use CustomerBundle\Entity\CorporationEmployee;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,24 +28,29 @@ class CorporationEmployeeType extends AbstractType
             ->add("mailAddress",EmailType::class, array(
                 "label_format" => "email"))
             ->add("phoneNumber", TextType::class, array(
-                "label_format" => "Téléphone",
-                "required" => false,
-                "attr" => ["pattern" => "^0[0-9]{9}$"]))
+                "label_format" => "phone_number",
+                "required" => true,
+                "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"])) //  "^0[0-9]{9}$"
             ->add("CorporationJobStatus",Select2EntityType::class, array(
                 "class" => "CustomerBundle:CorporationJobStatus",
                 "choice_label" => "name",
                 "label_format" => "job",
                 "multiple" => false,
                 "placeholder" => "select",
-                "required" => false))
+                "required" => true))
             ->add("corporationSite", Select2EntityType::class, array(
                 "class" => "CustomerBundle:CorporationSite",
                 "choice_label" => "name",
                 "label_format" => "corporation_site",
                 "multiple" => false,
                 "placeholder" => "-",
-                "required" => false))
-            ->add('honorific');
+                "required" => true))
+            ->add('honorific', Select2ChoiceType::class, array(
+                "label_format" => "honorific",
+                "required" => true,
+                "placeholder" => "select",
+                "choices" => CorporationEmployee::getAllHonorifics()
+            ));
     }/**
  * {@inheritdoc}
  */

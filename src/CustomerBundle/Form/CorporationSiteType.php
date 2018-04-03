@@ -23,7 +23,7 @@ class CorporationSiteType extends AbstractType
             ->add("phoneNumber", TextType::class, array(
                 "label_format" => "phone_number",
                 "required" => false,
-                "attr" => ["pattern" => "^0[0-9]{9}$"],
+                "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"],
                 "translation_domain" => "messages"))
             ->add("corporationGroup",  Select2EntityType::class, array(
                 "class" => "CustomerBundle:CorporationGroup",
