@@ -45,6 +45,7 @@ select: Sélectionnez
 honorific: Civilité
 
 #ADMIN SPACE
+no_user: aucun utilisateur
 user: utilisateur
 users: utilisateurs
 all_users: tous les utilisateurs
@@ -52,12 +53,18 @@ dashboard: tableau de bord
 users_management: gestion utilisateurs
 resources_management: gestion des ressources
 customers_management: gestion des clients
+
 creation_of_corporation_group: création d'une société (groupe)
 edition_of_corporation_group: édition d'une société (groupe)
+
 creation_of_corporation_site: création d'une société (site)
 edition_of_corporation_site: édition d'une société (site)
+
 creation_of_corporation_employee: création d'un contact (société)
 edition_of_corporation_employee: édition d'une contact (société)
+
+creation_of_corporation_employee: création d'un poste (contact)
+edition_of_corporation_employee: édition d'un poste (contact)
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -117,27 +124,39 @@ a_corporation_employee: un contact
 several_corporation_employees: plusieurs contacts
 some_corporation_employees: des contacts
 
+all_corporation_jobstatuses: tous les postes
+corporation_jobstatuses: postes (contacts)
+corporation_jobstatus: poste
+corporation_site_parent: Rattaché(e) à la société
+a_corporation_jobstatus: un poste
+several_corporation_jobstatuses: plusieurs postes
+some_corporation_jobstatuses: des postes
+
 
 #OBJECTS STATES
 created_m_s: créé
 created_m_p: créés
 created_f_s: créée
 created_f_p: créées
+
 updated_m_s: mis à jour
 updated_m_p: mis à jour
 updated_f_s: mise à jour
 updated_f_p: mises à jour
+
 deleted_m_s: supprimé
 deleted_m_p: supprimés
 deleted_f_s: supprimée
 deleted_f_p: supprimées
+
 new_m_s: nouveau
 new_m_s_vowel: nouvel
 new_m_p: nouveaux
 new_f_s: nouvelle
 new_f_p: nouvelles
+
 on_date: le
-on_time:
+on_time: à
 
 #GLOBAL/COMMON ACTION
 search: rechercher

@@ -10,6 +10,10 @@ customer_corporation_employee:
     resource: "@CustomerBundle/Resources/config/routing/corporationemployee.yml"
     prefix:   /corporation-employee
 
+customer_corporation_job_status:
+    resource: "@CustomerBundle/Resources/config/routing/corporationjobstatus.yml"
+    prefix:   /corporation-job-status
+
 
 customer_homepage:
     path: /

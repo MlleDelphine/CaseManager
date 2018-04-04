@@ -7,6 +7,7 @@ use CustomerBundle\Entity\CorporationSite;
 use CustomerBundle\Form\CorporationEmployeeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

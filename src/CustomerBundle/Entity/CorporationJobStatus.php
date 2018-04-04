@@ -63,7 +63,7 @@ class CorporationJobStatus
     protected $updated;
 
     /**
-     * @var employee[]|ArrayCollection
+     * @var Employee[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
      */

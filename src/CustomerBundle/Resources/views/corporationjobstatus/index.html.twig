@@ -20,10 +20,10 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('jobstatus_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('corporation_jobstatus_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("jobstatus_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("corporation_jobstatus_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -37,19 +37,19 @@
                 <hr>
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for jobStatus in jobStatuses %}
+                    {% for corporationJobStatus in corporationJobStatuses %}
                         <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ jobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ jobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ jobStatus.id }}">
-                                <h4 class="panel-title">{{ jobStatus.name }}</h4>
+                            <a class="panel-heading" role="tab" id="heading{{ corporationJobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ corporationJobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ corporationJobStatus.id }}">
+                                <h4 class="panel-title">{{ corporationJobStatus.name }}</h4>
                             </a>
-                            <div id="collapse{{ jobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ jobStatus.id }}">
+                            <div id="collapse{{ corporationJobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ corporationJobStatus.id }}">
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>{{ "title"|trans|capitalize }}</th>
-                                            <th>{{ "users"|trans|capitalize }}</th>
+                                            <th>{{ "contacts"|trans|capitalize }}</th>
                                             <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }}</th>
                                             <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }} </th>
                                             <th style="text-align: center;">Actions</th>
@@ -57,13 +57,13 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">{{ jobStatus.id }}</th>
-                                            <td>{{ jobStatus.name }}</td>
+                                            <th scope="row">{{ corporationJobStatus.id }}</th>
+                                            <td>{{ corporationJobStatus.name }}</td>
                                             <td>
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if jobStatus.users|length == 1 %}Utilisateur{% elseif jobStatus.users|length > 1 %}Utilisateurs{% else %}Aucun utilisateur{% endif %}</small></h2>
+                                                            <small>{% if corporationJobStatus.employees|length == 1 %}{{ "contact"|trans|capitalize }}{% elseif corporationJobStatus.contacts|length > 1 %}{{ "contacts"|trans|capitalize }}{% else %}{{ "no_contact"|trans|capitalize }}{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -79,10 +79,10 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for user in jobStatus.users %}
+                                                            {% for employee in corporationJobStatus.employees %}
                                                                 <tr>
-                                                                    <td>{{ user.id }}</td>
-                                                                    <td>{{ user }}</td>
+                                                                    <td>{{ employee.id }}</td>
+                                                                    <td>{{ employee }}</td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>
@@ -90,11 +90,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{% if jobStatus.created %}{{ jobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if jobStatus.updated %}{{ jobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if corporationJobStatus.created %}{{ corporationJobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if corporationJobStatus.updated %}{{ corporationJobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('corporation_jobstatus_edit', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('corporation_jobstatus_export', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -110,7 +110,7 @@
     </div>
 
     <!-- Import Modal -->
-    {% include  ":common:import_modal.html.twig" with { "action_path": "jobstatus_index", "object_title": "some_jobs", "error": error } %}
+    {% include  ":common:import_modal.html.twig" with { "action_path": "corporation_jobstatus_index", "object_title": "some_jobs", "error": error } %}
 
 {% endblock %}
 

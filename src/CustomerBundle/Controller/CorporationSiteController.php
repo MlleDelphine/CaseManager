@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * CorporationSite controller.
@@ -145,20 +146,19 @@ class CorporationSiteController extends Controller
      *
      * @param CorporationSite $corporationSite The corporationSite entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(CorporationSite $corporationSite)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('corporation_site_delete', array('slug' => $corporationSite->getSlug())))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 
     /**
      * @param Request $request
-     * @param CorporationSite $equipment
+     * @param CorporationSite $corporationSite
      * @return StreamedResponse
      */
     public function exportCorporationSiteAction(Request $request, CorporationSite $equipment){
