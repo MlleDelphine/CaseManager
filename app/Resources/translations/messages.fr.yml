@@ -18,7 +18,8 @@ register: s'enregistrer
 already_have_account: déjà enregistré(e)
 not_yet_registered: pas encore de compte
 create_an_account: créer un compte
-phone_number: Téléphone (num)
+phone_number: téléphone (num)
+phone_number_capitalize: Téléphone (num)
 firstname: prénom
 lastname: nom de famille
 birthdate: date de naissance
@@ -50,10 +51,11 @@ no_user: aucun utilisateur
 user: utilisateur
 users: utilisateurs
 all_users: tous les utilisateurs
-dashboard: tableau de bord
 users_management: gestion utilisateurs
 resources_management: gestion des ressources
 customers_management: gestion des clients
+
+dashboard: tableau de bord
 
 creation_of_corporation_group: création d'une société (groupe)
 edition_of_corporation_group: édition d'une société (groupe)
@@ -159,8 +161,24 @@ new_m_p: nouveaux
 new_f_s: nouvelle
 new_f_p: nouvelles
 
+functional_m_s: fonctionel
+functional_m_p: fonctionels
+functional_f_s: fonctionelle
+functional_f_p: fonctionelles
+
 on_date: le
 on_time: à
+
+from: de
+from_capitalize: De
+
+to_coi: à
+to_cod: au
+to_p: aux
+until_coi: jusqu'à
+until_cod: jusqu'au
+until_cod_capitalize: Jusqu'au
+until_p: jusqu'aux
 
 #GLOBAL/COMMON ACTION
 search: rechercher
@@ -188,18 +206,45 @@ unfold: déplier
 import: import
 export: export
 error: erreur
+errors: erreurs
 home: accueil
+
 measure_unit: unité de mesure
+measure_unit_capitalize: Unité de mesure
+measure_units: unités de mesure
+measure_units_capitalize: Unités de mesure
+
 actions: actions
 file_mandatory_error_msg: "Vous devez charger un fichier !"
+
 reference: référence
+references: références
+reference_capitalize: référence
+references_capitalize: Références
 unique_reference: référence unique
+unique_reference_capitalize: Référence unique
+
 price: prix
+no_price: aucun prix
+prices: prix
 unitary_price: prix unitaire
 unitary_prices: prix unitaires
+cost: coût
+costs: coûts
+cost_capitalize: Coût
+costs_capitalize: Coûts
+currency_euro: (€)
+
+
 label: libellé
+labels: libellés
+
 unit: unité
+units: unités
+
 title: intitulé
+title_capitalize: Intitulé
+titles: intitulés
 
 #CUSTOMER SPECIFICS
 corporation_legal_status_ei: "(EI) Entreprise individuelle"
@@ -218,6 +263,7 @@ corporation_legal_status_snc: "(SNC) Société en nom collectif"
 corporation_legal_status_other: "(N/P) Non précisé"
 
 legal_status: statut juridique
+legal_status_capitalize: statut juridique
 
 address_street_number: N°
 address_street_name: nom de voie

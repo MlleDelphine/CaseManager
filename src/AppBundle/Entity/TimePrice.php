@@ -34,6 +34,7 @@ class TimePrice
      * @var string
      *
      * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2)
+     *
      * @Assert\Type(type="float", message="{{value}} n'est pas saisi sous un format de prix valide.")
      * @Assert\NotNull()
      * @Assert\NotBlank()

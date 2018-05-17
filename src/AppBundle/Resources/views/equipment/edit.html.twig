@@ -58,11 +58,18 @@
                             {{ form_errors(edit_form.working) }}
                         </div>
                     </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.unitTimePrices, "Définition des prix :", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.unitTimePrices) }}
+                            {{ form_errors(edit_form.unitTimePrices) }}
+                        </div>
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('equipment_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Annuler</a>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Modifier</button>
+                            <a href="{{ path('equipment_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "modify"|trans|capitalize }}</button>
                         </div>
                     </div>
                     {{ form_end(edit_form) }}
@@ -75,6 +82,25 @@
 {% block custom_javascripts %}
     {{ parent() }}
 {% endblock %}
+
 {% block plain_js_bundle %}
     {{ form_javascript(edit_form) }}
+    <script type="application/javascript">
+        /**
+         * Launch collection function
+         */
+        $(document).ready(function() {
+            $(".item-collection").collection({
+                allow_duplicate: false,
+                allow_up: false,
+                allow_down: false,
+                allow_add: true,
+                allow_remove: true,
+                min: 0,
+                max: 12,
+                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Add file"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Delete file"><span class="glyphicon glyphicon-trash"></span></a>'
+            });
+        });
+    </script>
 {% endblock %}

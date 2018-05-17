@@ -26,7 +26,7 @@ class EquipmentType extends AbstractType
                 "label_format" => "Intitulé",
                 "required" => true))
             ->add("reference", TextType::class, array(
-                "label_format" => "Référence unique",
+                "label_format" => "unique_reference_capitalize",
                 "required" => true))
             ->add("description", CustomTinyMceType::class, array(
                 "label_format" => "Description",
@@ -37,7 +37,20 @@ class EquipmentType extends AbstractType
                 "label_format" => "Fonctionnel",
                 "required" => false,
                 "data" => true
-            ));
+            ))
+            ->add("unitTimePrices", CollectionType::class, array(
+                "entry_type" => UnitTimePriceType::class,
+                "entry_options" => ["label" => false],
+                "allow_add" => true,
+                "allow_delete" => true,
+                "delete_empty" => true,
+                "prototype" => true,
+                "by_reference" => false, //ensures that the setter is called in all UnitTimePrices
+                "attr" => [
+                    "class" => "item-collection col-md-12 col-xs-12",
+                ],
+                "label_format" => "Définition des prix :",
+                "required" => false));
     }
 
     /**

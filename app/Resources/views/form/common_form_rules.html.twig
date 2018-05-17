@@ -8,7 +8,7 @@
     {% endif %}
 {% endblock form_errors%}
 
-{# TIME PRICES - MATERIAL #}
+{# (UNIT) TIME PRICES - MATERIAL - RESOURCE - EQUIPMENT#}
 {% block collection_widget %}
     {% spaceless %}
         {% if prototype is defined %}
@@ -24,6 +24,7 @@
     {% endspaceless %}
 {% endblock collection_widget %}
 
+{# TIME PRICES - MATERIAL #}
 {% block _appbundle_material_timePrices_widget %}
     {% spaceless %}
         {{ form_widget(form) }}
@@ -66,6 +67,28 @@
         {% endfor %}
     {% endspaceless %}
 {% endblock _appbundle_resource_timePrices_entry_widget %}
+
+{# UNIT TIME PRICES - EQUIPMENT #}
+{% block _appbundle_equipment_unitTimePrices_widget %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock _appbundle_equipment_unitTimePrices_widget %}
+
+{% block _appbundle_equipment_unitTimePrices_entry_widget %}
+    {% spaceless %}
+        <div class="ln_solid"></div>
+        {% for child in form %}
+            <div class="form-group">
+                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
+                    {{ form_errors(child) }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock _appbundle_equipment_unitTimePrices_entry_widget %}
 
 {# POSTAL ADDRESS - CUSTOMER #}
 {% block _customerbundle_corporationgroup_postalAddress_widget %}
@@ -117,6 +140,7 @@
         </div>
     </div>
 {% endblock %}
+
 {# POSTAL ADDRESS - CUSTOMER #}
 {% block _customerbundle_corporationsite_postalAddress_widget %}
     <div class="form-group">

@@ -52,7 +52,7 @@
                                             <th>{{ "contacts"|trans|capitalize }}</th>
                                             <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>
                                             <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>
-                                            <th style="text-align: center;">Actions</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -97,8 +97,8 @@
                                             <td>{% if corporationJobStatus.created %}{{ corporationJobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if corporationJobStatus.updated %}{{ corporationJobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('corporation_jobstatus_edit', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('corporation_jobstatus_export', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('corporation_jobstatus_edit', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('corporation_jobstatus_export', { 'slug': corporationJobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
                                             </td>
                                         </tr>
                                         </tbody>

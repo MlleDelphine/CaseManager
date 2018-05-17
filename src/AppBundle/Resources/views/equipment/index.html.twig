@@ -49,12 +49,13 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Libellé</th>
-                                            <th>Référence</th>
-                                            <th>Fonctionnel</th>
-                                            <th>Créé le</th>
-                                            <th>Dernière màj le</th>
-                                            <th style="text-align: center;">Actions</th>
+                                            <th>{{ "label"|trans|capitalize }}</th>
+                                            <th>{{ "reference"|trans|capitalize }}</th>
+                                            <th>{{ "functional_m_s"|trans|capitalize }}</th>
+                                            <th>{{ "prices"|trans|capitalize }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -67,11 +68,48 @@
                                                 {% else %}<i class="fa fa-times" aria-hidden="true" style="color:#D44950"></i>
                                                 {% endif %}
                                             </td>
+                                            <td>
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
+                                                            <small>{% if equipment.unitTimePrices|length > 0 %}{{ "price"|trans|capitalize }}{% else %}{{ "no_price"|trans|capitalize }}{% endif %}</small></h2>
+                                                        <ul class="nav navbar-right panel_toolbox">
+                                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="x_content" style="display: none">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>{{ "from"|trans|capitalize }}</th>
+                                                                <th>{{ "until_coi"|trans|capitalize }}</th>
+                                                                <th>{{ "measure_unit"|trans|capitalize }}</th>
+                                                                <th>{{ "cost"|trans|capitalize }} {{ "currency_euro"|trans }}</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for unitTimePrice in equipment.unitTimePrices %}
+                                                                <tr>
+                                                                    <td>{{ unitTimePrice.id }}</td>
+                                                                    <td>{{ unitTimePrice.fromDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ unitTimePrice.untilDate|date("d-m-Y") }}</td>
+                                                                    <td>{{ unitTimePrice.unit }}</td>
+                                                                    <td>{{ unitTimePrice.unitaryPrice }}€</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>{% if equipment.created %}{{ equipment.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if equipment.updated %}{{ equipment.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('equipment_edit', { 'slug': equipment.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('equipment_export', { 'slug': equipment.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('equipment_edit', { 'slug': equipment.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('equipment_export', { 'slug': equipment.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
                                             </td>
                                         </tr>
                                         </tbody>

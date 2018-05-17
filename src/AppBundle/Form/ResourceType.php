@@ -25,7 +25,7 @@ class ResourceType extends AbstractType
                 "label_format" => "Intitulé",
                 "required" => true))
             ->add("reference", TextType::class, array(
-                "label_format" => "Référence unique",
+                "label_format" => "unique_reference_capitalize",
                 "required" => true))
             ->add("description", CustomTinyMceType::class, array(
                 "label_format" => "Description",

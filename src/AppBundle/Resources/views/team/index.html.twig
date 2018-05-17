@@ -52,7 +52,7 @@
                                             <th>Utilisateurs</th>
                                             <th>Créée le</th>
                                             <th>Dernière màj le</th>
-                                            <th style="text-align: center;">Actions</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -93,8 +93,8 @@
                                             <td>{% if team.created %}{{ team.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if team.updated %}{{ team.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('team_edit', { 'slug': team.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Modifier</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('team_export', { 'slug': team.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> Export</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('team_edit', { 'slug': team.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('team_export', { 'slug': team.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -45,14 +45,13 @@ class UnitTimePrice
      * @var string
      *
      * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2)
-     * @Assert\Regex(
-     *     pattern="/^\d+(,|.)\d{2}$/"
-     * )
+     *
+     * @Assert\Type(type="float", message="{{value}} n'est pas saisi sous un format de prix valide.")
      * @Assert\NotNull()
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
      */
     private $unitaryPrice;
 
@@ -65,7 +64,7 @@ class UnitTimePrice
      * @Assert\Date()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
      */
     private $fromDate;
 
@@ -74,11 +73,11 @@ class UnitTimePrice
      *
      * @ORM\Column(name="untilDate", type="datetime", nullable=true)
      *
-     * @Assert\IsNull()
      * @Assert\Date()
+     * @Assert\GreaterThan(propertyPath="fromDate", message="Oops, la date de fin doit être postérieure à la date de départ.")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
      */
     private $untilDate;
 
@@ -307,7 +306,7 @@ class UnitTimePrice
     }
 
 //    /**
-//     * Set resource
+//     * Set equipment
 //     *
 //     * @param \SecurityAppBundle\Entity\User $user
 //     *

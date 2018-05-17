@@ -81,6 +81,23 @@ class Equipment
     protected $slug;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="equipment", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="AppBundle\Entity\UnitTimePrice"
+     *      )
+     * )
+     * @Assert\Valid()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"bo_export_equipment"})
+     */
+    protected $unitTimePrices;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
@@ -278,5 +295,40 @@ class Equipment
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add unitTimePrice
+     *
+     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     *
+     * @return Equipment
+     */
+    public function addUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    {
+        $this->unitTimePrices[] = $unitTimePrice;
+        $unitTimePrice->setEquipment($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove unitTimePrice
+     *
+     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     */
+    public function removeUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    {
+        $this->unitTimePrices->removeElement($unitTimePrice);
+    }
+
+    /**
+     * Get unitTimePrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUnitTimePrices()
+    {
+        return $this->unitTimePrices;
     }
 }
