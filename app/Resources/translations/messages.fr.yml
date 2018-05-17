@@ -5,6 +5,7 @@ log_out: déconnexion
 welcome: bienvenu
 hello: bonjour
 email: email
+mail_address: adresse email
 nickname: pseudo
 id_or_nickname: identifiant/pseudo
 password: mot de passe
@@ -63,8 +64,8 @@ edition_of_corporation_site: édition d'une société (site)
 creation_of_corporation_employee: création d'un contact (société)
 edition_of_corporation_employee: édition d'une contact (société)
 
-creation_of_corporation_employee: création d'un poste (contact)
-edition_of_corporation_employee: édition d'un poste (contact)
+creation_of_corporation_jobstatus: création d'un poste (contact)
+edition_of_corporation_jobstatus: édition d'un poste (contact)
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -115,22 +116,25 @@ corporation_groups_site_children: Possèdent le(s) site(s)
 a_corporation_site: une société (site)
 several_corporation_sites: plusieurs sociétés (sites)
 some_corporation_sites: des sociétés (sites)
+no_corporation_site: aucun site (société)
 
 all_corporation_employees: tous les contacts
 corporation_employees: contacts (sociétés)
-corporation_employee: contact
+corporation_employee: contact (sociétés)
 corporation_site_parent: Rattaché(e) à la société
 a_corporation_employee: un contact
 several_corporation_employees: plusieurs contacts
 some_corporation_employees: des contacts
+no_corporation_employee: aucun contact (société)
 
 all_corporation_jobstatuses: tous les postes
 corporation_jobstatuses: postes (contacts)
-corporation_jobstatus: poste
+corporation_jobstatus: poste (contact)
 corporation_site_parent: Rattaché(e) à la société
 a_corporation_jobstatus: un poste
 several_corporation_jobstatuses: plusieurs postes
 some_corporation_jobstatuses: des postes
+no_corporation_jobstatus: aucun poste (contacts)
 
 
 #OBJECTS STATES

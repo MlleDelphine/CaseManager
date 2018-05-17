@@ -64,7 +64,7 @@ class CorporationJobStatusController extends Controller
             $em->persist($corporationJobStatus);
             $em->flush();
 
-            return $this->redirectToRoute('corporation_jobstatus_show', array('slug' => $corporationJobStatus->getSlug()));
+            return $this->redirectToRoute('corporation_jobstatus_index');
         }
 
         return $this->render('CustomerBundle:corporationjobstatus:new.html.twig', array(
@@ -150,13 +150,13 @@ class CorporationJobStatusController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request              $request
      * @param CorporationJobStatus $corporationJobStatus
      * @return StreamedResponse
      */
-    public function exportCorporationJobStatusAction(Request $request, CorporationJobStatus $equipment){
+    public function exportCorporationJobStatusAction(Request $request, CorporationJobStatus $corporationJobStatus){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_corporationjobstatus', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_corporationjobstatus', $corporationJobStatus)->prepare($request);
 
         return $response;
     }

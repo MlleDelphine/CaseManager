@@ -50,8 +50,8 @@
                                             <th>#</th>
                                             <th>{{ "title"|trans|capitalize }}</th>
                                             <th>{{ "contacts"|trans|capitalize }}</th>
-                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }}</th>
-                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }} </th>
+                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>
                                             <th style="text-align: center;">Actions</th>
                                         </tr>
                                         </thead>
@@ -63,7 +63,7 @@
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if corporationJobStatus.employees|length == 1 %}{{ "contact"|trans|capitalize }}{% elseif corporationJobStatus.contacts|length > 1 %}{{ "contacts"|trans|capitalize }}{% else %}{{ "no_contact"|trans|capitalize }}{% endif %}</small></h2>
+                                                            <small>{% if corporationJobStatus.employees|length == 1 %}{{ "corporation_employee"|trans|capitalize }}{% elseif corporationJobStatus.employees|length > 1 %}{{ "corporation_employees"|trans|capitalize }}{% else %}{{ "no_corporation_employee"|trans|capitalize }}{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -75,14 +75,18 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nom</th>
+                                                                <th>{{ "firstname"|trans|capitalize }}</th>
+                                                                <th>{{ "lastname"|trans|capitalize }}</th>
+                                                                <th>{{ "corporation_site"|trans|capitalize }}</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             {% for employee in corporationJobStatus.employees %}
                                                                 <tr>
                                                                     <td>{{ employee.id }}</td>
-                                                                    <td>{{ employee }}</td>
+                                                                    <td>{{ employee.firstName }}</td>
+                                                                    <td>{{ employee.lastName }}</td>
+                                                                    <td>{{ employee.corporationSite.name }}</td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>

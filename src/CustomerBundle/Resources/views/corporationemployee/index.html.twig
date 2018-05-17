@@ -11,7 +11,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-building"></i> {{ "all_corporation_employees"|trans|capitalize }}</h2>
+                <h2><i class="fa fa-users"></i> {{ "all_corporation_employees"|trans|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
@@ -49,10 +49,10 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ "honorific"|trans|capitalize }}</th>
-                                            <th>{{ "firstName"|trans|capitalize }}</th>
-                                            <th>{{ "lastName"|trans|capitalize }}</th>
+                                            <th>{{ "firstname"|trans|capitalize }}</th>
+                                            <th>{{ "lastname"|trans|capitalize }}</th>
                                             <th>{{ "mail_address"|trans|capitalize }}</th>
-                                            <th>{{ "corporation_job_status"|trans|capitalize }}</th>
+                                            <th>{{ "corporation_jobstatus"|trans|capitalize }}</th>
                                             <th>{{ "corporation_site"|trans|capitalize }}</th>
                                             <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
@@ -62,7 +62,7 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row">{{ corporationEmployee.id }}</th>
-                                            <td>{{ corporationEmployee.honorific }}</td>
+                                            <td>{{ corporationEmployee.honorific|trans|capitalize }}</td>
                                             <td>{{ corporationEmployee.firstName }}</td>
                                             <td>{{ corporationEmployee.lastName }}</td>
                                             <td>{{ corporationEmployee.mailAddress }}</td>
