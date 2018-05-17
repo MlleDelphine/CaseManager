@@ -20,11 +20,11 @@ class UnitTimePriceType extends AbstractType
     {
         $builder
             ->add("fromDate", DateType::class, array(
-                "label_format" => "A partir de",
+                "label_format" => "from_capitalize",
                 "required" => true,
                 "widget" => "single_text"))
             ->add("untilDate", DateType::class, array(
-                "label_format" => "{{ "until_coi_capitalize"|trans|capitalize }}",
+                "label_format" => "until_cod_capitalize",
                 "required" => false,
                 "widget" => "single_text"))
             ->add("unit", ChoiceType::class, array(
@@ -32,15 +32,29 @@ class UnitTimePriceType extends AbstractType
                 "required" => true,
                 "choices" =>
                     [
-                        "Temps" => ["Heure" => "Heure",
-                            "Journée" => "Journée"],
-                        "Quantité" => ["Tonne" => "Tonne",
+                        "Temps" => [
+                            "Heure" => "Heure",
+                            "Journée" => "Journée",
+                            "Semaine" => "Semaine",
+                            "Mois" => "Mois",
+                            "Année" => "Année"],
+                        "Masse" => [
+                            "Tonne" => "Tonne",
+                            "kg" => "kg"],
+                        "Volume" => [
                             "m³" => "m³",
-                            "m²" => "m²",
-                            "Litre" => "Litre",
+                            "Litre" => "Litre"],
+                        "Longueur" => [
                             "Mètre linéaire" => "Mètre linéaire",
-                            "m" => "m",
-                            "Pièce" => "Pièce"]
+                            "m" => "m"],
+                        "Superficie" => [
+                            "m²" => "m²",
+                            "ha" => "ha"],
+                        "Autres" => [
+                            "Pièce" => "Pièce",
+                            "Palette" => "Palette",
+                            "Sac" => "Sac",
+                            "Benne" => "Benne"]
                     ]))
             ->add("unitaryPrice", MoneyType::class, array(
                 "label_format" => "Coût",

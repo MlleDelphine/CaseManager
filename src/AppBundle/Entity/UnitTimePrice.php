@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Equipment;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
@@ -12,10 +13,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * UnitTimePrice
  *
- * @ORM\Table(name="unit_time_price")
+ * @ORM\Table(name="unit_time_price", uniqueConstraints={@ORM\UniqueConstraint(name="no_duplication_unit_price_equipment", columns={"fromDate", "untilDate", "equipment_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UnitTimePriceRepository")
+ * @UniqueEntity(fields={"fromDate", "untilDate", "equipment_id"})
  * @ORM\HasLifecycleCallbacks()
- *
  *
  * @JMSSer\ExclusionPolicy("all")
  */

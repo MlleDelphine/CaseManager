@@ -23,7 +23,7 @@ class TimePriceType extends AbstractType
                     "required" => true,
                     "widget" => "single_text"))
             ->add("untilDate", DateType::class,
-                array("label_format" => "{{ "until_coi"|trans|capitalize }}",
+                array("label_format" => "until_cod_capitalize",
                     "required" => false,
                     "widget" => "single_text"))
             ->add("unitaryPrice", MoneyType::class,
