@@ -99,7 +99,14 @@ class Resource
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="resource", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
      * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="AppBundle\Entity\TimePrice"
+     *      )
+     * )
+     * @Assert\Valid()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_resource"})

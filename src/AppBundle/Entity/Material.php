@@ -98,45 +98,24 @@ class Material
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="material", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
-     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
-     * @JMSSer\Expose()
+     *   * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_material"})
      *
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="AppBundle\Entity\TimePrice"
+     *      )
+     * )
+     * @Assert\Valid()
      */
+
     protected $timePrices;
 
-//    /**
-//     * @var ConstructionSite[]|ArrayCollection
-//     *
-//     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ConstructionSite", mappedBy="jobStatus", fetch="EXTRA_LAZY")
-//     */
-//    protected $constructionSites;
 
     public function __construct()
     {
         $this->timePrices = new ArrayCollection();
-    }
-
-    /**
-     *
-     * @Assert\Callback()
-     *
-     * @param ExecutionContextInterface $context
-     * @param $payload
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
-    {
-        $prices = $this->getTimePrices();
-
-        foreach ($prices as $price) {
-            $start = $price->getFromDate();
-            $end = $price->getUntilDate();
-            if ($end < $start) {
-                $context->buildViolation('La date de fin doit être postérieure à la date de départ.')
-                    ->atPath('untilDate')
-                    ->addViolation();
-            }
-        }
     }
 
     public function __toString()
@@ -356,38 +335,4 @@ class Material
     {
         return $this->timePrices;
     }
-
-//    /**
-//     * Add constructionSite
-//     *
-//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
-//     *
-//     * @return Material
-//     */
-//    public function addConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
-//    {
-//        $this->constructionSites[] = $constructionSite;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Remove constructionSite
-//     *
-//     * @param \AppBundle\Entity\ConstructionSite $constructionSite
-//     */
-//    public function removeConstructionSite(\AppBundle\Entity\ConstructionSite $constructionSite)
-//    {
-//        $this->constructionSites->removeElement($constructionSite);
-//    }
-//
-//    /**
-//     * Get constructionSites
-//     *
-//     * @return \Doctrine\Common\Collections\Collection
-//     */
-//    public function getConstructionSites()
-//    {
-//        return $this->constructionSites;
-//    }
 }

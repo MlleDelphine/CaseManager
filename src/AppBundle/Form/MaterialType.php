@@ -32,7 +32,9 @@ class MaterialType extends AbstractType
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]))
-            ->add("unit", ChoiceType::class, array("label_format" => "mesure_unit", "required" => true,
+            ->add("unit", ChoiceType::class, array(
+                "label_format" => "measure_unit|capitalize",
+                "required" => true,
                 "choices" =>
                     ["Tonne" => "Tonne",
                         "m³" => "m³",

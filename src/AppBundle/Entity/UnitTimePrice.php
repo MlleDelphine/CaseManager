@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Equipment;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,16 +10,16 @@ use JMS\Serializer\Annotation as JMSSer;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * TimePrice
+ * UnitTimePrice
  *
- * @ORM\Table(name="time_price")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TimePriceRepository")
+ * @ORM\Table(name="unit_time_price")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UnitTimePriceRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class TimePrice
+class UnitTimePrice
 {
     /**
      * @var int
@@ -33,13 +34,25 @@ class TimePrice
     /**
      * @var string
      *
+     * @ORM\Column(name="unit", type="string")
+     * @Assert\NotNull()
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_unittimeprice"})
+     */
+    private $unit;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2)
-     * @Assert\Type(type="float", message="{{value}} n'est pas saisi sous un format de prix valide.")
+     * @Assert\Regex(
+     *     pattern="/^\d+(,|.)\d{2}$/"
+     * )
      * @Assert\NotNull()
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
      */
     private $unitaryPrice;
 
@@ -49,11 +62,10 @@ class TimePrice
      * @ORM\Column(name="fromDate", type="datetime")
      * @Assert\NotBlank()
      * @Assert\NotNull()
-     * @Assert\NotEqualTo("")
      * @Assert\Date()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
      */
     private $fromDate;
 
@@ -62,11 +74,11 @@ class TimePrice
      *
      * @ORM\Column(name="untilDate", type="datetime", nullable=true)
      *
+     * @Assert\IsNull()
      * @Assert\Date()
-     * @Assert\GreaterThan(propertyPath="fromDate", message="Oops, la date de fin doit être postérieure à la date de départ.")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_resource"})
      */
     private $untilDate;
 
@@ -85,18 +97,11 @@ class TimePrice
     private $updated;
 
     /**
-     * @var Material
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Material", inversedBy="timePrices", cascade={"persist", "merge"})
-     *
-     */
-    protected $material;
-
-    /**
-     * @var Resource
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Resource", inversedBy="timePrices", cascade={"persist", "merge"})
+     * @var Equipment
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipment", inversedBy="unitTimePrices", cascade={"persist", "merge"})
      * @Assert\NotBlank()
      */
-    protected $resource;
+    protected $equipment;
 
     public function __construct()
     {
@@ -104,25 +109,24 @@ class TimePrice
         $this->untilDate = $now->add(new \DateInterval("P2Y"));
     }
 
-//    /**
-//     * KEEPING : JUST IN CASE
-//     * @Assert\Callback()
-//     *
-//     * @param ExecutionContextInterface $context
-//     * @param $payload
-//     */
-//    public function validate(ExecutionContextInterface $context, $payload)
-//    {
-//        $start = $this->getFromDate();
-//        $end = $this->getUntilDate();
-//
-//        if ($end < $start) {
-//            $context
-//                ->buildViolation("Ohoo, la date de fin doit être postérieure à la date de départ.")
-//                ->atPath('untilDate')
-//                ->addViolation();
-//        }
-//    }
+    /**
+     * @Assert\Callback()
+     *
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        $start = $this->getFromDate();
+        $end = $this->getUntilDate();
+
+        if ($end < $start) {
+            $context
+                ->buildViolation('La date de fin doit être postérieure à la date de départ.')
+                ->atPath('untilDate')
+                ->addViolation();
+        }
+    }
 
     /**
      * Get id
@@ -135,11 +139,35 @@ class TimePrice
     }
 
     /**
+     * Set unit
+     *
+     * @param integer $unit
+     *
+     * @return UnitTimePrice
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return integer
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
      * Set unitaryPrice
      *
      * @param string $unitaryPrice
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
     public function setUnitaryPrice($unitaryPrice)
     {
@@ -163,7 +191,7 @@ class TimePrice
      *
      * @param \DateTime $fromDate
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
     public function setFromDate($fromDate)
     {
@@ -187,7 +215,7 @@ class TimePrice
      *
      * @param \DateTime $untilDate
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
     public function setUntilDate($untilDate)
     {
@@ -211,7 +239,7 @@ class TimePrice
      *
      * @param \DateTime $created
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
     public function setCreated($created)
     {
@@ -235,7 +263,7 @@ class TimePrice
      *
      * @param \DateTime $updated
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
     public function setUpdated($updated)
     {
@@ -255,51 +283,51 @@ class TimePrice
     }
 
     /**
-     * Set material
+     * Set equipment
      *
-     * @param \AppBundle\Entity\Material $material
+     * @param Equipment $equipment
      *
-     * @return TimePrice
+     * @return UnitTimePrice
      */
-    public function setMaterial(\AppBundle\Entity\Material $material = null)
+    public function setEquipment(Equipment $equipment = null)
     {
-        $this->material = $material;
+        $this->equipment = $equipment;
 
         return $this;
     }
 
     /**
-     * Get material
+     * Get equipment
      *
-     * @return \AppBundle\Entity\Material
+     * @return Equipment
      */
-    public function getMaterial()
+    public function getEquipment()
     {
-        return $this->material;
+        return $this->equipment;
     }
 
-    /**
-     * Set resource
-     *
-     * @param \AppBundle\Entity\Resource $resource
-     *
-     * @return TimePrice
-     */
-    public function setResource(\AppBundle\Entity\Resource $resource = null)
-    {
-        $this->resource = $resource;
-
-        return $this;
-    }
-
-    /**
-     * Get resource
-     *
-     * @return \AppBundle\Entity\Resource
-     */
-    public function getResource()
-    {
-        return $this->resource;
-    }
+//    /**
+//     * Set resource
+//     *
+//     * @param \SecurityAppBundle\Entity\User $user
+//     *
+//     * @return TimePrice
+//     */
+//    public function setUser(\SecurityAppBundle\Entity\User $user = null)
+//    {
+//        $this->user = $user;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get user
+//     *
+//     * @return \SecurityAppBundle\Entity\User
+//     */
+//    public function getUser()
+//    {
+//        return $this->user;
+//    }
 }
 

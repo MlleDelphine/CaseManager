@@ -193,6 +193,7 @@ measure_unit: unité de mesure
 actions: actions
 file_mandatory_error_msg: "Vous devez charger un fichier !"
 reference: référence
+unique_reference: référence unique
 price: prix
 unitary_price: prix unitaire
 unitary_prices: prix unitaires

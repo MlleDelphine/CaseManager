@@ -53,7 +53,6 @@ class ResourceType extends AbstractType
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],
-                "data" => [new TimePrice()],
                 "label_format" => "Définition des prix :",
                 "required" => false));
         }
