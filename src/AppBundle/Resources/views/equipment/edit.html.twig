@@ -6,7 +6,7 @@
 
 {% block breadcrumb %}
     <li class=""><a href="{{ path('equipment_index') }}">Matériels</a></li>
-    <li class="active">Modifier</li>
+    <li class="active">{{ "modify"|trans|capitalize }}</li>
 {% endblock %}
 
 {% block page_title %}Modification de matériel{% endblock %}
@@ -91,6 +91,10 @@
          */
         $(document).ready(function() {
             $(".item-collection").collection({
+                after_add: function () {
+                    $("select").select2({ width: '100%' });
+                    return true;
+                },
                 allow_duplicate: false,
                 allow_up: false,
                 allow_down: false,

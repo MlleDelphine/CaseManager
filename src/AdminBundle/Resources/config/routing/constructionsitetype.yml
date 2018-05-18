@@ -1,0 +1,32 @@
+construction_site_type_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:index" }
+    methods:   [GET, POST]
+
+construction_site_type_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:show" }
+    methods:  GET
+
+construction_site_type_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:new" }
+    methods:  [GET, POST]
+
+construction_site_type_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:edit" }
+    methods:  [GET, POST]
+
+construction_site_type_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:delete" }
+    methods:  DELETE
+
+construction_site_type_export:
+    path: /export/{slug}
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:exportConstructionSiteType" }
+
+construction_site_type_export_all:
+    path: /export
+    defaults: { _controller: "AdminBundle:ConstructionSiteType:exportAllConstructionSiteType" }

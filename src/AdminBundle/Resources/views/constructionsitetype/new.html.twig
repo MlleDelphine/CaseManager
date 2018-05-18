@@ -5,22 +5,20 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('team_index') }}">Equipes</a></li>
+    <li class=""><a href="{{ path('construction_site_type_index') }}">Postes</a></li>
     <li class="active">{{ "addition"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}Création d'une équipe{% endblock %}
+{% block page_title %}Création de poste{% endblock %}
 
-{% block title %}
-    Création d'une équipe
-{% endblock %}
+{% block title %}{{ "creation_of_jobstatus"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Créer une équipe</h2>
+                    <h2>{{ "create"|trans|capitalize }} {{ "a_prestation_domain"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -32,24 +30,23 @@
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.name, "title"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.name) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(form.users, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                    <div class="item form-group">
+                        {{ form_label(form.description, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.users, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(form.users) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.description) }}
                         </div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('team_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <a href="{{ path('construction_site_type_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
                             <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>{{ "create"|trans|capitalize }}</button>
                         </div>
                     </div>

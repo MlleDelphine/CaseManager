@@ -59,7 +59,7 @@ class UnitTimePriceType extends AbstractType
             ->add("constructionSiteTypes",  Select2EntityType::class, array(
                 "class" => "AdminBundle:ConstructionSiteType",
                 "choice_label" => "name",
-                "label_format" => "prestation_domain_capitalize",
+                "label_format" => "application_domain_capitalize",
                 "multiple" => true,
                 "placeholder" => "-",
                 "required" => true))

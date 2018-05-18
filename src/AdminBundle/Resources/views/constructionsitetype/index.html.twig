@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">{{ "all_prestation_domains"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{% block page_title %}{{ "prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block title %}{{ "prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-briefcase"></i> {{ "all_prestation_domains"|trans|capitalize|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('construction_site_type_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("construction_site_type_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall">{{ "unfold"|trans|capitalize }}</a> <a href="#" class="btn btn-default closeall">{{ "fold"|trans|capitalize }}</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for constructionSiteType in constructionSiteTypes %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ constructionSiteType.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ constructionSiteType.id }}" aria-expanded="true" aria-controls="collapse{{ constructionSiteType.id }}">
+                                <h4 class="panel-title">{{ constructionSiteType.name }}</h4>
+                            </a>
+                            <div id="collapse{{ constructionSiteType.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ constructionSiteType.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "title"|trans|capitalize }}</th>
+                                            <th>{{ "description"|trans|capitalize }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }} </th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ constructionSiteType.id }}</th>
+                                            <td>{{ constructionSiteType.name }}</td>
+                                            <td>{{ constructionSiteType.description }}</td>
+                                            <td>{% if constructionSiteType.created %}{{ constructionSiteType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if constructionSiteType.updated %}{{ constructionSiteType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('construction_site_type_edit', { 'slug': constructionSiteType.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('construction_site_type_export', { 'slug': constructionSiteType.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    {% include  ":common:import_modal.html.twig" with { "action_path": "construction_site_type_index", "object_title": "some_prestation_domains", "error": error } %}
+
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+
+{% endblock %}

@@ -14,8 +14,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * UnitTimePrice
  *
  * @ORM\Table(name="unit_time_price", uniqueConstraints={@ORM\UniqueConstraint(name="no_duplication_unit_price_equipment", columns={"fromDate", "untilDate", "equipment_id"})})
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UnitTimePriceRepository")
- * @UniqueEntity(fields={"fromDate", "untilDate", "equipment_id"})
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UnitTimePriceRepository")
+ * @UniqueEntity(fields={"fromDate", "untilDate", "equipment"})
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
@@ -99,6 +99,7 @@ class UnitTimePrice
     /**
      * @var Equipment
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipment", inversedBy="unitTimePrices", cascade={"persist", "merge"})
+     * @ORM\JoinColumn(name="equipment_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
     protected $equipment;

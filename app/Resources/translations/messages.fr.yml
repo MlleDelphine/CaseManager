@@ -54,6 +54,7 @@ all_users: tous les utilisateurs
 users_management: gestion utilisateurs
 resources_management: gestion des ressources
 customers_management: gestion des clients
+catalog_management: gestion du catalogue
 
 dashboard: tableau de bord
 
@@ -69,6 +70,13 @@ edition_of_corporation_employee: édition d'une contact (société)
 creation_of_corporation_jobstatus: création d'un poste (contact)
 edition_of_corporation_jobstatus: édition d'un poste (contact)
 
+creation_of_jobstatus: création d'un poste interne
+edition_of_jobstatus: édition d'un poste interne
+
+creation_of_prestation_domain: création d'un domaine de prestation
+edition_of_prestation_domain: édition d'un domaine de prestation
+edition_of_the_prestation_domain: édition du domaine de prestation
+
 #OBJECTS LEXICAL
 employees: personnel
 
@@ -77,6 +85,7 @@ teams: équipes
 all_teams: toutes les équipes
 some_teams: des équipes
 
+a_jobstatus: un poste interne
 job: poste
 jobs: postes
 all_jobs: tous les postes
@@ -102,6 +111,17 @@ materials: matériaux
 all_materials: tous les matériaux
 some_materials: des matériaux
 
+application_domain_capitalize: Domaine(s) d'application
+application_domain: domaine(s) d'application
+
+prestation_domains_capitalize: Domaines de prestation
+prestation_domains: domaines de prestation
+all_prestation_domains: tous les domaines de prestation
+prestation_domain: domaine de prestation
+a_prestation_domain: domaine de prestation
+so_prestation_domains: des domaines de prestation
+
+#CORPO
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
 corporation_group: société (groupe)
@@ -235,8 +255,6 @@ cost_capitalize: Coût
 costs_capitalize: Coûts
 currency_euro: (€)
 
-prestation_domain_capitalize: Domaine(s) d'application
-prestation_domain: domaine(s) d'application
 
 label: libellé
 labels: libellés

@@ -2,3 +2,8 @@ admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
     host: "%casemanager_admin_url%"
+
+admin_construction_site_type:
+    resource: "@AdminBundle/Resources/config/routing/constructionsitetype.yml"
+    prefix: /constructon-site-type
+    host: "%casemanager_admin_url%"

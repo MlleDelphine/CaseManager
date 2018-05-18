@@ -6,7 +6,7 @@
 
 {% block breadcrumb %}
     <li class=""><a href="{{ path('resource_index') }}">Ressources</a></li>
-    <li class="active">Modifier</li>
+    <li class="active">{{ "modify"|trans|capitalize }}</li>
 {% endblock %}
 
 {% block page_title %}Modification de ressource{% endblock %}

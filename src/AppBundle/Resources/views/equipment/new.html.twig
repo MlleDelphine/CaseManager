@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('equipment_index') }}">Matériels</a></li>
+    <li class=""><a href="{{ path('equipment_index') }}">{{ "materials"|trans|capitalize }}</a></li>
     <li class="active">Ajouter</li>
 {% endblock %}
 
-{% block page_title %}Création de matériel{% endblock %}
+{% block page_title %}{{ "edition_of_material"|trans|capitalize }}{% endblock %}
 
-{% block title %}Création de matériel{% endblock %}
+{% block title %}{{ "edition_of_material"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <a href="{{ path('equipment_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Créer</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>{{ "create"|trans|capitalize }}</button>
                         </div>
                     </div>
                     {{ form_end(form) }}
@@ -92,14 +92,18 @@
         $(document).ready(function() {
             $(".item-collection").collection({
                 allow_duplicate: false,
+                after_add: function () {
+                    $("select").select2({ width: '100%' });
+                    return true;
+                },
                 allow_up: false,
                 allow_down: false,
                 allow_add: true,
                 allow_remove: true,
                 min: 1,
                 // max: 200,
-                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Add file"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Delete file"><span class="glyphicon glyphicon-trash"></span></a>'
+                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
             });
             $(".tinymce-textarea").tinymce();
         });
