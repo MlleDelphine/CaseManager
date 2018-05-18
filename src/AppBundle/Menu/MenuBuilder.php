@@ -98,10 +98,10 @@ class MenuBuilder implements ContainerAwareInterface
                 'uri' => ' '
             )
         )
-            ->setAttribute('prev-icon', 'fa fa-building')
+            ->setAttribute('prev-icon', 'fa fa-book')
             ->setAttribute('icon', 'fa fa-chevron-down');
 
-        $menu['admin_catalog']->addChild('prestation_domains', array('route' => 'construction_site_type_index'))->setAttribute('prev-icon', 'fa fa-industry');
+        $menu['admin_catalog']->addChild('prestation_domains', array('route' => 'construction_site_type_index'))->setAttribute('prev-icon', 'fa fa-handshake-o');
 
 //        $menu['admin_customers']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
 //        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');

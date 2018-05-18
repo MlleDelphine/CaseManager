@@ -50,8 +50,8 @@
                                             <th>#</th>
                                             <th>{{ "title"|trans|capitalize }}</th>
                                             <th>{{ "description"|trans|capitalize }}</th>
-                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }}</th>
-                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans|capitalize }} </th>
+                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>
                                             <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>
@@ -59,7 +59,7 @@
                                         <tr>
                                             <th scope="row">{{ constructionSiteType.id }}</th>
                                             <td>{{ constructionSiteType.name }}</td>
-                                            <td>{{ constructionSiteType.description }}</td>
+                                            <td>{{ constructionSiteType.description|raw }}</td>
                                             <td>{% if constructionSiteType.created %}{{ constructionSiteType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if constructionSiteType.updated %}{{ constructionSiteType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
