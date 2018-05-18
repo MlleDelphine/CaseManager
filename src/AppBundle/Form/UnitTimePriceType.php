@@ -56,6 +56,13 @@ class UnitTimePriceType extends AbstractType
                             "Sac" => "Sac",
                             "Benne" => "Benne"]
                     ]))
+            ->add("constructionSiteTypes",  Select2EntityType::class, array(
+                "class" => "AdminBundle:ConstructionSiteType",
+                "choice_label" => "name",
+                "label_format" => "prestation_domain_capitalize",
+                "multiple" => true,
+                "placeholder" => "-",
+                "required" => true))
             ->add("unitaryPrice", MoneyType::class, array(
                 "label_format" => "Coût",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],

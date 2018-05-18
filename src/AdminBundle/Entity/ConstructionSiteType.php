@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: delphine.graftieaux
+ * Date: 18/05/2018
+ * Time: 13:29
+ */
 
-namespace AppBundle\Entity;
+namespace AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,16 +15,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * Equipment
+ * ConstructionSiteType
  *
- * @ORM\Table(name="equipment")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\EquipmentRepository")
+ * @ORM\Table(name="constructionSiteType")
+ * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\ConstructionSiteTypeRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class Equipment
-{
+class ConstructionSiteType {
+
     /**
      * @var int
      *
@@ -33,22 +39,12 @@ class Equipment
      *
      * @ORM\Column(name="name", type="string", length=255, unique=false)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_constructionSiteType"})
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="reference", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
-     */
-    private $reference;
 
     /**
      * @var string
@@ -56,20 +52,9 @@ class Equipment
      * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_constructionSiteType"})
      */
     private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="working", type="boolean", options={"default": 1})
-     * @Assert\NotNull()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
-     */
-    private $working;
 
     /**
      * @var string
@@ -79,23 +64,6 @@ class Equipment
      *
      */
     protected $slug;
-
-    /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="equipment", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
-     *
-     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
-     * @Assert\All(
-     *      @Assert\Type(
-     *          type="AppBundle\Entity\UnitTimePrice"
-     *      )
-     * )
-     * @Assert\Valid()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"bo_export_equipment"})
-     */
-    protected $unitTimePrices;
 
     /**
      * @var \DateTime
@@ -110,6 +78,13 @@ class Equipment
      * @ORM\Column(name="updated", type="datetime")
      */
     protected $updated;
+
+    /**
+     * @var UnitTimePrice
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="constructionSiteTypes", fetch="EXTRA_LAZY")
+     *
+     */
+    protected $unitTimePrices;
 
     public function __construct()
     {
@@ -135,7 +110,7 @@ class Equipment
      *
      * @param string $name
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function setName($name)
     {
@@ -155,35 +130,11 @@ class Equipment
     }
 
     /**
-     * Set reference
-     *
-     * @param string $reference
-     *
-     * @return Equipment
-     */
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    /**
-     * Get reference
-     *
-     * @return string
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
-
-    /**
      * Set description
      *
      * @param string $description
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function setDescription($description)
     {
@@ -203,35 +154,11 @@ class Equipment
     }
 
     /**
-     * Set working
-     *
-     * @param integer $working
-     *
-     * @return Equipment
-     */
-    public function setWorking($working)
-    {
-        $this->working = $working;
-
-        return $this;
-    }
-
-    /**
-     * Get working
-     *
-     * @return integer
-     */
-    public function getWorking()
-    {
-        return $this->working;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function setCreated($created)
     {
@@ -255,7 +182,7 @@ class Equipment
      *
      * @param \DateTime $updated
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function setUpdated($updated)
     {
@@ -279,7 +206,7 @@ class Equipment
      *
      * @param string $slug
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function setSlug($slug)
     {
@@ -303,12 +230,11 @@ class Equipment
      *
      * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
      *
-     * @return Equipment
+     * @return ConstructionSiteType
      */
     public function addUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
     {
         $this->unitTimePrices[] = $unitTimePrice;
-        $unitTimePrice->setEquipment($this);
 
         return $this;
     }

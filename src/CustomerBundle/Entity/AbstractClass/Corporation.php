@@ -45,8 +45,8 @@ class Corporation implements CorporationInterface {
      */
     public function getLegalStatusByKey(string $legalStatusKey){
 
-        $honorifics = $this->getAllLegalStatus();
-        return $honorifics[$legalStatusKey];
+        $legalStatuses = $this->getAllLegalStatus();
+        return $legalStatuses[$legalStatusKey];
     }
 
 }

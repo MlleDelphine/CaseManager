@@ -78,7 +78,7 @@ class UnitTimePrice
      * @Assert\GreaterThan(propertyPath="fromDate", message="Oops, la date de fin doit être postérieure à la date de départ.")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_equipment"})
      */
     private $untilDate;
 
@@ -103,30 +103,48 @@ class UnitTimePrice
      */
     protected $equipment;
 
+    /**
+     * @var ConstructionSiteType
+     * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\ConstructionSiteType", inversedBy="unitTimePrices", cascade={"persist", "merge"})
+     * @Assert\NotBlank()
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins un domaine d'application.")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="AdminBundle\Entity\ConstructionSiteType"
+     *      )
+     * )
+     * @Assert\Valid()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     */
+    protected $constructionSiteTypes;
+
     public function __construct()
     {
         $now = new \DateTime();
         $this->untilDate = $now->add(new \DateInterval("P2Y"));
     }
 
-    /**
-     * @Assert\Callback()
-     *
-     * @param ExecutionContextInterface $context
-     * @param $payload
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
-    {
-        $start = $this->getFromDate();
-        $end = $this->getUntilDate();
-
-        if ($end < $start) {
-            $context
-                ->buildViolation('La date de fin doit être postérieure à la date de départ.')
-                ->atPath('untilDate')
-                ->addViolation();
-        }
-    }
+//    /**
+//     * @Assert\Callback()
+//     *
+//     * @param ExecutionContextInterface $context
+//     * @param $payload
+//     */
+//    public function validate(ExecutionContextInterface $context, $payload)
+//    {
+//        $start = $this->getFromDate();
+//        $end = $this->getUntilDate();
+//
+//        if ($end < $start) {
+//            $context
+//                ->buildViolation('La date de fin doit être postérieure à la date de départ.')
+//                ->atPath('untilDate')
+//                ->addViolation();
+//        }
+//    }
 
     /**
      * Get id
@@ -306,28 +324,39 @@ class UnitTimePrice
         return $this->equipment;
     }
 
-//    /**
-//     * Set equipment
-//     *
-//     * @param \SecurityAppBundle\Entity\User $user
-//     *
-//     * @return TimePrice
-//     */
-//    public function setUser(\SecurityAppBundle\Entity\User $user = null)
-//    {
-//        $this->user = $user;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get user
-//     *
-//     * @return \SecurityAppBundle\Entity\User
-//     */
-//    public function getUser()
-//    {
-//        return $this->user;
-//    }
+    /**
+     * Add constructionSiteType
+     *
+     * @param \AppBundle\Entity\ConstructionSiteType $constructionSiteType
+     *
+     * @return UnitTimePrice
+     */
+    public function addConstructionSiteType(\AdminBundle\Entity\ConstructionSiteType $constructionSiteType)
+    {
+        $this->constructionSiteTypes[] = $constructionSiteType;
+        $constructionSiteType->addUnitTimePrice($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove constructionSiteType
+     *
+     * @param \AppBundle\Entity\ConstructionSiteType $constructionSiteType
+     */
+    public function removeConstructionSiteType(\AdminBundle\Entity\ConstructionSiteType $constructionSiteType)
+    {
+        $this->constructionSiteTypes->removeElement($constructionSiteType);
+    }
+
+    /**
+     * Get constructionSiteTypes
+     *
+     * @return \AppBundle\Entity\ConstructionSiteType
+     */
+    public function getConstructionSiteTypes()
+    {
+        return $this->constructionSiteTypes;
+    }
 }
 

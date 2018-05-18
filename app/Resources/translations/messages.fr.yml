@@ -235,6 +235,8 @@ cost_capitalize: Coût
 costs_capitalize: Coûts
 currency_euro: (€)
 
+prestation_domain_capitalize: Domaine(s) d'application
+prestation_domain: domaine(s) d'application
 
 label: libellé
 labels: libellés
