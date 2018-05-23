@@ -127,7 +127,7 @@ div[class$="-collection-actions"]{
     opacity: 0;
     width: 100%
 }
-/**START - SHOW RIGHT BLOCK**/
+/**LOGIN : START - SHOW RIGHT BLOCK**/
 #pwd-forgotten:target ~ .login_wrapper .pwdreset_form{
     z-index: 22;
     animation-name: fadeInLeft;
@@ -135,7 +135,7 @@ div[class$="-collection-actions"]{
 }
 /*** END ***/
 
-/***START - HIDE OTHERS BLOCKS***/
+/*** SIGN IN + PWD : START - HIDE OTHERS BLOCKS***/
 #signin:target ~ .login_wrapper .pwdreset_form {
     animation-name: fadeOutLeft
 }
@@ -149,3 +149,15 @@ div[class$="-collection-actions"]{
     animation-name: fadeOutLeft
 }
 /*** END ***/
+
+/** FIXE footer override body **/
+body .container.body .right_col {
+    padding-bottom: 10px;
+    margin-bottom: 45px; /** Because footer override **/
+}
+
+.sidebar-footer{
+    padding-top: 15px; /** footer heigh : 49.14..px **/
+}
+
+/** END **/
