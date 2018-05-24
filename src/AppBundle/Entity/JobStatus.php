@@ -34,6 +34,10 @@ class JobStatus
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     *
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user", "admin_export_jobstatus"})
      */
@@ -160,7 +164,6 @@ class JobStatus
     {
         return $this->updated;
     }
-
 
     /**
      * Set slug

@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
+    <li class="">{{ "resources_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_resources"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}{{ "resources"|trans|capitalize }}{% endblock %}
+{% block page_title %}{{ "all_resources"|trans|capitalize }}{% endblock %}
 
-{% block title %}{{ "resources"|trans|capitalize }}{% endblock %}
+{% block title %}{{ "all_resources"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -50,10 +51,10 @@
                                             <th>#</th>
                                             <th>Libellé</th>
                                             <th>{{ "reference"|trans|capitalize }}</th>
-                                            <th>Unité</th>
-                                            <th>Prix</th>
-                                            <th>Créé le</th>
-                                            <th>Dernière màj le</th>
+                                            <th>{{ "unit"|trans|capitalize }}</th>
+                                            <th>{{ "price"|trans|capitalize }}</th>
+                                            <th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>

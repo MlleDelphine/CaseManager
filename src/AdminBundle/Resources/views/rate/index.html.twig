@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">{{ "all_rates"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{% block page_title %}{{ "rates"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block title %}{{ "rates"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-briefcase"></i> {{ "all_rates"|trans|capitalize|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('rate_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("rate_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall">{{ "unfold"|trans|capitalize }}</a> <a href="#" class="btn btn-default closeall">{{ "fold"|trans|capitalize }}</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for rate in rates %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ rate.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ rate.id }}" aria-expanded="true" aria-controls="collapse{{ rate.id }}">
+                                <h4 class="panel-title">{{ rate.name }}</h4>
+                            </a>
+                            <div id="collapse{{ rate.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ rate.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "naming"|trans|capitalize }}</th>
+                                            <th>{{ "percentage"|trans|capitalize }}</th>
+                                            <th>{{ "from"|trans|capitalize }}</th>
+                                            <th>{{ "until_cod"|trans|capitalize }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ rate.id }}</th>
+                                            <td>{{ rate.name }}</td>
+                                            <td>{{ rate.percentage*100 }}%</td>
+                                            <td>{% if rate.fromDate %}{{ rate.fromDate|date('Y-m-d') }}{% endif %}</td>
+                                            <td>{% if rate.untilDate %}{{ rate.untilDate|date('Y-m-d') }}{% endif %}</td>
+                                            <td>{% if rate.created %}{{ rate.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if rate.updated %}{{ rate.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('rate_edit', { 'slug': rate.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('rate_export', { 'slug': rate.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    {% include  ":common:import_modal.html.twig" with { "action_path": "rate_index", "object_title": "some_rates", "error": error } %}
+
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+
+{% endblock %}

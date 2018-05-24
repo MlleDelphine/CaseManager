@@ -24,12 +24,12 @@ class MenuBuilder implements ContainerAwareInterface
      */
     protected function getSecurityTokenStorage()
     {
-        return $this->container->get('security.token_storage');
+        return $this->container->get("security.token_storage");
     }
 
     protected function getEntityManager()
     {
-        return $this->container->get('doctrine.orm.entity_manager');
+        return $this->container->get("doctrine.orm.entity_manager");
     }
 
     /**
@@ -37,71 +37,72 @@ class MenuBuilder implements ContainerAwareInterface
      */
     protected function getSecurityAuthorizationChecker()
     {
-        return $this->container->get('security.authorization_checker');
+        return $this->container->get("security.authorization_checker");
     }
 
     public function mainTopMenu(FactoryInterface $factory, array $options)
     {
-        $menu = $factory->createItem('root', array(
-            'childrenAttributes' => array(
-                'class' => 'nav side-menu',
+        $menu = $factory->createItem("root", array(
+            "childrenAttributes" => array(
+                "class" => "nav side-menu",
             ),
         ));
 
         //ADMIN ACTIONS FIRST LEVEL MENU
 
-        $menu->addChild('admin_users',
+        $menu->addChild("admin_users",
             array(
-                'label' => 'users_management',
-                'uri' => ' '
+                "label" => "users_management",
+                "uri" => " "
             )
         )
-            ->setAttribute('prev-icon', 'fa fa-cogs')
-            ->setAttribute('icon', 'fa fa-chevron-down');
+            ->setAttribute("prev-icon", "fa fa-cogs")
+            ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu['admin_users']->addChild('employees', array('route' => 'user_index'))->setAttribute('prev-icon', 'fa fa-users');
-        $menu['admin_users']->addChild('jobs', array('route' => 'jobstatus_index'))->setAttribute('prev-icon', 'fa fa-briefcase');
-        $menu['admin_users']->addChild('teams', array('route' => 'team_index'))->setAttribute('prev-icon', 'fa fa-sitemap');
+        $menu["admin_users"]->addChild("employees", array("route" => "user_index"))->setAttribute("prev-icon", "fa fa-users");
+        $menu["admin_users"]->addChild("jobs", array("route" => "jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+        $menu["admin_users"]->addChild("teams", array("route" => "team_index"))->setAttribute("prev-icon", "fa fa-sitemap");
 
 
-        $menu->addChild('admin_resources',
+        $menu->addChild("admin_resources",
             array(
-                'label' => 'resources_management',
-                'uri' => ' '
+                "label" => "resources_management",
+                "uri" => " "
             )
         )
-            ->setAttribute('prev-icon', 'fa fa-book')
-            ->setAttribute('icon', 'fa fa-chevron-down');
+            ->setAttribute("prev-icon", "fa fa-book")
+            ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu['admin_resources']->addChild('materials', array('route' => 'material_index'))->setAttribute('prev-icon', 'fa fa-flask');
-        $menu['admin_resources']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
-        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');
+        $menu["admin_resources"]->addChild("materials", array("route" => "material_index"))->setAttribute("prev-icon", "fa fa-flask");
+        $menu["admin_resources"]->addChild("equipments", array("route" => "equipment_index"))->setAttribute("prev-icon", "fa fa-truck");
+        $menu["admin_resources"]->addChild("other_resources", array("route" => "resource_index"))->setAttribute("prev-icon", "fa fa-cubes");
 
-        $menu->addChild('admin_customers',
+        $menu->addChild("admin_customers",
             array(
-                'label' => 'customers_management',
-                'uri' => ' '
+                "label" => "customers_management",
+                "uri" => " "
             )
         )
-            ->setAttribute('prev-icon', 'fa fa-building')
-            ->setAttribute('icon', 'fa fa-chevron-down');
+            ->setAttribute("prev-icon", "fa fa-building")
+            ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu['admin_customers']->addChild('corporation_groups', array('route' => 'corporation_group_index'))->setAttribute('prev-icon', 'fa fa-industry');
-        $menu['admin_customers']->addChild('corporation_sites', array('route' => 'corporation_site_index'))->setAttribute('prev-icon', 'fa fa-building');
-        $menu['admin_customers']->addChild('corporation_employees', array('route' => 'corporation_employee_index'))->setAttribute('prev-icon', 'fa fa-users');
-        $menu['admin_customers']->addChild('corporation_jobstatuses', array('route' => 'corporation_jobstatus_index'))->setAttribute('prev-icon', 'fa fa-briefcase');
+        $menu["admin_customers"]->addChild("corporation_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
+        $menu["admin_customers"]->addChild("corporation_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
+        $menu["admin_customers"]->addChild("corporation_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-users");
+        $menu["admin_customers"]->addChild("corporation_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
 
 
-        $menu->addChild('admin_catalog',
+        $menu->addChild("admin_catalog",
             array(
-                'label' => 'catalog_management',
-                'uri' => ' '
+                "label" => "catalog_management",
+                "uri" => " "
             )
         )
-            ->setAttribute('prev-icon', 'fa fa-book')
-            ->setAttribute('icon', 'fa fa-chevron-down');
+            ->setAttribute("prev-icon", "fa fa-book")
+            ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu['admin_catalog']->addChild('prestation_domains', array('route' => 'construction_site_type_index'))->setAttribute('prev-icon', 'fa fa-handshake-o');
+        $menu["admin_catalog"]->addChild("prestation_domains", array("route" => "construction_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
+        $menu["admin_catalog"]->addChild("rates", array("route" => "rate_index"))->setAttribute("prev-icon", "fa fa-percent");
 
 //        $menu['admin_customers']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
 //        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');

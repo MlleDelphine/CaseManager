@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="active">{{ "all_materials"|trans|capitalize|capitalize }}x</li>
+    <li class="">{{ "resources_management"|trans|capitalize }}</li>
+    <li class="active">{{ "all_materials"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
 {% block page_title %}{{ "all_materials"|trans|capitalize|capitalize }}{% endblock %}
@@ -67,7 +68,7 @@
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if material.timePrices|length > 0 %}Prix{% else %}Aucun matériau{% endif %}</small></h2>
+                                                            <small>{% if material.timePrices|length > 0 %}{{ "price"|trans|capitalize }}{% else %}{{ "no_price"|trans|capitalize }}{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>

@@ -15,10 +15,11 @@ class ConstructionSiteTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, array(
-            'label' => 'Intitulé', 'required' => true))
+        $builder
+            ->add('name', TextType::class, array(
+                "label" => "title_capitalize", "required" => true))
             ->add("description", CustomTinyMceType::class, array(
-                "label_format" => "Description",
+                "label_format" => "description_capitalize",
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]));

@@ -1,15 +1,19 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AdminBundle\Form;
 
 use AppBundle\Form\Type\JqueryDateType;
+use AppBundle\Form\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TimePriceType extends AbstractType
+class RateType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,20 +21,20 @@ class TimePriceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add("name", TextType::class, array(
+                "label_format" => "naming_capitalize", "required" => true))
+            ->add("percentage", PercentType::class, array(
+                "label_format" => "percentage_capitalize",
+                "attr" => ["required" => true ],
+                "invalid_message" => "Cette valeur doit être un nombre décimal."))
             ->add("fromDate", DateType::class, array(
-                "label_format" => "A partir de",
+                "label_format" => "from_capitalize",
                 "required" => true,
                 "widget" => "single_text"))
             ->add("untilDate", DateType::class, array(
                 "label_format" => "until_cod_capitalize",
                 "required" => false,
-                "widget" => "single_text"))
-            ->add("unitaryPrice", MoneyType::class, array(
-                "label_format" => "cost_capitalize",
-                "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
-                "currency" => "", //To avoid orphan €
-                "invalid_message" => "Cette valeur doit être un nombre décimal."));
-
+                "widget" => "single_text"));
     }
 
     /**
@@ -39,7 +43,7 @@ class TimePriceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            "data_class" => "AppBundle\Entity\TimePrice"
+            "data_class" => "AdminBundle\Entity\Rate"
         ));
     }
 
@@ -48,7 +52,7 @@ class TimePriceType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return "appbundle_timeprice";
+        return "appbundle_rate";
     }
 
 

@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('material_index') }}">Matériaux</a></li>
-    <li class="active">Ajouter</li>
+    <li class="">{{ "resources_management"|trans|capitalize }}</li>
+    <li class=""><a href="{{ path('material_index') }}">{{ "all_materials"|trans|capitalize }}</a></li>
+    <li class="active">{{ "add"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}Création de matériau{% endblock %}
+{% block page_title %}{{ "creation_of_material"|trans|capitalize }}{% endblock %}
 
-{% block title %}Création de matériau{% endblock %}
+{% block title %}{{ "creation_of_material"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Créer un matériau</h2>
+                    <h2><i class="fa fa-flask"></i> {{ "create"|trans|capitalize }} {{ "a_material"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>

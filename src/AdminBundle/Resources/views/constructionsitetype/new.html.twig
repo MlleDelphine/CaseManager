@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('construction_site_type_index') }}">Postes</a></li>
+    <li class=""><a href="{{ path('construction_site_type_index') }}">{{ "prestation_domains"|trans|capitalize }}</a></li>
     <li class="active">{{ "addition"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}Création de poste{% endblock %}
+{% block page_title %}{{ "creation_of_prestation_domain"|trans|capitalize }}{% endblock %}
 
-{% block title %}{{ "creation_of_jobstatus"|trans|capitalize }}{% endblock %}
+{% block title %}{{ "creation_of_prestation_domain"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">

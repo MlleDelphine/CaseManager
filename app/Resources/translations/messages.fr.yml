@@ -23,13 +23,22 @@ phone_number_capitalize: Téléphone (num)
 firstname: prénom
 lastname: nom de famille
 birthdate: date de naissance
+
 status: statut
 statuses: statuts
+
 state: état
 states: états
+
 role: rôle
 roles: rôles
 role(s): rôle(s)
+
+naming: désignation
+naming_capitalize: Désignation
+namings: désignations
+naming(s): désignation(s)
+
 
 #FORM ACTIONS
 submit: valider
@@ -58,24 +67,45 @@ catalog_management: gestion du catalogue
 
 dashboard: tableau de bord
 
+creation_of_material: création d'un matériau
+edition_of_material: édition d'un matériau
+edition_of_the_material: édition du matériau
+
+creation_of_equipment: création d'un matériel
+edition_of_equipment: édition d'un matériel
+edition_of_the_equipment: édition du matériel
+
+creation_of_resource: création d'une ressource
+edition_of_resource: édition d'une ressource
+edition_of_the_resource: édition de la ressource
+
 creation_of_corporation_group: création d'une société (groupe)
 edition_of_corporation_group: édition d'une société (groupe)
+edition_of_the_corporation_group: édition de la société (groupe)
 
 creation_of_corporation_site: création d'une société (site)
 edition_of_corporation_site: édition d'une société (site)
+edition_of_the_corporation_site: édition de la société (site)
 
 creation_of_corporation_employee: création d'un contact (société)
 edition_of_corporation_employee: édition d'une contact (société)
+edition_of_the_corporation_employee: édition du contact (société)
 
 creation_of_corporation_jobstatus: création d'un poste (contact)
 edition_of_corporation_jobstatus: édition d'un poste (contact)
+edition_of_the_corporation_jobstatus: édition du poste (contact)
 
 creation_of_jobstatus: création d'un poste interne
 edition_of_jobstatus: édition d'un poste interne
+edition_of_the_jobstatus: édition du poste interne
 
 creation_of_prestation_domain: création d'un domaine de prestation
 edition_of_prestation_domain: édition d'un domaine de prestation
 edition_of_the_prestation_domain: édition du domaine de prestation
+
+creation_of_rate: création d'un taux
+edition_of_rate: édition d'un taux
+edition_of_the_rate: édition du taux
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -92,24 +122,37 @@ all_jobs: tous les postes
 some_jobs: des postes
 
 equipment: matériel
+an_equipment: un matériel
 equipments: matériels
 all_equipments: tout le matériel
 some_equipments: du matériel
+no_equipment: aucun matériel
+other_equipment: autre matériel
+other_equipments: autres matériels
 
+resource: ressource
+a_resource: une ressource
+resources: ressources
+all_resources: toutes les ressources
+some_resources: des ressources
+several_resources: plusieurs ressources
+no_resources: aucune ressource
 other_resource: autre ressource
 other_resources: autres ressources
 all_other_resources: toutes les autres ressources
 some_other_resources: d'autres ressources
 
-resource: ressource
-resources: ressources
-all_resources: toutes les ressources
-some_resources: des ressources
-
 material: matériau
+a_material: un matériau
 materials: matériaux
 all_materials: tous les matériaux
 some_materials: des matériaux
+several_materials: plusieurs matériaux
+no_materials: aucun matériau
+other_material: autre matériau
+other_materials: autres matériaux
+all_other_materials: tous les autres matériaux
+some_other_materials: d'autres matériaux
 
 application_domain_capitalize: Domaine(s) d'application
 application_domain: domaine(s) d'application
@@ -120,6 +163,15 @@ all_prestation_domains: tous les domaines de prestation
 prestation_domain: domaine de prestation
 a_prestation_domain: domaine de prestation
 so_prestation_domains: des domaines de prestation
+
+rates_capitalize: Taux
+rates: taux
+all_rates: tous les taux
+rate: taux
+a_rate: un taux
+several_rates: plusieurs taux
+so_rates: des taux
+no_rate: aucun taux
 
 #CORPO
 all_corporation_groups: toutes les sociétés (groupes)
@@ -200,7 +252,7 @@ until_cod: jusqu'au
 until_cod_capitalize: Jusqu'au
 until_p: jusqu'aux
 
-#GLOBAL/COMMON ACTION
+#GLOBAL /COMMON ACTION
 search: rechercher
 import_verb: importer
 import_all: tout importer
@@ -218,6 +270,7 @@ cancel: annuler
 cancellation: annulation
 file: fichier
 name: nom
+name_capitalize: Nom
 fold: replier
 unfold: déplier
 
@@ -255,16 +308,26 @@ cost_capitalize: Coût
 costs_capitalize: Coûts
 currency_euro: (€)
 
-
 label: libellé
+label_capitalize: Libellé
 labels: libellés
 
 unit: unité
+unit_capitalize: Unité
 units: unités
 
 title: intitulé
 title_capitalize: Intitulé
 titles: intitulés
+
+description: description
+description_capitalize: Description
+descriptions: descriptions
+
+percentage: pourcentage
+percentages: pourcentages
+percentage_capitalize: Pourcentage
+percentages_capitalize: Pourcentages
 
 #CUSTOMER SPECIFICS
 corporation_legal_status_ei: "(EI) Entreprise individuelle"
@@ -283,7 +346,7 @@ corporation_legal_status_snc: "(SNC) Société en nom collectif"
 corporation_legal_status_other: "(N/P) Non précisé"
 
 legal_status: statut juridique
-legal_status_capitalize: statut juridique
+legal_status_capitalize: Statut juridique
 
 address_street_number: N°
 address_street_name: nom de voie

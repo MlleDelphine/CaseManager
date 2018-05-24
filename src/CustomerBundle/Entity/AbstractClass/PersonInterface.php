@@ -20,5 +20,5 @@ interface PersonInterface {
      * @param string $honorificKey
      * @return string
      */
-    public function getHonorificByKey(string $honorificKey);
+    public static function getHonorificByKey(string $honorificKey);
 }

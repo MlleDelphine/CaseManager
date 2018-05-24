@@ -9,7 +9,7 @@
 namespace CustomerBundle\Entity\AbstractClass;
 
 
-class Person implements PersonInterface {
+abstract class Person implements PersonInterface {
 
     /**
      * @return array
@@ -25,13 +25,16 @@ class Person implements PersonInterface {
     }
 
     /**
-     * @param string $honorificKey
+     * @param String $honorificKey
      * @return mixed
      */
-    public function getHonorificByKey(string $honorificKey){
+    public static function getHonorificByKey(string $honorificKey){
 
-        $honorifics = $this->getAllHonorifics();
-        return $honorifics[$honorificKey];
+        $honorifics = self::getAllHonorifics();
+        if(array_key_exists($honorificKey, $honorifics)) {
+            return $honorifics[$honorificKey];
+        }
+        return false;
     }
 
 }
