@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_jobs"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}{{ "jobs"|trans|capitalize|capitalize }}{% endblock %}
+{% block page_title %}{{ "all_corporation_jobstatuses"|trans|capitalize|capitalize }}{% endblock %}
 
-{% block title %}{{ "jobs"|trans|capitalize|capitalize }}{% endblock %}
+{% block title %}{{ "all_corporation_jobstatuses"|trans|capitalize|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-briefcase"></i> {{ "all_jobs"|trans|capitalize|capitalize }}</h2>
+                <h2><i class="fa fa-briefcase"></i> {{ "all_corporation_jobstatuses"|trans|capitalize|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">

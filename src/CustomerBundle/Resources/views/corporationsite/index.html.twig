@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_corporation_sites"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
-{%  block page_title %} {{ "corporation_sites"|trans|capitalize}} {% endblock %}
-{% block title %} {{ "corporation_sites"|trans|capitalize }} {% endblock %}
+{%  block page_title %} {{ "all_corporation_sites"|trans|capitalize}} {% endblock %}
+{% block title %} {{ "all_corporation_sites"|trans|capitalize }} {% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -22,7 +23,7 @@
                         <a type="button" class="btn btn-warning btn-li" href="{{ path('corporation_site_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("corporation_site_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("corporation_site_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>

@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
+    <li class="">{{ "catalog_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_prestation_domains"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}{{ "prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+{% block page_title %}{{ "all_prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
 
-{% block title %}{{ "prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+{% block title %}{{ "all_prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">

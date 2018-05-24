@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('corporation_site_index') }}">{{ "corporation_sites"|trans|capitalize }}</a></li>
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
+    <li class=""><a href="{{ path('corporation_site_index') }}">{{ "all_corporation_sites"|trans|capitalize }}</a></li>
     <li class="active">{{ "addition"|trans|capitalize }}</li>
 {% endblock %}
 
@@ -50,7 +51,8 @@
                         <span class="required">*</span>
                         {{ form_label(form.phoneNumber, "phone_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                             {{ form_errors(form.phoneNumber) }}
                         </div>
                     </div>

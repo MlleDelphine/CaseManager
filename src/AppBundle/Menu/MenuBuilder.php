@@ -50,6 +50,7 @@ class MenuBuilder implements ContainerAwareInterface
 
         //ADMIN ACTIONS FIRST LEVEL MENU
 
+        // USERS MANAGEMENT
         $menu->addChild("admin_users",
             array(
                 "label" => "users_management",
@@ -63,35 +64,7 @@ class MenuBuilder implements ContainerAwareInterface
         $menu["admin_users"]->addChild("jobs", array("route" => "jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
         $menu["admin_users"]->addChild("teams", array("route" => "team_index"))->setAttribute("prev-icon", "fa fa-sitemap");
 
-
-        $menu->addChild("admin_resources",
-            array(
-                "label" => "resources_management",
-                "uri" => " "
-            )
-        )
-            ->setAttribute("prev-icon", "fa fa-book")
-            ->setAttribute("icon", "fa fa-chevron-down");
-
-        $menu["admin_resources"]->addChild("materials", array("route" => "material_index"))->setAttribute("prev-icon", "fa fa-flask");
-        $menu["admin_resources"]->addChild("equipments", array("route" => "equipment_index"))->setAttribute("prev-icon", "fa fa-truck");
-        $menu["admin_resources"]->addChild("other_resources", array("route" => "resource_index"))->setAttribute("prev-icon", "fa fa-cubes");
-
-        $menu->addChild("admin_customers",
-            array(
-                "label" => "customers_management",
-                "uri" => " "
-            )
-        )
-            ->setAttribute("prev-icon", "fa fa-building")
-            ->setAttribute("icon", "fa fa-chevron-down");
-
-        $menu["admin_customers"]->addChild("corporation_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
-        $menu["admin_customers"]->addChild("corporation_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
-        $menu["admin_customers"]->addChild("corporation_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-users");
-        $menu["admin_customers"]->addChild("corporation_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
-
-
+        // CATALOG MANAGEMENT
         $menu->addChild("admin_catalog",
             array(
                 "label" => "catalog_management",
@@ -104,6 +77,44 @@ class MenuBuilder implements ContainerAwareInterface
         $menu["admin_catalog"]->addChild("prestation_domains", array("route" => "construction_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
         $menu["admin_catalog"]->addChild("rates", array("route" => "rate_index"))->setAttribute("prev-icon", "fa fa-percent");
 
+        // RESOURCES MANAGEMENT
+        $menu->addChild("admin_resources",
+            array(
+                "label" => "resources_management",
+                "uri" => " "
+            )
+        )
+            ->setAttribute("prev-icon", "fa fa-object-ungroup")
+            ->setAttribute("icon", "fa fa-chevron-down");
+
+        $menu["admin_resources"]->addChild("materials", array("route" => "material_index"))->setAttribute("prev-icon", "fa fa-flask");
+        $menu["admin_resources"]->addChild("equipments", array("route" => "equipment_index"))->setAttribute("prev-icon", "fa fa-truck");
+        $menu["admin_resources"]->addChild("other_resources", array("route" => "resource_index"))->setAttribute("prev-icon", "fa fa-cubes");
+
+        // CUSTOMERS MANAGEMENT
+        $menu->addChild("admin_customers",
+            array(
+                "label" => "customers_management",
+                "uri" => " "
+            )
+        )
+            ->setAttribute("prev-icon", "fa fa-building")
+            ->setAttribute("icon", "fa fa-chevron-down");
+
+        $menu["admin_customers"]->addChild("corporation_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
+        $menu["admin_customers"]->addChild("corporation_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
+        $menu["admin_customers"]->addChild("corporation_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-address-book");
+        $menu["admin_customers"]->addChild("corporation_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+
+        // BUSINESS MANAGEMENT
+        $menu->addChild("admin_business",
+            array(
+                "label" => "business_management",
+                "uri" => " "
+            )
+        )
+            ->setAttribute("prev-icon", "fa fa-building")
+            ->setAttribute("icon", "fa fa-chevron-down");
 //        $menu['admin_customers']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
 //        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');
 

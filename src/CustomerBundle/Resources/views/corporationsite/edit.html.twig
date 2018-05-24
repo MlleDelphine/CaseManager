@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('corporation_site_index') }}">{{ "corporation_sites"|trans|capitalize }}</a></li>
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
+    <li class=""><a href="{{ path('corporation_site_index') }}">{{ "all_corporation_sites"|trans|capitalize }}</a></li>
     <li class="active">{{ "modification"|trans|capitalize }}</li>
 {% endblock %}
 
@@ -20,7 +21,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>{{ "modify"|trans|capitalize }} {{ "a_corporation_site"|trans }}.</h2>
+                    <h2>{{ "modify"|trans|capitalize }} {{ "a_corporation_site"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -50,7 +51,8 @@
                         <span class="required">*</span>
                         {{ form_label(edit_form.phoneNumber, "phone_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(edit_form.phoneNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                             {{ form_errors(edit_form.phoneNumber) }}
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_corporation_employees"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
@@ -11,7 +12,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-users"></i> {{ "all_corporation_employees"|trans|capitalize }}</h2>
+                <h2><i class="fa fa-address-book"></i> {{ "all_corporation_employees"|trans|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">

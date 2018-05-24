@@ -3,14 +3,14 @@
 
 {# REGISTER #}
 {% block _fos_user_registration_form_plainPassword_first_row %}
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
         {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left', 'placeholder' : "password"|trans|capitalize}}) }}
         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
     </div>
 {% endblock %}
 
 {% block _fos_user_registration_form_plainPassword_second_row %}
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
         {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left', 'placeholder' : "password_confirmation"|trans|capitalize }}) }}
         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
     </div>
@@ -19,14 +19,14 @@
 {# RESET PWD #}
 {% block _fos_user_resetting_form_plainPassword_first_row %}
     là ?
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
         {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left', 'placeholder' : "new_password"|trans|capitalize }}) }}
         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
     </div>
 {% endblock %}
 
 {% block _fos_user_resetting_form_plainPassword_second_row %}
-    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
         {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left', 'placeholder' : "password_confirmation"|trans|capitalize }}) }}
         <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
     </div>
@@ -35,18 +35,20 @@
 {# ADMIN MANAGEMENT #}
 {% block _securityappbundle_user_plainPassword_first_row %}
     <div class="form-group">
-        <label for="{{ form.vars.id }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.vars.label }}</label>
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
         <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+            <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
         </div>
     </div>
 {% endblock %}
 
 {% block _securityappbundle_user_plainPassword_second_row %}
     <div class="form-group">
-        <label for="{{ form.vars.id }}" class="control-label col-md-3 col-sm-3 col-xs-12">{{ form.vars.label }}</label>
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
         <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {{ form_widget(form, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+            <span aria-hidden="true" class="fa fa-lock form-control-feedback left"></span>
         </div>
     </div>
 {% endblock %}

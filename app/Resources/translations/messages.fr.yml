@@ -1,15 +1,24 @@
 #USER AUTHENTICATION / PROFILE
+CaseManager: Gestion d'affaires
 connection: connexion
+connection_capitalize: Connexion
+authorized_connection_capitalize: Connexion autorisée
 log_in: connexion
 log_out: déconnexion
 welcome: bienvenu
 hello: bonjour
 email: email
+email_capitalize: Email
 mail_address: adresse email
+mail_address_capitalize: Adresse email
 nickname: pseudo
+nickname_capitalize: Pseudo
 id_or_nickname: identifiant/pseudo
+id_or_nickname_capitalize: Identifiant/pseudo
 password: mot de passe
+password_capitalize: Mot de passe
 password_confirmation: confirmation du mot de passe
+password_confirmation_capitalize: Confirmation du mot de passe
 connect: se connecter
 forgotten_password: mot de passe oublié
 new_password: nouveau mot de passe
@@ -21,8 +30,11 @@ create_an_account: créer un compte
 phone_number: téléphone (num)
 phone_number_capitalize: Téléphone (num)
 firstname: prénom
+firstname_capitalize: Prénom
 lastname: nom de famille
+lastname_capitalize: Nom de famille
 birthdate: date de naissance
+birthdate_capitalize: Date de naissance
 
 status: statut
 statuses: statuts
@@ -32,6 +44,7 @@ states: états
 
 role: rôle
 roles: rôles
+roles_capitalize: Rôles
 role(s): rôle(s)
 
 naming: désignation
@@ -60,10 +73,12 @@ no_user: aucun utilisateur
 user: utilisateur
 users: utilisateurs
 all_users: tous les utilisateurs
+
 users_management: gestion utilisateurs
+catalog_management: gestion du catalogue
 resources_management: gestion des ressources
 customers_management: gestion des clients
-catalog_management: gestion du catalogue
+business_management: gestion des affaires
 
 dashboard: tableau de bord
 
@@ -107,16 +122,35 @@ creation_of_rate: création d'un taux
 edition_of_rate: édition d'un taux
 edition_of_the_rate: édition du taux
 
+creation_of_business: création d'un affaire
+edition_of_business: édition d'un affaire
+edition_of_the_business: édition du affaire
+
 #OBJECTS LEXICAL
 employees: personnel
 
+hour_rates_capitalize: Taux horaires
+hour_rates: taux horaire
+all_hour_rates: tous les taux horaire
+hour_rate: taux horaire
+hour_rate_capitalize: Taux horaire
+a_hour_rate: un taux horaire
+several_hour_rates: plusieurs taux horaire
+so_hour_rates: des taux horaire
+no_hour_rate: aucun taux horaire
+
 team: équipe
+team_capitalize: Equipe
 teams: équipes
+teams_capitalize: Equipes
 all_teams: toutes les équipes
 some_teams: des équipes
+no_team: aucune équipe
 
 a_jobstatus: un poste interne
 job: poste
+job_capitalize: Poste
+internal_job_capitalize: Poste interne
 jobs: postes
 all_jobs: tous les postes
 some_jobs: des postes
@@ -281,6 +315,8 @@ export: export
 error: erreur
 errors: erreurs
 home: accueil
+
+error_message_decimal_number: "error_message_decimal_number"
 
 measure_unit: unité de mesure
 measure_unit_capitalize: Unité de mesure

@@ -26,7 +26,7 @@ class RateType extends AbstractType
             ->add("percentage", PercentType::class, array(
                 "label_format" => "percentage_capitalize",
                 "attr" => ["required" => true ],
-                "invalid_message" => "Cette valeur doit être un nombre décimal."))
+                "invalid_message" => "error_message_decimal_number"))
             ->add("fromDate", DateType::class, array(
                 "label_format" => "from_capitalize",
                 "required" => true,

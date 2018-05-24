@@ -26,7 +26,7 @@
                 </div>
                 <div class="x_content">
                     <br>
-                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': '' }}) }}
                     <div class="form-group">
                         <span class="required">*</span>
                         {{ form_label(form.firstName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
@@ -55,7 +55,8 @@
                         <span class="required">*</span>
                         {{ form_label(form.email, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+                            <span class="fa fa-envelope-o form-control-feedback left" aria-hidden="true"></span>
                             {{ form_errors(form.email) }}
                         </div>
                     </div>
@@ -77,7 +78,8 @@
                         <span class="required">*</span>
                         {{ form_label(form.phoneNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+                            <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                             {{ form_errors(form.phoneNumber) }}
                         </div>
                     </div>
@@ -98,7 +100,8 @@
                     <div class="item form-group">
                         {{ form_label(form.unitaryPrice, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.unitaryPrice, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(form.unitaryPrice, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+                            <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
                             {{ form_errors(form.unitaryPrice) }}
                         </div>
                     </div>

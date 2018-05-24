@@ -43,7 +43,7 @@ class UnitTimePriceType extends AbstractType
                 "label_format" => "cost_capitalize",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
                 "currency" => "", //To avoid orphan €
-                "invalid_message" => "Cette valeur doit être un nombre décimal."));
+                "invalid_message" => "error_message_decimal_number"));
 
     }
 

@@ -25,49 +25,53 @@ class UserType extends AbstractType
     {
         $builder
             ->add("firstName", TextType::class, array(
-                "label_format" => "firstname",
+                "label_format" => "firstname_capitalize",
                 "required" => true))
             ->add("lastName", TextType::class, array(
-                "label_format" => "lastname",
+                "label_format" => "lastname_capitalize",
                 "required" => true))
             ->add("email",EmailType::class, array(
-                "label_format" => "email"))
+                "label_format" => "mail_address_capitalize",
+                "data" => "@"))
             ->add("roles", RoleType::class, array(
-                "label_format" => "roles"))
+                "label_format" => "roles_capitalize"))
             ->add("username", TextType::class, array(
-                "label_format" => "id_or_nickname"))
+                "label_format" => "id_or_nickname_capitalize"))
             ->add("phoneNumber", TextType::class, array(
-                "label_format" => "Téléphone",
+                "label_format" => "id_or_nickname_capitalize",
                 "required" => false,
                 "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"]))
             ->add("unitaryPrice", MoneyType::class,array(
-                "label_format" => "Taux horaire",
+                "label_format" => "hour_rate_capitalize",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
-                "invalid_message" => "Cette valeur doit être un nombre décimal."))
+                "currency" => "", //To remove orphan €
+                "invalid_message" => "error_message_decimal_number"))
             ->add("jobStatus",Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",
                 "choice_label" => "name",
-                "label_format" => "Poste",
+                "label_format" => "internal_job_capitalize",
                 "multiple" => false,
-                "placeholder" => "Sélectionner",
+                "placeholder" => "select",
                 "required" => false))
             ->add("team",  Select2EntityType::class, array(
                 "class" => "AppBundle:Team",
                 "choice_label" => "name",
-                "label_format" => "Equipe",
+                "label_format" => "team_capitalize",
                 "multiple" => false,
-                "placeholder" => "-",
+                "placeholder" => "select",
                 "required" => false))
             ->add("enabled", CheckboxType::class,  array(
-                "label_format" => "Connexion autorisée"));
+                "label_format" => "authorized_connection_capitalize"));
 
         if($options["MODE_CREATE"]){
             $builder
                 ->add("plainPassword", RepeatedType::class, array(
                     "type" => PasswordType::class,
+                    "options" => ["always_empty" => true, "attr" => []],
+                    "data" => null,
                     // "options" => array("translation_domain" => "FOSUserBundle"),
-                    "first_options" => array("label_format" => "password"),
-                    "second_options" => array("label_format" => "password_confirmation"),
+                    "first_options" => array("label_format" => "password_capitalize"),
+                    "second_options" => array("label_format" => "password_confirmation_capitalize"),
                     "invalid_message" => "fos_user.password.mismatch",
                 ));
         }

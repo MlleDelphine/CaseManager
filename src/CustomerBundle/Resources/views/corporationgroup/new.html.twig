@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class=""><a href="{{ path('corporation_group_index') }}">{{ "corporation_groups"|trans|capitalize }}</a></li>
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
+    <li class=""><a href="{{ path('corporation_group_index') }}">{{ "all_corporation_groups"|trans|capitalize }}</a></li>
     <li class="active">{{ "addition"|trans|capitalize }}</li>
 {% endblock %}
 
@@ -20,7 +21,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>{{ "create"|trans|capitalize }} {{ "a_corporation_group"|trans }}.</h2>
+                    <h2><i class="fa fa-industry"></i> {{ "create"|trans|capitalize }} {{ "a_corporation_group"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
