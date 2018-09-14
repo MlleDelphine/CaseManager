@@ -20,6 +20,7 @@ use JMS\Serializer\Annotation as JMSSer;
  */
 class User extends BaseUser
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

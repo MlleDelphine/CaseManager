@@ -222,3 +222,9 @@
         </div>
     </div>
 {% endblock %}
+
+{# PERCENT - CATALOG #}
+{% block _appbundle_rate_percentage_widget %}
+    <input {{ block('widget_attributes') }} value="{{ value }}" type="text">
+    <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
+{% endblock %}
