@@ -110,6 +110,10 @@ creation_of_corporation_jobstatus: création d'un poste (contact)
 edition_of_corporation_jobstatus: édition d'un poste (contact)
 edition_of_the_corporation_jobstatus: édition du poste (contact)
 
+creation_of_private_individual: création d'un particulier
+edition_of_private_individual: édition d'une particulier
+edition_of_the_private_individual: édition du particulier
+
 creation_of_jobstatus: création d'un poste interne
 edition_of_jobstatus: édition d'un poste interne
 edition_of_the_jobstatus: édition du poste interne
@@ -207,7 +211,7 @@ several_rates: plusieurs taux
 so_rates: des taux
 no_rate: aucun taux
 
-#CORPO
+#CORPO / CUSTOMERS
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
 corporation_group: société (groupe)
@@ -238,12 +242,18 @@ no_corporation_employee: aucun contact (société)
 all_corporation_jobstatuses: tous les postes
 corporation_jobstatuses: postes (contacts)
 corporation_jobstatus: poste (contact)
-corporation_site_parent: Rattaché(e) à la société
 a_corporation_jobstatus: un poste
 several_corporation_jobstatuses: plusieurs postes
 some_corporation_jobstatuses: des postes
 no_corporation_jobstatus: aucun poste (contacts)
 
+all_private_individuals: tous les particuliers
+private_individuals: particuliers
+private_individual: particulier
+a_private_individual: un particulier
+several_private_individuals: plusieurs particuliers
+some_private_individuals: des particuliers
+no_private_individual: aucun particulier
 
 #OBJECTS STATES
 created_m_s: créé
@@ -277,6 +287,8 @@ on_time: à
 
 from: de
 from_capitalize: De
+from_long: à partir de
+from_long_capitalize: A partir de
 
 to_coi: à
 to_cod: au
@@ -295,6 +307,7 @@ export_verb: exporter
 add: ajouter
 addition: ajout
 remove: supprimer
+delete_verb: supprimer
 supression: suppression
 open: ouvrir
 an_open: ouverture
@@ -338,6 +351,7 @@ no_price: aucun prix
 prices: prix
 unitary_price: prix unitaire
 unitary_prices: prix unitaires
+prices_definition_capitalize: Définition des prix
 cost: coût
 costs: coûts
 cost_capitalize: Coût

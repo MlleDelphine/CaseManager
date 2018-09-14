@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class Resource
+class Resource implements ResourceSubjectInterface
 {
     /**
      * @var int
@@ -341,6 +341,10 @@ class Resource
     public function getTimePrices()
     {
         return $this->timePrices;
+    }
+
+    public function getObjectName() {
+        return "resource";
     }
 
 //    /**

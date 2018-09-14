@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="">{{ "customers_management"|trans|capitalize }}</li>
+    <li class="active">{{ "all_private_individuals"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{%  block page_title %} {{ "private_individuals"|trans|capitalize}} {% endblock %}
+{% block title %} {{ "private_individuals"|trans|capitalize }} {% endblock %}
+
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-address-card"></i> {{ "all_private_individuals"|trans|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('private_individual_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("private_individual_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall">{{ "unfold"|trans|capitalize }}</a>
+                <a href="#" class="btn btn-default closeall">{{ "fold"|trans|capitalize }}</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for privateIndividual in privateIndividuals %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ privateIndividual.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ privateIndividual.id }}" aria-expanded="true" aria-controls="collapse{{ privateIndividual.id }}">
+                                <h4 class="panel-title">{{ privateIndividual.firstName ~ ' ' ~ privateIndividual.lastName }}</h4>
+                            </a>
+                            <div id="collapse{{ privateIndividual.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ privateIndividual.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "honorific"|trans|capitalize }}</th>
+                                            <th>{{ "firstname"|trans|capitalize }}</th>
+                                            <th>{{ "lastname"|trans|capitalize }}</th>
+                                            <th>{{ "mail_address"|trans|capitalize }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ privateIndividual.id }}</th>
+                                            <td>{{ privateIndividual.honorific|trans|capitalize }}</td>
+                                            <td>{{ privateIndividual.firstName }}</td>
+                                            <td>{{ privateIndividual.lastName }}</td>
+                                            <td>{{ privateIndividual.mailAddress }}</td>
+                                            <td>{% if privateIndividual.created %}{{ privateIndividual.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if privateIndividual.updated %}{{ privateIndividual.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('private_individual_edit', { 'slug': privateIndividual.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('private_individual_export', { 'slug': privateIndividual.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ privateIndividual.slug }}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
+                                                </button>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    {% include  ":common:import_modal.html.twig" with { "action_path": "private_individual_index", "object_title": "some_private_individuals", "error": error } %}
+    <!-- Delete Modal -->
+
+    {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
+
+
+
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+    $('#deleteModal').on('show.bs.modal', function (e) {
+    console.log('OPEN MODAL');
+    });
+
+    $('.delete-entity').on('click', function (e) {
+    var slugData = $(this).data('slug');
+    $.ajax({
+    method: "delete",
+    url: Routing.generate('private_individual_delete', { 'slug': slugData }),
+    dataType: "html",
+    success: function(response) {
+    console.log("SUCCESS");
+    console.log(response);
+    $("#deleteModal").html(response);
+    }
+    }).fail(function(jxh,textmsg,errorThrown){
+    console.log(textmsg);
+    console.log(errorThrown);
+    });
+    });
+
+{% endblock %}

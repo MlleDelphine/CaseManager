@@ -49,4 +49,7 @@ class Corporation implements CorporationInterface {
         return $legalStatuses[$legalStatusKey];
     }
 
+    public function getObjectName() {
+        return "Corporation";
+    }
 }

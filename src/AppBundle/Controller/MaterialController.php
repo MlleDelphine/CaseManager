@@ -107,9 +107,6 @@ class MaterialController extends Controller
             return $this->redirectToRoute('material_index');
         }
 
-//        dump($editForm->get("timePrices")->getErrors());
-//        die;
-
         return $this->render('AppBundle:material:edit.html.twig', array(
             'material' => $material,
             'edit_form' => $editForm->createView(),

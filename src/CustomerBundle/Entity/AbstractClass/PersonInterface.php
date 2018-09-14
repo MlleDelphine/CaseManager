@@ -9,7 +9,7 @@
 namespace CustomerBundle\Entity\AbstractClass;
 
 
-interface PersonInterface {
+interface PersonInterface extends CustomerSubjectInterface {
 
     /**
      * @return array

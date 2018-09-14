@@ -3,20 +3,24 @@
 namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Person;
+use CustomerBundle\Entity\AbstractClass\PostalAddressSubjectInterface;
+use CustomerBundle\Entity\PostalAddress;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+
 /**
- * CorporationEmployee
+ * PrivateIndividual
  *
- * @ORM\Table(name="corporation_employee")
- * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationEmployeeRepository")
+ * @ORM\Table(name="private_individual")
+ * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\PrivateIndividualRepository")
+ *
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationEmployee extends Person
+class PrivateIndividual extends Person implements PostalAddressSubjectInterface
 {
     /**
      * @var int
@@ -26,48 +30,52 @@ class CorporationEmployee extends Person
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="firstName", type="string", length=255)
      * @Assert\NotBlank()
+     *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    protected $firstName;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @var string
      *
+     * @ORM\Column(name="lastName", type="string", length=255)
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    protected $lastName;
+    private $lastName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
-     *
      * @Assert\Regex("/^((\+\d{2})|0)[0-9]{9}$/")
+     *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    protected $phoneNumber;
+    private $phoneNumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mailAddress", type="string", length=255, nullable=true)
-     *
      * @Assert\NotBlank()
      * @Assert\Email()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
     private $mailAddress;
 
@@ -75,10 +83,9 @@ class CorporationEmployee extends Person
      * @var string
      *
      * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     *
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
      */
-    protected $slug;
+    private $slug;
 
     /**
      * @var string
@@ -86,7 +93,7 @@ class CorporationEmployee extends Person
      * @ORM\Column(name="honorific", type="string", length=10)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
     private $honorific;
 
@@ -105,30 +112,20 @@ class CorporationEmployee extends Person
     protected $updated;
 
     /**
-     * @var CorporationJobStatus
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="employees", cascade={"persist", "merge"})
+     * @var PostalAddress
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="privateIndividual", cascade={"all"}, orphanRemoval=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    protected $corporationJobStatus;
-
-    /**
-     * @var CorporationSite
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationSite", inversedBy="employees", cascade={"persist", "merge"})
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
-     */
-    protected $corporationSite;
+    protected $postalAddress;
 
     public function __construct()
     {
     }
 
-    public function __toString()
-    {
-        return $this->getFirstName()." ".$this->getLastName();
+    public function __toString() {
+        return (string) $this->getFirstName()." ".$this->getLastName();
     }
 
     /**
@@ -146,7 +143,7 @@ class CorporationEmployee extends Person
      *
      * @param string $firstName
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setFirstName($firstName)
     {
@@ -170,7 +167,7 @@ class CorporationEmployee extends Person
      *
      * @param string $lastName
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setLastName($lastName)
     {
@@ -194,7 +191,7 @@ class CorporationEmployee extends Person
      *
      * @param string $phoneNumber
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setPhoneNumber($phoneNumber)
     {
@@ -218,7 +215,7 @@ class CorporationEmployee extends Person
      *
      * @param string $mailAddress
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setMailAddress($mailAddress)
     {
@@ -238,35 +235,11 @@ class CorporationEmployee extends Person
     }
 
     /**
-     * Set honorific
-     *
-     * @param string $honorific
-     *
-     * @return CorporationEmployee
-     */
-    public function setHonorific($honorific)
-    {
-        $this->honorific = $honorific;
-
-        return $this;
-    }
-
-    /**
-     * Get honorific
-     *
-     * @return string
-     */
-    public function getHonorific()
-    {
-        return $this->honorific;
-    }
-
-    /**
      * Set slug
      *
      * @param string $slug
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setSlug($slug)
     {
@@ -286,11 +259,60 @@ class CorporationEmployee extends Person
     }
 
     /**
+     * Set honorific
+     *
+     * @param string $honorific
+     *
+     * @return PrivateIndividual
+     */
+    public function setHonorific($honorific)
+    {
+        $this->honorific = $honorific;
+
+        return $this;
+    }
+
+    /**
+     * Get honorific
+     *
+     * @return string
+     */
+    public function getHonorific()
+    {
+        return $this->honorific;
+    }
+
+    /**
+     * Set postalAddress
+     *
+     * @param PostalAddress $postalAddress
+     *
+     * @return PrivateIndividual
+     */
+    public function setPostalAddress(PostalAddress $postalAddress = null)
+    {
+        $this->postalAddress = $postalAddress;
+        $postalAddress->setPrivateIndividual($this);
+
+        return $this;
+    }
+
+    /**
+     * Get postalAddress
+     *
+     * @return PostalAddress
+     */
+    public function getPostalAddress()
+    {
+        return $this->postalAddress;
+    }
+
+    /**
      * Set created
      *
      * @param \DateTime $created
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setCreated($created)
     {
@@ -314,7 +336,7 @@ class CorporationEmployee extends Person
      *
      * @param \DateTime $updated
      *
-     * @return CorporationEmployee
+     * @return PrivateIndividual
      */
     public function setUpdated($updated)
     {
@@ -333,57 +355,11 @@ class CorporationEmployee extends Person
         return $this->updated;
     }
 
-    /**
-     * Set corporationJobStatus
-     *
-     * @param \CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus
-     *
-     * @return CorporationEmployee
-     */
-    public function setCorporationJobStatus(\CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus = null)
-    {
-        $this->corporationJobStatus = $corporationJobStatus;
-        $corporationJobStatus->addEmployee($this);
-
-        return $this;
-    }
-
-    /**
-     * Get corporationJobStatus
-     *
-     * @return \CustomerBundle\Entity\CorporationJobStatus
-     */
-    public function getCorporationJobStatus()
-    {
-        return $this->corporationJobStatus;
-    }
-
-    /**
-     * Set corporationSite
-     *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
-     *
-     * @return CorporationEmployee
-     */
-    public function setCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite = null)
-    {
-        $this->corporationSite = $corporationSite;
-        $corporationSite->addEmployee($this);
-
-        return $this;
-    }
-
-    /**
-     * Get corporationSite
-     *
-     * @return \CustomerBundle\Entity\CorporationSite
-     */
-    public function getCorporationSite()
-    {
-        return $this->corporationSite;
-    }
-
     public function getObjectName() {
-       return "CorporationEmployee";
+        return "PrivateIndividual";
+    }
+
+    public function getEntityName() {
+        return "PrivateIndividual";
     }
 }

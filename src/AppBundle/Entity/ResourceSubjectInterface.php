@@ -9,6 +9,8 @@
 namespace AppBundle\Entity;
 
 
-class AbstractResource {
+interface ResourceSubjectInterface {
+
+    public function getObjectName();
 
 }

@@ -14,7 +14,7 @@ class JobStatusType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, array('label' => 'Intitulé', 'required' => true));
+        $builder->add('name', TextType::class, array('label' => 'title_capitalize', 'required' => true));
     }
     
     /**

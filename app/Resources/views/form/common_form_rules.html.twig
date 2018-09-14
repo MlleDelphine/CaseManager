@@ -114,7 +114,7 @@
     {% endspaceless %}
 {% endblock _appbundle_equipment_unitTimePrices_entry_widget %}
 
-{# POSTAL ADDRESS - CUSTOMER #}
+{# POSTAL ADDRESS - CUSTOMER CORPO GROUP #}
 {% block _customerbundle_corporationgroup_postalAddress_widget %}
     <div class="form-group">
         <span class="required">*</span>
@@ -168,8 +168,63 @@
     </div>
 {% endblock %}
 
-{# POSTAL ADDRESS - CUSTOMER #}
+{# POSTAL ADDRESS - CUSTOMER CORPO SITE #}
 {% block _customerbundle_corporationsite_postalAddress_widget %}
+    <div class="form-group">
+        <span class="required">*</span>
+        {{ form_label(form.streetNumber, "address_street_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.streetNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+            <span class="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
+            {{ form_errors(form.streetNumber) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <span class="required">*</span>
+        {{ form_label(form.streetName, "address_street_name"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.streetName, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+            <span class="fa fa-road form-control-feedback left" aria-hidden="true"></span>
+            {{ form_errors(form.streetName) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.complement, "address_complement"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.complement, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {{ form_errors(form.complement) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <span class="required">*</span>
+        {{ form_label(form.postalCode, "address_postal_code"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.postalCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+            {{ form_errors(form.postalCode) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <span class="required">*</span>
+        {{ form_label(form.city, "address_city"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            {{ form_widget(form.city, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
+            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+            {{ form_errors(form.city) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <span class="required">*</span>
+        {{ form_label(form.country, "address_country"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
+                {{ form_errors(form.country) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# POSTAL ADDRESS - CUSTOMER PRIVATE INDIV. #}
+{% block _customerbundle_privateindividual_postalAddress_widget %}
     <div class="form-group">
         <span class="required">*</span>
         {{ form_label(form.streetNumber, "address_street_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}

@@ -22,13 +22,13 @@ class ResourceType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-                "label_format" => "Intitulé",
+                "label_format" => "title_capitalize",
                 "required" => true))
             ->add("reference", TextType::class, array(
                 "label_format" => "unique_reference_capitalize",
                 "required" => true))
             ->add("description", CustomTinyMceType::class, array(
-                "label_format" => "Description",
+                "label_format" => "description_capitalize",
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]))
@@ -53,7 +53,7 @@ class ResourceType extends AbstractType
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],
-                "label_format" => "Définition des prix :",
+                "label_format" => "prices_definition_capitalize",
                 "required" => false));
         }
         else{
@@ -68,7 +68,7 @@ class ResourceType extends AbstractType
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],
-                "label_format" => "Définition des prix :",
+                "label_format" => "prices_definition_capitalize",
                 "required" => false));
         }
     }

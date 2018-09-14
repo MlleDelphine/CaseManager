@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\PostalAddressSubjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -131,6 +132,11 @@ class PostalAddress
      */
     public $corporationSite;
 
+    /**
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PrivateIndividual", mappedBy="postalAddress")
+     * @var
+     */
+    public $privateIndividual;
 
     public function __construct()
     {
@@ -409,5 +415,19 @@ class PostalAddress
     public function getCorporationSite()
     {
         return $this->corporationSite;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrivateIndividual() {
+        return $this->privateIndividual;
+    }
+
+    /**
+     * @param mixed $privateIndividual
+     */
+    public function setPrivateIndividual($privateIndividual) {
+        $this->privateIndividual = $privateIndividual;
     }
 }

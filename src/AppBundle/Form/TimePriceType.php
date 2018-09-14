@@ -18,7 +18,7 @@ class TimePriceType extends AbstractType
     {
         $builder
             ->add("fromDate", DateType::class, array(
-                "label_format" => "A partir de",
+                "label_format" => "from_long_capitalize",
                 "required" => true,
                 "widget" => "single_text"))
             ->add("untilDate", DateType::class, array(

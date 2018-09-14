@@ -4,6 +4,7 @@
 namespace SecurityAppBundle\Entity;
 
 use AppBundle\Entity\JobStatus;
+use AppBundle\Entity\ResourceSubjectInterface;
 use AppBundle\Entity\Team;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +19,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class User extends BaseUser
+class User extends BaseUser implements ResourceSubjectInterface
 {
 
     /**
@@ -355,5 +356,9 @@ class User extends BaseUser
     public function getTeam()
     {
         return $this->team;
+    }
+
+    public function getObjectName() {
+        return "employee";
     }
 }

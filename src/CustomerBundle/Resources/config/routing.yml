@@ -14,6 +14,9 @@ customer_corporation_job_status:
     resource: "@CustomerBundle/Resources/config/routing/corporationjobstatus.yml"
     prefix:   /corporation-job-status
 
+customer_private_individual:
+    resource: "@CustomerBundle/Resources/config/routing/privateindividual.yml"
+    prefix:   /private-individual
 
 customer_homepage:
     path: /

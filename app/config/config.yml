@@ -146,6 +146,8 @@ doctrine:
                     SonataMediaBundle: ~
                     AppBundle: ~
                     SecurityAppBundle: ~
+        resolve_target_entities:
+            CustomerBundle\PostalAddressSubjectInterface: CustomerBundle\Entity\PrivateIndividual
 
 # Swiftmailer Configuration
 swiftmailer:

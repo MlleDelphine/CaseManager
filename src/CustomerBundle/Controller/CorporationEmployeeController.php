@@ -145,15 +145,14 @@ class CorporationEmployeeController extends Controller
      *
      * @param CorporationEmployee $corporationEmployee The corporationEmployee entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(CorporationEmployee $corporationEmployee)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('corporation_employee_delete', array('slug' => $corporationEmployee->getSlug())))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 
     /**

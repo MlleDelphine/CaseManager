@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -17,7 +18,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationSite
+class CorporationSite implements CustomerSubjectInterface
 {
     /**
      * @var int
@@ -321,5 +322,9 @@ class CorporationSite
     public function getEmployees()
     {
         return $this->employees;
+    }
+
+    public function getObjectName() {
+       return "CorporationSite";
     }
 }

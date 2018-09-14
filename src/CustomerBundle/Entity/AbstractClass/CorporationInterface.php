@@ -9,7 +9,7 @@
 namespace CustomerBundle\Entity\AbstractClass;
 
 
-interface CorporationInterface {
+interface CorporationInterface extends CustomerSubjectInterface {
 
     /**
      * @return array

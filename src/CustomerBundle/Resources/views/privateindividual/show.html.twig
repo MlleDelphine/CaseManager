@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Privateindividual</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ privateIndividual.id }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ privateIndividual.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ privateIndividual.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ privateIndividual.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Mailaddress</th>
+                <td>{{ privateIndividual.mailAddress }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ privateIndividual.slug }}</td>
+            </tr>
+            <tr>
+                <th>Honorific</th>
+                <td>{{ privateIndividual.honorific }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if privateIndividual.created %}{{ privateIndividual.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if privateIndividual.updated %}{{ privateIndividual.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('private-individual_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('private-individual_edit', { 'id': privateIndividual.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

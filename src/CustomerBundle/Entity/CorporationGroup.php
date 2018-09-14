@@ -291,4 +291,8 @@ class CorporationGroup extends Corporation
     {
         return $this->postalAddress;
     }
+
+    public function getObjectName() {
+        return "CorporationGroupe";
+    }
 }
