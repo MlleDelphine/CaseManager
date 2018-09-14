@@ -22,7 +22,9 @@ resource_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AppBundle:Resource:delete" }
     methods:  DELETE
-    
+    options:
+        expose: true
+
 resource_export:
     path: /export/{slug}
     defaults: { _controller: "AppBundle:Resource:exportResource" }

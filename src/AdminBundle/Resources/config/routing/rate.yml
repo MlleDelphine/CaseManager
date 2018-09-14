@@ -22,6 +22,8 @@ rate_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AdminBundle:Rate:delete" }
     methods:  DELETE
+    options:
+        expose: true
 
 rate_export:
     path: /export/{slug}

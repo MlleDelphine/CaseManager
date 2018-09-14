@@ -1,0 +1,14 @@
+$('.delete-entity').on('click', function (e) {
+    var slugData = $(this).data('slug');
+    $.ajax({
+        method: "delete",
+        url: Routing.generate('{{ routeName }}', { 'slug': slugData }),
+        dataType: "html",
+        success: function(response) {
+            $("#deleteModal").html(response);
+        }
+    }).fail(function(jxh,textmsg,errorThrown){
+        console.log(textmsg);
+        console.log(errorThrown);
+    });
+});

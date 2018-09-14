@@ -70,6 +70,9 @@
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('rate_edit', { 'slug': rate.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('rate_export', { 'slug': rate.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ rate.slug }}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -86,6 +89,8 @@
 
     <!-- Import Modal -->
     {% include  ":common:import_modal.html.twig" with { "action_path": "rate_index", "object_title": "some_rates", "error": error } %}
+    <!-- Delete Modal -->
+    {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 
 {% endblock %}
 
@@ -97,4 +102,5 @@
         });
     {% endif %}
 
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "rate_delete" } %}
 {% endblock %}

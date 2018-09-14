@@ -22,6 +22,8 @@ equipment_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AppBundle:Equipment:delete" }
     methods:  DELETE
+    options:
+        expose: true
 
 equipment_export:
     path: /export/{slug}

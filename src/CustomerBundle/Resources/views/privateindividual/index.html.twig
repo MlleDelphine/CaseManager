@@ -70,7 +70,7 @@
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('private_individual_edit', { 'slug': privateIndividual.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('private_individual_export', { 'slug': privateIndividual.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ privateIndividual.slug }}">
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ privateIndividual.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
                                                 </button>
                                         </tr>
@@ -89,10 +89,7 @@
     <!-- Import Modal -->
     {% include  ":common:import_modal.html.twig" with { "action_path": "private_individual_index", "object_title": "some_private_individuals", "error": error } %}
     <!-- Delete Modal -->
-
     {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
-
-
 
 {% endblock %}
 
@@ -103,25 +100,6 @@
         $("#import-btn").trigger("click");
         });
     {% endif %}
-    $('#deleteModal').on('show.bs.modal', function (e) {
-    console.log('OPEN MODAL');
-    });
-
-    $('.delete-entity').on('click', function (e) {
-    var slugData = $(this).data('slug');
-    $.ajax({
-    method: "delete",
-    url: Routing.generate('private_individual_delete', { 'slug': slugData }),
-    dataType: "html",
-    success: function(response) {
-    console.log("SUCCESS");
-    console.log(response);
-    $("#deleteModal").html(response);
-    }
-    }).fail(function(jxh,textmsg,errorThrown){
-    console.log(textmsg);
-    console.log(errorThrown);
-    });
-    });
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "private_individual_delete" } %}
 
 {% endblock %}

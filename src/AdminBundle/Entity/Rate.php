@@ -114,6 +114,9 @@ class Rate
         $this->untilDate = $now->add(new \DateInterval("P2Y"));
     }
 
+    public function __toString() {
+        return (string) $this->getName();
+    }
 
     /**
      * Get id

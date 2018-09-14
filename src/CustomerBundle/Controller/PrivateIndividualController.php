@@ -133,17 +133,17 @@ class PrivateIndividualController extends Controller
                     "default" => false
                 ]);
         }
-        else{
-            $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($privateIndividual);
-                $em->flush();
-            }
+        $form->handleRequest($request);
 
-            return $this->redirectToRoute('private_individual_index');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($privateIndividual);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('private_individual_index');
+
     }
 
     /**
@@ -163,12 +163,12 @@ class PrivateIndividualController extends Controller
 
     /**
      * @param Request $request
-     * @param PrivateIndividual $equipment
+     * @param PrivateIndividual $privateIndividual
      * @return StreamedResponse
      */
-    public function exportPrivateIndividualAction(Request $request, PrivateIndividual $equipment){
+    public function exportPrivateIndividualAction(Request $request, PrivateIndividual $privateIndividual){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_privateindividual', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_privateindividual', $privateIndividual)->prepare($request);
 
         return $response;
     }

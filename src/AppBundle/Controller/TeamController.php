@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -157,11 +158,21 @@ class TeamController extends Controller
      * Deletes a team entity.
      * @param Request $request
      * @param Team $team
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse |Response
      */
     public function deleteAction(Request $request, Team $team)
     {
         $form = $this->createDeleteForm($team);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $team,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -7,6 +7,7 @@ use AppBundle\Form\MaterialType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -118,11 +119,21 @@ class MaterialController extends Controller
      * Deletes a material entity.
      * @param Request $request
      * @param Material $material
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse |Response
      */
     public function deleteAction(Request $request, Material $material)
     {
         $form = $this->createDeleteForm($material);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $material,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

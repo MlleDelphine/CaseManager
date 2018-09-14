@@ -95,6 +95,9 @@
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ jobStatus.slug }}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -111,7 +114,8 @@
 
     <!-- Import Modal -->
     {% include  ":common:import_modal.html.twig" with { "action_path": "jobstatus_index", "object_title": "some_jobs", "error": error } %}
-
+    <!-- Delete Modal -->
+    {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 {% endblock %}
 
 {% block custom_javascripts %}
@@ -122,4 +126,5 @@
         });
     {% endif %}
 
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "jobstatus_delete" } %}
 {% endblock %}

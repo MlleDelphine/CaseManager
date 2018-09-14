@@ -80,13 +80,13 @@ class JsonExportImportData
             }
         );
 
+        $date = date("d-m-Y");
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Cache-Control', '');
         $response->headers->set('Content-Length', strlen($json));
         $response->headers->set('Last-Modified', gmdate('D, d M Y H:i:s'));
-        $contentDisposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, str_replace("/", "", $object->getName()).' - export.json');
+        $contentDisposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, str_replace("/", "", $object)." - Export - $date.json");
         $response->headers->set('Content-Disposition', $contentDisposition);
-
 
         return $response;
     }

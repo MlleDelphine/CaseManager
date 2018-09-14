@@ -7,6 +7,7 @@ use AdminBundle\Form\RateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -118,11 +119,21 @@ class RateController extends Controller
      * Deletes a rate entity.
      * @param Request $request
      * @param Rate $rate
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
     public function deleteAction(Request $request, Rate $rate)
     {
         $form = $this->createDeleteForm($rate);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $rate,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

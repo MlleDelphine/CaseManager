@@ -22,6 +22,8 @@ team_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AppBundle:Team:delete" }
     methods:  DELETE
+    options:
+        expose: true
 
 team_export:
     path: /export/{slug}

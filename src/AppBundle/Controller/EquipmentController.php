@@ -8,6 +8,7 @@ use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -119,11 +120,21 @@ class EquipmentController extends Controller
      * Deletes a equipment entity.
      * @param Request $request
      * @param Equipment $equipment
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
     public function deleteAction(Request $request, Equipment $equipment)
     {
         $form = $this->createDeleteForm($equipment);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $equipment,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

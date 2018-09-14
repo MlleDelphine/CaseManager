@@ -7,6 +7,7 @@ use AppBundle\Form\JobStatusType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -118,11 +119,21 @@ class JobStatusController extends Controller
      * Deletes a jobStatus entity.
      * @param Request $request
      * @param JobStatus $jobStatus
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
     public function deleteAction(Request $request, JobStatus $jobStatus)
     {
         $form = $this->createDeleteForm($jobStatus);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $jobStatus,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
