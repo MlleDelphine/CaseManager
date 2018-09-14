@@ -9,7 +9,7 @@
 namespace CustomerBundle\Entity\AbstractClass;
 
 
-abstract class Person implements PersonInterface {
+abstract class Person extends Customer implements PersonInterface {
 
     /**
      * @return array
@@ -25,7 +25,7 @@ abstract class Person implements PersonInterface {
     }
 
     /**
-     * @param String $honorificKey
+     * @param string $honorificKey
      * @return mixed
      */
     public static function getHonorificByKey(string $honorificKey){
