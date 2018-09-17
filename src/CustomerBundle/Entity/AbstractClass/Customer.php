@@ -39,6 +39,9 @@ abstract class Customer extends Person{
     protected $id;
 
 //    /**
+// NEEDED HERE FOR doctrine migrations generation.
+// if at each child level "conflict slug column name"
+// remove after doc migr generation to have != slug per child =)
 //     * @var string
 //     *
 //     */
