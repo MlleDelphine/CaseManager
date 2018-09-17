@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as JMSSer;
 /**
  * CorporationGroup
  *
- * @ORM\Table(name="corporation_group")
+ *
  * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationGroupRepository")
  * @ORM\HasLifecycleCallbacks()
  *
@@ -20,18 +20,6 @@ use JMS\Serializer\Annotation as JMSSer;
  */
 class CorporationGroup extends Corporation
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
-     */
-    protected $id;
-
     /**
      * @var string
      *
@@ -48,7 +36,6 @@ class CorporationGroup extends Corporation
      *
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
-     *
      */
     protected $slug;
 
@@ -64,34 +51,20 @@ class CorporationGroup extends Corporation
     protected $legalStatus;
 
     /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
-    protected $created;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    protected $updated;
-
-    /**
      * @var User[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="corporationGroup", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $corporationSites;
 
-    /**
-     * @var
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationGroup", cascade={"all"}, orphanRemoval=true)
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
-     */
-    protected $postalAddress;
+//    /**
+//     * @var
+//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationGroup", cascade={"all"}, orphanRemoval=true)
+//     *
+//     * @JMSSer\Expose()
+//     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
+//     */
+//    protected $postalAddress;
 
     public function __construct()
     {
@@ -267,30 +240,30 @@ class CorporationGroup extends Corporation
         return $this->corporationSites;
     }
 
-    /**
-     * Set postalAddress
-     *
-     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
-     *
-     * @return CorporationGroup
-     */
-    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
-    {
-        $this->postalAddress = $postalAddress;
-        $postalAddress->setCorporationGroup($this);
-
-        return $this;
-    }
-
-    /**
-     * Get postalAddress
-     *
-     * @return \CustomerBundle\Entity\PostalAddress
-     */
-    public function getPostalAddress()
-    {
-        return $this->postalAddress;
-    }
+//    /**
+//     * Set postalAddress
+//     *
+//     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
+//     *
+//     * @return CorporationGroup
+//     */
+//    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
+//    {
+//        $this->postalAddress = $postalAddress;
+//        $postalAddress->setCorporationGroup($this);
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get postalAddress
+//     *
+//     * @return \CustomerBundle\Entity\PostalAddress
+//     */
+//    public function getPostalAddress()
+//    {
+//        return $this->postalAddress;
+//    }
 
     public function getObjectName() {
         return "CorporationGroupe";

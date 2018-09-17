@@ -28,7 +28,7 @@ class CorporationEmployee extends Person
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string")
@@ -116,6 +116,7 @@ class CorporationEmployee extends Person
     /**
      * @var CorporationSite
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationSite", inversedBy="employees", cascade={"persist", "merge"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
@@ -384,6 +385,6 @@ class CorporationEmployee extends Person
     }
 
     public function getObjectName() {
-       return "CorporationEmployee";
+        return "CorporationEmployee";
     }
 }

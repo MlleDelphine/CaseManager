@@ -2,7 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
-use CustomerBundle\Entity\AbstractClass\Person;
+use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\PostalAddressSubjectInterface;
 use CustomerBundle\Entity\PostalAddress;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,27 +13,15 @@ use JMS\Serializer\Annotation as JMSSer;
 /**
  * PrivateIndividual
  *
- * @ORM\Table(name="private_individual")
+ *
  * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\PrivateIndividualRepository")
  *
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class PrivateIndividual extends Person implements PostalAddressSubjectInterface
+class PrivateIndividual extends Customer implements PostalAddressSubjectInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_privateindividual"})
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -43,7 +31,7 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
@@ -54,7 +42,7 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
@@ -65,7 +53,7 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /**
      * @var string
@@ -77,15 +65,15 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    private $mailAddress;
+    protected $mailAddress;
 
     /**
      * @var string
      *
      * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     * @ORM\Column(length=128, unique=true)
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var string
@@ -95,30 +83,17 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
      */
-    private $honorific;
+    protected $honorific;
 
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
-    protected $created;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    protected $updated;
-
-    /**
-     * @var PostalAddress
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="privateIndividual", cascade={"all"}, orphanRemoval=true)
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_privateindividual"})
-     */
-    protected $postalAddress;
+//
+//    /**
+//     * @var PostalAddress
+//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="privateIndividual", cascade={"all"}, orphanRemoval=true)
+//     *
+//     * @JMSSer\Expose()
+//     * @JMSSer\Groups({"admin_export_privateindividual"})
+//     */
+//    protected $postalAddress;
 
     public function __construct()
     {
@@ -234,29 +209,29 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
         return $this->mailAddress;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return PrivateIndividual
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+//    /**
+//     * Set slug
+//     *
+//     * @param string $slug
+//     *
+//     * @return PrivateIndividual
+//     */
+//    public function setSlug($slug)
+//    {
+//        $this->slug = $slug;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get slug
+//     *
+//     * @return string
+//     */
+//    public function getSlug()
+//    {
+//        return $this->slug;
+//    }
 
     /**
      * Set honorific
@@ -282,30 +257,30 @@ class PrivateIndividual extends Person implements PostalAddressSubjectInterface
         return $this->honorific;
     }
 
-    /**
-     * Set postalAddress
-     *
-     * @param PostalAddress $postalAddress
-     *
-     * @return PrivateIndividual
-     */
-    public function setPostalAddress(PostalAddress $postalAddress = null)
-    {
-        $this->postalAddress = $postalAddress;
-        $postalAddress->setPrivateIndividual($this);
-
-        return $this;
-    }
-
-    /**
-     * Get postalAddress
-     *
-     * @return PostalAddress
-     */
-    public function getPostalAddress()
-    {
-        return $this->postalAddress;
-    }
+//    /**
+//     * Set postalAddress
+//     *
+//     * @param PostalAddress $postalAddress
+//     *
+//     * @return PrivateIndividual
+//     */
+//    public function setPostalAddress(PostalAddress $postalAddress = null)
+//    {
+//        $this->postalAddress = $postalAddress;
+//        $postalAddress->setPrivateIndividual($this);
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get postalAddress
+//     *
+//     * @return PostalAddress
+//     */
+//    public function getPostalAddress()
+//    {
+//        return $this->postalAddress;
+//    }
 
     /**
      * Set created

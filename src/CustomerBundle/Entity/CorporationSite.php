@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,26 +13,14 @@ use JMS\Serializer\Annotation as JMSSer;
 /**
  * CorporationSite
  *
- * @ORM\Table(name="corporation_site")
+ *
  * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationSiteRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationSite implements CustomerSubjectInterface
+class CorporationSite extends Customer implements CustomerSubjectInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationsite"})
-     */
-    protected $id;
-
     /**
      * @var string
      *
@@ -62,20 +51,6 @@ class CorporationSite implements CustomerSubjectInterface
     protected $slug;
 
     /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
-    protected $created;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    protected $updated;
-
-    /**
      * @var CorporationGroup
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", inversedBy="corporationSites", cascade={"persist", "merge", "detach"})
      *
@@ -85,14 +60,14 @@ class CorporationSite implements CustomerSubjectInterface
      */
     public $corporationGroup;
 
-    /**
-     * @var PostalAddress
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationSite", cascade={"all"}, orphanRemoval=true)
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationsite"})
-     */
-    protected $postalAddress;
+//    /**
+//     * @var PostalAddress
+//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationSite", cascade={"all"}, orphanRemoval=true)
+//     *
+//     * @JMSSer\Expose()
+//     * @JMSSer\Groups({"admin_export_corporationsite"})
+//     */
+//    protected $postalAddress;
 
     /**
      * @var CorporationEmployee[]|ArrayCollection
@@ -169,29 +144,29 @@ class CorporationSite implements CustomerSubjectInterface
         return $this->phoneNumber;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return CorporationSite
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+//    /**
+//     * Set slug
+//     *
+//     * @param string $slug
+//     *
+//     * @return CorporationSite
+//     */
+//    public function setSlug($slug)
+//    {
+//        $this->slug = $slug;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get slug
+//     *
+//     * @return string
+//     */
+//    public function getSlug()
+//    {
+//        return $this->slug;
+//    }
 
     /**
      * Set created
@@ -265,30 +240,30 @@ class CorporationSite implements CustomerSubjectInterface
         return $this->corporationGroup;
     }
 
-    /**
-     * Set postalAddress
-     *
-     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
-     *
-     * @return CorporationSite
-     */
-    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
-    {
-        $this->postalAddress = $postalAddress;
-        $postalAddress->setCorporationSite($this);
-
-        return $this;
-    }
-
-    /**
-     * Get postalAddress
-     *
-     * @return \CustomerBundle\Entity\PostalAddress
-     */
-    public function getPostalAddress()
-    {
-        return $this->postalAddress;
-    }
+//    /**
+//     * Set postalAddress
+//     *
+//     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
+//     *
+//     * @return CorporationSite
+//     */
+//    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
+//    {
+//        $this->postalAddress = $postalAddress;
+//        $postalAddress->setCorporationSite($this);
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get postalAddress
+//     *
+//     * @return \CustomerBundle\Entity\PostalAddress
+//     */
+//    public function getPostalAddress()
+//    {
+//        return $this->postalAddress;
+//    }
 
     /**
      * Add employee

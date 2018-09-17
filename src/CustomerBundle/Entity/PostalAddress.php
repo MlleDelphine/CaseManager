@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\PostalAddressSubjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -120,23 +121,10 @@ class PostalAddress
 
     /**
      * @var
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", mappedBy="postalAddress")
+     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", mappedBy="postalAddress")
      *
      */
-    public $corporationGroup;
-
-    /**
-     * @var
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="postalAddress")
-     *
-     */
-    public $corporationSite;
-
-    /**
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PrivateIndividual", mappedBy="postalAddress")
-     * @var
-     */
-    public $privateIndividual;
+    public $customer;
 
     public function __construct()
     {
@@ -372,62 +360,24 @@ class PostalAddress
     /**
      * Set corporationGroup
      *
-     * @param \CustomerBundle\Entity\CorporationGroup $corporationGroup
+     * @param Customer $customer
      *
      * @return PostalAddress
      */
-    public function setCorporationGroup(\CustomerBundle\Entity\CorporationGroup $corporationGroup = null)
+    public function setCustomer(Customer $customer = null)
     {
-        $this->corporationGroup = $corporationGroup;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * Get corporationGroup
+     * Get Customer
      *
-     * @return \CustomerBundle\Entity\CorporationGroup
+     * @return Customer
      */
-    public function getCorporationGroup()
+    public function getCustomer()
     {
-        return $this->corporationGroup;
-    }
-
-    /**
-     * Set corporationSite
-     *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
-     *
-     * @return PostalAddress
-     */
-    public function setCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite = null)
-    {
-        $this->corporationSite = $corporationSite;
-
-        return $this;
-    }
-
-    /**
-     * Get corporationSite
-     *
-     * @return \CustomerBundle\Entity\CorporationSite
-     */
-    public function getCorporationSite()
-    {
-        return $this->corporationSite;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrivateIndividual() {
-        return $this->privateIndividual;
-    }
-
-    /**
-     * @param mixed $privateIndividual
-     */
-    public function setPrivateIndividual($privateIndividual) {
-        $this->privateIndividual = $privateIndividual;
+        return $this->customer;
     }
 }
