@@ -37,4 +37,7 @@ abstract class Person implements PersonInterface {
         return false;
     }
 
+    public function getObjectName() {
+       return "person";
+    }
 }

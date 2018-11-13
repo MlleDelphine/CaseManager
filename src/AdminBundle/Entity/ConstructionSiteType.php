@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as JMSSer;
 /**
  * ConstructionSiteType
  *
- * @ORM\Table(name="constructionSiteType")
+ * @ORM\Table(name="construction_site_type")
  * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\ConstructionSiteTypeRepository")
  * @ORM\HasLifecycleCallbacks()
  *

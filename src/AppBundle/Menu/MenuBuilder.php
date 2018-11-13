@@ -106,6 +106,7 @@ class MenuBuilder implements ContainerAwareInterface
         $menu["admin_customers"]->addChild("corporation_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-address-book");
         $menu["admin_customers"]->addChild("corporation_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
         $menu["admin_customers"]->addChild("private_individuals", array("route" => "private_individual_index"))->setAttribute("prev-icon", "fa fa-address-card");
+        $menu["admin_customers"]->addChild("townships", array("route" => "township_index"))->setAttribute("prev-icon", "fa fa-university");
 
         // BUSINESS MANAGEMENT
         $menu->addChild("admin_business",

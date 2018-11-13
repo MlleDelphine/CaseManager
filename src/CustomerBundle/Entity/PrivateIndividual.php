@@ -4,7 +4,6 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\PostalAddressSubjectInterface;
-use CustomerBundle\Entity\PostalAddress;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -70,14 +69,6 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     */
-    protected $slug;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="honorific", type="string", length=10)
      *
      * @JMSSer\Expose()
@@ -85,18 +76,15 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      */
     protected $honorific;
 
-//
-//    /**
-//     * @var PostalAddress
-//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="privateIndividual", cascade={"all"}, orphanRemoval=true)
-//     *
-//     * @JMSSer\Expose()
-//     * @JMSSer\Groups({"admin_export_privateindividual"})
-//     */
-//    protected $postalAddress;
+    /**
+     * Virtual Property for slug generation = __toString()
+     * @var string
+     */
+    protected $name;
 
     public function __construct()
     {
+        return $this->getFirstName()." ".$this->getLastName();
     }
 
     public function __toString() {
@@ -209,29 +197,6 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
         return $this->mailAddress;
     }
 
-//    /**
-//     * Set slug
-//     *
-//     * @param string $slug
-//     *
-//     * @return PrivateIndividual
-//     */
-//    public function setSlug($slug)
-//    {
-//        $this->slug = $slug;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get slug
-//     *
-//     * @return string
-//     */
-//    public function getSlug()
-//    {
-//        return $this->slug;
-//    }
 
     /**
      * Set honorific
@@ -257,30 +222,6 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
         return $this->honorific;
     }
 
-//    /**
-//     * Set postalAddress
-//     *
-//     * @param PostalAddress $postalAddress
-//     *
-//     * @return PrivateIndividual
-//     */
-//    public function setPostalAddress(PostalAddress $postalAddress = null)
-//    {
-//        $this->postalAddress = $postalAddress;
-//        $postalAddress->setPrivateIndividual($this);
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get postalAddress
-//     *
-//     * @return PostalAddress
-//     */
-//    public function getPostalAddress()
-//    {
-//        return $this->postalAddress;
-//    }
 
     /**
      * Set created
@@ -330,11 +271,32 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
         return $this->updated;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setVirtualName(){
+        $this->name = $this->__toString();
+    }
+
     public function getObjectName() {
-        return "PrivateIndividual";
+        return "private_individual";
     }
 
     public function getEntityName() {
-        return "PrivateIndividual";
+        return "private_individual";
     }
+
 }

@@ -2,21 +2,21 @@
 
 namespace CustomerBundle\Controller;
 
-use CustomerBundle\Entity\CorporationGroup;
-use CustomerBundle\Form\CorporationGroupType;
+use CustomerBundle\Entity\TownShip;
+use CustomerBundle\Form\TownShipType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
- * CorporationGroup controller.
+ * Township controller.
  *
  */
-class CorporationGroupController extends Controller
+class TownShipController extends Controller
 {
     /**
-     * Lists all corporationGroup entities.
+     * Lists all townShip entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -32,7 +32,7 @@ class CorporationGroupController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_corporationgroup", $jsonDatas, "CustomerBundle\Entity\CorporationGroup");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_township", $jsonDatas, "CustomerBundle\Entity\TownShip");
 
                 $error = $deserialize;
             }else{
@@ -40,64 +40,64 @@ class CorporationGroupController extends Controller
             }
         }
 
-        $corporationGroups = $em->getRepository('CustomerBundle:CorporationGroup')->findAll();
+        $townShips = $em->getRepository('CustomerBundle:TownShip')->findAll();
 
-        return $this->render('CustomerBundle:corporationgroup:index.html.twig', array(
-            'corporationGroups' => $corporationGroups,
+        return $this->render('CustomerBundle:township:index.html.twig', array(
+            'townShips' => $townShips,
             "error" => $error
         ));
     }
 
     /**
-     * Creates a new corporationGroup entity.
+     * Creates a new townShip entity.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $corporationGroup = new CorporationGroup();
-        $form = $this->createForm(CorporationGroupType::class, $corporationGroup);
+        $townShip = new TownShip();
+        $form = $this->createForm(TownShipType::class, $townShip);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($corporationGroup);
+            $em->persist($townShip);
             $em->flush();
 
             return $this->redirectToRoute('corporation_group_index');
         }
 
-        return $this->render('CustomerBundle:corporationgroup:new.html.twig', array(
-            'corporationGroup' => $corporationGroup,
+        return $this->render('CustomerBundle:township:new.html.twig', array(
+            'townShip' => $townShip,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a corporationGroup entity.
-     * @param CorporationGroup $corporationGroup
+     * Finds and displays a townShip entity.
+     * @param TownShip $townShip
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(CorporationGroup $corporationGroup)
+    public function showAction(TownShip $townShip)
     {
-        $deleteForm = $this->createDeleteForm($corporationGroup);
+        $deleteForm = $this->createDeleteForm($townShip);
 
-        return $this->render('CustomerBundle:corporationgroup:show.html.twig', array(
-            'corporationGroup' => $corporationGroup,
+        return $this->render('CustomerBundle:township:show.html.twig', array(
+            'townShip' => $townShip,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing corporationGroup entity.
+     * Displays a form to edit an existing townShip entity.
      * @param Request          $request
-     * @param CorporationGroup $corporationGroup
+     * @param TownShip $townShip
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, CorporationGroup $corporationGroup)
+    public function editAction(Request $request, TownShip $townShip)
     {
-        $deleteForm = $this->createDeleteForm($corporationGroup);
-        $editForm = $this->createForm(CorporationGroupType::class, $corporationGroup);
+        $deleteForm = $this->createDeleteForm($townShip);
+        $editForm = $this->createForm(TownShipType::class, $townShip);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -106,28 +106,28 @@ class CorporationGroupController extends Controller
             return $this->redirectToRoute('corporation_group_index');
         }
 
-        return $this->render('CustomerBundle:corporationgroup:edit.html.twig', array(
-            'corporationGroup' => $corporationGroup,
+        return $this->render('CustomerBundle:township:edit.html.twig', array(
+            'townShip' => $townShip,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a corporationGroup entity.
+     * Deletes a townShip entity.
      * @param Request          $request
-     * @param CorporationGroup $corporationGroup
+     * @param TownShip $townShip
      * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
-    public function deleteAction(Request $request, CorporationGroup $corporationGroup)
+    public function deleteAction(Request $request, TownShip $townShip)
     {
-        $form = $this->createDeleteForm($corporationGroup);
+        $form = $this->createDeleteForm($townShip);
 
         if ($request->isXmlHttpRequest()) {
             return $this->render(":common:remove_object_modal.html.twig",
                 [
                     "delete_form" => $form->createView(),
-                    "object_title" => $corporationGroup,
+                    "object_title" => $townShip,
                     "default" => false
                 ]);
         }
@@ -136,7 +136,7 @@ class CorporationGroupController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($corporationGroup);
+            $em->remove($townShip);
             $em->flush();
         }
 
@@ -144,16 +144,16 @@ class CorporationGroupController extends Controller
     }
 
     /**
-     * Creates a form to delete a corporationGroup entity.
+     * Creates a form to delete a townShip entity.
      *
-     * @param CorporationGroup $corporationGroup The corporationGroup entity
+     * @param TownShip $townShip The townShip entity
      *
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(CorporationGroup $corporationGroup)
+    private function createDeleteForm(TownShip $townShip)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('corporation_group_delete', array('slug' => $corporationGroup->getSlug())))
+            ->setAction($this->generateUrl('corporation_group_delete', array('slug' => $townShip->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
             ;
@@ -161,12 +161,12 @@ class CorporationGroupController extends Controller
 
     /**
      * @param Request $request
-     * @param CorporationGroup $equipment
+     * @param TownShip $equipment
      * @return StreamedResponse
      */
-    public function exportCorporationGroupAction(Request $request, CorporationGroup $equipment){
+    public function exportTownShipAction(Request $request, TownShip $equipment){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_corporationgroup', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_township', $equipment)->prepare($request);
 
         return $response;
     }
@@ -175,8 +175,8 @@ class CorporationGroupController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllCorporationGroupAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationgroup","CustomerBundle:CorporationGroup", "Corporation Groups" )->prepare($request);
+    public function exportAllTownShipAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_township","CustomerBundle:TownShip", "Corporation Groups" )->prepare($request);
 
         return $response;
     }

@@ -22,8 +22,11 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"corporationGroup" = "CustomerBundle\Entity\CorporationGroup",
  *     "corporationSite" = "CustomerBundle\Entity\CorporationSite",
- *     "privateIndividual" = "CustomerBundle\Entity\PrivateIndividual"
+ *     "privateIndividual" = "CustomerBundle\Entity\PrivateIndividual",
+ *     "townShip" = "CustomerBundle\Entity\TownShip"
  *     })
+ *
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class Customer extends Person{
 
@@ -38,14 +41,19 @@ abstract class Customer extends Person{
      */
     protected $id;
 
-//    /**
-// NEEDED HERE FOR doctrine migrations generation.
-// if at each child level "conflict slug column name"
-// remove after doc migr generation to have != slug per child =)
-//     * @var string
-//     *
-//     */
-//    protected $slug;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, unique=true, nullable=true)
+     */
+    protected $name;
+
+    /**
+     * @var string
+     * @ORM\Column(name="slug", length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
+     */
+    protected $slug;
 
     /**
      * @var \DateTime
@@ -88,7 +96,7 @@ abstract class Customer extends Person{
      *
      * @param string $slug
      *
-     * @return PrivateIndividual
+     * @return Customer
      */
     public function setSlug($slug)
     {

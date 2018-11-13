@@ -1,0 +1,33 @@
+township_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:TownShip:index" }
+    methods:  [GET, POST]
+
+township_show:
+    path:     /{slug}/show
+    defaults: { _controller: "CustomerBundle:TownShip:show" }
+    methods:  GET
+
+township_new:
+    path:     /new
+    defaults: { _controller: "CustomerBundle:TownShip:new" }
+    methods:  [GET, POST]
+
+township_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "CustomerBundle:TownShip:edit" }
+    methods:  [GET, POST]
+
+township_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "CustomerBundle:TownShip:delete" }
+    methods:  DELETE
+    options:
+        expose: true
+
+township_export:
+    path: /export/{slug}
+    defaults: { _controller: "CustomerBundle:TownShip:exportTownShip" }
+
+township_export_all:
+    path: /export

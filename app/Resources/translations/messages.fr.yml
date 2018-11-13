@@ -11,6 +11,8 @@ email: email
 email_capitalize: Email
 mail_address: adresse email
 mail_address_capitalize: Adresse email
+contact_mail_address: email de contact
+contact_mail_address_capitalize: Email de contact
 nickname: pseudo
 nickname_capitalize: Pseudo
 id_or_nickname: identifiant/pseudo
@@ -33,6 +35,10 @@ firstname: prénom
 firstname_capitalize: Prénom
 lastname: nom de famille
 lastname_capitalize: Nom de famille
+name: nom
+name_capitalize: Nom
+contact_name: nom du contact
+contact_name_capitalize: Nom du contact
 birthdate: date de naissance
 birthdate_capitalize: Date de naissance
 
@@ -111,8 +117,12 @@ edition_of_corporation_jobstatus: édition d'un poste (contact)
 edition_of_the_corporation_jobstatus: édition du poste (contact)
 
 creation_of_private_individual: création d'un particulier
-edition_of_private_individual: édition d'une particulier
+edition_of_private_individual: édition d'un particulier
 edition_of_the_private_individual: édition du particulier
+
+creation_of_township: création d'une commune
+edition_of_township: édition d'une commune
+edition_of_the_township: édition de la commune
 
 creation_of_jobstatus: création d'un poste interne
 edition_of_jobstatus: édition d'un poste interne
@@ -126,9 +136,9 @@ creation_of_rate: création d'un taux
 edition_of_rate: édition d'un taux
 edition_of_the_rate: édition du taux
 
-creation_of_business: création d'un affaire
-edition_of_business: édition d'un affaire
-edition_of_the_business: édition du affaire
+creation_of_business: création d'une affaire
+edition_of_business: édition d'une affaire
+edition_of_the_business: édition d'une affaire
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -255,6 +265,14 @@ several_private_individuals: plusieurs particuliers
 some_private_individuals: des particuliers
 no_private_individual: aucun particulier
 
+all_townships: toutes les communes
+townships: communes
+township: commune
+a_township: une commune
+several_townships: plusieurs communes
+some_townships: des communes
+no_township: aucune commune
+
 #OBJECTS STATES
 created_m_s: créé
 created_m_p: créés
@@ -320,7 +338,6 @@ name: nom
 name_capitalize: Nom
 fold: replier
 unfold: déplier
-
 
 #GLOBAL/COMMON TERMS
 import: import
@@ -408,6 +425,3 @@ address_country: "pays"
 mister: Monsieur
 miss: Mademoiselle
 madam: Madame
-
-
-

@@ -18,6 +18,10 @@ customer_private_individual:
     resource: "@CustomerBundle/Resources/config/routing/privateindividual.yml"
     prefix:   /private-individual
 
+customer_township:
+        resource: "@CustomerBundle/Resources/config/routing/township.yml"
+        prefix:   /township
+
 customer_homepage:
     path: /
     defaults: { _controller: CustomerBundle:Default:index }

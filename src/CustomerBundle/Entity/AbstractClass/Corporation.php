@@ -50,6 +50,6 @@ class Corporation extends Customer implements CorporationInterface {
     }
 
     public function getObjectName() {
-        return "Corporation";
+        return "corporation";
     }
 }

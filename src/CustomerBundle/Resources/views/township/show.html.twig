@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Township</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ townShip.name }}</td>
+            </tr>
+            <tr>
+                <th>Contactname</th>
+                <td>{{ townShip.contactName }}</td>
+            </tr>
+            <tr>
+                <th>Contactemail</th>
+                <td>{{ townShip.contactEmail }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ townShip.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ townShip.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if townShip.created %}{{ townShip.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if townShip.updated %}{{ townShip.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('township_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('township_edit', { 'id': townShip.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

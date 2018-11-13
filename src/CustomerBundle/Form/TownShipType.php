@@ -2,14 +2,13 @@
 
 namespace CustomerBundle\Form;
 
-use AppBundle\Form\Type\Select2ChoiceType;
-use CustomerBundle\Entity\CorporationGroup;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CorporationGroupType extends AbstractType
+class TownShipType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,15 +17,18 @@ class CorporationGroupType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, array(
-                "label_format" => "name",
+                "label_format" => "name_capitalize",
                 "required" => true,
                 "translation_domain" => "messages"))
-            ->add("legalStatus", Select2ChoiceType::class, array(
-                "label_format" => "legal_status",
+            ->add("contactName", TextType::class, array(
+                "label_format" => "contact_name_capitalize",
+                "required" => true))
+            ->add("contactEmail",EmailType::class, array(
+                "label_format" => "contact_mail_address_capitalize"))
+            ->add("phoneNumber", TextType::class, array(
+                "label_format" => "phone_number",
                 "required" => true,
-                "placeholder" => "select",
-                "choices" =>
-                    CorporationGroup::getAllLegalStatus()))
+                "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"])) //  "^0[0-9]{9}$"
             ->add('postalAddress', PostalAddressType::class, array(
                 "label_format" => null,
                 "required" => true
@@ -37,7 +39,7 @@ class CorporationGroupType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CustomerBundle\Entity\CorporationGroup'
+            'data_class' => 'CustomerBundle\Entity\TownShip'
         ));
     }
 
@@ -46,6 +48,6 @@ class CorporationGroupType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'customerbundle_corporationgroup';
+        return 'customerbundle_township';
     }
 }

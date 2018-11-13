@@ -23,21 +23,12 @@ class CorporationGroup extends Corporation
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $name;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     */
-    protected $slug;
 
     /**
      * @var string
@@ -51,20 +42,11 @@ class CorporationGroup extends Corporation
     protected $legalStatus;
 
     /**
-     * @var User[]|ArrayCollection
+     * @var CorporationSite[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationSite", mappedBy="corporationGroup", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $corporationSites;
-
-//    /**
-//     * @var
-//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationGroup", cascade={"all"}, orphanRemoval=true)
-//     *
-//     * @JMSSer\Expose()
-//     * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
-//     */
-//    protected $postalAddress;
 
     public function __construct()
     {

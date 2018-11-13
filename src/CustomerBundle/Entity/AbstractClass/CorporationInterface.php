@@ -21,4 +21,6 @@ interface CorporationInterface extends CustomerSubjectInterface {
      * @return string
      */
     public function getLegalStatusByKey(string $legalStatusKey);
+
+    //public function getObjectName();
 }

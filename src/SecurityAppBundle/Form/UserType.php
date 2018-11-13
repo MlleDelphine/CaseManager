@@ -31,8 +31,8 @@ class UserType extends AbstractType
                 "label_format" => "lastname_capitalize",
                 "required" => true))
             ->add("email",EmailType::class, array(
-                "label_format" => "mail_address_capitalize",
-                "data" => "@"))
+                "label_format" => "mail_address_capitalize"))
+                //"data" => "@"))
             ->add("roles", RoleType::class, array(
                 "label_format" => "roles_capitalize"))
             ->add("username", TextType::class, array(
@@ -43,8 +43,9 @@ class UserType extends AbstractType
                 "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"]))
             ->add("unitaryPrice", MoneyType::class,array(
                 "label_format" => "hour_rate_capitalize",
-                "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],
+                "attr" => ["required" => true/*, "pattern" => "^\d+(,|\.)\d{2}$"*/],
                 "currency" => "", //To remove orphan €
+                "scale" => 2,
                 "invalid_message" => "error_message_decimal_number"))
             ->add("jobStatus",Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",

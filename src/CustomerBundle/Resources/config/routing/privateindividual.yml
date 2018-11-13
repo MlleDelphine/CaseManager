@@ -31,4 +31,3 @@ private_individual_export:
 
 private_individual_export_all:
     path: /export
-   

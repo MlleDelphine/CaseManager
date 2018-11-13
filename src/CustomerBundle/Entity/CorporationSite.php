@@ -24,7 +24,6 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
@@ -43,14 +42,6 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
     protected $phoneNumber;
 
     /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     */
-    protected $slug;
-
-    /**
      * @var CorporationGroup
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", inversedBy="corporationSites", cascade={"persist", "merge", "detach"})
      *
@@ -59,15 +50,6 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
      * @JMSSer\Groups({"admin_export_corporationsite"})
      */
     public $corporationGroup;
-
-//    /**
-//     * @var PostalAddress
-//     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\PostalAddress", inversedBy="corporationSite", cascade={"all"}, orphanRemoval=true)
-//     *
-//     * @JMSSer\Expose()
-//     * @JMSSer\Groups({"admin_export_corporationsite"})
-//     */
-//    protected $postalAddress;
 
     /**
      * @var CorporationEmployee[]|ArrayCollection
@@ -143,30 +125,6 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
     {
         return $this->phoneNumber;
     }
-
-//    /**
-//     * Set slug
-//     *
-//     * @param string $slug
-//     *
-//     * @return CorporationSite
-//     */
-//    public function setSlug($slug)
-//    {
-//        $this->slug = $slug;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get slug
-//     *
-//     * @return string
-//     */
-//    public function getSlug()
-//    {
-//        return $this->slug;
-//    }
 
     /**
      * Set created
@@ -300,6 +258,6 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
     }
 
     public function getObjectName() {
-       return "CorporationSite";
+        return "CorporationSite";
     }
 }
