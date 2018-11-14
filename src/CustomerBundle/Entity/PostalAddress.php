@@ -320,6 +320,11 @@ class PostalAddress
     {
         $this->updated = $updated;
 
+        if($updated > $this->getCustomer()->getUpdated())
+        {
+            $this->getCustomer()->setUpdated($updated);
+        }
+
         return $this;
     }
 

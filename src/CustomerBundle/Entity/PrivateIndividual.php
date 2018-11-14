@@ -82,9 +82,14 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      */
     protected $name;
 
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="update")
+     */
+    protected $updated;
+
     public function __construct()
     {
-        return $this->getFirstName()." ".$this->getLastName();
     }
 
     public function __toString() {

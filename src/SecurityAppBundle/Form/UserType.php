@@ -44,12 +44,6 @@ class UserType extends AbstractType
                 "label_format" => "id_or_nickname_capitalize",
                 "required" => false,
                 "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"]))
-//            ->add("unitaryPrice", MoneyType::class,array(
-//                "label_format" => "hour_rate_capitalize",
-//                "attr" => ["required" => true, "pattern" => "^\d+(,|\.)\d{1,2}$"],
-//                "currency" => "", //To remove orphan €
-//                //  "scale" => 2,
-//                "invalid_message" => "error_message_decimal_number"))
             ->add("unitaryPrice", TextType::class,array(
                 "label_format" => "hour_rate_capitalize",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|\.)\d{1,2}$"],

@@ -124,6 +124,10 @@ creation_of_township: création d'une commune
 edition_of_township: édition d'une commune
 edition_of_the_township: édition de la commune
 
+creation_of_other_customer: création d'un client de type indéfini
+edition_of_other_customer: édition d'un client de type indéfini
+edition_of_the_other_customer: édition du client de type indéfini
+
 creation_of_jobstatus: création d'un poste interne
 edition_of_jobstatus: édition d'un poste interne
 edition_of_the_jobstatus: édition du poste interne
@@ -273,6 +277,14 @@ several_townships: plusieurs communes
 some_townships: des communes
 no_township: aucune commune
 
+all_other_customers: tous les clients de type indéfini
+other_customers: clients de type indéfini
+other_customer: client de type indéfini
+a_other_customer: un client de type indéfini
+several_other_customers: plusieurs clients de type indéfini
+some_other_customers: des clients de type indéfini
+no_other_customer: aucun client de type indéfini
+
 #OBJECTS STATES
 created_m_s: créé
 created_m_p: créés
@@ -416,11 +428,17 @@ legal_status: statut juridique
 legal_status_capitalize: Statut juridique
 
 address_street_number: N°
+address_street_number_capitalize: N°
 address_street_name: nom de voie
+address_street_name_capitalize: Nom de voie
 address_complement: "complément d'adresse"
+address_complement_capitalize: "Complément d'adresse"
 address_postal_code: "code postal"
+address_postal_code_capitalize: "Code postal"
 address_city: "ville"
+address_city_capitalize: "Ville"
 address_country: "pays"
+address_country_capitalize: "Pays"
 
 mister: Monsieur
 miss: Mademoiselle

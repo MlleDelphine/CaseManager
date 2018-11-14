@@ -23,7 +23,8 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\DiscriminatorMap({"corporationGroup" = "CustomerBundle\Entity\CorporationGroup",
  *     "corporationSite" = "CustomerBundle\Entity\CorporationSite",
  *     "privateIndividual" = "CustomerBundle\Entity\PrivateIndividual",
- *     "townShip" = "CustomerBundle\Entity\TownShip"
+ *     "townShip" = "CustomerBundle\Entity\TownShip",
+ *     "otherCustomer" = "CustomerBundle\Entity\OtherCustomer"
  *     })
  *
  * @ORM\HasLifecycleCallbacks()

@@ -1,0 +1,33 @@
+other_customer_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:OtherCustomer:index" }
+    methods:  [GET, POST]
+
+other_customer_show:
+    path:     /{slug}/show
+    defaults: { _controller: "CustomerBundle:OtherCustomer:show" }
+    methods:  GET
+
+other_customer_new:
+    path:     /new
+    defaults: { _controller: "CustomerBundle:OtherCustomer:new" }
+    methods:  [GET, POST]
+
+other_customer_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "CustomerBundle:OtherCustomer:edit" }
+    methods:  [GET, POST]
+
+other_customer_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "CustomerBundle:OtherCustomer:delete" }
+    methods:  DELETE
+    options:
+        expose: true
+
+other_customer_export:
+    path: /export/{slug}
+    defaults: { _controller: "CustomerBundle:OtherCustomer:exportOtherCustomer" }
+
+other_customer_export_all:
+    path: /export

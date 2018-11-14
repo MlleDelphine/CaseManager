@@ -2,9 +2,10 @@
 
 namespace CustomerBundle\Controller;
 
-use CustomerBundle\Entity\TownShip;
-use CustomerBundle\Form\TownShipType;
+use CustomerBundle\Entity\OtherCustomer;
+use CustomerBundle\Form\OtherCustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -13,10 +14,10 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * Township controller.
  *
  */
-class TownShipController extends Controller
+class OtherCustomerController extends Controller
 {
     /**
-     * Lists all townShip entities.
+     * Lists all otherCustomer entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -32,7 +33,7 @@ class TownShipController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_township", $jsonDatas, "CustomerBundle\Entity\TownShip");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_other_customer", $jsonDatas, "CustomerBundle\Entity\OtherCustomer");
 
                 $error = $deserialize;
             }else{
@@ -40,94 +41,94 @@ class TownShipController extends Controller
             }
         }
 
-        $townShips = $em->getRepository('CustomerBundle:TownShip')->findAll();
+        $otherCustomers = $em->getRepository('CustomerBundle:OtherCustomer')->findAll();
 
-        return $this->render('CustomerBundle:township:index.html.twig', array(
-            'townShips' => $townShips,
+        return $this->render('CustomerBundle:othercustomer:index.html.twig', array(
+            'otherCustomers' => $otherCustomers,
             "error" => $error
         ));
     }
 
     /**
-     * Creates a new townShip entity.
+     * Creates a new otherCustomer entity.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $townShip = new TownShip();
-        $form = $this->createForm(TownShipType::class, $townShip);
+        $otherCustomer = new OtherCustomer();
+        $form = $this->createForm(OtherCustomerType::class, $otherCustomer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($townShip);
+            $em->persist($otherCustomer);
             $em->flush();
 
-            return $this->redirectToRoute('township_index');
+            return $this->redirectToRoute('other_customer_index');
         }
 
-        return $this->render('CustomerBundle:township:new.html.twig', array(
-            'townShip' => $townShip,
+        return $this->render('CustomerBundle:othercustomer:new.html.twig', array(
+            'otherCustomer' => $otherCustomer,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a townShip entity.
-     * @param TownShip $townShip
+     * Finds and displays a otherCustomer entity.
+     * @param OtherCustomer $otherCustomer
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(TownShip $townShip)
+    public function showAction(OtherCustomer $otherCustomer)
     {
-        $deleteForm = $this->createDeleteForm($townShip);
+        $deleteForm = $this->createDeleteForm($otherCustomer);
 
-        return $this->render('CustomerBundle:township:show.html.twig', array(
-            'townShip' => $townShip,
+        return $this->render('CustomerBundle:othercustomer:show.html.twig', array(
+            'otherCustomer' => $otherCustomer,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing townShip entity.
+     * Displays a form to edit an existing otherCustomer entity.
      * @param Request          $request
-     * @param TownShip $townShip
+     * @param OtherCustomer $otherCustomer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, TownShip $townShip)
+    public function editAction(Request $request, OtherCustomer $otherCustomer)
     {
-        $deleteForm = $this->createDeleteForm($townShip);
-        $editForm = $this->createForm(TownShipType::class, $townShip);
+        $deleteForm = $this->createDeleteForm($otherCustomer);
+        $editForm = $this->createForm(OtherCustomerType::class, $otherCustomer);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('township_index');
+            return $this->redirectToRoute('other_customer_index');
         }
 
-        return $this->render('CustomerBundle:township:edit.html.twig', array(
-            'townShip' => $townShip,
+        return $this->render('CustomerBundle:othercustomer:edit.html.twig', array(
+            'otherCustomer' => $otherCustomer,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a townShip entity.
+     * Deletes a otherCustomer entity.
      * @param Request          $request
-     * @param TownShip $townShip
+     * @param OtherCustomer $otherCustomer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
-    public function deleteAction(Request $request, TownShip $townShip)
+    public function deleteAction(Request $request, OtherCustomer $otherCustomer)
     {
-        $form = $this->createDeleteForm($townShip);
+        $form = $this->createDeleteForm($otherCustomer);
 
         if ($request->isXmlHttpRequest()) {
             return $this->render(":common:remove_object_modal.html.twig",
                 [
                     "delete_form" => $form->createView(),
-                    "object_title" => $townShip,
+                    "object_title" => $otherCustomer,
                     "default" => false
                 ]);
         }
@@ -136,24 +137,24 @@ class TownShipController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($townShip);
+            $em->remove($otherCustomer);
             $em->flush();
         }
 
-        return $this->redirectToRoute('township_index');
+        return $this->redirectToRoute('other_customer_index');
     }
 
     /**
-     * Creates a form to delete a townShip entity.
+     * Creates a form to delete a otherCustomer entity.
      *
-     * @param TownShip $townShip The townShip entity
+     * @param OtherCustomer $otherCustomer The otherCustomer entity
      *
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(TownShip $townShip)
+    private function createDeleteForm(OtherCustomer $otherCustomer)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('township_delete', array('slug' => $townShip->getSlug())))
+            ->setAction($this->generateUrl('other_customer_delete', array('slug' => $otherCustomer->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
             ;
@@ -161,12 +162,12 @@ class TownShipController extends Controller
 
     /**
      * @param Request $request
-     * @param TownShip $equipment
+     * @param OtherCustomer $equipment
      * @return StreamedResponse
      */
-    public function exportTownShipAction(Request $request, TownShip $equipment){
+    public function exportOtherCustomerAction(Request $request, OtherCustomer $equipment){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_township', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_other_customer', $equipment)->prepare($request);
 
         return $response;
     }
@@ -175,8 +176,8 @@ class TownShipController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllTownShipAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_township","CustomerBundle:TownShip", "Townships" )->prepare($request);
+    public function exportAllOtherCustomerAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_other_customer","CustomerBundle:OtherCustomer", "Other Customers" )->prepare($request);
 
         return $response;
     }

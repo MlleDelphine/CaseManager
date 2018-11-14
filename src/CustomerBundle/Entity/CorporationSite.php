@@ -42,6 +42,12 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
     protected $phoneNumber;
 
     /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="update")
+     */
+    protected $updated;
+
+    /**
      * @var CorporationGroup
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationGroup", inversedBy="corporationSites", cascade={"persist", "merge", "detach"})
      *
