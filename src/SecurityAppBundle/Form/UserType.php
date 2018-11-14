@@ -2,6 +2,7 @@
 
 namespace SecurityAppBundle\Form;
 
+use NumberFormatter;
 use SecurityAppBundle\Form\Type\RoleType;
 use AppBundle\Form\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -13,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
@@ -32,7 +35,7 @@ class UserType extends AbstractType
                 "required" => true))
             ->add("email",EmailType::class, array(
                 "label_format" => "mail_address_capitalize"))
-                //"data" => "@"))
+            //"data" => "@"))
             ->add("roles", RoleType::class, array(
                 "label_format" => "roles_capitalize"))
             ->add("username", TextType::class, array(
@@ -41,11 +44,17 @@ class UserType extends AbstractType
                 "label_format" => "id_or_nickname_capitalize",
                 "required" => false,
                 "attr" => ["pattern" => "^((\+\d{2})|0)[0-9]{9}$"]))
-            ->add("unitaryPrice", MoneyType::class,array(
+//            ->add("unitaryPrice", MoneyType::class,array(
+//                "label_format" => "hour_rate_capitalize",
+//                "attr" => ["required" => true, "pattern" => "^\d+(,|\.)\d{1,2}$"],
+//                "currency" => "", //To remove orphan €
+//                //  "scale" => 2,
+//                "invalid_message" => "error_message_decimal_number"))
+            ->add("unitaryPrice", TextType::class,array(
                 "label_format" => "hour_rate_capitalize",
-                "attr" => ["required" => true/*, "pattern" => "^\d+(,|\.)\d{2}$"*/],
-                "currency" => "", //To remove orphan €
-                "scale" => 2,
+                "attr" => ["required" => true, "pattern" => "^\d+(,|\.)\d{1,2}$"],
+                // "currency" => "", //To remove orphan €
+                //  "scale" => 2,
                 "invalid_message" => "error_message_decimal_number"))
             ->add("jobStatus",Select2EntityType::class, array(
                 "class" => "AppBundle:JobStatus",
@@ -76,6 +85,21 @@ class UserType extends AbstractType
                     "invalid_message" => "fos_user.password.mismatch",
                 ));
         }
+
+        $builder->get("unitaryPrice")->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $preSubmitEvent) {
+            $unitaryPriceSubmitted = $preSubmitEvent->getData(); // Submitted
+
+            $fmt = new NumberFormatter( 'fr_FR', NumberFormatter::DECIMAL);
+            $parsed = $fmt->parse($unitaryPriceSubmitted);
+            if($parsed){//decimals separated by comma
+                $twoDecimals = number_format($parsed, 2, '.', '');
+            }else{ // decimals separated by dot
+                $twoDecimals = number_format($unitaryPriceSubmitted, 2, '.', '');
+            }
+            $preSubmitEvent->setData($twoDecimals);
+        }
+
+        );
     }
 
     /**
