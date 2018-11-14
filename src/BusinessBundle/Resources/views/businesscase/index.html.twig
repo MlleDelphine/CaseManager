@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Businesscases list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Externalreference</th>
+                <th>Internalreference</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for businessCase in businessCases %}
+            <tr>
+                <td><a href="{{ path('business-case_show', { 'id': businessCase.id }) }}">{{ businessCase.id }}</a></td>
+                <td>{{ businessCase.name }}</td>
+                <td>{{ businessCase.slug }}</td>
+                <td>{{ businessCase.externalReference }}</td>
+                <td>{{ businessCase.internalReference }}</td>
+                <td>{% if businessCase.created %}{{ businessCase.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if businessCase.updated %}{{ businessCase.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('business-case_show', { 'id': businessCase.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('business-case_edit', { 'id': businessCase.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('business-case_new') }}">Create a new businessCase</a>
+        </li>
+    </ul>
+{% endblock %}

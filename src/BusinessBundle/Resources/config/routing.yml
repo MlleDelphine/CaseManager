@@ -1,0 +1,7 @@
+business_business-case:
+    resource: "@BusinessBundle/Resources/config/routing/businesscase.yml"
+    prefix:   /business-case
+
+business_homepage:
+    path:     /
+    defaults: { _controller: BusinessBundle:Default:index }

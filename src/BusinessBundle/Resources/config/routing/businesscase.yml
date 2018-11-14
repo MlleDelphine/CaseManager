@@ -1,0 +1,33 @@
+business_case_index:
+    path:     /
+    defaults: { _controller: "BusinessBundle:BusinessCase:index" }
+    methods:  GET
+
+business_case_show:
+    path:     /{slug}/show
+    defaults: { _controller: "BusinessBundle:BusinessCase:show" }
+    methods:  GET
+
+business_case_new:
+    path:     /new
+    defaults: { _controller: "BusinessBundle:BusinessCase:new" }
+    methods:  [GET, POST]
+
+business_case_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "BusinessBundle:BusinessCase:edit" }
+    methods:  [GET, POST]
+
+business_case_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "BusinessBundle:BusinessCase:delete" }
+    methods:  DELETE
+    options:
+        expose: true
+
+business_case_export:
+    path: /export/{slug}
+    defaults: { _controller: "BusinessBundle:BusinessCase:exportBusinessCase" }
+
+business_case_all:
+    path: /export

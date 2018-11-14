@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Businesscase</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ businessCase.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ businessCase.name }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ businessCase.slug }}</td>
+            </tr>
+            <tr>
+                <th>Externalreference</th>
+                <td>{{ businessCase.externalReference }}</td>
+            </tr>
+            <tr>
+                <th>Internalreference</th>
+                <td>{{ businessCase.internalReference }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if businessCase.created %}{{ businessCase.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if businessCase.updated %}{{ businessCase.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('business-case_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('business-case_edit', { 'id': businessCase.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

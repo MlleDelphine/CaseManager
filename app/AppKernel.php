@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new AdminBundle\AdminBundle(),
             new CustomerBundle\CustomerBundle(),
+            new BusinessBundle\BusinessBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

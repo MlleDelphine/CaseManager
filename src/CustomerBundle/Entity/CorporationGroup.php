@@ -20,6 +20,8 @@ use JMS\Serializer\Annotation as JMSSer;
  */
 class CorporationGroup extends Corporation
 {
+
+    const ObjectName = "CorporationGroup";
     /**
      * @var string
      *
@@ -248,6 +250,6 @@ class CorporationGroup extends Corporation
 //    }
 
     public function getObjectName() {
-        return "CorporationGroupe";
+        return self::ObjectName;
     }
 }
