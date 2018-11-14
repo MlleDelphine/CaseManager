@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AdminBundle\Entity\AbstractClass\Unit;
 use AppBundle\Entity\TimePrice;
 use AppBundle\Form\Type\CustomTinyMceType;
 use Symfony\Component\Form\AbstractType;
@@ -32,17 +33,12 @@ class ResourceType extends AbstractType
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]))
-            ->add("unit", ChoiceType::class, array("label_format" => "Unité de mesure", "required" => true,
+            ->add("unit", ChoiceType::class, [
+                "label_format" => "Unité de mesure",
+                "required" => true,
                 "choices" =>
-                    ["Tonne" => "Tonne",
-                        "m³" => "m³",
-                        "m²" => "m²",
-                        "Litre" => "Litre",
-                        "Mètre linéaire" => "Mètre linéaire",
-                        "m" => "m",
-                        "Pièce" => "Pièce"]));
-        if ($options["MODE_CREATE"]){
-            $builder->add("timePrices", CollectionType::class, array(
+                    Unit::getAllUnits()])
+            ->add("timePrices", CollectionType::class, array(
                 "entry_type" => TimePriceType::class,
                 "entry_options" => ["label" => false],
                 "allow_add" => true,
@@ -55,22 +51,6 @@ class ResourceType extends AbstractType
                 ],
                 "label_format" => "prices_definition_capitalize",
                 "required" => false));
-        }
-        else{
-            $builder->add("timePrices", CollectionType::class, array(
-                "entry_type" => TimePriceType::class,
-                "entry_options" => ["label" => false],
-                "allow_add" => true,
-                "allow_delete" => true,
-                "delete_empty" => true,
-                "prototype" => true,
-                "by_reference" => false, //ensures that the setter is called in all TimePrice
-                "attr" => [
-                    "class" => "item-collection col-md-12 col-xs-12",
-                ],
-                "label_format" => "prices_definition_capitalize",
-                "required" => false));
-        }
     }
 
     /**

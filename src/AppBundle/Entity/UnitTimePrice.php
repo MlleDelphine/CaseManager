@@ -2,8 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AdminBundle\Entity\ConstructionSiteType;
 use AppBundle\Entity\Equipment;
 use Doctrine\ORM\Mapping as ORM;
+use SecurityAppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -100,7 +102,7 @@ class UnitTimePrice
      * @var Equipment
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipment", inversedBy="unitTimePrices", cascade={"persist", "merge"})
      * @ORM\JoinColumn(name="equipment_id", referencedColumnName="id")
-     * @Assert\NotBlank()
+     *
      */
     protected $equipment;
 
@@ -328,7 +330,7 @@ class UnitTimePrice
     /**
      * Add constructionSiteType
      *
-     * @param \AppBundle\Entity\ConstructionSiteType $constructionSiteType
+     * @param ConstructionSiteType $constructionSiteType
      *
      * @return UnitTimePrice
      */
@@ -343,7 +345,7 @@ class UnitTimePrice
     /**
      * Remove constructionSiteType
      *
-     * @param \AppBundle\Entity\ConstructionSiteType $constructionSiteType
+     * @param ConstructionSiteType $constructionSiteType
      */
     public function removeConstructionSiteType(\AdminBundle\Entity\ConstructionSiteType $constructionSiteType)
     {

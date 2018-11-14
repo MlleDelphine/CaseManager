@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Resource;
 use Doctrine\ORM\Mapping as ORM;
+use SecurityAppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,14 +14,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * TimePrice
  *
- * @ORM\Table(name="time_price", uniqueConstraints={@ORM\UniqueConstraint(name="no_duplication_price_material", columns={"fromDate", "untilDate", "material_id"}), @ORM\UniqueConstraint(name="no_duplication_price_resource", columns={"fromDate", "untilDate", "resource_id"})})
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TimePriceRepository")
+ * @ORM\Table(name="time_price", uniqueConstraints={@ORM\UniqueConstraint(name="no_duplication_price_material", columns={"fromDate", "untilDate", "material_id"}), @ORM\UniqueConstraint(name="no_duplication_price_resource", columns={"fromDate", "untilDate", "resource_id"}), @ORM\UniqueConstraint(name="no_duplication_price_user_employee", columns={"fromDate", "untilDate", "user_employee_id"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TimePriceRepository")
  *
- * @UniqueEntity(fields={"fromDate", "untilDate", "material_id"})
- * @UniqueEntity(fields={"fromDate", "untilDate", "resource_id"})
  *
  * @ORM\HasLifecycleCallbacks()
- *
  *
  * @JMSSer\ExclusionPolicy("all")
  */
@@ -93,16 +92,23 @@ class TimePrice
     /**
      * @var Material
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Material", inversedBy="timePrices", cascade={"persist", "merge"})
-     *
+     * @ORM\JoinColumn(name="material_id", referencedColumnName="id")
      */
     protected $material;
 
     /**
      * @var Resource
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Resource", inversedBy="timePrices", cascade={"persist", "merge"})
-     * @Assert\NotBlank()
+     * @ORM\JoinColumn(name="resource_id", referencedColumnName="id")
      */
     protected $resource;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="SecurityAppBundle\Entity\User", inversedBy="timePrices", cascade={"persist", "merge"})
+     * @ORM\JoinColumn(name="user_employee_id", referencedColumnName="id")
+     */
+    protected $userEmployee;
 
     public function __construct()
     {
@@ -287,11 +293,11 @@ class TimePrice
     /**
      * Set resource
      *
-     * @param \AppBundle\Entity\Resource $resource
+     * @param Resource $resource
      *
      * @return TimePrice
      */
-    public function setResource(\AppBundle\Entity\Resource $resource = null)
+    public function setResource(Resource $resource = null)
     {
         $this->resource = $resource;
 
@@ -301,11 +307,35 @@ class TimePrice
     /**
      * Get resource
      *
-     * @return \AppBundle\Entity\Resource
+     * @return Resource
      */
     public function getResource()
     {
         return $this->resource;
+    }
+
+    /**
+     * Set userEmployee
+     *
+     * @param User $userEmployee
+     *
+     * @return TimePrice
+     */
+    public function setUserEmployee(User $userEmployee = null)
+    {
+        $this->userEmployee = $userEmployee;
+
+        return $this;
+    }
+
+    /**
+     * Get userEmployee
+     *
+     * @return User
+     */
+    public function getUserEmployee()
+    {
+        return $this->userEmployee;
     }
 }
 

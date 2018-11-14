@@ -6,6 +6,8 @@ namespace SecurityAppBundle\Entity;
 use AppBundle\Entity\JobStatus;
 use AppBundle\Entity\ResourceSubjectInterface;
 use AppBundle\Entity\Team;
+use AppBundle\Entity\TimePrice;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -83,21 +85,6 @@ class User extends BaseUser implements ResourceSubjectInterface
     protected $phoneNumber;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="unitaryPrice", type="decimal", precision=10, scale=2, options={"default":"0"})
-     * @Assert\Regex(
-     *     pattern="/^\d+(,|.)\d{2}$/"
-     * )
-     * @Assert\NotNull()
-     * @Assert\NotBlank()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_user", "admin_export_resource"})
-     */
-    private $unitaryPrice;
-
-    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
@@ -129,11 +116,40 @@ class User extends BaseUser implements ResourceSubjectInterface
      */
     protected $team;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string")
+     * @Assert\NotNull()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    private $unit;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="userEmployee", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="AppBundle\Entity\TimePrice"
+     *      )
+     * )
+     * @Assert\Valid()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $timePrices;
+
 
     public function __construct()
     {
         parent::__construct();
         $this->addRole("ROLE_USER");
+        $this->timePrices = new ArrayCollection();
         // your own logic
     }
 
@@ -239,30 +255,6 @@ class User extends BaseUser implements ResourceSubjectInterface
     }
 
     /**
-     * Set unitaryPrice
-     *
-     * @param string $unitaryPrice
-     *
-     * @return User
-     */
-    public function setUnitaryPrice($unitaryPrice)
-    {
-        $this->unitaryPrice = $unitaryPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get unitaryPrice
-     *
-     * @return string
-     */
-    public function getUnitaryPrice()
-    {
-        return $this->unitaryPrice;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
@@ -358,7 +350,66 @@ class User extends BaseUser implements ResourceSubjectInterface
         return $this->team;
     }
 
+    /**
+     * Set unit
+     *
+     * @param integer $unit
+     *
+     * @return User
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return integer
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Add timePrice
+     *
+     * @param TimePrice $timePrice
+     *
+     * @return User
+     */
+    public function addTimePrice(TimePrice $timePrice)
+    {
+        $this->timePrices[] = $timePrice;
+        $timePrice->setUserEmployee($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove timePrice
+     *
+     * @param TimePrice $timePrice
+     */
+    public function removeTimePrice(TimePrice $timePrice)
+    {
+        $this->timePrices->removeElement($timePrice);
+    }
+
+    /**
+     * Get timePrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimePrices()
+    {
+        return $this->timePrices;
+    }
+
     public function getObjectName() {
-        return "employee";
+        return "internal_employee";
     }
 }

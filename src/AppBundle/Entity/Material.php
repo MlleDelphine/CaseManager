@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class Material
+class Material implements ResourceSubjectInterface
 {
     /**
      * @var int
@@ -334,5 +334,9 @@ class Material
     public function getTimePrices()
     {
         return $this->timePrices;
+    }
+
+    public function getObjectName() {
+        return "material";
     }
 }

@@ -45,7 +45,7 @@ abstract class Unit implements UnitInterface {
     /**
      * Retrieve all subUnits array by a mainKey
      *
-     * @param string $unitKey
+     * @param string $mainKey
      * @return false|string
      */
     public static function getSubUnitsByMainKey(string $mainKey) {
@@ -77,7 +77,7 @@ abstract class Unit implements UnitInterface {
     /**
      * Retrieve the subUnit string value by subKey
      *
-     * @param string $unitKey
+     * @param string $unitSubKey
      * @return false|string
      */
     public static function getSubUnitBySubKey(string $unitSubKey) {

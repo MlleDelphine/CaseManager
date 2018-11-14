@@ -148,13 +148,13 @@ edition_of_the_business: édition d'une affaire
 employees: personnel
 
 hour_rates_capitalize: Taux horaires
-hour_rates: taux horaire
-all_hour_rates: tous les taux horaire
+hour_rates: taux horaires
+all_hour_rates: tous les taux horaires
 hour_rate: taux horaire
 hour_rate_capitalize: Taux horaire
 a_hour_rate: un taux horaire
-several_hour_rates: plusieurs taux horaire
-so_hour_rates: des taux horaire
+several_hour_rates: plusieurs taux horaires
+so_hour_rates: des taux horaires
 no_hour_rate: aucun taux horaire
 
 team: équipe
@@ -214,7 +214,7 @@ prestation_domains: domaines de prestation
 all_prestation_domains: tous les domaines de prestation
 prestation_domain: domaine de prestation
 a_prestation_domain: domaine de prestation
-so_prestation_domains: des domaines de prestation
+some_prestation_domains: des domaines de prestation
 
 rates_capitalize: Taux
 rates: taux

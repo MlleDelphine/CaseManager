@@ -27,6 +27,9 @@
                 <div class="x_content">
                     <br>
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': '' }}) }}
+                    {# To bypass browser autocomplete behavior#}
+                    <input type="password" name="fakepassword" id="fakepassword" value="" readonly disabled style="display:none"/>
+                    <input type="email" name="fakeemail" id="fakeemail" value="" readonly disabled style="display:none"/>
                     <div class="form-group">
                         <span class="required">*</span>
                         {{ form_label(form.firstName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
@@ -98,18 +101,24 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        {{ form_label(form.unitaryPrice, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.unitaryPrice, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-                            <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-                            {{ form_errors(form.unitaryPrice) }}
-                        </div>
-                    </div>
-                    <div class="item form-group">
                         {{ form_label(form.enabled, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12 checkbox-align">
                             {{ form_widget(form.enabled, {'attr': {'class': 'orange-icheck'}}) }}
                             {{ form_errors(form.enabled) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.unit, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.unit, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.unit) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.timePrices, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.timePrices) }}
+                            {{ form_errors(form.timePrices) }}
                         </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -131,4 +140,26 @@
 {% endblock %}
 {% block plain_js_bundle %}
     {{ form_javascript(form) }}
+    <script type="application/javascript">
+        /**
+         * Launch collection function
+         */
+        $(document).ready(function() {
+            $(".item-collection").collection({
+                allow_duplicate: false,
+                after_add: function () {
+                    $("select").select2({ width: '100%' });
+                    return true;
+                },
+                allow_up: false,
+                allow_down: false,
+                allow_add: true,
+                allow_remove: true,
+                min: 1,
+                // max: 200,
+                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
+            });
+        });
+    </script>
 {% endblock %}

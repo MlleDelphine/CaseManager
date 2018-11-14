@@ -90,17 +90,24 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        {{ form_label(edit_form.unitaryPrice, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.unitaryPrice, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.unitaryPrice) }}
-                        </div>
-                    </div>
-                    <div class="item form-group">
                         {{ form_label(edit_form.enabled, 'Connexion autorisée', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.enabled, {'attr': {'class': 'orange-icheck'}}) }}
                             {{ form_errors(edit_form.enabled) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.unit, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.unit, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.unit) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.timePrices, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.timePrices) }}
+                            {{ form_errors(edit_form.timePrices) }}
                         </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -122,4 +129,26 @@
 {% endblock %}
 {% block plain_js_bundle %}
     {{ form_javascript(edit_form) }}
+    <script type="application/javascript">
+        /**
+         * Launch collection function
+         */
+        $(document).ready(function() {
+            $(".item-collection").collection({
+                after_add: function () {
+                    $("select").select2({ width: '100%' });
+                    return true;
+                },
+                allow_duplicate: false,
+                allow_up: false,
+                allow_down: false,
+                allow_add: true,
+                allow_remove: true,
+                min: 0,
+                max: 12,
+                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Add file"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Delete file"><span class="glyphicon glyphicon-trash"></span></a>'
+            });
+        });
+    </script>
 {% endblock %}
