@@ -60,6 +60,11 @@ class BusinessCaseController extends Controller
         $form = $this->createForm(BusinessCaseType::class, $businessCase);
         $form->handleRequest($request);
 
+        if($request->isXmlHttpRequest()){
+            return $this->render("BusinessBundle:businesscase:business_case_form.html.twig",['businessCase' => $businessCase,
+                'form' => $form->createView()]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($businessCase);

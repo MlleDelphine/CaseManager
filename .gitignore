@@ -16,6 +16,7 @@
 /vendor/
 /web/bundles/
 /web/vendor
+/web/js
 /.idea
 /bin/vendor
 *.orig

@@ -4,6 +4,7 @@ namespace BusinessBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CorporationGroup;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use SecurityAppBundle\Entity\User;
@@ -201,37 +202,6 @@ class BusinessCase
     }
 
     /**
-     * @ORM\PostPersist()
-     */
-    public function generateInternalReference(){
-        //No ref exists
-        if(!$this->internalReference){
-            dump("IF");
-            if($this->customer->getObjectName() == CorporationGroup::ObjectName){
-                dump("Group");
-                $lastSixDigitsOfExternalReference = preg_match("/\d{6}$/", $this->externalReference, $m);
-                $projectManagerName = $this->customerProjectManager;
-                $projectManagerNameCleaned = substr(strtoupper(preg_replace("/[^a-zA-Z]/","", $projectManagerName)), 0,3);
-
-                $firstThreeLetters = str_pad($projectManagerNameCleaned, 3, "X");
-                if(isset($m[0])) {
-                    $internalReference = "EC".date("y").$lastSixDigitsOfExternalReference.$firstThreeLetters;
-                    $this->internalReference = $internalReference;
-                }
-            } else{
-                dump("else");
-                dump($this);
-                dump($this->internalReference);
-                die();
-                $internalReference = "E".date("ym").str_pad($this->internalReference, 6, 0, STR_PAD_LEFT);
-                $this->internalReference = $internalReference;
-            }
-        }
-        dump($this);
-        die();
-    }
-
-    /**
      * Set internalReference
      *
      * @param string $internalReference
@@ -255,6 +225,9 @@ class BusinessCase
         return $this->internalReference;
     }
 
+    public function getCustomerType(){
+        return $this->getCustomer()->getType();
+    }
 
     /**
      * Set customer

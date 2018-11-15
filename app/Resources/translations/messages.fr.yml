@@ -238,6 +238,7 @@ corporations: sociétés
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
 corpo_groups: groupes
+corpo_groups_capitalize: Groupes
 corporation_group: société (groupe)
 corporation_group_parent: Appartient à la société (groupe)
 a_corporation_group: une société (groupe)
@@ -246,6 +247,7 @@ some_corporation_groups: des sociétés (groupes)
 
 all_corporation_sites: toutes les sociétés (sites)
 corpo_sites: sites
+corpo_sites_capitalize: Sites
 corporation_sites: sociétés (sites)
 corporation_site: société (site)
 corporation_group_site_children: Possède le(s) site(s)
@@ -257,6 +259,7 @@ no_corporation_site: aucun site (société)
 
 all_corporation_employees: tous les contacts
 corpo_employees: contacts
+corpo_employees_capitalize: Contacts
 corporation_employees: contacts (sociétés)
 corporation_employee: contact (sociétés)
 corporation_site_parent: Rattaché(e) à la société
@@ -267,6 +270,7 @@ no_corporation_employee: aucun contact (société)
 
 all_corporation_jobstatuses: tous les postes
 corpo_jobstatuses: postes
+corpo_jobstatuses_capitalize: Postes
 corporation_jobstatuses: postes (contacts)
 corporation_jobstatus: poste (contact)
 a_corporation_jobstatus: un poste
@@ -276,7 +280,9 @@ no_corporation_jobstatus: aucun poste (contacts)
 
 all_private_individuals: tous les particuliers
 private_individuals: particuliers
+private_individuals_capitalize: Particuliers
 private_individual: particulier
+private_individual_capitalize: Particulier
 a_private_individual: un particulier
 several_private_individuals: plusieurs particuliers
 some_private_individuals: des particuliers
@@ -284,15 +290,21 @@ no_private_individual: aucun particulier
 
 all_townships: toutes les communes
 townships: communes
+townships_capitalize: Communes
 township: commune
 a_township: une commune
 several_townships: plusieurs communes
 some_townships: des communes
 no_township: aucune commune
 
+customer_type: type de client
+customer_type_capitalize: Type de client
+
 all_other_customers: tous les clients de type indéfini
 other_customers: clients de type indéfini
+other_customers_capitalize: Clients de type indéfini
 other_customer: client de type indéfini
+other_customer_capitalize: Client de type indéfini
 a_other_customer: un client de type indéfini
 several_other_customers: plusieurs clients de type indéfini
 some_other_customers: des clients de type indéfini
@@ -390,8 +402,8 @@ customer: client
 customer_capitalize: Client
 customer_project_manager: chargé de projet
 customer_project_manager_capitalize: Chargé de projet
-internal_project_manager: chargé d'affaire
-internal_project_manager_capitalize: Chargé d'affaire
+internal_project_manager: gestionnaire EDTPE
+internal_project_manager_capitalize: Gestionnaire EDTPE
 
 error_message_decimal_number: "error_message_decimal_number"
 

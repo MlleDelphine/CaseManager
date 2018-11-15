@@ -50,6 +50,11 @@ services:
         class: AppBundle\Services\JsonExportImportData
         arguments: ["@doctrine.orm.entity_manager", "@jms_serializer"]
 
+    business.case.internal_ref_generation:
+        class: BusinessBundle\Service\InternalReferenceGeneratorSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
 #To update child entity instead of adding new one
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
