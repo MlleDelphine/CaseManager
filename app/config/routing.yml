@@ -1,7 +1,3 @@
-business:
-    resource: "@BusinessBundle/Resources/config/routing.yml"
-    prefix:   /
-
 #security_app_user:
 #    resource: "@SecurityAppBundle/Controller/UserController.php"
 #    type:     annotation
@@ -29,8 +25,11 @@ fos_user:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-
 customer:
     resource: "@CustomerBundle/Resources/config/routing.yml"
     prefix:   /customer
     host: "%casemanager_admin_url%"
+
+business:
+    resource: "@BusinessBundle/Resources/config/routing.yml"
+    prefix:   /business
