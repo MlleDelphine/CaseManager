@@ -304,4 +304,11 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
         return "private_individual";
     }
 
+    public function getHtmlName() {
+        return $this->__toString()." (particulier)";
+    }
+
+    public function getType() {
+        return parent::TYPE_PRIVATE_INDIVIDUAL;
+    }
 }

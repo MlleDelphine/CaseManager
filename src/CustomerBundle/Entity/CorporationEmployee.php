@@ -387,4 +387,8 @@ class CorporationEmployee extends Person
     public function getObjectName() {
         return "CorporationEmployee";
     }
+
+    public function getHtmlName() {
+        // TODO: Implement getHtmlName() method.
+    }
 }

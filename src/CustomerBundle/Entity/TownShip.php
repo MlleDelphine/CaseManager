@@ -167,5 +167,13 @@ class TownShip extends Customer
     {
         return $this->phoneNumber;
     }
+
+    public function getHtmlName() {
+        return $this->__toString()." (commune)";
+    }
+
+    public function getType() {
+        return parent::TYPE_TOWN_SHIP;
+    }
 }
 

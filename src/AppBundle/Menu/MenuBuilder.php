@@ -40,7 +40,7 @@ class MenuBuilder implements ContainerAwareInterface
         return $this->container->get("security.authorization_checker");
     }
 
-    public function mainTopMenu(FactoryInterface $factory, array $options)
+    public function firstMainTopMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem("root", array(
             "childrenAttributes" => array(
@@ -101,105 +101,41 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-building")
             ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_customers"]->addChild("corporation_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
-        $menu["admin_customers"]->addChild("corporation_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
-        $menu["admin_customers"]->addChild("corporation_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-address-book");
-        $menu["admin_customers"]->addChild("corporation_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+        // ELEMENTS FOR CORPORATION
+        $menu["admin_customers"]->addChild("sub_corpo_elements",
+            array(
+                "label" => "corporations",
+                "uri" => " "))
+            ->setAttribute("prev-icon", "fa fa-building-o")
+            ->setAttribute("icon", "fa fa-chevron-down");
+
+        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
+        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
+        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-address-book");
+        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+
         $menu["admin_customers"]->addChild("private_individuals", array("route" => "private_individual_index"))->setAttribute("prev-icon", "fa fa-address-card");
         $menu["admin_customers"]->addChild("townships", array("route" => "township_index"))->setAttribute("prev-icon", "fa fa-university");
         $menu["admin_customers"]->addChild("other_customers", array("route" => "other_customer_index"))->setAttribute("prev-icon", "fa fa-share-alt-square");
 
-        // BUSINESS MANAGEMENT
-        $menu->addChild("admin_business",
+        return $menu;
+    }
+
+    public function secondMainTopMenu(FactoryInterface $factory){
+        $menu = $factory->createItem("root", array(
+            "childrenAttributes" => array(
+                "class" => "nav side-menu",
+            ),
+        ));
+        $menu->addChild("business_management",
             array(
                 "label" => "business_management",
                 "uri" => " "
             )
         )
-            ->setAttribute("prev-icon", "fa fa-folder-open")
+            ->setAttribute("prev-icon", "fa fa-folder")
             ->setAttribute("icon", "fa fa-chevron-down");
-//        $menu['admin_customers']->addChild('equipments', array('route' => 'equipment_index'))->setAttribute('prev-icon', 'fa fa-truck');
-//        $menu['admin_resources']->addChild('other_resources', array('route' => 'resource_index'))->setAttribute('prev-icon', 'fa fa-cubes');
-
-
-//        $menu['Admin actions']->addChild('API Documentation', array('route' => 'nelmio_api_doc_index', 'linkAttributes' => ['target' =>'_blank']))->setAttribute('prev-icon', 'fa fa-database');
-//
-//
-//        //ADMIN MONITORING FIRST LEVEL MENU
-//        $menu->addChild('Admin monitoring',
-//            array(
-//                'label' => 'Admin monitoring',
-//                'uri' => ' '
-//            )
-//        )
-//            ->setAttribute('prev-icon', 'fa fa-bar-chart')
-//            ->setAttribute('icon', 'fa fa-chevron-down');
-//
-//        $menu['Admin monitoring']->addChild('All projects', array('route' => 'backend_fs_projects_list'))->setAttribute('prev-icon', 'fa fa-tasks');
-//        $menu['Admin monitoring']->addChild('Session types', array('route' => 'sessiontype_index'))->setAttribute('prev-icon', 'fa fa-book');
-////        $menu['Admin monitoring']->addChild('Admin monitoring 2', array('uri' => '#'));
-//
-//        //ISSUING SESSION FIRST LEVEL MENU
-//        $emRepo = $this->getEntityManager()->getRepository("BankActivityBundle:SessionType");
-//        if($issuingSessionType = $emRepo->findOneBy(["name" => "Issuing"])){
-//            $menu->addChild('Issuing monitoring',
-//                array(
-//                    'label' => 'Issuing monitoring',
-//                    'uri' => ' '
-//                )
-//            )
-//                ->setAttribute('prev-icon', 'fa fa-credit-card')
-//                ->setAttribute('icon', 'fa fa-chevron-down');
-//
-//            $menu['Issuing monitoring']->addChild('Global Services', array('route' => 'globalservicetype_index',
-//                'routeParameters' => ['slugSession' => $issuingSessionType->getSlug()]));
-//            $menu['Issuing monitoring']->addChild('Platform import (MC1)', array('route' => 'platform-import_index',
-//                'routeParameters' => ['slugSession' => $issuingSessionType->getSlug()]));
-//            $menu['Issuing monitoring']->addChild('Standard profile import (MC1)', array('route' => 'standard-profile-import_index',
-//                'routeParameters' => ['slugSession' => $issuingSessionType->getSlug()]));
-//            $menu['Issuing monitoring']->addChild('Applications', array('route' => 'application_index',
-//                'routeParameters' => ['slugSession' => $issuingSessionType->getSlug()]));
-//
-//        }
-//        //ACQUIRING SESSION FIRST LEVEL MENU
-//        if($acquiringSessionType = $emRepo->findOneBy(["name" => "Acquiring"])){
-//
-//            $menu->addChild('Acquiring monitoring',
-//                array(
-//                    'label' => 'Acquiring monitoring',
-//                    'uri' => ' '
-//                )
-//            )
-//                ->setAttribute('prev-icon', 'fa fa-calculator')
-//                ->setAttribute('icon', 'fa fa-chevron-down');
-//
-//            $menu['Acquiring monitoring']->addChild('Global Services', array('route' => 'globalservicetype_index',
-//                'routeParameters' => ['slugSession' => $acquiringSessionType->getSlug()]));
-//            $menu['Acquiring monitoring']->addChild('Certification Service', array('route' => 'certificationservice_index',
-//                'routeParameters' => ['slugSession' => $acquiringSessionType->getSlug()]));
-//            $menu['Acquiring monitoring']->addChild('Test Support', array('route' => 'test_support_index',
-//                'routeParameters' => ['slugSession' => $acquiringSessionType->getSlug()]));
-//            $menu['Acquiring monitoring']->addChild('Certification Project Support', array('route' => 'certification_project_support_index',
-//                'routeParameters' => ['slugSession' => $acquiringSessionType->getSlug()]));
-//            $menu['Acquiring monitoring']->addChild('Terminal Test Configurations', array('route' => 'terminaltestconfiguration_index',
-//                'routeParameters' => ['slugSession' => $acquiringSessionType->getSlug()]));
-//
-//        }
-//
-//
-//        //REQUEST MANAGEMENT
-//
-//        $menu->addChild('Request management',
-//            array(
-//                'label' => 'Request management',
-//                'uri' => ' '
-//            )
-//        )
-//            ->setAttribute('prev-icon', 'fa fa-shower')
-//            ->setAttribute('icon', 'fa fa-chevron-down');
-//
-//        $menu['Request management']->addChild('New Project', array('route' => 'master_service_product_index'));
-//        $menu['Request management']->addChild('Certification Priority', array('route' => 'certification_priority_index'));
+        $menu['business_management']->addChild('business_cases', array('route' => 'business_case_index'))->setAttribute('prev-icon', 'fa fa-folder-open');
 
         return $menu;
     }

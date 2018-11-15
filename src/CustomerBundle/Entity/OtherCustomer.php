@@ -167,5 +167,13 @@ class OtherCustomer extends Customer
     {
         return $this->phoneNumber;
     }
+
+    public function getHtmlName() {
+        return $this->__toString()." (autre)";
+    }
+
+    public function getType() {
+        return parent::TYPE_OTHER_CUSTOMER;
+    }
 }
 

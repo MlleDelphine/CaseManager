@@ -9,7 +9,7 @@
 namespace CustomerBundle\Entity\AbstractClass;
 
 
-class Corporation extends Customer implements CorporationInterface {
+abstract class Corporation extends Customer implements CorporationInterface {
 
     /**
      * @return array
@@ -52,4 +52,5 @@ class Corporation extends Customer implements CorporationInterface {
     public function getObjectName() {
         return "corporation";
     }
+
 }

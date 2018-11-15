@@ -24,8 +24,12 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <h3>-- General --</h3>
-                {{ knp_menu_render('AppBundle:MenuBuilder:mainTopMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
+                <h3>-- {{ "administration"|trans|capitalize }} --</h3>
+                {{ knp_menu_render('AppBundle:MenuBuilder:firstMainTopMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
+            </div>
+            <div class="menu_section">
+                <h3>-- {{ "business"|trans|capitalize }} --</h3>
+                {{ knp_menu_render('AppBundle:MenuBuilder:secondMainTopMenu', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
             </div>
             {#<div class="menu_section">#}
                 {#<h3>-- Live On --</h3>#}

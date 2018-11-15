@@ -29,5 +29,5 @@ business_case_export:
     path: /export/{slug}
     defaults: { _controller: "BusinessBundle:BusinessCase:exportBusinessCase" }
 
-business_case_all:
+business_case_export_all:
     path: /export

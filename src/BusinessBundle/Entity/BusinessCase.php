@@ -69,9 +69,7 @@ class BusinessCase
     /**
      * @var string
      *
-     * @ORM\Column(name="internalReference", type="string", length=255, unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="CustomerBundle\Service\InternalReferenceGenerator")
+     * @ORM\Column(name="internalReference", type="string", length=255, nullable=true, unique=true)
      */
     private $internalReference;
 
@@ -203,12 +201,14 @@ class BusinessCase
     }
 
     /**
-     * @ORM\PrePersist()
+     * @ORM\PostPersist()
      */
     public function generateInternalReference(){
         //No ref exists
-        if(!$this->internalReference || !preg_match("/[a-z]/", $this->internalReference)){
+        if(!$this->internalReference){
+            dump("IF");
             if($this->customer->getObjectName() == CorporationGroup::ObjectName){
+                dump("Group");
                 $lastSixDigitsOfExternalReference = preg_match("/\d{6}$/", $this->externalReference, $m);
                 $projectManagerName = $this->customerProjectManager;
                 $projectManagerNameCleaned = substr(strtoupper(preg_replace("/[^a-zA-Z]/","", $projectManagerName)), 0,3);
@@ -219,11 +219,18 @@ class BusinessCase
                     $this->internalReference = $internalReference;
                 }
             } else{
+                dump("else");
+                dump($this);
+                dump($this->internalReference);
+                die();
                 $internalReference = "E".date("ym").str_pad($this->internalReference, 6, 0, STR_PAD_LEFT);
                 $this->internalReference = $internalReference;
             }
         }
+        dump($this);
+        die();
     }
+
     /**
      * Set internalReference
      *
@@ -250,7 +257,7 @@ class BusinessCase
 
 
     /**
-     * Set equipment
+     * Set customer
      *
      * @param Customer $customer
      *
@@ -281,7 +288,7 @@ class BusinessCase
      *
      * @return BusinessCase
      */
-    public function setEquipment(User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 

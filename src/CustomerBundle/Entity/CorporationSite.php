@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationSite extends Customer implements CustomerSubjectInterface
+class CorporationSite extends Customer
 {
     /**
      * @var string
@@ -265,5 +265,13 @@ class CorporationSite extends Customer implements CustomerSubjectInterface
 
     public function getObjectName() {
         return "CorporationSite";
+    }
+
+    public function getHtmlName() {
+        return $this->__toString()." (site)";
+    }
+
+    public function getType() {
+        return parent::TYPE_CORPO_SITE;
     }
 }

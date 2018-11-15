@@ -58,6 +58,7 @@ naming_capitalize: Désignation
 namings: désignations
 naming(s): désignation(s)
 
+business: les affaires
 
 #FORM ACTIONS
 submit: valider
@@ -87,6 +88,8 @@ customers_management: gestion des clients
 business_management: gestion des affaires
 
 dashboard: tableau de bord
+administration: administration
+management: gestion
 
 creation_of_material: création d'un matériau
 edition_of_material: édition d'un matériau
@@ -143,6 +146,10 @@ edition_of_the_rate: édition du taux
 creation_of_business: création d'une affaire
 edition_of_business: édition d'une affaire
 edition_of_the_business: édition d'une affaire
+
+creation_of_business_case: création d'un dossier d'affaire
+edition_of_business_case: édition d'un dossier d'affaire
+edition_of_the_business_case: édition d'un dossier d'affaire
 
 #OBJECTS LEXICAL
 employees: personnel
@@ -226,8 +233,11 @@ so_rates: des taux
 no_rate: aucun taux
 
 #CORPO / CUSTOMERS
+corporation: société
+corporations: sociétés
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
+corpo_groups: groupes
 corporation_group: société (groupe)
 corporation_group_parent: Appartient à la société (groupe)
 a_corporation_group: une société (groupe)
@@ -235,6 +245,7 @@ several_corporation_groups: plusieurs sociétés (groupes)
 some_corporation_groups: des sociétés (groupes)
 
 all_corporation_sites: toutes les sociétés (sites)
+corpo_sites: sites
 corporation_sites: sociétés (sites)
 corporation_site: société (site)
 corporation_group_site_children: Possède le(s) site(s)
@@ -245,6 +256,7 @@ some_corporation_sites: des sociétés (sites)
 no_corporation_site: aucun site (société)
 
 all_corporation_employees: tous les contacts
+corpo_employees: contacts
 corporation_employees: contacts (sociétés)
 corporation_employee: contact (sociétés)
 corporation_site_parent: Rattaché(e) à la société
@@ -254,6 +266,7 @@ some_corporation_employees: des contacts
 no_corporation_employee: aucun contact (société)
 
 all_corporation_jobstatuses: tous les postes
+corpo_jobstatuses: postes
 corporation_jobstatuses: postes (contacts)
 corporation_jobstatus: poste (contact)
 a_corporation_jobstatus: un poste
@@ -284,6 +297,14 @@ a_other_customer: un client de type indéfini
 several_other_customers: plusieurs clients de type indéfini
 some_other_customers: des clients de type indéfini
 no_other_customer: aucun client de type indéfini
+
+all_business_cases: tous les dossiers d'affaire
+business_cases: dossiers d'affaire
+business_case: dossier d'affaire
+a_business_case: un dossier d'affaire
+several_business_cases: plusieurs dossiers d'affaire
+some_business_cases: des dossiers d'affaire
+no_business_case: aucun dossier d'affaire
 
 #OBJECTS STATES
 created_m_s: créé
@@ -357,6 +378,20 @@ export: export
 error: erreur
 errors: erreurs
 home: accueil
+
+external_reference: référence externe
+external_reference_capitalize: Référence externe
+external_customer_reference: référence externe client
+external_customer_reference_capitalize: Référence externe client
+internal_reference: référence interne
+internal_reference_capitalize: Référence interne
+
+customer: client
+customer_capitalize: Client
+customer_project_manager: chargé de projet
+customer_project_manager_capitalize: Chargé de projet
+internal_project_manager: chargé d'affaire
+internal_project_manager_capitalize: Chargé d'affaire
 
 error_message_decimal_number: "error_message_decimal_number"
 

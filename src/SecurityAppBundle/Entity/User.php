@@ -144,6 +144,15 @@ class User extends BaseUser implements ResourceSubjectInterface
      */
     protected $timePrices;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $businessCases;
+
 
     public function __construct()
     {

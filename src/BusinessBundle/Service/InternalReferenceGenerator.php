@@ -6,7 +6,7 @@
  * Time: 18:13
  */
 
-namespace CustomerBundle\Service;
+namespace BusinessBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Id\AbstractIdGenerator;

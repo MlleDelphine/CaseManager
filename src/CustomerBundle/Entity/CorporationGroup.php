@@ -3,6 +3,7 @@
 namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Corporation;
+use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -18,7 +19,7 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationGroup extends Corporation
+class CorporationGroup extends Corporation implements CustomerSubjectInterface
 {
 
     const ObjectName = "CorporationGroup";
@@ -251,5 +252,13 @@ class CorporationGroup extends Corporation
 
     public function getObjectName() {
         return self::ObjectName;
+    }
+
+    public function getHtmlName() {
+        return $this->__toString()." (groupe)";
+    }
+
+    public function getType() {
+        return parent::TYPE_CORPO_GROUP;
     }
 }

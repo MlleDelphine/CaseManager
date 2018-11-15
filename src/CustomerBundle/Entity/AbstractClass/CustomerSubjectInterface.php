@@ -12,4 +12,6 @@ namespace CustomerBundle\Entity\AbstractClass;
 interface CustomerSubjectInterface {
 
     public function getObjectName();
+
+    public function getHtmlName();
 }

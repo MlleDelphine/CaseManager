@@ -10,17 +10,17 @@ namespace CustomerBundle\Entity\AbstractClass;
 
 use CustomerBundle\Entity\PostalAddress;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CustomerRepository")
  * @ORM\Table(name="customer")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"corporationGroup" = "CustomerBundle\Entity\CorporationGroup",
+ * @ORM\DiscriminatorMap({
+ *     "corporationGroup" = "CustomerBundle\Entity\CorporationGroup",
  *     "corporationSite" = "CustomerBundle\Entity\CorporationSite",
  *     "privateIndividual" = "CustomerBundle\Entity\PrivateIndividual",
  *     "townShip" = "CustomerBundle\Entity\TownShip",
@@ -29,7 +29,13 @@ use JMS\Serializer\Annotation as JMSSer;
  *
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class Customer extends Person{
+abstract class Customer extends Person implements CustomerSubjectInterface{
+
+    const TYPE_CORPO_GROUP = "corporationGroup";
+    const TYPE_CORPO_SITE = "corporationSite";
+    const TYPE_PRIVATE_INDIVIDUAL = "privateIndividual";
+    const TYPE_TOWN_SHIP = "townShip";
+    const TYPE_OTHER_CUSTOMER = "otherCustomer";
 
     /**
      * @var int
@@ -78,6 +84,15 @@ abstract class Customer extends Person{
      * @JMSSer\Groups({"admin_export_customers", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $postalAddress;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="customer", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $businessCases;
 
     public function __construct() {
     }
@@ -188,4 +203,7 @@ abstract class Customer extends Person{
     {
         return $this->postalAddress;
     }
+
+    abstract public function getType();
+
 }
