@@ -2,9 +2,9 @@
 
 namespace CustomerBundle\Controller;
 
-use CustomerBundle\Entity\CorporationEmployee;
+use CustomerBundle\Entity\CustomerContact;
 use CustomerBundle\Entity\CorporationSite;
-use CustomerBundle\Form\CorporationEmployeeType;
+use CustomerBundle\Form\CustomerContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * CorporationEmployee controller.
+ * CustomerContact controller.
  *
  */
-class CorporationEmployeeController extends Controller
+class CustomerContactController extends Controller
 {
     /**
-     * Lists all corporationEmployee entities.
+     * Lists all customerContact entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -34,7 +34,7 @@ class CorporationEmployeeController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_corporationemployee", $jsonDatas, "CustomerBundle\Entity\CorporationEmployee");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_customercontact", $jsonDatas, "CustomerBundle\Entity\CustomerContact");
 
                 $error = $deserialize;
             }else{
@@ -42,16 +42,16 @@ class CorporationEmployeeController extends Controller
             }
         }
 
-        $corporationEmployees = $em->getRepository('CustomerBundle:CorporationEmployee')->findAll();
+        $customerContacts = $em->getRepository('CustomerBundle:CustomerContact')->findAll();
 
-        return $this->render('CustomerBundle:corporationemployee:index.html.twig', array(
-            'corporationEmployees' => $corporationEmployees,
+        return $this->render('CustomerBundle:customercontact:index.html.twig', array(
+            'customerContacts' => $customerContacts,
             "error" => $error
         ));
     }
 
     /**
-     * Creates a new corporationEmployee entity.
+     * Creates a new customerContact entity.
      * @param Request $request
      * @param CorporationSite $corporationSite
      *
@@ -60,52 +60,52 @@ class CorporationEmployeeController extends Controller
      */
     public function newAction(Request $request, CorporationSite $corporationSite = null)
     {
-        $corporationEmployee = new CorporationEmployee();
+        $customerContact = new CustomerContact();
         if(isset($corporationSite)){
-            $corporationEmployee->setCorporationSite($corporationSite);
+            $customerContact->setCorporationSite($corporationSite);
         }
-        $form = $this->createForm(CorporationEmployeeType::class, $corporationEmployee);
+        $form = $this->createForm(CustomerContactType::class, $customerContact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($corporationEmployee);
+            $em->persist($customerContact);
             $em->flush();
 
             return $this->redirectToRoute('corporation_employee_index');
         }
 
-        return $this->render('CustomerBundle:corporationemployee:new.html.twig', array(
-            'corporationEmployee' => $corporationEmployee,
+        return $this->render('CustomerBundle:customercontact:new.html.twig', array(
+            'customerContact' => $customerContact,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a corporationEmployee entity.
-     * @param CorporationEmployee $corporationEmployee
+     * Finds and displays a customerContact entity.
+     * @param CustomerContact $customerContact
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(CorporationEmployee $corporationEmployee)
+    public function showAction(CustomerContact $customerContact)
     {
-        $deleteForm = $this->createDeleteForm($corporationEmployee);
+        $deleteForm = $this->createDeleteForm($customerContact);
 
-        return $this->render('CustomerBundle:corporationemployee:show.html.twig', array(
-            'corporationEmployee' => $corporationEmployee,
+        return $this->render('CustomerBundle:customercontact:show.html.twig', array(
+            'customerContact' => $customerContact,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing corporationEmployee entity.
+     * Displays a form to edit an existing customerContact entity.
      * @param Request          $request
-     * @param CorporationEmployee $corporationEmployee
+     * @param CustomerContact $customerContact
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, CorporationEmployee $corporationEmployee)
+    public function editAction(Request $request, CustomerContact $customerContact)
     {
-        $deleteForm = $this->createDeleteForm($corporationEmployee);
-        $editForm = $this->createForm(CorporationEmployeeType::class, $corporationEmployee);
+        $deleteForm = $this->createDeleteForm($customerContact);
+        $editForm = $this->createForm(CustomerContactType::class, $customerContact);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -114,28 +114,28 @@ class CorporationEmployeeController extends Controller
             return $this->redirectToRoute('corporation_employee_index');
         }
 
-        return $this->render('CustomerBundle:corporationemployee:edit.html.twig', array(
-            'corporationEmployee' => $corporationEmployee,
+        return $this->render('CustomerBundle:customercontact:edit.html.twig', array(
+            'customerContact' => $customerContact,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a corporationEmployee entity.
+     * Deletes a customerContact entity.
      * @param Request          $request
-     * @param CorporationEmployee $corporationEmployee
+     * @param CustomerContact $customerContact
      * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
-    public function deleteAction(Request $request, CorporationEmployee $corporationEmployee)
+    public function deleteAction(Request $request, CustomerContact $customerContact)
     {
-        $form = $this->createDeleteForm($corporationEmployee);
+        $form = $this->createDeleteForm($customerContact);
 
         if ($request->isXmlHttpRequest()) {
             return $this->render(":common:remove_object_modal.html.twig",
                 [
                     "delete_form" => $form->createView(),
-                    "object_title" => $corporationEmployee,
+                    "object_title" => $customerContact,
                     "default" => false
                 ]);
         }
@@ -144,7 +144,7 @@ class CorporationEmployeeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($corporationEmployee);
+            $em->remove($customerContact);
             $em->flush();
         }
 
@@ -152,28 +152,28 @@ class CorporationEmployeeController extends Controller
     }
 
     /**
-     * Creates a form to delete a corporationEmployee entity.
+     * Creates a form to delete a customerContact entity.
      *
-     * @param CorporationEmployee $corporationEmployee The corporationEmployee entity
+     * @param CustomerContact $customerContact The customerContact entity
      *
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(CorporationEmployee $corporationEmployee)
+    private function createDeleteForm(CustomerContact $customerContact)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('corporation_employee_delete', array('slug' => $corporationEmployee->getSlug())))
+            ->setAction($this->generateUrl('corporation_employee_delete', array('slug' => $customerContact->getSlug())))
             ->setMethod('DELETE')
             ->getForm();
     }
 
     /**
      * @param Request $request
-     * @param CorporationEmployee $equipment
+     * @param CustomerContact $equipment
      * @return StreamedResponse
      */
-    public function exportCorporationEmployeeAction(Request $request, CorporationEmployee $equipment){
+    public function exportCustomerContactAction(Request $request, CustomerContact $equipment){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_corporationemployee', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_customercontact', $equipment)->prepare($request);
 
         return $response;
     }
@@ -182,8 +182,8 @@ class CorporationEmployeeController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllCorporationEmployeeAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationemployee","CustomerBundle:CorporationEmployee", "Corporation Sites" )->prepare($request);
+    public function exportAllCustomerContactAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_customercontact","CustomerBundle:CustomerContact", "Corporation Sites" )->prepare($request);
 
         return $response;
     }

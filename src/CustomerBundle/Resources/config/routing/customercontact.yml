@@ -1,0 +1,34 @@
+customer_contact_index:
+    path:     /
+    defaults: { _controller: "CustomerBundle:CustomerContact:index" }
+    methods:  [GET, POST]
+
+customer_contact_show:
+    path:     /{slug}/show
+    defaults: { _controller: "CustomerBundle:CustomerContact:show" }
+    methods:  GET
+
+customer_contact_new:
+    path:     /new/{slugCorpSite}
+    defaults: { _controller: "CustomerBundle:CustomerContact:new", slugCorpSite: ~}
+    methods:  [GET, POST]
+
+customer_contact_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "CustomerBundle:CustomerContact:edit" }
+    methods:  [GET, POST]
+
+customer_contact_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "CustomerBundle:CustomerContact:delete" }
+    methods:  DELETE
+    options:
+        expose: true
+    
+customer_contact_export:
+    path: /export/{slug}
+    defaults: { _controller: "CustomerBundle:CustomerContact:exportCustomerContact" }
+
+customer_contact_export_all:
+    path: /export
+    defaults: { _controller: "CustomerBundle:CustomerContact:exportAllCustomerContact" }

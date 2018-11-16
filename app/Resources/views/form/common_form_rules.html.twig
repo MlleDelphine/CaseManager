@@ -8,6 +8,82 @@
     {% endif %}
 {% endblock form_errors%}
 
+{# FILE INPOUT #}
+{% block file_widget %}
+    {% spaceless %}
+        <div class="form-group col-md-7">
+            <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{# RADIO WIDGET #}
+{% block radio_label -%}
+
+{% endblock %}
+
+{% block radio_widget -%}
+    {% spaceless %}
+        {% set splittedBy = 3 %}
+        {% if form.parent.vars.attr.splittedBy %}
+            {% set splittedBy = form.parent.vars.attr.splittedBy %}
+        {% endif %}
+
+        {%  set colmd = 12/splittedBy %}
+        {%  set colsm = 6 %}
+
+        {# Bootstrap color display #}
+        {% set color = "flat-green" %}
+        {%  if form.parent.vars.attr.color is defined %}
+            {% set color = form.parent.vars.attr.color %}
+        {% endif %}
+
+        {# Getting entity in choices list #}
+        {% set parentFormChoices = form.parent.vars.choices %}
+
+        {# Description tootltip #}
+        {% set desc = false %}
+        {% if (parentFormChoices[form.vars.name].data.description is defined) and (parentFormChoices[form.vars.name].data.description is not empty) %}
+            {% set desc = true %}
+            {% set colmd = colmd-1 %}
+        {% endif %}
+
+        <div class="radio col-md-{{ colmd }} col-sm-{{ colsm }}">
+            <label for="{{ form.vars.id }}">
+                {% if parentFormChoices[form.vars.name].data.image is defined %} <img alt="{{ label }}" class="img-responsive" src="{% path parentFormChoices[form.vars.name].data.image, 'logo' %}">
+                {% else %}
+                {% endif %}
+                <div class="iradio_{{ color }} {% if checked %} checked {% endif %}">
+                    <input type="radio" class="flat" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}">
+                </div>
+                {{ label|trans }}
+                {# {{ label }}#}
+            </label>
+        </div>
+        {% if desc == true %}
+            <div class="col-md-1 mar-top">
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="{{ parentFormChoices[form.vars.name].data.description }}" data-placement="top" class="icon icon-help" data-original-title="{{ parentFormChoices[form.vars.name].data.name }}"></a>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{# CHECKBOX WIDGET #}
+{% block checkbox_widget -%}
+    {% set colmd = 6 %}
+    {%  if form.parent.vars.attr.dataCol is defined %}
+        {% set colmd = form.parent.vars.attr.dataCol %}
+    {% endif %}
+
+    <div class="col-md-{{ colmd }} funkyradio-info">
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        {% if label and form.parent.vars.choices is defined %}
+            {% set parentFormChoices = form.parent.vars.choices %}
+            <label for="{{ form.vars.id }}">{% if parentFormChoices[form.vars.name].data.image is defined %} <img alt="{{ label }}" class="img-responsive" src="{% path parentFormChoices[form.vars.name].data.image, 'small' %}">{% else %}{{ label }} {% endif %}</label>
+        {% endif %}
+    </div>
+{% endblock %}
+
 {# (UNIT) TIME PRICES - MATERIAL - RESOURCE - EQUIPMENT - USER as resourceEmployee#}
 {% block collection_widget %}
     {% spaceless %}
@@ -247,10 +323,10 @@
         <span class="required">*</span>
         {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
         <div class="col-md-6 col-sm-6 col-xs-12">
-                {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-                {{ form_errors(form.country) }}
-            </div>
+            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
+            {{ form_errors(form.country) }}
         </div>
+    </div>
     </div>
 {% endblock %}
 
@@ -302,10 +378,10 @@
         <span class="required">*</span>
         {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
         <div class="col-md-6 col-sm-6 col-xs-12">
-                {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-                {{ form_errors(form.country) }}
-            </div>
+            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
+            {{ form_errors(form.country) }}
         </div>
+    </div>
     </div>
 {% endblock %}
 

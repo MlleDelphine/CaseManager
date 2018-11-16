@@ -58,9 +58,9 @@ class CorporationSite extends Customer
     public $corporationGroup;
 
     /**
-     * @var CorporationEmployee[]|ArrayCollection
+     * @var CustomerContact[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="corporationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
     protected $employees;
 
@@ -232,11 +232,11 @@ class CorporationSite extends Customer
     /**
      * Add employee
      *
-     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     * @param \CustomerBundle\Entity\CustomerContact $employee
      *
      * @return CorporationSite
      */
-    public function addEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    public function addEmployee(\CustomerBundle\Entity\CustomerContact $employee)
     {
         $this->employees[] = $employee;
 
@@ -246,9 +246,9 @@ class CorporationSite extends Customer
     /**
      * Remove employee
      *
-     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     * @param \CustomerBundle\Entity\CustomerContact $employee
      */
-    public function removeEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    public function removeEmployee(\CustomerBundle\Entity\CustomerContact $employee)
     {
         $this->employees->removeElement($employee);
     }

@@ -36,7 +36,9 @@ class BusinessCaseType extends AbstractType
             ->add("customerType", ChoiceType::class, array(
                 "label_format" => "customer_type_capitalize",
                 "required" => true,
-                "placeholder" => "Sélectionnez un type",
+             //   "placeholder" => "Sélectionnez un type",
+                "expanded" => true,
+                "multiple" => false,
                 "choices" => [
                     "corpo_groups_capitalize" => Customer::TYPE_CORPO_GROUP,
                     "corpo_sites_capitalize" => Customer::TYPE_CORPO_SITE,
@@ -44,7 +46,8 @@ class BusinessCaseType extends AbstractType
                     "private_individuals_capitalize" => Customer::TYPE_PRIVATE_INDIVIDUAL,
                     "other_customers_capitalize" => Customer::TYPE_OTHER_CUSTOMER
                 ],
-                "mapped" => false
+                "mapped" => false,
+                "attr" => ["color" => "flat-green", "splittedBy" => "3"]
             ))
             ->add('customer', Select2EntityType::class, array(
                 "class" => "CustomerBundle\Entity\AbstractClass\Customer",
@@ -52,7 +55,7 @@ class BusinessCaseType extends AbstractType
                 "choice_label" => "htmlName",
                 "label_format" => "customer_capitalize",
                 "multiple" => false,
-                "placeholder" => "select_type_before",
+                "placeholder" => "select_type_before_capitalize",
                 "required" => true
             ))
             ->add('user', Select2EntityType::class, array(
@@ -64,7 +67,6 @@ class BusinessCaseType extends AbstractType
 
         $formModifierCustomer = function (FormInterface $form, $customerType = null){
             if($customerType != null){
-
                 if($customerType == Customer::TYPE_CORPO_GROUP){
                     $className = "CustomerBundle:CorporationGroup";;
                 }elseif($customerType == Customer::TYPE_CORPO_SITE){
@@ -113,7 +115,7 @@ class BusinessCaseType extends AbstractType
                     "choice_label" => "htmlName",
                     "label_format" => "customer_capitalize",
                     "multiple" => false,
-                    "placeholder" => "select_type_before",
+                    "placeholder" => "select_type_before_capitalize",
                     "required" => true,
                     'auto_initialize'=>false // it's important!!!
                 ));

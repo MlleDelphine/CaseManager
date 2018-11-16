@@ -73,6 +73,7 @@ add_contact: ajouter un contact
 add_site: ajouter un site
 #Capitalize
 select: Sélectionnez
+select_type_before_capitalize: Vous devez sélectionner un type avant
 honorific: Civilité
 
 #ADMIN SPACE

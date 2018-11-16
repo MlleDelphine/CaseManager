@@ -7,39 +7,39 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ corporationEmployee.id }}</td>
+                <td>{{ customerContact.id }}</td>
             </tr>
             <tr>
                 <th>Firstname</th>
-                <td>{{ corporationEmployee.firstName }}</td>
+                <td>{{ customerContact.firstName }}</td>
             </tr>
             <tr>
                 <th>Lastname</th>
-                <td>{{ corporationEmployee.lastName }}</td>
+                <td>{{ customerContact.lastName }}</td>
             </tr>
             <tr>
                 <th>Phonenumber</th>
-                <td>{{ corporationEmployee.phoneNumber }}</td>
+                <td>{{ customerContact.phoneNumber }}</td>
             </tr>
             <tr>
                 <th>Mailaddress</th>
-                <td>{{ corporationEmployee.mailAddress }}</td>
+                <td>{{ customerContact.mailAddress }}</td>
             </tr>
             <tr>
                 <th>Slug</th>
-                <td>{{ corporationEmployee.slug }}</td>
+                <td>{{ customerContact.slug }}</td>
             </tr>
             <tr>
                 <th>Honorific</th>
-                <td>{{ corporationEmployee.honorific }}</td>
+                <td>{{ customerContact.honorific }}</td>
             </tr>
             <tr>
                 <th>Created</th>
-                <td>{% if corporationEmployee.created %}{{ corporationEmployee.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if customerContact.created %}{{ customerContact.created|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Updated</th>
-                <td>{% if corporationEmployee.updated %}{{ corporationEmployee.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if customerContact.updated %}{{ customerContact.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
@@ -49,7 +49,7 @@
             <a href="{{ path('corporation-employee_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('corporation-employee_edit', { 'id': corporationEmployee.id }) }}">Edit</a>
+            <a href="{{ path('corporation-employee_edit', { 'id': customerContact.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

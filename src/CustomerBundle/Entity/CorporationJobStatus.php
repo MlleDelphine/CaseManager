@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\CustomerContact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -26,7 +27,7 @@ class CorporationJobStatus
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationemployee"})
+     * @JMSSer\Groups({"admin_export_corporationcontact"})
      */
     private $id;
 
@@ -35,7 +36,7 @@ class CorporationJobStatus
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationemployee", "admin_export_corporationjobstatus"})
+     * @JMSSer\Groups({"admin_export_corporationcontact", "admin_export_corporationjobstatus"})
      */
     private $name;
 
@@ -63,16 +64,16 @@ class CorporationJobStatus
     protected $updated;
 
     /**
-     * @var Employee[]|ArrayCollection
+     * @var CustomerContact[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CorporationEmployee", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
      */
-    protected $employees;
+    protected $customerContacts;
 
 
     public function __construct()
     {
-        $this->employees = new ArrayCollection();
+        $this->customerContacts = new ArrayCollection();
     }
 
     public function __toString()
@@ -187,36 +188,36 @@ class CorporationJobStatus
     }
 
     /**
-     * Add employee
+     * Add contact
      *
-     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     * @param CustomerContact $contact
      *
      * @return CorporationJobStatus
      */
-    public function addEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    public function addCustomerContact(CustomerContact $contact)
     {
-        $this->employees[] = $employee;
+        $this->customerContacts[] = $contact;
 
         return $this;
     }
 
     /**
-     * Remove employee
+     * Remove contact
      *
-     * @param \CustomerBundle\Entity\CorporationEmployee $employee
+     * @param CustomerContact $contact
      */
-    public function removeEmployee(\CustomerBundle\Entity\CorporationEmployee $employee)
+    public function removeCustomerContact(CustomerContact $contact)
     {
-        $this->employees->removeElement($employee);
+        $this->customerContacts->removeElement($contact);
     }
 
     /**
-     * Get employees
+     * Get contacts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEmployees()
+    public function getCustomerContacts()
     {
-        return $this->employees;
+        return $this->customerContacts;
     }
 }

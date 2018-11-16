@@ -225,31 +225,6 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
         return $this->corporationSites;
     }
 
-//    /**
-//     * Set postalAddress
-//     *
-//     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
-//     *
-//     * @return CorporationGroup
-//     */
-//    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
-//    {
-//        $this->postalAddress = $postalAddress;
-//        $postalAddress->setCorporationGroup($this);
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get postalAddress
-//     *
-//     * @return \CustomerBundle\Entity\PostalAddress
-//     */
-//    public function getPostalAddress()
-//    {
-//        return $this->postalAddress;
-//    }
-
     public function getObjectName() {
         return self::ObjectName;
     }

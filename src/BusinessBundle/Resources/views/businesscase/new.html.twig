@@ -59,7 +59,7 @@
                         <span class="required">*</span>
                         {{ form_label(form.customerType, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.customerType, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_widget(form.customerType) }}
                             {{ form_errors(form.customerType) }}
                         </div>
                     </div>
@@ -104,11 +104,12 @@
 
             var $form = $(".business-case-form");
             //businessbundle_businesscase[customerType]
-            $(".business-case-form").on("change", "[name^='businessbundle_businesscase[customerType]']", function (event) {
+            $(".business-case-form").on("ifChecked", "input:radio[name='businessbundle_businesscase[customerType]']", function (event) {
                 console.log("CHANGE : Call by customer type for customer list");
                 var dataInfo = {
                     name: "customerType",
-                    type: "select",
+                    type: ":radio",
+                    value: event.target,
                     params: [{name: "sessionType", type: "radio"}],
                     nextStep: false,
                     target: [{name: "customer"}],
@@ -119,7 +120,7 @@
 
             function ajaxCall(dataConf) {
                 var data = {};
-                var $value = $("[name^='businessbundle_businesscase[" + dataConf.name + "]']");
+                var $value = $("input"+dataConf["type"]+"[name='businessbundle_businesscase["+dataConf["name"]+"]']:checked");
                 var $form = $value.closest('form');
                 data[$value.attr('name')] = $value.val();
 

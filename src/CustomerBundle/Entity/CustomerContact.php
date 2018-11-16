@@ -2,21 +2,23 @@
 
 namespace CustomerBundle\Entity;
 
+use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\Person;
+use CustomerBundle\Entity\CorporationJobStatus;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 /**
- * CorporationEmployee
+ * CustomerContact
  *
- * @ORM\Table(name="corporation_employee")
- * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CorporationEmployeeRepository")
+ * @ORM\Table(name="customer_contact")
+ * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CustomerContactRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class CorporationEmployee extends Person
+class CustomerContact extends Person
 {
     /**
      * @var int
@@ -106,7 +108,7 @@ class CorporationEmployee extends Person
 
     /**
      * @var CorporationJobStatus
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="employees", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="customerContacts", cascade={"persist", "merge"})
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
@@ -114,14 +116,16 @@ class CorporationEmployee extends Person
     protected $corporationJobStatus;
 
     /**
-     * @var CorporationSite
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationSite", inversedBy="employees", cascade={"persist", "merge"})
+     * If employee deleted, Customer (corpo) noy deleted
+     * Owning side here
+     * @var Customer
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", inversedBy="customerContacts", cascade={"persist", "merge"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      */
-    protected $corporationSite;
+    protected $customer;
 
     public function __construct()
     {
@@ -147,7 +151,7 @@ class CorporationEmployee extends Person
      *
      * @param string $firstName
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setFirstName($firstName)
     {
@@ -171,7 +175,7 @@ class CorporationEmployee extends Person
      *
      * @param string $lastName
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setLastName($lastName)
     {
@@ -195,7 +199,7 @@ class CorporationEmployee extends Person
      *
      * @param string $phoneNumber
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setPhoneNumber($phoneNumber)
     {
@@ -219,7 +223,7 @@ class CorporationEmployee extends Person
      *
      * @param string $mailAddress
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setMailAddress($mailAddress)
     {
@@ -243,7 +247,7 @@ class CorporationEmployee extends Person
      *
      * @param string $honorific
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setHonorific($honorific)
     {
@@ -267,7 +271,7 @@ class CorporationEmployee extends Person
      *
      * @param string $slug
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setSlug($slug)
     {
@@ -291,7 +295,7 @@ class CorporationEmployee extends Person
      *
      * @param \DateTime $created
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setCreated($created)
     {
@@ -315,7 +319,7 @@ class CorporationEmployee extends Person
      *
      * @param \DateTime $updated
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
     public function setUpdated($updated)
     {
@@ -337,14 +341,14 @@ class CorporationEmployee extends Person
     /**
      * Set corporationJobStatus
      *
-     * @param \CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus
+     * @param CorporationJobStatus $corporationJobStatus
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
-    public function setCorporationJobStatus(\CustomerBundle\Entity\CorporationJobStatus $corporationJobStatus = null)
+    public function setCorporationJobStatus(CorporationJobStatus $corporationJobStatus = null)
     {
         $this->corporationJobStatus = $corporationJobStatus;
-        $corporationJobStatus->addEmployee($this);
+        $corporationJobStatus->addCustomerContact($this);
 
         return $this;
     }
@@ -352,7 +356,7 @@ class CorporationEmployee extends Person
     /**
      * Get corporationJobStatus
      *
-     * @return \CustomerBundle\Entity\CorporationJobStatus
+     * @return CorporationJobStatus
      */
     public function getCorporationJobStatus()
     {
@@ -360,32 +364,32 @@ class CorporationEmployee extends Person
     }
 
     /**
-     * Set corporationSite
+     * Set customer
      *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     * @param Customer $customer
      *
-     * @return CorporationEmployee
+     * @return CustomerContact
      */
-    public function setCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite = null)
+    public function setCustomer(Customer $customer = null)
     {
-        $this->corporationSite = $corporationSite;
-        $corporationSite->addEmployee($this);
+        $this->customer = $customer;
+        $customer->addCustomerContact($this);
 
         return $this;
     }
 
     /**
-     * Get corporationSite
+     * Get customer
      *
-     * @return \CustomerBundle\Entity\CorporationSite
+     * @return \CustomerBundle\Entity\AbstractClass\Customer
      */
-    public function getCorporationSite()
+    public function getCustomer()
     {
-        return $this->corporationSite;
+        return $this->customer;
     }
 
     public function getObjectName() {
-        return "CorporationEmployee";
+        return "customerContact";
     }
 
     public function getHtmlName() {

@@ -8,6 +8,8 @@
 
 namespace CustomerBundle\Entity\AbstractClass;
 
+use BusinessBundle\Entity\BusinessCase;
+use CustomerBundle\Entity\CustomerContact;
 use CustomerBundle\Entity\PostalAddress;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -84,6 +86,15 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @JMSSer\Groups({"admin_export_customers", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $postalAddress;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="customer", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $customerContacts;
 
     /**
      * @var ArrayCollection
@@ -202,6 +213,54 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
     public function getPostalAddress()
     {
         return $this->postalAddress;
+    }
+
+    /**
+     * Add customerContact
+     *
+     * @param CustomerContact $customerContact
+     *
+     * @return Customer
+     */
+    public function addCustomerContact(CustomerContact $customerContact)
+    {
+        $this->customerContacts[] = $customerContact;
+
+        return $this;
+    }
+
+    /**
+     * Remove corporationSite
+     *
+     * @param \CustomerBundle\Entity\CustomerContact $customerContact
+     */
+    public function removeCustomerContact(CustomerContact $customerContact)
+    {
+        $this->customerContacts->removeElement($customerContact);
+    }
+
+    /**
+     * Add businessCase
+     *
+     * @param BusinessCase $businessCase
+     *
+     * @return Customer
+     */
+    public function addBusinessCase(BusinessCase $businessCase)
+    {
+        $this->businessCases[] = $businessCase;
+
+        return $this;
+    }
+
+    /**
+     * Remove corporationSite
+     *
+     * @param BusinessCase $businessCase
+     */
+    public function removeBusinessCase(BusinessCase $businessCase)
+    {
+        $this->businessCases->removeElement($businessCase);
     }
 
     abstract public function getType();

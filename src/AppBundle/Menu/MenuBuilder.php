@@ -111,8 +111,16 @@ class MenuBuilder implements ContainerAwareInterface
 
         $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
         $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
-        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_employees", array("route" => "corporation_employee_index"))->setAttribute("prev-icon", "fa fa-address-book");
-        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+
+        $menu["admin_customers"]->addChild("sub_contacts_elements",
+            array(
+                "label" => "contacts",
+                "uri" => " "))
+            ->setAttribute("prev-icon", "fa fa-group")
+            ->setAttribute("icon", "fa fa-chevron-down");
+
+        $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_employees", array("route" => "customer_contact_index"))->setAttribute("prev-icon", "fa fa-address-book");
+        $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
 
         $menu["admin_customers"]->addChild("private_individuals", array("route" => "private_individual_index"))->setAttribute("prev-icon", "fa fa-address-card");
         $menu["admin_customers"]->addChild("townships", array("route" => "township_index"))->setAttribute("prev-icon", "fa fa-university");
