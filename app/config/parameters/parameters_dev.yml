@@ -4,7 +4,7 @@ parameters:
     database_port: null
     database_name: casemanager #root #db761721495 #casemanager
     database_user: #!user:casemanager-db-remote!# #root #root
-    database_password: #!password:casemanager-db-remote!# #Root$2018#
+    database_password: "#!password:casemanager-db-remote!#" #Root$2018#
     mailer_transport: smtp
     mailer_spool_path: /var/www/casemanager/mail_spool
     mailer_host: 127.0.0.1

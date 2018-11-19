@@ -123,7 +123,7 @@ namespace :server_config do
     on roles(:all) do
       puts "----> Reloading PHP-FPM service to reset cache"
       execute "sudo /usr/sbin/service php5-fpm reload"
-      #the config file can be used by an attacker to know we use sympfny
+      #the config file can be used by an attacker to know we use symfony
       execute "/usr/bin/env rm #{deploy_to}/current/web/config.php"
    end
  end
