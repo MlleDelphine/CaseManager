@@ -1,5 +1,5 @@
-server 'home227540192.1and1-data.host', user: fetch(:ssh_user), roles: %w{web app db}
-server 'home227540192.1and1-data.host', user: fetch(:ssh_user), roles: %w{app}
+server '11a286f.online-server.cloud', user: fetch(:ssh_user), roles: %w{web app db}
+server '11a286f.online-server.cloud', user: fetch(:ssh_user), roles: %w{app}
 
 set :ssh_options, {
   keys: %w(/home/vagrant/.ssh/deployer_key),
@@ -7,13 +7,13 @@ set :ssh_options, {
   auth_methods: %w(publickey password)
 }
 
-#desc "Apply password for right DEV Env"
-#task :set_password do
-#  run_locally do
-#  puts "----> Apply password for DEV environnement in parameters_{env}.yml"
-#  execute "python /var/www/casemanager/app/config/deploy/set_password.py --dir app/config/parameters --file parameters_dev.yml --key /var/www/casemanager/app/config/deploy/passwords.kdb"
-#  end
-#end
+desc "Apply password for right DEV Env"
+task :set_password do
+  run_locally do
+  puts "----> Apply password for DEV environnement in parameters_{env}.yml"
+  execute "python /var/www/casemanager/app/config/deploy/set_password.py --dir app/config/parameters --file parameters_dev.yml --key /var/www/casemanager/app/config/deploy/passwords.kdb"
+  end
+end
 
 desc "Upload passwords_{env}.yml with keepass values"
 task :upload_parameters do

@@ -100,7 +100,7 @@ set :assets_install_flags,  '--symlink'
 
 set :application, 'casemanager'
 set :deploy_to, '/var/www/casemanager'
-set :ssh_user, 'u47456639'
+set :ssh_user, 'root' #'u47456639'
 #set :repo_url, 'git@gitlab.fime.dev:web/FSOnline.git'
 
 Rake::Task['deploy:updated'].prerequisites.delete('composer:install')
