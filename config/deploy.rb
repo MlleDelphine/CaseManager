@@ -104,4 +104,3 @@ set :ssh_user, 'root' #'u47456639'
 #set :repo_url, 'git@gitlab.fime.dev:web/FSOnline.git'
 
 Rake::Task['deploy:updated'].prerequisites.delete('composer:install')
-
