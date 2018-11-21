@@ -21,6 +21,15 @@ set :dump_assetic_assets, true
 set :keep_releases, 8
 ########
 
+##### IF IT DOES NOT WORK CHECK ###
+# chown -R www-data:www-data /var/www/casemanager
+#
+# HTTPDUSER=$(ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1)
+# sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX var
+# sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:$(whoami):rwX var
+
+###############################
+
 
 #### SHARED DIRECTORIES/FILES ####
 set :linked_files, %w{app/config/parameters.yml}
@@ -116,13 +125,13 @@ namespace :symfony do
   end
 end
 
-#### RELOADING PHP5-FPM SERVICE TO UPDATE WEB "SERVER CACHE" (@Todo or nginx) ####
+#### RELOADING PHP7.2-FPM SERVICE TO UPDATE WEB "SERVER CACHE" (@Todo or nginx) ####
 desc "----> Reloading PHP-FPM service"
 namespace :server_config do
  task :reload_php_fpm do
     on roles(:all) do
       puts "----> Reloading PHP-FPM service to reset cache"
-      execute "sudo /usr/sbin/service php5-fpm reload"
+      execute "sudo /usr/sbin/service php7.2-fpm reload"
       #the config file can be used by an attacker to know we use symfony
       execute "/usr/bin/env rm #{deploy_to}/current/web/config.php"
    end
@@ -141,6 +150,7 @@ before "git:create_release", "deploy:upload_tarball"
 #After remote has extracted received git archive, upload locally generated parameters.yml to remote
 before "deploy:updated", "upload_parameters"
 
+#After sources uploading with parameters.yml file, set ACL on sources / var
 before "deploy:updated", "deploy:set_permissions:acl"
 after "upload_parameters", "deploy:media_dir_creation"
 after 'deploy:updated', 'symfony:assets:install'

@@ -265,4 +265,23 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
 
     abstract public function getType();
 
+    abstract public function getTypeName();
+
+    public static function getClassNameByCustomerType(string $customerType){
+        if($customerType == Customer::TYPE_CORPO_GROUP){
+            $className = "CustomerBundle:CorporationGroup";;
+        }elseif($customerType == Customer::TYPE_CORPO_SITE){
+            $className = "CustomerBundle:CorporationSite";
+        }elseif($customerType == Customer::TYPE_PRIVATE_INDIVIDUAL){
+            $className = "CustomerBundle:PrivateIndividual";
+        }elseif($customerType == Customer::TYPE_TOWN_SHIP){
+            $className = "CustomerBundle:TownShip";
+        }elseif($customerType == Customer::TYPE_OTHER_CUSTOMER){
+            $className = "CustomerBundle:OtherCustomer";
+        }else{
+            $className = "CustomerBundle\Entity\AbstractClass\Customer";
+        }
+
+        return $className;
+    }
 }

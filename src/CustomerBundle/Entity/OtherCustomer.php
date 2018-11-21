@@ -31,25 +31,6 @@ class OtherCustomer extends Customer
     /**
      * @var string
      *
-     * @ORM\Column(name="contact_name", type="string", length=255, nullable=true)
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_township"})
-     */
-    private $contactName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contact_email", type="string", length=255, nullable=true)
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_township"})
-     */
-    private $contactEmail;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="phoneNumber", type="string", length=15, nullable=true)
      *
      * @JMSSer\Expose()
@@ -97,54 +78,6 @@ class OtherCustomer extends Customer
     }
 
     /**
-     * Set contactName
-     *
-     * @param string $contactName
-     *
-     * @return OtherCustomer
-     */
-    public function setContactName($contactName)
-    {
-        $this->contactName = $contactName;
-
-        return $this;
-    }
-
-    /**
-     * Get contactName
-     *
-     * @return string
-     */
-    public function getContactName()
-    {
-        return $this->contactName;
-    }
-
-    /**
-     * Set contactEmail
-     *
-     * @param string $contactEmail
-     *
-     * @return OtherCustomer
-     */
-    public function setContactEmail($contactEmail)
-    {
-        $this->contactEmail = $contactEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get contactEmail
-     *
-     * @return string
-     */
-    public function getContactEmail()
-    {
-        return $this->contactEmail;
-    }
-
-    /**
      * Set phoneNumber
      *
      * @param string $phoneNumber
@@ -174,6 +107,10 @@ class OtherCustomer extends Customer
 
     public function getType() {
         return parent::TYPE_OTHER_CUSTOMER;
+    }
+
+    public function getTypeName(){
+        return "other_customers_capitalize";
     }
 }
 

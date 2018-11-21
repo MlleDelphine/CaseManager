@@ -9,8 +9,8 @@ customer_contact_show:
     methods:  GET
 
 customer_contact_new:
-    path:     /new/{slugCorpSite}
-    defaults: { _controller: "CustomerBundle:CustomerContact:new", slugCorpSite: ~}
+    path:     /new/{slugCustomer}
+    defaults: { _controller: "CustomerBundle:CustomerContact:new", slugCustomer: ~}
     methods:  [GET, POST]
 
 customer_contact_edit:

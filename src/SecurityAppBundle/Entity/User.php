@@ -109,7 +109,7 @@ class User extends BaseUser implements ResourceSubjectInterface
 
     /**
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="users")
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
@@ -129,7 +129,7 @@ class User extends BaseUser implements ResourceSubjectInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="userEmployee", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimePrice", mappedBy="userEmployee", fetch="EXTRA_LAZY", cascade={"persist", "merge"}, orphanRemoval=false)
      *
      * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins une plage de dates")
      * @Assert\All(
@@ -146,7 +146,7 @@ class User extends BaseUser implements ResourceSubjectInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "merge", "remove"})
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "merge"}, orphanRemoval=false)
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})

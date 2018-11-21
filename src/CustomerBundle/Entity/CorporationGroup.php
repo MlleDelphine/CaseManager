@@ -4,6 +4,7 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Corporation;
 use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
+use CustomerBundle\Entity\CorporationSite;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -194,11 +195,11 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
     /**
      * Add corporationSite
      *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     * @param CorporationSite $corporationSite
      *
      * @return CorporationGroup
      */
-    public function addCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite)
+    public function addCorporationSite(CorporationSite $corporationSite)
     {
         $this->corporationSites[] = $corporationSite;
 
@@ -208,9 +209,9 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
     /**
      * Remove corporationSite
      *
-     * @param \CustomerBundle\Entity\CorporationSite $corporationSite
+     * @param CorporationSite $corporationSite
      */
-    public function removeCorporationSite(\CustomerBundle\Entity\CorporationSite $corporationSite)
+    public function removeCorporationSite(CorporationSite $corporationSite)
     {
         $this->corporationSites->removeElement($corporationSite);
     }
@@ -235,5 +236,9 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
 
     public function getType() {
         return parent::TYPE_CORPO_GROUP;
+    }
+
+    public function getTypeName(){
+        return "corpo_groups_capitalize";
     }
 }

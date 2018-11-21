@@ -4,7 +4,7 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\Person;
-use CustomerBundle\Entity\CorporationJobStatus;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -108,7 +108,7 @@ class CustomerContact extends Person
 
     /**
      * @var CorporationJobStatus
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="customerContacts", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CorporationJobStatus", inversedBy="customerContacts")
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
@@ -119,13 +119,22 @@ class CustomerContact extends Person
      * If employee deleted, Customer (corpo) noy deleted
      * Owning side here
      * @var Customer
-     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", inversedBy="customerContacts", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", inversedBy="customerContacts")
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      */
     protected $customer;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="customerContact", fetch="EXTRA_LAZY", cascade={"persist", "merge"}, orphanRemoval=false)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_user"})
+     */
+    protected $businessCases;
 
     public function __construct()
     {

@@ -8,7 +8,7 @@ customer_corporation_site:
 
 customer_customer_contact:
     resource: "@CustomerBundle/Resources/config/routing/customercontact.yml"
-    prefix:   /corporation-employee
+    prefix:   /customer-contact
 
 customer_corporation_job_status:
     resource: "@CustomerBundle/Resources/config/routing/corporationjobstatus.yml"

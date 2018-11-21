@@ -159,5 +159,24 @@ body .container.body .right_col {
 .sidebar-footer{
     padding-top: 15px; /** footer heigh : 49.14..px **/
 }
-
 /** END **/
+/**** CUSTOM BUTTONS ****/
+.btn-gold {
+    color: #fff;
+    background-color: #CC9900;  /*#5bc0de;*/
+    border-color: #996600; /*#46b8da;*/
+}
+
+.btn-gold:hover {
+    color: #fff;
+    background-color: #996633;
+    border-color: #663300;
+}
+
+.btn-gold.focus, .btn-gold:focus {
+    color: #fff;
+    background-color: #996633;
+    border-color: #663300;
+}
+
+

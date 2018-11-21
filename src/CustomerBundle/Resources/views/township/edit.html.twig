@@ -41,22 +41,6 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(edit_form.contactName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.contactName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.contactName) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.contactEmail, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.contactEmail, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.contactEmail) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
                         {{ form_label(edit_form.phoneNumber, "phone_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}

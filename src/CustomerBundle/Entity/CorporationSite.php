@@ -4,6 +4,8 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
+use CustomerBundle\Entity\CorporationGroup;
+use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -183,11 +185,11 @@ class CorporationSite extends Customer
     /**
      * Set corporationGroup
      *
-     * @param \CustomerBundle\Entity\CorporationGroup $corporationGroup
+     * @param CorporationGroup $corporationGroup
      *
      * @return CorporationSite
      */
-    public function setCorporationGroup(\CustomerBundle\Entity\CorporationGroup $corporationGroup = null)
+    public function setCorporationGroup(CorporationGroup $corporationGroup = null)
     {
         $this->corporationGroup = $corporationGroup;
 
@@ -204,39 +206,14 @@ class CorporationSite extends Customer
         return $this->corporationGroup;
     }
 
-//    /**
-//     * Set postalAddress
-//     *
-//     * @param \CustomerBundle\Entity\PostalAddress $postalAddress
-//     *
-//     * @return CorporationSite
-//     */
-//    public function setPostalAddress(\CustomerBundle\Entity\PostalAddress $postalAddress = null)
-//    {
-//        $this->postalAddress = $postalAddress;
-//        $postalAddress->setCorporationSite($this);
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get postalAddress
-//     *
-//     * @return \CustomerBundle\Entity\PostalAddress
-//     */
-//    public function getPostalAddress()
-//    {
-//        return $this->postalAddress;
-//    }
-
     /**
      * Add employee
      *
-     * @param \CustomerBundle\Entity\CustomerContact $employee
+     * @param CustomerContact $employee
      *
      * @return CorporationSite
      */
-    public function addEmployee(\CustomerBundle\Entity\CustomerContact $employee)
+    public function addEmployee(CustomerContact $employee)
     {
         $this->employees[] = $employee;
 
@@ -246,9 +223,9 @@ class CorporationSite extends Customer
     /**
      * Remove employee
      *
-     * @param \CustomerBundle\Entity\CustomerContact $employee
+     * @param CustomerContact $employee
      */
-    public function removeEmployee(\CustomerBundle\Entity\CustomerContact $employee)
+    public function removeEmployee(CustomerContact $employee)
     {
         $this->employees->removeElement($employee);
     }
@@ -273,5 +250,9 @@ class CorporationSite extends Customer
 
     public function getType() {
         return parent::TYPE_CORPO_SITE;
+    }
+
+    public function getTypeName(){
+        return "corpo_sites_capitalize";
     }
 }

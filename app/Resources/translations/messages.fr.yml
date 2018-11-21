@@ -41,6 +41,9 @@ contact_name: nom du contact
 contact_name_capitalize: Nom du contact
 birthdate: date de naissance
 birthdate_capitalize: Date de naissance
+undefined: indéfini
+undefined_capitalize: Indéfini
+
 
 status: statut
 statuses: statuts
@@ -73,8 +76,10 @@ add_contact: ajouter un contact
 add_site: ajouter un site
 #Capitalize
 select: Sélectionnez
+select_capitalize: Sélectionnez
 select_type_before_capitalize: Vous devez sélectionner un type avant
-honorific: Civilité
+honorific: civilité
+honorific_capitalize: Civilité
 
 #ADMIN SPACE
 no_user: aucun utilisateur
@@ -113,8 +118,12 @@ edition_of_corporation_site: édition d'une société (site)
 edition_of_the_corporation_site: édition de la société (site)
 
 creation_of_corporation_employee: création d'un contact (société)
-edition_of_corporation_employee: édition d'une contact (société)
+edition_of_corporation_employee: édition d'un contact (société)
 edition_of_the_corporation_employee: édition du contact (société)
+
+creation_of_customer_contact: création d'un contact (client)
+edition_of_customer_contact: édition d'un contact (client)
+edition_of_the_customer_contact: édition du contact (vlient)
 
 creation_of_corporation_jobstatus: création d'un poste (contact)
 edition_of_corporation_jobstatus: édition d'un poste (contact)
@@ -269,6 +278,18 @@ several_corporation_employees: plusieurs contacts
 some_corporation_employees: des contacts
 no_corporation_employee: aucun contact (société)
 
+all_customer_contacts: tous les contacts (client)
+corpo_employees: contacts
+corpo_employees_capitalize: Contacts
+customer_contact_capitalize: Contacts
+customer_contacts: contacts (client)
+customer_contact: contact (client)
+customer_parent: Rattaché(e) à la client
+a_customer_contact: un contact
+several_customer_contacts: plusieurs contacts
+some_customer_contacts: des contacts
+no_customer_contact: aucun contact (client)
+
 all_corporation_jobstatuses: tous les postes
 corpo_jobstatuses: postes
 corpo_jobstatuses_capitalize: Postes
@@ -402,7 +423,7 @@ internal_reference_capitalize: Référence interne
 customer: client
 customer_capitalize: Client
 customer_project_manager: chargé de projet
-customer_project_manager_capitalize: Chargé de projet
+customer_project_manager_capitalize: Chargé de projet (client)
 internal_project_manager: gestionnaire EDTPE
 internal_project_manager_capitalize: Gestionnaire EDTPE
 

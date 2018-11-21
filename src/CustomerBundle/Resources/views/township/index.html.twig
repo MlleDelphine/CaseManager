@@ -23,7 +23,7 @@
                         <a type="button" class="btn btn-warning btn-li" href="{{ path('township_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("township_new") }}"><i class="fa fa-user-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("township_new") }}"><i class="fa fa-university"></i> +{{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -50,8 +50,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>{{ "name"|trans|capitalize }}</th>
-                                            <th>{{ "contact_name"|trans|capitalize }}</th>
-                                            <th>{{ "contact_mail_address"|trans|capitalize }}</th>
+                                            <th>{{ "phone_number"|trans|capitalize }}</th>
                                             <th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
@@ -61,12 +60,12 @@
                                         <tr>
                                             <th scope="row">{{ townShip.id }}</th>
                                             <td>{{ townShip.name }}</td>
-                                            <td>{{ townShip.contactName }}</td>
-                                            <td>{{ townShip.contactEmail }}</td>
+                                            <td>{{ townShip.phoneNumber }}</td>
                                             <td>{% if townShip.created %}{{ townShip.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if townShip.updated %}{{ townShip.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('township_edit', { 'slug': townShip.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-gold" href="{{ path('customer_contact_new', { 'slugCustomer': townShip.slug }) }}"><i class="fa fa-user-plus" aria-hidden="true"></i>  {{ "add_contact"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('township_export', { 'slug': townShip.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
                                                 <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ townShip.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}

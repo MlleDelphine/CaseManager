@@ -2,6 +2,7 @@
 
 namespace CustomerBundle\Controller;
 
+use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use CustomerBundle\Entity\CorporationSite;
 use CustomerBundle\Form\CustomerContactType;
@@ -53,16 +54,16 @@ class CustomerContactController extends Controller
     /**
      * Creates a new customerContact entity.
      * @param Request $request
-     * @param CorporationSite $corporationSite
+     * @param Customer $customer
      *
-     * @ParamConverter("corporationSite", class="CustomerBundle:CorporationSite", options={"mapping": {"slugCorpSite" : "slug"}}, isOptional="true" )
+     * @ParamConverter("customer", class="CustomerBundle:AbstractClass\Customer", options={"mapping": {"slugCustomer" : "slug"}}, isOptional="true" )
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request, CorporationSite $corporationSite = null)
+    public function newAction(Request $request, Customer $customer = null)
     {
         $customerContact = new CustomerContact();
-        if(isset($corporationSite)){
-            $customerContact->setCorporationSite($corporationSite);
+        if(isset($customer)){
+            $customerContact->setCustomer($customer);
         }
         $form = $this->createForm(CustomerContactType::class, $customerContact);
         $form->handleRequest($request);
@@ -72,7 +73,7 @@ class CustomerContactController extends Controller
             $em->persist($customerContact);
             $em->flush();
 
-            return $this->redirectToRoute('corporation_employee_index');
+            return $this->redirectToRoute('customer_contact_index');
         }
 
         return $this->render('CustomerBundle:customercontact:new.html.twig', array(
@@ -111,7 +112,7 @@ class CustomerContactController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('corporation_employee_index');
+            return $this->redirectToRoute('customer_contact_index');
         }
 
         return $this->render('CustomerBundle:customercontact:edit.html.twig', array(
@@ -148,7 +149,7 @@ class CustomerContactController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('corporation_employee_index');
+        return $this->redirectToRoute('customer_contact_index');
     }
 
     /**
@@ -161,7 +162,7 @@ class CustomerContactController extends Controller
     private function createDeleteForm(CustomerContact $customerContact)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('corporation_employee_delete', array('slug' => $customerContact->getSlug())))
+            ->setAction($this->generateUrl('customer_contact_delete', array('slug' => $customerContact->getSlug())))
             ->setMethod('DELETE')
             ->getForm();
     }

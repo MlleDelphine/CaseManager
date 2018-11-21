@@ -280,6 +280,7 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      * @return mixed
      */
     public function getName() {
+        $this->setVirtualName();
         return $this->name;
     }
 
@@ -310,5 +311,9 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
 
     public function getType() {
         return parent::TYPE_PRIVATE_INDIVIDUAL;
+    }
+
+    public function getTypeName(){
+        return "private_individuals_capitalize";
     }
 }

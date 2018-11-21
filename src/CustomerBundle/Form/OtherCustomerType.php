@@ -20,11 +20,6 @@ class OtherCustomerType extends AbstractType
                 "label_format" => "name_capitalize",
                 "required" => true,
                 "translation_domain" => "messages"))
-            ->add("contactName", TextType::class, array(
-                "label_format" => "contact_name_capitalize",
-                "required" => true))
-            ->add("contactEmail",EmailType::class, array(
-                "label_format" => "contact_mail_address_capitalize"))
             ->add("phoneNumber", TextType::class, array(
                 "label_format" => "phone_number_capitalize",
                 "required" => true,

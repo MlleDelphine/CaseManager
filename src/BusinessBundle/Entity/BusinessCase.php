@@ -3,8 +3,7 @@
 namespace BusinessBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
-use CustomerBundle\Entity\CorporationGroup;
-use Doctrine\ORM\Event\PostFlushEventArgs;
+use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use SecurityAppBundle\Entity\User;
@@ -83,6 +82,16 @@ class BusinessCase
      * @JMSSer\Groups({"admin_export_equipment"})
      */
     protected $customer;
+
+    /**
+     * @var CustomerContact
+     * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\CustomerContact", inversedBy="businessCases", cascade={"persist", "merge", "detach"})
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment"})
+     */
+    protected $customerContact;
 
     /**
      * @var User
@@ -251,6 +260,29 @@ class BusinessCase
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set customerContact
+     *
+     * @param CustomerContact|null $customerContact
+     * @return BusinessCase
+     */
+    public function setCustomerContact(CustomerContact $customerContact = null)
+    {
+        $this->customerContact = $customerContact;
+
+        return $this;
+    }
+
+    /**
+     * Get customerContact
+     *
+     * @return CustomerContact
+     */
+    public function getCustomerContact()
+    {
+        return $this->customerContact;
     }
 
 

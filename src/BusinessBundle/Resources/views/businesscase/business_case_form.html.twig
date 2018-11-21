@@ -54,6 +54,14 @@
                 </div>
                 <div class="form-group">
                     <span class="required">*</span>
+                    {{ form_label(form.customerContact, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                    <div class="col-md-6 col-sm-6 col-xs-12 render-customerContact-list">
+                        {{ form_widget(form.customerContact, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
+                        {#{{ form_errors(form.customerContact) }}#}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="required">*</span>
                     {{ form_label(form.user, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {{ form_widget(form.user, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}

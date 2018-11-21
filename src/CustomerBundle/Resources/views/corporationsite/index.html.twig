@@ -77,7 +77,7 @@
                                             <td>{% if corporationSite.updated %}{{ corporationSite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('corporation_site_edit', { 'slug': corporationSite.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-primary" href="{{ path('corporation_employee_new', { 'slugCorpSite': corporationSite.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "add_contact"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-gold" href="{{ path('customer_contact_new', { 'slugCustomer': corporationSite.slug }) }}"><i class="fa fa-user-plus" aria-hidden="true"></i>  {{ "add_contact"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('corporation_site_export', { 'slug': corporationSite.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
                                                 <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ corporationSite.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}

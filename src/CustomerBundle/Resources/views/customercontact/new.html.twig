@@ -30,10 +30,10 @@
                 </div>
                 <div class="x_content">
                     <br>
-                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left customer-contact-form', 'novalidate': ''}}) }}
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.honorific, "honorific"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.honorific, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.honorific, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.honorific) }}
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.firstName, "firstname"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.firstName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.firstName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.firstName) }}
@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.lastName, "lastname"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.lastName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.lastName, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.lastName) }}
@@ -57,14 +57,14 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.phoneNumber, "phone_number"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.phoneNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.phoneNumber) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.corporationJobStatus, "job"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.corporationJobStatus, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.corporationJobStatus, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.corporationJobStatus) }}
@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.mailAddress, "email"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.mailAddress, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.mailAddress, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.mailAddress) }}
@@ -80,10 +80,18 @@
                     </div>
                     <div class="form-group">
                         <span class="required">*</span>
-                        {{ form_label(form.corporationSite, "corporation_site_parent"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(form.customerType, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.corporationSite, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(form.corporationSite) }}
+                            {{ form_widget(form.customerType) }}
+                            {{ form_errors(form.customerType) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.customer, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12 render-customer-list">
+                            {{ form_widget(form.customer, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.customer) }}
                         </div>
                     </div>
 
@@ -106,4 +114,10 @@
 {% endblock %}
 {% block plain_js_bundle %}
     {{ form_javascript(form) }}
+    <script>
+        //Ready
+        $(function() {
+            ajaxSubmitReloadNextByRadioBox("customer-contact-form", ":radio", "customerbundle_customercontact", "customerType", "customer");
+        });
+    </script>
 {% endblock %}

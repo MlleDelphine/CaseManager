@@ -54,7 +54,7 @@
                                             <th>{{ "lastname"|trans|capitalize }}</th>
                                             <th>{{ "mail_address"|trans|capitalize }}</th>
                                             <th>{{ "corporation_jobstatus"|trans|capitalize }}</th>
-                                            <th>{{ "corporation_site"|trans|capitalize }}</th>
+                                            <th>{{ "customer"|trans|capitalize }}</th>
                                             <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
@@ -68,7 +68,7 @@
                                             <td>{{ customerContact.lastName }}</td>
                                             <td>{{ customerContact.mailAddress }}</td>
                                             <td>{{ customerContact.corporationJobstatus.name }}</td>
-                                            <td>{{ customerContact.corporationSite.name }}</td>
+                                            <td>{{ customerContact.customer.name }}</td>
                                             <td>{% if customerContact.created %}{{ customerContact.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if customerContact.updated %}{{ customerContact.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
