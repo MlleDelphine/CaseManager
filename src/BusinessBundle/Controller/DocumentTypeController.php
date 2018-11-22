@@ -60,17 +60,12 @@ class DocumentTypeController extends Controller
         $form = $this->createForm(DocumentTypeType::class, $documentType);
         $form->handleRequest($request);
 
-        if($request->isXmlHttpRequest()){
-            return $this->render("BusinessBundle:documenttype:document_type_form.html.twig",['documentType' => $documentType,
-                'form' => $form->createView()]);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($documentType);
             $em->flush();
 
-            return $this->redirectToRoute('document_type_index');
+            return $this->redirectToRoute('business_document_type_index');
         }
 
         return $this->render('BusinessBundle:documenttype:new.html.twig', array(
@@ -109,7 +104,7 @@ class DocumentTypeController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('document_type_index');
+            return $this->redirectToRoute('business_document_type_index');
         }
 
         return $this->render('BusinessBundle:documenttype:edit.html.twig', array(
@@ -146,7 +141,7 @@ class DocumentTypeController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('document_type_index');
+        return $this->redirectToRoute('business_document_type_index');
     }
 
     /**
@@ -159,7 +154,7 @@ class DocumentTypeController extends Controller
     private function createDeleteForm(DocumentType $documentType)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('document_type_delete', array('slug' => $documentType->getSlug())))
+            ->setAction($this->generateUrl('business_document_type_delete', array('slug' => $documentType->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
             ;
@@ -182,7 +177,7 @@ class DocumentTypeController extends Controller
      * @return StreamedResponse
      */
     public function exportAllDocumentTypeAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_document_type","DocumentTypeBundle:DocumentType", "Business Cases" )->prepare($request);
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_document_type","DocumentTypeBundle:DocumentType", "Business Document Types" )->prepare($request);
 
         return $response;
     }

@@ -118,10 +118,6 @@ class BusinessCaseType extends AbstractType
         $formModifierCustomer = function (FormInterface $form, $formModifierCustomerContact, $customerType = null){
             if($customerType != null){
                 $className = Customer::getClassNameByCustomerType($customerType);
-                $customer = $form->get("customer");
-                if($customer){
-                    $customer = $customer->getData();
-                }
                 // Create builder for customer field
                 $builder = $form->getConfig()->getFormFactory()->createNamedBuilder("customer", Select2EntityType::class, null, array(
                     "class" => $className,

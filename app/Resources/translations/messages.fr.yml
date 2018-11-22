@@ -161,6 +161,10 @@ creation_of_business_case: création d'un dossier d'affaire
 edition_of_business_case: édition d'un dossier d'affaire
 edition_of_the_business_case: édition du dossier d'affaire
 
+creation_of_business_document_type: création d'un type de document
+edition_of_business_document_type: édition d'un type de document
+edition_of_the_business_document_type: édition du type de document
+
 #OBJECTS LEXICAL
 employees: personnel
 
@@ -339,6 +343,14 @@ a_business_case: un dossier d'affaire
 several_business_cases: plusieurs dossiers d'affaire
 some_business_cases: des dossiers d'affaire
 no_business_case: aucun dossier d'affaire
+
+all_business_document_types: tous les types de document
+business_document_types: types de document
+business_document_type: type de document
+a_business_document_type: un type de document
+several_business_document_types: plusieurs types de document
+some_business_document_types: des types de document
+no_business_document_type: aucun type de document
 
 #OBJECTS STATES
 created_m_s: créé

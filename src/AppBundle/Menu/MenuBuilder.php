@@ -147,7 +147,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-folder")
             ->setAttribute("icon", "fa fa-chevron-down");
         $menu['business_management']->addChild('business_cases', array('route' => 'business_case_index'))->setAttribute('prev-icon', 'fa fa-folder-open');
-        $menu['business_management']->addChild('business_case_documents', array('route' => 'document_type_index'))->setAttribute('prev-icon', 'fa fa-files');
+        $menu['business_management']->addChild('business_document_types', array('route' => 'business_document_type_index'))->setAttribute('prev-icon', 'fa fa-files-o');
 
         return $menu;
     }

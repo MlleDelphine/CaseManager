@@ -1,21 +1,69 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ form_stylesheet(edit_form) }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="">{{ "business_management"|trans|capitalize }}</li>
+    <li class=""><a href="{{ path('business_document_type_index') }}">{{ "business_document_types"|trans|capitalize }}</a></li>
+    <li class="active">{{ "modification"|trans|capitalize }}</li>
+{% endblock %}
+
+{% block page_title %}{{ "creation_of_business_document_type"|trans|capitalize }}{% endblock %}
+
+{% block title %}
+    {{ "creation_of_business_document_type"|trans|capitalize }}
+{% endblock %}
+
 {% block body %}
-    <h1>Documenttype edit</h1>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-files-o"></i> {{ "edition_of_the_business_document_type"|trans|capitalize }} <em>{{ documentType.name }}</em></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left business-case-form', 'novalidate': ''}}) }}
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.name) }}
+                        </div>
+                    </div>
+                    {#<div class="form-group">#}
+                        {#<span class="required">*</span>#}
+                        {#{{ form_label(edit_form.businessCaseTypes, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}#}
+                        {#<div class="col-md-6 col-sm-6 col-xs-12 render-customer-list">#}
+                            {#{{ form_widget(edit_form.businessCaseTypes, {'attr': {'class': 'form- control col-md-12 col-xs- 12'}}) }}#}
+                            {#{{ form_errors(edit_form.businessCaseTypes) }}#}
+                        {#</div>#}
+                    {#</div>#}
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a href="{{ path('business_document_type_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "modify"|trans|capitalize }}</button>
+                        </div>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('document_type_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+{% block custom_javascripts %}
+    {{ parent() }}
+{% endblock %}
+{% block plain_js_bundle %}
+    {{ form_javascript(edit_form) }}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <li class="">{{ "customers_management"|trans|capitalize }}</li>
+    <li class="">{{ "business_management"|trans|capitalize }}</li>
     <li class="active">{{ "all_business_cases"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
@@ -52,8 +52,8 @@
                                             <th>{{ "name"|trans|capitalize }}</th>
                                             <th>{{ "external_reference"|trans|capitalize }}</th>
                                             <th>{{ "internal_reference"|trans|capitalize }}</th>
-                                            <th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
-                                            <th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
                                             <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
                                         </tr>
                                         </thead>

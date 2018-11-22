@@ -111,7 +111,6 @@ class BusinessCaseController extends Controller
                 'form' => $editForm->createView()]);
         }
 
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

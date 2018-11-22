@@ -1,43 +1,99 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    <li class="">{{ "business_management"|trans|capitalize }}</li>
+    <li class="active">{{ "all_business_document_types"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{%  block page_title %} {{ "business_document_types"|trans|capitalize}} {% endblock %}
+{% block title %} {{ "business_document_types"|trans|capitalize }} {% endblock %}
+
 {% block body %}
-    <h1>Documenttypes list</h1>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-files-o"></i> {{ "all_business_document_types"|trans|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('business_document_type_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("business_document_type_new") }}"><i class="fa fa-files-o"></i> +{{ "addition"|trans|capitalize }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content container">
+                <a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a>
+                <a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>
+                <hr>
+                <!-- start accordion -->
+                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for documentType in documentTypes %}
+                        <div class="panel">
+                            <a class="panel-heading" role="tab" id="heading{{ documentType.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ documentType.id }}" aria-expanded="true" aria-controls="collapse{{ documentType.id }}">
+                                <h4 class="panel-title">{{ documentType.name }}</h4>
+                            </a>
+                            <div id="collapse{{ documentType.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ documentType.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ "name"|trans|capitalize }}</th>
+                                            <th>{{ "created_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th>{{ "updated_m_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
+                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">{{ documentType.id }}</th>
+                                            <td>{{ documentType.name }}</td>
+                                            <td>{% if documentType.created %}{{ documentType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if documentType.updated %}{{ documentType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td align="center" style="vertical-align: middle">
+                                                <a class="btn btn-sm btn-info" href="{{ path('business_document_type_edit', { 'slug': documentType.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('business_document_type_export', { 'slug': documentType.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ documentType.slug }}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
+                                                </button>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- end of accordion -->
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for documentType in documentTypes %}
-            <tr>
-                <td><a href="{{ path('document_type_show', { 'id': documentType.id }) }}">{{ documentType.id }}</a></td>
-                <td>{{ documentType.name }}</td>
-                <td>{% if documentType.created %}{{ documentType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if documentType.updated %}{{ documentType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('document_type_show', { 'id': documentType.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('document_type_edit', { 'id': documentType.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Import Modal -->
+    {% include  ":common:import_modal.html.twig" with { "action_path": "business_document_type_index", "object_title": "some_business_document_types", "error": error } %}
+    <!-- Delete Modal -->
+    {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 
-    <ul>
-        <li>
-            <a href="{{ path('document_type_new') }}">Create a new documentType</a>
-        </li>
-    </ul>
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "business_document_type_delete" } %}
+
 {% endblock %}
