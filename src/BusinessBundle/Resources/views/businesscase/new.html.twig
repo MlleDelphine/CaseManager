@@ -109,8 +109,15 @@
     <script>
         //Ready
         $(function() {
-            ajaxSubmitReloadNextByRadioBox("business-case-form", "input:radio", "businessbundle_businesscase", "customerType", "customer",[]);
+            ajaxSubmitReloadNextByRadioBox("business-case-form", "input:radio", "businessbundle_businesscase", "customerType", "customer", []);
             ajaxSubmitReloadNextByRadioBox("business-case-form", "select", "businessbundle_businesscase", "customer", "customerContact", [{name: "customerType", type: ":radio"}]);
+
+            $(".business-case-form").on("mouseup", "#businessbundle_businesscase_customerType", function(event){
+                var $val = $("input:radio[name^='businessbundle_businesscase[customerType]']:checked");
+                if(typeof $val.val() !== "undefined"){
+                    cleanChildren("businessbundle_businesscase_", true, ["customer_contact"]);
+                }
+            });
         });
     </script>
 {% endblock %}

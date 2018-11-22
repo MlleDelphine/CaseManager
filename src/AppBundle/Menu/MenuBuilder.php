@@ -51,18 +51,20 @@ class MenuBuilder implements ContainerAwareInterface
         //ADMIN ACTIONS FIRST LEVEL MENU
 
         // USERS MANAGEMENT
-        $menu->addChild("admin_users",
-            array(
-                "label" => "users_management",
-                "uri" => " "
+        if($this->getSecurityAuthorizationChecker()->isGranted('ROLE_ADMIN')){
+            $menu->addChild("admin_users",
+                array(
+                    "label" => "users_management",
+                    "uri" => " "
+                )
             )
-        )
-            ->setAttribute("prev-icon", "fa fa-cogs")
-            ->setAttribute("icon", "fa fa-chevron-down");
+                ->setAttribute("prev-icon", "fa fa-cogs")
+                ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_users"]->addChild("employees", array("route" => "user_index"))->setAttribute("prev-icon", "fa fa-users");
-        $menu["admin_users"]->addChild("jobs", array("route" => "jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
-        $menu["admin_users"]->addChild("teams", array("route" => "team_index"))->setAttribute("prev-icon", "fa fa-sitemap");
+            $menu["admin_users"]->addChild("employees", array("route" => "user_index"))->setAttribute("prev-icon", "fa fa-users");
+            $menu["admin_users"]->addChild("jobs", array("route" => "jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+            $menu["admin_users"]->addChild("teams", array("route" => "team_index"))->setAttribute("prev-icon", "fa fa-sitemap");
+        }
 
         // CATALOG MANAGEMENT
         $menu->addChild("admin_catalog",
@@ -92,40 +94,41 @@ class MenuBuilder implements ContainerAwareInterface
         $menu["admin_resources"]->addChild("other_resources", array("route" => "resource_index"))->setAttribute("prev-icon", "fa fa-cubes");
 
         // CUSTOMERS MANAGEMENT
-        $menu->addChild("admin_customers",
-            array(
-                "label" => "customers_management",
-                "uri" => " "
+        if($this->getSecurityAuthorizationChecker()->isGranted('ROLE_ADMIN')) {
+            $menu->addChild("admin_customers",
+                array(
+                    "label" => "customers_management",
+                    "uri" => " "
+                )
             )
-        )
-            ->setAttribute("prev-icon", "fa fa-building")
-            ->setAttribute("icon", "fa fa-chevron-down");
+                ->setAttribute("prev-icon", "fa fa-building")
+                ->setAttribute("icon", "fa fa-chevron-down");
 
-        // ELEMENTS FOR CORPORATION
-        $menu["admin_customers"]->addChild("sub_corpo_elements",
-            array(
-                "label" => "corporations",
-                "uri" => " "))
-            ->setAttribute("prev-icon", "fa fa-building-o")
-            ->setAttribute("icon", "fa fa-chevron-down");
+            // ELEMENTS FOR CORPORATION
+            $menu["admin_customers"]->addChild("sub_corpo_elements",
+                array(
+                    "label" => "corporations",
+                    "uri" => " "))
+                ->setAttribute("prev-icon", "fa fa-building-o")
+                ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
-        $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
+            $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_groups", array("route" => "corporation_group_index"))->setAttribute("prev-icon", "fa fa-industry");
+            $menu["admin_customers"]["sub_corpo_elements"]->addChild("corpo_sites", array("route" => "corporation_site_index"))->setAttribute("prev-icon", "fa fa-building");
 
-        $menu["admin_customers"]->addChild("sub_contacts_elements",
-            array(
-                "label" => "contacts",
-                "uri" => " "))
-            ->setAttribute("prev-icon", "fa fa-group")
-            ->setAttribute("icon", "fa fa-chevron-down");
+            $menu["admin_customers"]->addChild("sub_contacts_elements",
+                array(
+                    "label" => "contacts",
+                    "uri" => " "))
+                ->setAttribute("prev-icon", "fa fa-group")
+                ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_employees", array("route" => "customer_contact_index"))->setAttribute("prev-icon", "fa fa-address-book");
-        $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
+            $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_employees", array("route" => "customer_contact_index"))->setAttribute("prev-icon", "fa fa-address-book");
+            $menu["admin_customers"]["sub_contacts_elements"]->addChild("corpo_jobstatuses", array("route" => "corporation_jobstatus_index"))->setAttribute("prev-icon", "fa fa-briefcase");
 
-        $menu["admin_customers"]->addChild("private_individuals", array("route" => "private_individual_index"))->setAttribute("prev-icon", "fa fa-address-card");
-        $menu["admin_customers"]->addChild("townships", array("route" => "township_index"))->setAttribute("prev-icon", "fa fa-university");
-        $menu["admin_customers"]->addChild("other_customers", array("route" => "other_customer_index"))->setAttribute("prev-icon", "fa fa-share-alt-square");
-
+            $menu["admin_customers"]->addChild("private_individuals", array("route" => "private_individual_index"))->setAttribute("prev-icon", "fa fa-address-card");
+            $menu["admin_customers"]->addChild("townships", array("route" => "township_index"))->setAttribute("prev-icon", "fa fa-university");
+            $menu["admin_customers"]->addChild("other_customers", array("route" => "other_customer_index"))->setAttribute("prev-icon", "fa fa-share-alt-square");
+        }
         return $menu;
     }
 
@@ -144,6 +147,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-folder")
             ->setAttribute("icon", "fa fa-chevron-down");
         $menu['business_management']->addChild('business_cases', array('route' => 'business_case_index'))->setAttribute('prev-icon', 'fa fa-folder-open');
+        $menu['business_management']->addChild('business_case_documents', array('route' => 'document_type_index'))->setAttribute('prev-icon', 'fa fa-files');
 
         return $menu;
     }

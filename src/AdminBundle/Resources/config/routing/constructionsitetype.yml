@@ -12,11 +12,13 @@ construction_site_type_new:
     path:     /new
     defaults: { _controller: "AdminBundle:ConstructionSiteType:new" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 construction_site_type_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:ConstructionSiteType:edit" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 construction_site_type_delete:
     path:     /{slug}/delete
@@ -24,6 +26,7 @@ construction_site_type_delete:
     methods:  DELETE
     options:
         expose: true
+    host: "%casemanager_admin_url%"
 
 construction_site_type_export:
     path: /export/{slug}

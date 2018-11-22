@@ -12,11 +12,13 @@ rate_new:
     path:     /new
     defaults: { _controller: "AdminBundle:Rate:new" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 rate_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:Rate:edit" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 rate_delete:
     path:     /{slug}/delete
@@ -24,6 +26,7 @@ rate_delete:
     methods:  DELETE
     options:
         expose: true
+    host: "%casemanager_admin_url%"
 
 rate_export:
     path: /export/{slug}

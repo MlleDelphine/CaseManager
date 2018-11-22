@@ -6,9 +6,9 @@ admin_homepage:
 admin_construction_site_type:
     resource: "@AdminBundle/Resources/config/routing/constructionsitetype.yml"
     prefix: /constructon-site-type
-    host: "%casemanager_admin_url%"
+#    host: "%casemanager_admin_url%"
 
 admin_rate:
     resource: "@AdminBundle/Resources/config/routing/rate.yml"
     prefix: /rate
-    host: "%casemanager_admin_url%"
+#    host: "%casemanager_admin_url%"

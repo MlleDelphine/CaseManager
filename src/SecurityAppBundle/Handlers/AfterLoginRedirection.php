@@ -42,7 +42,7 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
             $response = new RedirectResponse($this->router->generate('admin_homepage'));
         }
         else if ($this->security->isGranted('ROLE_USER')) {
-            $response = new RedirectResponse($this->router->generate('homepage_public'));
+            $response = new RedirectResponse($this->router->generate('homepage'));
         } else {
             $referer_url = $request->headers->get('referer');
 

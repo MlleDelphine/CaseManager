@@ -281,7 +281,6 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
         }else{
             $className = "CustomerBundle\Entity\AbstractClass\Customer";
         }
-
         return $className;
     }
 }

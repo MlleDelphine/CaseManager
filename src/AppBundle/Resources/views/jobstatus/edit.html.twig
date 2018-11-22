@@ -6,19 +6,19 @@
 
 {% block breadcrumb %}
     <li class=""><a href="{{ path('jobstatus_index') }}">Postes</a></li>
-    <li class="active">{{ "modify"|trans|capitalize }}</li>
+    <li class="active">{{ "modification"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}Modification de poste{% endblock %}
+{% block page_title %}{{ "edition_of_jobstatus"|trans|capitalize }}{% endblock %}
 
-{% block title %}Modification de poste{% endblock %}
+{% block title %}{{ "edition_of_jobstatus"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Modification du poste <em>{{ jobStatus.name }}</em></h2>
+                    <h2>{{ "edition_of_the_jobstatus"|trans|capitalize }} <em>{{ jobStatus.name }}</em></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>

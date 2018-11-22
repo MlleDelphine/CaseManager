@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Documenttypes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for documentType in documentTypes %}
+            <tr>
+                <td><a href="{{ path('document_type_show', { 'id': documentType.id }) }}">{{ documentType.id }}</a></td>
+                <td>{{ documentType.name }}</td>
+                <td>{% if documentType.created %}{{ documentType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if documentType.updated %}{{ documentType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('document_type_show', { 'id': documentType.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('document_type_edit', { 'id': documentType.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('document_type_new') }}">Create a new documentType</a>
+        </li>
+    </ul>
+{% endblock %}

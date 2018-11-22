@@ -12,11 +12,13 @@ business_case_new:
     path:     /new
     defaults: { _controller: "BusinessBundle:BusinessCase:new" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 business_case_edit:
     path:     /{slug}/edit
     defaults: { _controller: "BusinessBundle:BusinessCase:edit" }
     methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
 
 business_case_delete:
     path:     /{slug}/delete
@@ -24,6 +26,7 @@ business_case_delete:
     methods:  DELETE
     options:
         expose: true
+    host: "%casemanager_admin_url%"
 
 business_case_export:
     path: /export/{slug}

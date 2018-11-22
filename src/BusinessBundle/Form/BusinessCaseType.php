@@ -52,7 +52,7 @@ class BusinessCaseType extends AbstractType
             ))
             ->add('customer', Select2EntityType::class, array(
                 "class" => "CustomerBundle\Entity\AbstractClass\Customer",
-                "choices" => [],
+                //"choices" => [],
                 "choice_label" => "htmlName",
                 "label_format" => "customer_capitalize",
                 "multiple" => false,
@@ -67,7 +67,7 @@ class BusinessCaseType extends AbstractType
                 },
                 "choice_translation_domain" => "messages",
                 "multiple" => false,
-                "placeholder" => "select",
+                "placeholder" => "---",
                 "required" => true))
             ->add('user', Select2EntityType::class, array(
                 "class" => "SecurityAppBundle:User",
@@ -77,10 +77,10 @@ class BusinessCaseType extends AbstractType
                 },
                 "choice_translation_domain" => "messages",
                 "multiple" => false,
-                "placeholder" => "select",
+                "placeholder" => "---",
                 "required" => true));
 
-        $formModifierCustomerType = function (FormInterface $form, $customerType = null){
+        $formModifierCustomerType = function (FormInterface $form, $formModifierCustomer, $formModifierCustomerContact, $customerType = null){
             if($customerType != null){
                 // Create builder for customer field
                 $builder = $form->getConfig()->getFormFactory()->createNamedBuilder("customerType", ChoiceType::class, null, array(
@@ -102,6 +102,15 @@ class BusinessCaseType extends AbstractType
                 ));
                 // and only now you can add field to form
                 $form->add($builder->getForm());
+
+                //EVENT recreate
+                $builder->addEventListener(
+                    FormEvents::POST_SUBMIT,
+                    function (FormEvent $event) use ($formModifierCustomer, $formModifierCustomerContact){
+                        // It's important here to fetch $event->getForm()->getData(), as $event->getData() will get you the client data (that is, the ID)
+                        $customerType = $event->getForm()->getData();
+                        $formModifierCustomer($event->getForm()->getParent(), $formModifierCustomerContact, $customerType);
+                    });
             }else {
             }
         };
@@ -109,6 +118,10 @@ class BusinessCaseType extends AbstractType
         $formModifierCustomer = function (FormInterface $form, $formModifierCustomerContact, $customerType = null){
             if($customerType != null){
                 $className = Customer::getClassNameByCustomerType($customerType);
+                $customer = $form->get("customer");
+                if($customer){
+                    $customer = $customer->getData();
+                }
                 // Create builder for customer field
                 $builder = $form->getConfig()->getFormFactory()->createNamedBuilder("customer", Select2EntityType::class, null, array(
                     "class" => $className,
@@ -123,7 +136,7 @@ class BusinessCaseType extends AbstractType
                     "choice_label" => "htmlName",
                     "label_format" => "customer_capitalize",
                     "multiple" => false,
-                    //"placeholder" => "select",
+                    "placeholder" => "---",
                     "required" => true,
                     'auto_initialize' => false // it's important!!!
                 ));
@@ -165,6 +178,7 @@ class BusinessCaseType extends AbstractType
                     },
                     "choice_translation_domain" => "messages",
                     "label_format" => "customer_project_manager_capitalize",
+                    "placeholder" => "---",
                     "multiple" => false,
                     "required" => true,
                     'auto_initialize'=>false // it's important!!!
@@ -178,7 +192,7 @@ class BusinessCaseType extends AbstractType
                     "choices" => [],
                     "label_format" => "customer_project_manager_capitalize",
                     "multiple" => false,
-                    "placeholder" => "select",
+                    "placeholder" => "---",
                     "required" => true,
                     'auto_initialize'=>false // it's important!!!
                 ));
@@ -188,8 +202,8 @@ class BusinessCaseType extends AbstractType
         };
 
         $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function(FormEvent $event) use ($formModifierCustomerType, $formModifierCustomerContact){
+            FormEvents::POST_SET_DATA,
+            function(FormEvent $event) use ($formModifierCustomerType, $formModifierCustomer, $formModifierCustomerContact){
                 $businessCase = $event->getData();
                 if($event->getData()->getCustomer()){
                     $customer = $businessCase->getCustomer();
@@ -198,7 +212,8 @@ class BusinessCaseType extends AbstractType
                     $customer = null;
                     $customerType = null;
                 }
-                $formModifierCustomerType($event->getForm(), $customerType);
+                $formModifierCustomerType($event->getForm(), $formModifierCustomer, $formModifierCustomerContact, $customerType);
+                $formModifierCustomer($event->getForm(), $formModifierCustomerContact, $customerType);
                 $formModifierCustomerContact($event->getForm(), $customer);
             });
 
@@ -207,7 +222,7 @@ class BusinessCaseType extends AbstractType
             function (FormEvent $event) use ($formModifierCustomer, $formModifierCustomerContact){
                 // It's important here to fetch $event->getForm()->getData(), as $event->getData() will get you the client data (that is, the ID)
                 $customerType = $event->getForm()->getData();
-                $formModifierCustomer($event->getForm()->getParent(), $formModifierCustomerContact, $customerType);;
+                $formModifierCustomer($event->getForm()->getParent(), $formModifierCustomerContact, $customerType);
             });
     }
 

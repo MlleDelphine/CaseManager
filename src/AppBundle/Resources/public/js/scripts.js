@@ -2,10 +2,10 @@
 //inputName = :radio
 function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName, inputName, targetInputName, previousInput) {
     console.log("ajaxSubmitReload");
-    var $form = $("."+formRootClass);
+    var $form = $("." + formRootClass);
     //businessbundle_businesscase[customerType]
-    $form.on("ifChecked change", inputType+"[name='"+inputRootName+"["+inputName+"]']", function (event) {
-        console.log("CHANGE : Call by "+inputName+" for "+targetInputName+" list");
+    $form.on("ifChecked change", inputType + "[name='" + inputRootName + "[" + inputName + "]']", function (event) {
+        console.log("CHANGE : Call by " + inputName + " for " + targetInputName + " list");
         var dataInfo = {
             name: inputName,
             type: inputType,
@@ -17,20 +17,6 @@ function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName,
         };
         ajaxCall(dataInfo);
     });
-
-    // $form.on("change", +inputType+"[name='"+inputRootName+"["+inputName+"]']", function (event) {
-    //     console.log("CHANGE : Call by "+inputName+" for "+targetInputName+" list");
-    //     var dataInfo = {
-    //         name: inputName,
-    //         type: inputType,
-    //         value: event.target,
-    //         params: [{name: "sessionType", type: "radio"}],
-    //         nextStep: false,
-    //         target: [{name: targetInputName}],
-    //         targetType: "select"
-    //     };
-    //     ajaxCall(dataInfo);
-    // });
 
     function ajaxCall(dataConf) {
         var data = {};
@@ -82,9 +68,21 @@ function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName,
                         });
                     });
                 });
-            },
+            }
         });
     };
+
+}
+/**
+ * Hide next (children) fields because of grand-parent change
+ */
+function cleanChildren(parent, disabling, children){
+    $.each(children, function(index, value){
+        $("#"+parent+value).fadeOut(500, function(){
+            $(this).empty().show();
+        });
+        // $("#"+parent + element.name).parent(".row").siblings("h3").addClass("hide-title");
+    });
 };
 
 jQuery(document).ready(function() {

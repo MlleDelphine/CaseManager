@@ -2,6 +2,7 @@
 
 namespace BusinessBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\BusinessCaseDocument;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,7 +31,7 @@ class BusinessCase
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_timeprice"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     private $id;
 
@@ -42,7 +43,7 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     private $name;
 
@@ -62,7 +63,7 @@ class BusinessCase
      *
      * @Assert\NotBlank()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     private $externalReference;
 
@@ -73,13 +74,24 @@ class BusinessCase
      */
     private $internalReference;
 
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="customer_type", type="string", length=25, nullable=false, unique=false)
+//     *
+//     * @Assert\NotBlank()
+//     * @JMSSer\Expose()
+//     * @JMSSer\Groups({"business_export_business_case"})
+//     */
+//    private $customerType;
+
     /**
      * @var Customer
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", inversedBy="businessCases", cascade={"persist", "merge", "detach"})
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     protected $customer;
 
@@ -89,7 +101,7 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     protected $customerContact;
 
@@ -99,9 +111,17 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"business_export_business_case"})
      */
     protected $user;
+
+    /**
+     * @var BusinessCaseDocument
+     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseDocument", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     * @JMSSer\Expose
+     * @JMSSer\Groups({"business_export_business_case"})
+     */
+    protected $documents;
 
     /**
      * @var \DateTime
