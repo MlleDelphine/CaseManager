@@ -33,7 +33,7 @@ class WorkSiteController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_work_site_type", $jsonDatas, "WorkSiteBundle\Entity\WorkSite");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_work_site", $jsonDatas, "WorkSiteBundle\Entity\WorkSite");
 
                 $error = $deserialize;
             }else{
@@ -65,7 +65,7 @@ class WorkSiteController extends Controller
             $em->persist($workSite);
             $em->flush();
 
-            return $this->redirectToRoute('business_work_site_type_index');
+            return $this->redirectToRoute('business_work_site_index');
         }
 
         return $this->render('BusinessBundle:worksite:new.html.twig', array(
@@ -104,7 +104,7 @@ class WorkSiteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('business_work_site_type_index');
+            return $this->redirectToRoute('business_work_site_index');
         }
 
         return $this->render('BusinessBundle:worksite:edit.html.twig', array(
@@ -141,7 +141,7 @@ class WorkSiteController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('business_work_site_type_index');
+        return $this->redirectToRoute('business_work_site_index');
     }
 
     /**
@@ -154,7 +154,7 @@ class WorkSiteController extends Controller
     private function createDeleteForm(WorkSite $workSite)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('business_work_site_type_delete', array('slug' => $workSite->getSlug())))
+            ->setAction($this->generateUrl('business_work_site_delete', array('slug' => $workSite->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
             ;
@@ -167,7 +167,7 @@ class WorkSiteController extends Controller
      */
     public function exportWorkSiteAction(Request $request, WorkSite $equipment){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_work_site_type', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_work_site', $equipment)->prepare($request);
 
         return $response;
     }
@@ -177,7 +177,7 @@ class WorkSiteController extends Controller
      * @return StreamedResponse
      */
     public function exportAllWorkSiteAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_work_site_type","WorkSiteBundle:WorkSite", "Business WorkSite Types" )->prepare($request);
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_work_site","WorkSiteBundle:WorkSite", "Business WorkSite Types" )->prepare($request);
 
         return $response;
     }

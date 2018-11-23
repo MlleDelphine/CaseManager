@@ -76,11 +76,17 @@
 {% block linkElement %}
     {% import "knp_menu.html.twig" as macros %}
     <a {% if item.uri != ' ' %} href="{{ item.uri }}" {% endif %} {{ macros.attributes(item.linkAttributes) }}>
+        {#{{ dump(item.attributes) }}#}
         {% if item.attribute('prev-icon') is not empty  %}
-            <i class="{{ item.attribute('prev-icon') }}"></i>
+            {% if item.attribute('icon-size') is not empty %}
+                {% set iconsize = item.attribute('icon-size') %}
+            {% else %}
+                {% set iconsize =  "" %}
+            {% endif %}
+            <i class="{{ item.attribute('prev-icon') }}" style="{{ iconsize }}"></i>
         {% endif %}
         {{ block('label') }}
-        {% if item.attribute('icon') is not empty  %}
+        {% if item.attribute('icon') is not empty %}
             <span class="{{ item.attribute('icon') }}"></span>
         {% endif %}
     </a>

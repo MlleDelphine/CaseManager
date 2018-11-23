@@ -148,7 +148,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("icon", "fa fa-chevron-down");
         $menu['business_management']->addChild('business_cases', array('route' => 'business_case_index'))->setAttribute('prev-icon', 'fa fa-folder-open');
         $menu['business_management']->addChild('business_document_types', array('route' => 'business_document_type_index'))->setAttribute('prev-icon', 'fa fa-file-excel-o');
-        $menu['business_management']->addChild('business_work_site_types', array('route' => 'business_work_site_type_index'))->setAttribute('prev-icon', 'fa fa-ellipsis-v');
+        $menu['business_management']->addChild('business_work_sites', array('route' => 'business_work_site_index'))->setAttribute('prev-icon', 'fa icon-truck-mounted-cement-mixer-offset'); //->setAttribute("icon-size", "margin-left: -6px");
 
         return $menu;
     }

@@ -130,10 +130,14 @@ desc "----> Reloading PHP-FPM service"
 namespace :server_config do
  task :reload_php_fpm do
     on roles(:all) do
+
+     web_server_user = fetch(:webserver_user)
       puts "-----> Make www-data owner (900:900 strange behavior, TEMPORARY FIX)"
-      execute "sudo chown -R #{deploy_to}"
+      execute "sudo chown -R #{web_server_user}:#{web_server_user} #{deploy_to}"
+
       puts "----> Reloading PHP-FPM service to reset cache"
       execute "sudo /usr/sbin/service php7.2-fpm reload"
+
       #the config file can be used by an attacker to know we use symfony
       execute "/usr/bin/env rm #{deploy_to}/current/web/config.php"
    end

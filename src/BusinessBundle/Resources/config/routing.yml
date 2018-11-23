@@ -6,9 +6,9 @@ business_document_type:
     resource: "@BusinessBundle/Resources/config/routing/documenttype.yml"
     prefix:   /document-type
 
-business_work_site_type:
+business_work_site:
     resource: "@BusinessBundle/Resources/config/routing/worksite.yml"
-    prefix:   /work-site-type
+    prefix:   /work-site
 
 business_homepage:
     path:     /
