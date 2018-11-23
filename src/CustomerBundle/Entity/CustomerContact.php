@@ -402,6 +402,10 @@ class CustomerContact extends Person
     }
 
     public function getHtmlName() {
-        // TODO: Implement getHtmlName() method.
+        return $this->__toString();
+    }
+
+    public function getFullName() {
+        return $this->lastName." ".$this->firstName;
     }
 }

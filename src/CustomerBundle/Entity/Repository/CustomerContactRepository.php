@@ -15,7 +15,6 @@ class CustomerContactRepository extends EntityRepository
 {
     function getAllContactsByCustomerHTML(Customer $customer){
         $qb = $this->createQueryBuilder("ca");
-        dump("SQL req");
         $qb
             ->join("ca.customer", "c", "WITH", "c.id = :customerID")
 //            ->where("ca.customer", $customerID)
