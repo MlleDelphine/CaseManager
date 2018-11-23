@@ -1,0 +1,37 @@
+work_site_type_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:WorkSiteType:index" }
+    methods:   [GET, POST]
+
+work_site_type_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AdminBundle:WorkSiteType:show" }
+    methods:  GET
+
+work_site_type_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:WorkSiteType:new" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+work_site_type_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AdminBundle:WorkSiteType:edit" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+work_site_type_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AdminBundle:WorkSiteType:delete" }
+    methods:  DELETE
+    options:
+        expose: true
+    host: "%casemanager_admin_url%"
+
+work_site_type_export:
+    path: /export/{slug}
+    defaults: { _controller: "AdminBundle:WorkSiteType:exportWorkSiteType" }
+
+work_site_type_export_all:
+    path: /export
+    defaults: { _controller: "AdminBundle:WorkSiteType:exportAllWorkSiteType" }

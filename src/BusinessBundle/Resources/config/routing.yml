@@ -6,6 +6,10 @@ business_document_type:
     resource: "@BusinessBundle/Resources/config/routing/documenttype.yml"
     prefix:   /document-type
 
+business_work_site_type:
+    resource: "@BusinessBundle/Resources/config/routing/worksite.yml"
+    prefix:   /work-site-type
+
 business_homepage:
     path:     /
     defaults: { _controller: BusinessBundle:Default:index }

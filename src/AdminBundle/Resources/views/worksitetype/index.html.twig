@@ -21,10 +21,10 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('construction_site_type_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('work_site_type_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("construction_site_type_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("work_site_type_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -39,12 +39,12 @@
                 <hr>
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for constructionSiteType in constructionSiteTypes %}
+                    {% for workSiteType in workSiteTypes %}
                         <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ constructionSiteType.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ constructionSiteType.id }}" aria-expanded="true" aria-controls="collapse{{ constructionSiteType.id }}">
-                                <h4 class="panel-title">{{ constructionSiteType.name }}</h4>
+                            <a class="panel-heading" role="tab" id="heading{{ workSiteType.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ workSiteType.id }}" aria-expanded="true" aria-controls="collapse{{ workSiteType.id }}">
+                                <h4 class="panel-title">{{ workSiteType.name }}</h4>
                             </a>
-                            <div id="collapse{{ constructionSiteType.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ constructionSiteType.id }}">
+                            <div id="collapse{{ workSiteType.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ workSiteType.id }}">
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
@@ -59,15 +59,15 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">{{ constructionSiteType.id }}</th>
-                                            <td>{{ constructionSiteType.name }}</td>
-                                            <td>{{ constructionSiteType.description|raw }}</td>
-                                            <td>{% if constructionSiteType.created %}{{ constructionSiteType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if constructionSiteType.updated %}{{ constructionSiteType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <th scope="row">{{ workSiteType.id }}</th>
+                                            <td>{{ workSiteType.name }}</td>
+                                            <td>{{ workSiteType.description|raw }}</td>
+                                            <td>{% if workSiteType.created %}{{ workSiteType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if workSiteType.updated %}{{ workSiteType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('construction_site_type_edit', { 'slug': constructionSiteType.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('construction_site_type_export', { 'slug': constructionSiteType.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ constructionSiteType.slug }}">
+                                                <a class="btn btn-sm btn-info" href="{{ path('work_site_type_edit', { 'slug': workSiteType.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('work_site_type_export', { 'slug': workSiteType.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ workSiteType.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
                                                 </button>
                                             </td>
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Import Modal -->
-    {% include  ":common:import_modal.html.twig" with { "action_path": "construction_site_type_index", "object_title": "some_prestation_domains", "error": error } %}
+    {% include  ":common:import_modal.html.twig" with { "action_path": "work_site_type_index", "object_title": "some_prestation_domains", "error": error } %}
     <!-- Delete Modal -->
     {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 {% endblock %}
@@ -98,5 +98,5 @@
         });
     {% endif %}
 
-    {% include ":common:delete_pop_up.js.twig" with { "routeName": "construction_site_type_delete" } %}
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "work_site_type_delete" } %}
 {% endblock %}

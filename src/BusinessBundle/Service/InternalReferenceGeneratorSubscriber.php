@@ -31,7 +31,8 @@ class InternalReferenceGeneratorSubscriber implements EventSubscriber
         if($entity instanceof BusinessCase){
             //No ref exists
             if(!$entity->getInternalReference()) {
-                if ($entity->getCustomer()->getObjectName() == CorporationGroup::ObjectName) {
+               // if ($entity->getCustomer()->getObjectName() == CorporationGroup::ObjectName) {
+                if (preg_match("/(DB)\d{1}\/\d{6}$/", $entity->getExternalReference(), $m)) {
                     $lastSixDigitsOfExternalReference = preg_match("/\d{6}$/", $entity->getExternalReference(), $m);
                     $projectManagerName = $entity->getCustomerContact()->getFullName();
                     $projectManagerNameCleaned = substr(strtoupper(preg_replace("/[^a-zA-Z]/", "", $projectManagerName)), 0, 3);

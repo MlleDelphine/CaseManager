@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AdminBundle\Entity\ConstructionSiteType;
+use AdminBundle\Entity\WorkSiteType;
 use AppBundle\Entity\Equipment;
 use Doctrine\ORM\Mapping as ORM;
 use SecurityAppBundle\Entity\User;
@@ -107,13 +107,13 @@ class UnitTimePrice
     protected $equipment;
 
     /**
-     * @var ConstructionSiteType
-     * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\ConstructionSiteType", inversedBy="unitTimePrices", cascade={"persist", "merge"})
+     * @var WorkSiteType
+     * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\WorkSiteType", inversedBy="unitTimePrices", cascade={"persist", "merge"})
      * @Assert\NotBlank()
      * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins un domaine d'application.")
      * @Assert\All(
      *      @Assert\Type(
-     *          type="AdminBundle\Entity\ConstructionSiteType"
+     *          type="AdminBundle\Entity\WorkSiteType"
      *      )
      * )
      * @Assert\Valid()
@@ -122,7 +122,7 @@ class UnitTimePrice
      * @JMSSer\Groups({"admin_export_equipment"})
      *
      */
-    protected $constructionSiteTypes;
+    protected $workSiteTypes;
 
     public function __construct()
     {
@@ -328,38 +328,38 @@ class UnitTimePrice
     }
 
     /**
-     * Add constructionSiteType
+     * Add workSiteType
      *
-     * @param ConstructionSiteType $constructionSiteType
+     * @param WorkSiteType $workSiteType
      *
      * @return UnitTimePrice
      */
-    public function addConstructionSiteType(\AdminBundle\Entity\ConstructionSiteType $constructionSiteType)
+    public function addWorkSiteType(WorkSiteType $workSiteType)
     {
-        $this->constructionSiteTypes[] = $constructionSiteType;
-        $constructionSiteType->addUnitTimePrice($this);
+        $this->workSiteTypes[] = $workSiteType;
+        $workSiteType->addUnitTimePrice($this);
 
         return $this;
     }
 
     /**
-     * Remove constructionSiteType
+     * Remove workSiteType
      *
-     * @param ConstructionSiteType $constructionSiteType
+     * @param WorkSiteType $workSiteType
      */
-    public function removeConstructionSiteType(\AdminBundle\Entity\ConstructionSiteType $constructionSiteType)
+    public function removeWorkSiteType(WorkSiteType $workSiteType)
     {
-        $this->constructionSiteTypes->removeElement($constructionSiteType);
+        $this->workSiteTypes->removeElement($workSiteType);
     }
 
     /**
-     * Get constructionSiteTypes
+     * Get workSiteTypes
      *
-     * @return \AppBundle\Entity\ConstructionSiteType
+     * @return WorkSiteType
      */
-    public function getConstructionSiteTypes()
+    public function getWorkSiteTypes()
     {
-        return $this->constructionSiteTypes;
+        return $this->workSiteTypes;
     }
 }
 

@@ -32,8 +32,8 @@ class UnitTimePriceType extends AbstractType
                 "label_format" => "measure_unit_capitalize",
                 "required" => true,
                 "choices" => Unit::getAllUnits()))
-            ->add("constructionSiteTypes",  Select2EntityType::class, array(
-                "class" => "AdminBundle:ConstructionSiteType",
+            ->add("workSiteTypes",  Select2EntityType::class, array(
+                "class" => "AdminBundle:WorkSiteType",
                 "choice_label" => "name",
                 "label_format" => "application_domain_capitalize",
                 "multiple" => true,

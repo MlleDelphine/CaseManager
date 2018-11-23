@@ -165,6 +165,10 @@ creation_of_business_document_type: création d'un type de document
 edition_of_business_document_type: édition d'un type de document
 edition_of_the_business_document_type: édition du type de document
 
+creation_of_business_work_site_type: création d'un type de chantier
+edition_of_business_work_site_type: édition d'un type de chantier
+edition_of_the_business_work_site_type: édition du type de chantier
+
 #OBJECTS LEXICAL
 employees: personnel
 
@@ -245,6 +249,13 @@ a_rate: un taux
 several_rates: plusieurs taux
 so_rates: des taux
 no_rate: aucun taux
+
+tag_color_capitalize: Couleur de l'étiquette
+tag_color: couleur de l'étiquette
+tag: étiquette
+tag_capitalize: Etiquette
+tags: étiquettes
+tags_capitalize: Etiquettes
 
 #CORPO / CUSTOMERS
 corporation: société
@@ -351,6 +362,14 @@ a_business_document_type: un type de document
 several_business_document_types: plusieurs types de document
 some_business_document_types: des types de document
 no_business_document_type: aucun type de document
+
+all_business_work_site_types: tous les types de chantier
+business_work_site_types: types de chantier
+business_work_site_type: type de chantier
+a_business_work_site_type: un type de chantier
+several_business_work_site_types: plusieurs types de chantier
+some_business_work_site_types: des types de chantier
+no_business_work_site_type: aucun type de chantier
 
 #OBJECTS STATES
 created_m_s: créé

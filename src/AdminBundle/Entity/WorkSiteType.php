@@ -8,6 +8,7 @@
 
 namespace AdminBundle\Entity;
 
+use AppBundle\Entity\UnitTimePrice;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -15,15 +16,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * ConstructionSiteType : PrestationDomain
+ * WorkSiteType : PrestationDomain
  *
- * @ORM\Table(name="construction_site_type")
- * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\ConstructionSiteTypeRepository")
+ * @ORM\Table(name="work_site_type")
+ * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\WorkSiteTypeRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class ConstructionSiteType {
+class WorkSiteType {
 
     /**
      * @var int
@@ -42,7 +43,7 @@ class ConstructionSiteType {
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_constructionSiteType"})
+     * @JMSSer\Groups({"admin_export_workSiteType"})
      */
     private $name;
 
@@ -52,9 +53,21 @@ class ConstructionSiteType {
      * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_constructionSiteType"})
+     * @JMSSer\Groups({"admin_export_workSiteType"})
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=8, unique=true)
+     *
+     * @Assert\NotBlank()
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"business_export_business_work_site"})
+     */
+    private $color;
 
     /**
      * @var string
@@ -81,7 +94,7 @@ class ConstructionSiteType {
 
     /**
      * @var UnitTimePrice
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="constructionSiteTypes", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="workSiteTypes", fetch="EXTRA_LAZY")
      *
      */
     protected $unitTimePrices;
@@ -110,7 +123,7 @@ class ConstructionSiteType {
      *
      * @param string $name
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function setName($name)
     {
@@ -134,13 +147,30 @@ class ConstructionSiteType {
      *
      * @param string $description
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function setDescription($description)
     {
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * @param string $color
+     * @return WorkSiteType
+     */
+    public function setColor(string $color) {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColor() {
+        return $this->color;
     }
 
     /**
@@ -158,7 +188,7 @@ class ConstructionSiteType {
      *
      * @param \DateTime $created
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function setCreated($created)
     {
@@ -182,7 +212,7 @@ class ConstructionSiteType {
      *
      * @param \DateTime $updated
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function setUpdated($updated)
     {
@@ -206,7 +236,7 @@ class ConstructionSiteType {
      *
      * @param string $slug
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function setSlug($slug)
     {
@@ -230,7 +260,7 @@ class ConstructionSiteType {
      *
      * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
      *
-     * @return ConstructionSiteType
+     * @return WorkSiteType
      */
     public function addUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
     {

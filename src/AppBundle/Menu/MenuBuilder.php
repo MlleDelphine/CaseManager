@@ -76,7 +76,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-book")
             ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_catalog"]->addChild("prestation_domains", array("route" => "construction_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
+        $menu["admin_catalog"]->addChild("prestation_domains", array("route" => "work_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
         $menu["admin_catalog"]->addChild("rates", array("route" => "rate_index"))->setAttribute("prev-icon", "fa fa-percent");
 
         // RESOURCES MANAGEMENT
@@ -147,7 +147,8 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-folder")
             ->setAttribute("icon", "fa fa-chevron-down");
         $menu['business_management']->addChild('business_cases', array('route' => 'business_case_index'))->setAttribute('prev-icon', 'fa fa-folder-open');
-        $menu['business_management']->addChild('business_document_types', array('route' => 'business_document_type_index'))->setAttribute('prev-icon', 'fa fa-files-o');
+        $menu['business_management']->addChild('business_document_types', array('route' => 'business_document_type_index'))->setAttribute('prev-icon', 'fa fa-file-excel-o');
+        $menu['business_management']->addChild('business_work_site_types', array('route' => 'business_work_site_type_index'))->setAttribute('prev-icon', 'fa fa-ellipsis-v');
 
         return $menu;
     }

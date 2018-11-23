@@ -1,7 +1,6 @@
 
 //inputName = :radio
 function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName, inputName, targetInputName, previousInput) {
-    console.log("ajaxSubmitReload");
     var $form = $("." + formRootClass);
     //businessbundle_businesscase[customerType]
     $form.on("ifChecked change", inputType + "[name='" + inputRootName + "[" + inputName + "]']", function (event) {
@@ -86,6 +85,8 @@ function cleanChildren(parent, disabling, children){
 };
 
 jQuery(document).ready(function() {
+
+    $('.color-picker').colorpicker();
     /*
         Fullscreen background
     */
