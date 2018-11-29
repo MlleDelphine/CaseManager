@@ -66,8 +66,8 @@
                 <td class="last-column last-row" colspan="{{ nbColumns }}" style="text-align: center;">
                     {#{{ grid.noResultMessage|default('No result')|trans|raw }}#}
                     <div id="callout-badges-ie8-empty" class="bs-callout bs-callout-danger col-md-12">
-                        <h4>No result for this search.</h4>
-                        <p>Try again.</p>
+                        <h4>{{ "no_result_found"|trans }}</h4>
+                        {#<p>Try again.</p>#}
                     </div>
                 </td>
             </tr>
@@ -118,7 +118,7 @@
             {% endfor %}
         </tr>
     {% endblock grid_titles %}
-        {# -------------------------------------------------- grid_filters -------------------------------------------------- #}
+        {# --------------------------------------------------- grid_filters -------------------------------------------------- #}
     {% block grid_filters %}
         <tr class="grid-row-filters">
             {% for column in grid.columns %}
@@ -252,7 +252,7 @@
             </div>
         {% endspaceless %}
     {% endblock grid_pager_selectpage %}
-        {# ------------------------------------------------ grid_disposition_selectpagenbr_itemsnbr --------------------------------- #}
+        {# ---------------------------------------------------- grid_disposition_selectpagenbr_itemsnbr --------------------------------- #}
     {% block grid_disposition_selectpagenbr_itemsnbr %}
         <div class="col-md-12">
             <div class="btn-group no-display-inline" role="group">
@@ -279,7 +279,7 @@
             </div>
         </div>
     {% endblock %}
-        {# --------------------------------------------------- grid_actions ------------------------------------------------- #}
+        {# ---------------------------------------------------- grid_actions ------------------------------------------------- #}
     {% block grid_actions %}
         <div class="mass-actions">
     <span class="grid_massactions_helper">
@@ -306,19 +306,23 @@
     {% endblock grid_actions %}
         {# --------------------------------------------------- grid_exports ------------------------------------------------- #}
     {% block grid_exports %}
-        <div class="exports" style="float:right">
+        <div class="exports col-md-offset-9 col-md-3 col-sm-offset-6 col-sm-6 col-xs-12" style="margin-bottom: 1%">
             {% spaceless %}
-                <select name="{{grid.hash}}[{{ constant('APY\\DataGridBundle\\Grid\\Grid::REQUEST_QUERY_EXPORT') }}]" style="margin:1px">
-                    {#<option value="-1">Export type</option>#}
-                    {#<optgroup label="Calc">#}
-                    {% for key, export in grid.exports %}
-                        <option value="{{key}}">{{ export.title|trans }}</option>
-                    {% endfor %}
-                    {#</optgroup>#}
-                </select>
+                <div class="cold-md-6 col-sm-6 col-xs-12">
+                    <select name="{{grid.hash}}[{{ constant('APY\\DataGridBundle\\Grid\\Grid::REQUEST_QUERY_EXPORT') }}]" style="margin:1px">
+                        {#<option value="-1">Export type</option>#}
+                        {#<optgroup label="Calc">#}
+                        {% for key, export in grid.exports %}
+                            <option value="{{key}}">{{ export.title|trans }}</option>
+                        {% endfor %}
+                        {#</optgroup>#}
+                    </select>
+                </div>
+            <div class="cold-md-6 col-sm-6 col-xs-12">
                 <button type="submit" class="btn btn-warning text-center" style="margin:1px">
-                    <span class="glyphicon glyphicon-export"></span> {{ 'Export'|trans }}</button>
+                    <span class="glyphicon glyphicon-export"></span> {{ "export_verb"|trans|capitalize }}</button>
                 {#<input type="submit" value="{{ 'Export'|trans }}"/>#}
+            </div>
             {% endspaceless %}
         </div>
     {% endblock grid_exports %}
@@ -527,6 +531,9 @@
                 $('#tab-logs').find('select:disabled').prev('div').hide();
                 $('#all-customers').find('tr.grid-row-filters').find('select:enabled').select2({
                     width: "60%"
+                });
+                $('.exports').find('select:enabled').select2({
+                    width: "100%"
                 });
 
                 $('#all-customers').find('select:disabled').prev('div').hide();

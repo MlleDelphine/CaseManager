@@ -111,8 +111,8 @@ class CorporationGroupController extends Controller
         $grid->addColumn($actionsColumn);
 
         $date = date('Y-m-d H:i:s');
-        $grid->addExport(new ExcelExport('Excel Export', "[CaseManager] - Sociétés groupes $date"));
-        $grid->addExport(new CSVExport('CSV Export', "[CaseManager] - Sociétés groupes $date"));
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][Customer] - Sociétés groupes $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - Sociétés groupes $date"));
 
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();

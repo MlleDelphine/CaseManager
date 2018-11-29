@@ -16,11 +16,11 @@
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
-                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }} (json)
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('business_case_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('business_case_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }} (json)</a>
                     </li>
                     <li class="inherit-li">
                         <a class="btn btn-success btn-li" href="{{ path("business_case_new") }}"><i class="fa fa-university"></i> +{{ "addition"|trans|capitalize }}</a>
@@ -33,9 +33,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content container">
-                <a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a>
-                <a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>
-                <hr>
+                {#<a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a>#}
+                {#<a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>#}
+                {#<hr>#}
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
                     {% for businessCase in businessCases %}
