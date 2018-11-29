@@ -3,7 +3,7 @@
 namespace BusinessBundle\Controller;
 
 use BusinessBundle\Entity\WorkSite;
-use BusinessBundle\Form\WorkSiteType;
+use BusinessBundle\Form\Prestation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +57,7 @@ class WorkSiteController extends Controller
     public function newAction(Request $request)
     {
         $workSite = new WorkSite();
-        $form = $this->createForm(WorkSiteType::class, $workSite);
+        $form = $this->createForm(Prestation::class, $workSite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -98,7 +98,7 @@ class WorkSiteController extends Controller
     public function editAction(Request $request, WorkSite $workSite)
     {
         $deleteForm = $this->createDeleteForm($workSite);
-        $editForm = $this->createForm(WorkSiteType::class, $workSite);
+        $editForm = $this->createForm(Prestation::class, $workSite);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

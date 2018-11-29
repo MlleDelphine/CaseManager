@@ -2,8 +2,8 @@
 
 namespace AdminBundle\Controller;
 
-use AdminBundle\Entity\WorkSiteType;
-use AdminBundle\Form\WorkSiteTypeType;
+use AdminBundle\Entity\Prestation;
+use AdminBundle\Form\PrestationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,14 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
- * WorkSiteType controller.
- * "Domaine de prestation"
+ * Prestation controller.
  *
  */
-class WorkSiteTypeController extends Controller
+class PrestationController extends Controller
 {
     /**
-     * Lists all workSiteType entities.
+     * Lists all prestation entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -35,7 +34,7 @@ class WorkSiteTypeController extends Controller
             if($file) {
 
                 $jsonDatas = file_get_contents($file->getRealPath());
-                $deserialize = $this->get('object.eximportdatas')->import("admin_export_worksitetype", $jsonDatas, "AdminBundle\Entity\WorkSiteType");
+                $deserialize = $this->get('object.eximportdatas')->import("admin_export_prestation", $jsonDatas, "AdminBundle\Entity\Prestation");
 
                 $error = $deserialize;
             }else{
@@ -43,64 +42,64 @@ class WorkSiteTypeController extends Controller
             }
         }
 
-        $workSiteTypes = $em->getRepository('AdminBundle:WorkSiteType')->findAll();
+        $prestations = $em->getRepository('AdminBundle:Prestation')->findAll();
 
-        return $this->render('AdminBundle:worksitetype:index.html.twig', array(
-            'workSiteTypes' => $workSiteTypes,
+        return $this->render('AdminBundle:prestation:index.html.twig', array(
+            'prestations' => $prestations,
             'error' => $error
         ));
     }
 
     /**
-     * Creates a new workSiteType entity.
+     * Creates a new prestation entity.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
-        $workSiteType = new WorkSiteType();
-        $form = $this->createForm(WorkSiteTypeType::class, $workSiteType);
+        $prestation = new Prestation();
+        $form = $this->createForm(PrestationType::class, $prestation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($workSiteType);
+            $em->persist($prestation);
             $em->flush();
 
             return $this->redirectToRoute('work_site_type_index');
         }
 
-        return $this->render('AdminBundle:worksitetype:new.html.twig', array(
-            'workSiteType' => $workSiteType,
+        return $this->render('AdminBundle:prestation:new.html.twig', array(
+            'prestation' => $prestation,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a workSiteType entity.
-     * @param WorkSiteType $workSiteType
+     * Finds and displays a prestation entity.
+     * @param Prestation $prestation
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(WorkSiteType $workSiteType)
+    public function showAction(Prestation $prestation)
     {
-        $deleteForm = $this->createDeleteForm($workSiteType);
+        $deleteForm = $this->createDeleteForm($prestation);
 
-        return $this->render('AdminBundle:worksitetype:show.html.twig', array(
-            'workSiteType' => $workSiteType,
+        return $this->render('AdminBundle:prestation:show.html.twig', array(
+            'prestation' => $prestation,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing workSiteType entity.
+     * Displays a form to edit an existing prestation entity.
      * @param Request $request
-     * @param WorkSiteType $workSiteType
+     * @param Prestation $prestation
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, WorkSiteType $workSiteType)
+    public function editAction(Request $request, Prestation $prestation)
     {
-        $deleteForm = $this->createDeleteForm($workSiteType);
-        $editForm = $this->createForm(WorkSiteTypeType::class, $workSiteType);
+        $deleteForm = $this->createDeleteForm($prestation);
+        $editForm = $this->createForm(PrestationType::class, $prestation);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -109,28 +108,28 @@ class WorkSiteTypeController extends Controller
             return $this->redirectToRoute('work_site_type_index');
         }
 
-        return $this->render('AdminBundle:worksitetype:edit.html.twig', array(
-            'workSiteType' => $workSiteType,
+        return $this->render('AdminBundle:prestation:edit.html.twig', array(
+            'prestation' => $prestation,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a workSiteType entity.
+     * Deletes a prestation entity.
      * @param Request $request
-     * @param WorkSiteType $workSiteType
+     * @param Prestation $prestation
      * @return \Symfony\Component\HttpFoundation\RedirectResponse | Response
      */
-    public function deleteAction(Request $request, WorkSiteType $workSiteType)
+    public function deleteAction(Request $request, Prestation $prestation)
     {
-        $form = $this->createDeleteForm($workSiteType);
+        $form = $this->createDeleteForm($prestation);
 
         if ($request->isXmlHttpRequest()) {
             return $this->render(":common:remove_object_modal.html.twig",
                 [
                     "delete_form" => $form->createView(),
-                    "object_title" => $workSiteType,
+                    "object_title" => $prestation,
                     "default" => false
                 ]);
         }
@@ -139,7 +138,7 @@ class WorkSiteTypeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($workSiteType);
+            $em->remove($prestation);
             $em->flush();
         }
 
@@ -147,15 +146,15 @@ class WorkSiteTypeController extends Controller
     }
 
     /**
-     * Creates a form to delete a workSiteType entity.
+     * Creates a form to delete a prestation entity.
      *
-     * @param WorkSiteType $workSiteType The workSiteType entity
+     * @param Prestation $prestation The prestation entity
      * @return \Symfony\Component\Form\FormInterface The form
      */
-    private function createDeleteForm(WorkSiteType $workSiteType)
+    private function createDeleteForm(Prestation $prestation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('work_site_type_delete', array('slug' => $workSiteType->getSlug())))
+            ->setAction($this->generateUrl('work_site_type_delete', array('slug' => $prestation->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
         ;
@@ -163,12 +162,12 @@ class WorkSiteTypeController extends Controller
 
     /**
      * @param Request $request
-     * @param WorkSiteType $workSiteType
+     * @param Prestation $prestation
      * @return StreamedResponse
      */
-    public function exportWorkSiteTypeAction(Request $request, WorkSiteType $workSiteType){
+    public function exportPrestationAction(Request $request, Prestation $prestation){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_worksitetype', $workSiteType)->prepare($request);
+        $response = $this->get("object.eximportdatas")->export('admin_export_prestation', $prestation)->prepare($request);
 
         return $response;
     }
@@ -177,8 +176,8 @@ class WorkSiteTypeController extends Controller
      * @param Request $request
      * @return StreamedResponse
      */
-    public function exportAllWorkSiteTypeAction(Request $request){
-        $response = $this->get("object.eximportdatas")->exportAll("admin_export_worksitetype","AdminBundle:WorkSiteType", "WorkSiteTypes" )->prepare($request);
+    public function exportAllPrestationAction(Request $request){
+        $response = $this->get("object.eximportdatas")->exportAll("admin_export_prestation","AdminBundle:Prestation", "Prestations" )->prepare($request);
 
         return $response;
     }

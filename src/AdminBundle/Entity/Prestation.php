@@ -10,21 +10,22 @@ namespace AdminBundle\Entity;
 
 use AppBundle\Entity\UnitTimePrice;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * WorkSiteType : PrestationDomain
+ * Prestation : PrestationDomain
  *
- * @ORM\Table(name="work_site_type")
- * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\WorkSiteTypeRepository")
+ * @ORM\Table(name="prestation")
+ * @ORM\Entity(repositoryClass="AdminBundle\Entity\Repository\PrestationRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class WorkSiteType {
+class Prestation {
 
     /**
      * @var int
@@ -43,7 +44,7 @@ class WorkSiteType {
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_workSiteType"})
+     * @JMSSer\Groups({"admin_export_prestation"})
      */
     private $name;
 
@@ -53,7 +54,7 @@ class WorkSiteType {
      * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_workSiteType"})
+     * @JMSSer\Groups({"admin_export_prestation"})
      */
     private $description;
 
@@ -93,8 +94,8 @@ class WorkSiteType {
     protected $updated;
 
     /**
-     * @var UnitTimePrice
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="workSiteTypes", fetch="EXTRA_LAZY")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UnitTimePrice", mappedBy="prestation", cascade={"persist", "merge", "remove"}, fetch="EXTRA_LAZY")
      *
      */
     protected $unitTimePrices;
@@ -123,7 +124,7 @@ class WorkSiteType {
      *
      * @param string $name
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setName($name)
     {
@@ -147,7 +148,7 @@ class WorkSiteType {
      *
      * @param string $description
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setDescription($description)
     {
@@ -158,7 +159,7 @@ class WorkSiteType {
 
     /**
      * @param string $color
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setColor(string $color) {
         $this->color = $color;
@@ -188,7 +189,7 @@ class WorkSiteType {
      *
      * @param \DateTime $created
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setCreated($created)
     {
@@ -212,7 +213,7 @@ class WorkSiteType {
      *
      * @param \DateTime $updated
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setUpdated($updated)
     {
@@ -236,7 +237,7 @@ class WorkSiteType {
      *
      * @param string $slug
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
     public function setSlug($slug)
     {
@@ -258,13 +259,14 @@ class WorkSiteType {
     /**
      * Add unitTimePrice
      *
-     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     * @param UnitTimePrice $unitTimePrice
      *
-     * @return WorkSiteType
+     * @return Prestation
      */
-    public function addUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    public function addUnitTimePrice(UnitTimePrice $unitTimePrice)
     {
         $this->unitTimePrices[] = $unitTimePrice;
+        $unitTimePrice->setWorksSiteType($this);
 
         return $this;
     }
@@ -272,9 +274,9 @@ class WorkSiteType {
     /**
      * Remove unitTimePrice
      *
-     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     * @param UnitTimePrice $unitTimePrice
      */
-    public function removeUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    public function removeUnitTimePrice(UnitTimePrice $unitTimePrice)
     {
         $this->unitTimePrices->removeElement($unitTimePrice);
     }
@@ -282,7 +284,7 @@ class WorkSiteType {
     /**
      * Get unitTimePrices
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getUnitTimePrices()
     {

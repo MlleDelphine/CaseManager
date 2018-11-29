@@ -30,7 +30,7 @@
                     <br>
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
-                        <span class="required">*</span>
+                        {% if form.name.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(form.name, "title"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
@@ -39,6 +39,7 @@
                     </div>
                     <div class="item form-group">
                         {{ form_label(form.description, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {% if form.description.vars.required %} <span class="required">*</span> {%  endif %}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.description) }}
@@ -46,11 +47,19 @@
                     </div>
                     <div class="form-group">
                         {{ form_label(form.color, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <span class="required">*</span>
+                        {% if form.color.vars.required %} <span class="required">*</span> {%  endif %}
                         <div class="col-md-6 col-sm-6 col-xs-12 color-picker input-group" style="padding-right: 10px; padding-left: 10px">
                             {{ form_widget(form.color, {"attr": {"class": "form-control"}}) }}
                             <span class="input-group-addon"><i></i></span>
                             {{ form_errors(form.color) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.unitTimePrices, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {% if form.unitTimePrices.vars.required %} <span class="required">*</span> {%  endif %}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.unitTimePrices) }}
+                            {{ form_errors(form.unitTimePrices) }}
                         </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -72,4 +81,26 @@
 {% endblock %}
 {% block plain_js_bundle %}
     {{ form_javascript(form) }}
+    <script type="application/javascript">
+        /**
+         * Launch collection function
+         */
+        $(document).ready(function() {
+            $(".item-collection").collection({
+                allow_duplicate: false,
+                after_add: function () {
+                    $("select").select2({ width: '100%' });
+                    return true;
+                },
+                allow_up: false,
+                allow_down: false,
+                allow_add: true,
+                allow_remove: true,
+                min: 1,
+                // max: 200,
+                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
+            });
+        });
+    </script>
 {% endblock %}

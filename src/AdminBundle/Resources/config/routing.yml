@@ -4,8 +4,8 @@ admin_homepage:
     host: "%casemanager_admin_url%"
 
 admin_work_site_type:
-    resource: "@AdminBundle/Resources/config/routing/worksitetype.yml"
-    prefix: /work-site-type
+    resource: "@AdminBundle/Resources/config/routing/prestation.yml"
+    prefix: /prestation
 #    host: "%casemanager_admin_url%"
 
 admin_rate:

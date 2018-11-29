@@ -301,11 +301,11 @@ class Equipment implements ResourceSubjectInterface
     /**
      * Add unitTimePrice
      *
-     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     * @param UnitTimePrice $unitTimePrice
      *
      * @return Equipment
      */
-    public function addUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    public function addUnitTimePrice(UnitTimePrice $unitTimePrice)
     {
         $this->unitTimePrices[] = $unitTimePrice;
         $unitTimePrice->setEquipment($this);
@@ -316,9 +316,9 @@ class Equipment implements ResourceSubjectInterface
     /**
      * Remove unitTimePrice
      *
-     * @param \AppBundle\Entity\UnitTimePrice $unitTimePrice
+     * @param UnitTimePrice $unitTimePrice
      */
-    public function removeUnitTimePrice(\AppBundle\Entity\UnitTimePrice $unitTimePrice)
+    public function removeUnitTimePrice(UnitTimePrice $unitTimePrice)
     {
         $this->unitTimePrices->removeElement($unitTimePrice);
     }

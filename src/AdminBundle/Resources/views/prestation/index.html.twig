@@ -39,12 +39,12 @@
                 <hr>
                 <!-- start accordion -->
                 <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for workSiteType in workSiteTypes %}
+                    {% for prestation in prestations %}
                         <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ workSiteType.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ workSiteType.id }}" aria-expanded="true" aria-controls="collapse{{ workSiteType.id }}">
-                                <h4 class="panel-title">{{ workSiteType.name }}</h4>
+                            <a class="panel-heading" role="tab" id="heading{{ prestation.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ prestation.id }}" aria-expanded="true" aria-controls="collapse{{ prestation.id }}">
+                                <h4 class="panel-title">{{ prestation.name }}</h4>
                             </a>
-                            <div id="collapse{{ workSiteType.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ workSiteType.id }}">
+                            <div id="collapse{{ prestation.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ prestation.id }}">
                                 <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
@@ -59,15 +59,15 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <th scope="row">{{ workSiteType.id }}</th>
-                                            <td>{{ workSiteType.name }}</td>
-                                            <td>{{ workSiteType.description|raw }}</td>
-                                            <td>{% if workSiteType.created %}{{ workSiteType.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if workSiteType.updated %}{{ workSiteType.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <th scope="row">{{ prestation.id }}</th>
+                                            <td>{{ prestation.name }}</td>
+                                            <td>{{ prestation.description|raw }}</td>
+                                            <td>{% if prestation.created %}{{ prestation.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if prestation.updated %}{{ prestation.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('work_site_type_edit', { 'slug': workSiteType.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('work_site_type_export', { 'slug': workSiteType.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ workSiteType.slug }}">
+                                                <a class="btn btn-sm btn-info" href="{{ path('work_site_type_edit', { 'slug': prestation.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('work_site_type_export', { 'slug': prestation.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ prestation.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
                                                 </button>
                                             </td>

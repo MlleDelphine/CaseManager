@@ -3,8 +3,6 @@
 namespace AppBundle\Form;
 
 use AdminBundle\Entity\AbstractClass\Unit;
-use AppBundle\Form\Type\JqueryDateType;
-use AppBundle\Form\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -32,13 +30,13 @@ class UnitTimePriceType extends AbstractType
                 "label_format" => "measure_unit_capitalize",
                 "required" => true,
                 "choices" => Unit::getAllUnits()))
-            ->add("workSiteTypes",  Select2EntityType::class, array(
-                "class" => "AdminBundle:WorkSiteType",
-                "choice_label" => "name",
-                "label_format" => "application_domain_capitalize",
-                "multiple" => true,
-                "placeholder" => "-",
-                "required" => true))
+//            ->add("prestations",  Select2EntityType::class, array(
+//                "class" => "AdminBundle:Prestation",
+//                "choice_label" => "name",
+//                "label_format" => "application_domain_capitalize",
+//                "multiple" => true,
+//                "placeholder" => "-",
+//                "required" => true))
             ->add("unitaryPrice", MoneyType::class, array(
                 "label_format" => "cost_capitalize",
                 "attr" => ["required" => true, "pattern" => "^\d+(,|.)\d{2}$"],

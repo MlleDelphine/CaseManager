@@ -198,5 +198,8 @@ table.jambo_table thead, table.jambo_table thead a{
     font-size: 15px;
 }
 
+span.required{
+    color: #880000;
+}
 
 /*1px solid #ccc*/

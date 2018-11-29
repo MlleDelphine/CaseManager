@@ -1,28 +1,28 @@
 work_site_type_index:
     path:     /
-    defaults: { _controller: "AdminBundle:WorkSiteType:index" }
+    defaults: { _controller: "AdminBundle:Prestation:index" }
     methods:   [GET, POST]
 
 work_site_type_show:
     path:     /{slug}/show
-    defaults: { _controller: "AdminBundle:WorkSiteType:show" }
+    defaults: { _controller: "AdminBundle:Prestation:show" }
     methods:  GET
 
 work_site_type_new:
     path:     /new
-    defaults: { _controller: "AdminBundle:WorkSiteType:new" }
+    defaults: { _controller: "AdminBundle:Prestation:new" }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
 
 work_site_type_edit:
     path:     /{slug}/edit
-    defaults: { _controller: "AdminBundle:WorkSiteType:edit" }
+    defaults: { _controller: "AdminBundle:Prestation:edit" }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
 
 work_site_type_delete:
     path:     /{slug}/delete
-    defaults: { _controller: "AdminBundle:WorkSiteType:delete" }
+    defaults: { _controller: "AdminBundle:Prestation:delete" }
     methods:  DELETE
     options:
         expose: true
@@ -30,8 +30,8 @@ work_site_type_delete:
 
 work_site_type_export:
     path: /export/{slug}
-    defaults: { _controller: "AdminBundle:WorkSiteType:exportWorkSiteType" }
+    defaults: { _controller: "AdminBundle:Prestation:exportPrestation" }
 
 work_site_type_export_all:
     path: /export
-    defaults: { _controller: "AdminBundle:WorkSiteType:exportAllWorkSiteType" }
+    defaults: { _controller: "AdminBundle:Prestation:exportAllPrestation" }

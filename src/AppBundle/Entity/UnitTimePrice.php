@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AdminBundle\Entity\WorkSiteType;
+use AdminBundle\Entity\Prestation;
 use AppBundle\Entity\Equipment;
 use Doctrine\ORM\Mapping as ORM;
 use SecurityAppBundle\Entity\User;
@@ -100,29 +100,22 @@ class UnitTimePrice
 
     /**
      * @var Equipment
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipment", inversedBy="unitTimePrices", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Equipment", inversedBy="unitTimePrices", cascade={"persist", "merge", "remove"})
      * @ORM\JoinColumn(name="equipment_id", referencedColumnName="id")
      *
      */
     protected $equipment;
 
     /**
-     * @var WorkSiteType
-     * @ORM\ManyToMany(targetEntity="AdminBundle\Entity\WorkSiteType", inversedBy="unitTimePrices", cascade={"persist", "merge"})
-     * @Assert\NotBlank()
-     * @Assert\Count(min=1, minMessage="Vous devez renseigner au moins un domaine d'application.")
-     * @Assert\All(
-     *      @Assert\Type(
-     *          type="AdminBundle\Entity\WorkSiteType"
-     *      )
-     * )
-     * @Assert\Valid()
+     * Owning side
+     * @var Prestation
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Prestation", inversedBy="unitTimePrices", cascade={"persist", "merge", "remove"})
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
      *
      */
-    protected $workSiteTypes;
+    protected $prestation;
 
     public function __construct()
     {
@@ -328,38 +321,28 @@ class UnitTimePrice
     }
 
     /**
-     * Add workSiteType
+     * Set prestation
      *
-     * @param WorkSiteType $workSiteType
+     * @param Prestation $prestation
      *
      * @return UnitTimePrice
      */
-    public function addWorkSiteType(WorkSiteType $workSiteType)
+    public function setWorksSiteType(Prestation $prestation = null)
     {
-        $this->workSiteTypes[] = $workSiteType;
-        $workSiteType->addUnitTimePrice($this);
+        $this->prestation = $prestation;
 
         return $this;
     }
 
     /**
-     * Remove workSiteType
+     * Get worksSiteType
      *
-     * @param WorkSiteType $workSiteType
+     * @return Prestation
      */
-    public function removeWorkSiteType(WorkSiteType $workSiteType)
+    public function getPrestation()
     {
-        $this->workSiteTypes->removeElement($workSiteType);
+        return $this->prestation;
     }
 
-    /**
-     * Get workSiteTypes
-     *
-     * @return WorkSiteType
-     */
-    public function getWorkSiteTypes()
-    {
-        return $this->workSiteTypes;
-    }
 }
 
