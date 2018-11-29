@@ -76,7 +76,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute("prev-icon", "fa fa-book")
             ->setAttribute("icon", "fa fa-chevron-down");
 
-        $menu["admin_catalog"]->addChild("prestation_domains", array("route" => "work_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
+        $menu["admin_catalog"]->addChild("prestations", array("route" => "work_site_type_index"))->setAttribute("prev-icon", "fa fa-handshake-o");
         $menu["admin_catalog"]->addChild("rates", array("route" => "rate_index"))->setAttribute("prev-icon", "fa fa-percent");
 
         // RESOURCES MANAGEMENT

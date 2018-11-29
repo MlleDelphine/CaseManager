@@ -4,12 +4,12 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Corporation;
 use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
-use CustomerBundle\Entity\CorporationSite;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CorporationGroup
@@ -19,9 +19,14 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ *
+ * @GRID\Source(columns="id, slug, name, legalStatus, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated")
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true)
  */
 class CorporationGroup extends Corporation implements CustomerSubjectInterface
 {
+    //postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, postalAddress.country
 
     const ObjectName = "CorporationGroup";
     /**
@@ -31,6 +36,8 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_address"})
+     *
      */
     protected $name;
 
@@ -42,6 +49,8 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
+     *
+     * @GRID\Column(title="legal_status_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
      */
     protected $legalStatus;
 

@@ -27,10 +27,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
-            new Sonata\MediaBundle\SonataMediaBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
-            
+
             new FOS\UserBundle\FOSUserBundle(),
             new AdminBundle\AdminBundle(),
             new CustomerBundle\CustomerBundle(),

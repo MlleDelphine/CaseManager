@@ -34,6 +34,7 @@
         "jms/serializer-bundle": "^2.2",
         "knplabs/knp-menu-bundle": "^2.2",
         "leaseweb/doctrine-pdo-dblib": "^1.1",
+        "phpoffice/phpexcel": "^1.8",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "sonata-project/media-bundle": "^3.7",

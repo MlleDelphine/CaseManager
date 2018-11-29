@@ -41,6 +41,8 @@ contact_name: nom du contact
 contact_name_capitalize: Nom du contact
 birthdate: date de naissance
 birthdate_capitalize: Date de naissance
+postal_address: adresse postale
+postal_address_capitalize: Adresse postale
 undefined: indéfini
 undefined_capitalize: Indéfini
 
@@ -145,9 +147,9 @@ creation_of_jobstatus: création d'un poste interne
 edition_of_jobstatus: édition d'un poste interne
 edition_of_the_jobstatus: édition du poste interne
 
-creation_of_prestation_domain: création d'un domaine de prestation
-edition_of_prestation_domain: édition d'un domaine de prestation
-edition_of_the_prestation_domain: édition du domaine de prestation
+creation_of_prestation: création d'une prestation
+edition_of_prestation: édition d'une prestation
+edition_of_the_prestation: édition d'une prestation
 
 creation_of_rate: création d'un taux
 edition_of_rate: édition d'un taux
@@ -231,15 +233,15 @@ other_materials: autres matériaux
 all_other_materials: tous les autres matériaux
 some_other_materials: d'autres matériaux
 
-application_domain_capitalize: Domaine(s) d'application
-application_domain: domaine(s) d'application
+application_capitalize: Domaine(s) d'application
+application: domaine(s) d'application
 
-prestation_domains_capitalize: Domaines de prestation
-prestation_domains: domaines de prestation
-all_prestation_domains: tous les domaines de prestation
-prestation_domain: domaine de prestation
-a_prestation_domain: domaine de prestation
-some_prestation_domains: des domaines de prestation
+prestations_capitalize: Prestations
+prestations: prestations
+all_prestations: toutes les prestations
+prestation: prestation
+a_prestation: une prestation
+some_prestations: des prestations
 
 rates_capitalize: Taux
 rates: taux

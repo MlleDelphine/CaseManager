@@ -75,3 +75,9 @@ services:
         tags:
             - { name: twig.extension }
         arguments: ['@twig.form.renderer']
+
+    grid.column.country:
+        class: AppBundle\Services\CountryGridColumn
+        public: false
+        tags:
+          - { name: grid.column.extension }

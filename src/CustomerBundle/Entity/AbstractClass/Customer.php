@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\CustomerRepository")
@@ -30,9 +31,13 @@ use JMS\Serializer\Annotation as JMSSer;
  *     })
  *
  * @ORM\HasLifecycleCallbacks()
+ *
+ * @GRID\Column(id="concatenated_postal_address2", type="join", title="With join as attribute", source=true, columns={"postalAddress.streetNumber", "postalAddress.streetName", "postalAddress.postalCode", "postalAddress.city"}, separator=" ", groups={"merged_address"})
+ *
  */
 abstract class Customer extends Person implements CustomerSubjectInterface{
 
+    //postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, postalAddress.country
     const TYPE_CORPO_GROUP = "corporationGroup";
     const TYPE_CORPO_SITE = "corporationSite";
     const TYPE_PRIVATE_INDIVIDUAL = "privateIndividual";
@@ -47,6 +52,8 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose
      * @JMSSer\Groups({"admin_export_customers"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
      */
     protected $id;
 
@@ -61,6 +68,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @var string
      * @ORM\Column(name="slug", length=128, unique=true)
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general", "merged_address"})
      */
     protected $slug;
 
@@ -68,6 +76,8 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="created_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $created;
 
@@ -75,6 +85,9 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+
      */
     protected $updated;
 
@@ -84,6 +97,24 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_customers", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     *
+     *
+     * @GRID\Column(field="postalAddress.streetNumber", title="address_street_number", align="center", type="number", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.streetNumber", title="address_street_number", align="center", type="number", visible=false, groups={"merged_address"})
+     *
+     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false)
+     *
+     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true,groups={"general"})
+     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false)
+     *
+     * @GRID\Column(field="postalAddress.postalCode", title="address_postal_code", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.postalCode", title="address_postal_code", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address"})
+     *
+     * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address"})
+     *
+     * @GRID\Column(field="postalAddress.country", title="address_country", align="center", type="country", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"default", "general", "merged_address"})
      */
     protected $postalAddress;
 

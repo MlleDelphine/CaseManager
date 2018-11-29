@@ -160,6 +160,7 @@ body .container.body .right_col {
     padding-top: 15px; /** footer heigh : 49.14..px **/
 }
 /** END **/
+
 /**** CUSTOM BUTTONS ****/
 .btn-gold {
     color: #fff;
@@ -178,5 +179,24 @@ body .container.body .right_col {
     background-color: #996633;
     border-color: #663300;
 }
+/***/
+
+.form-control:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6) !important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6) !important;
+}
+
+.grid-row-filters > th {
+    /*text-align: center;*/
+
+}
+
+table.jambo_table thead, table.jambo_table thead a{
+    color: #ECF0F1;
+    font-size: 15px;
+}
 
 
+/*1px solid #ccc*/

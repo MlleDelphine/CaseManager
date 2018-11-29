@@ -2,18 +2,18 @@
 
 {% block breadcrumb %}
     <li class="">{{ "catalog_management"|trans|capitalize }}</li>
-    <li class="active">{{ "all_prestation_domains"|trans|capitalize|capitalize }}</li>
+    <li class="active">{{ "all_prestations"|trans|capitalize|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}{{ "all_prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+{% block page_title %}{{ "all_prestations"|trans|capitalize|capitalize }}{% endblock %}
 
-{% block title %}{{ "all_prestation_domains"|trans|capitalize|capitalize }}{% endblock %}
+{% block title %}{{ "all_prestations"|trans|capitalize|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-briefcase"></i> {{ "all_prestation_domains"|trans|capitalize|capitalize }}</h2>
+                <h2><i class="fa fa-briefcase"></i> {{ "all_prestations"|trans|capitalize|capitalize }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Import Modal -->
-    {% include  ":common:import_modal.html.twig" with { "action_path": "work_site_type_index", "object_title": "some_prestation_domains", "error": error } %}
+    {% include  ":common:import_modal.html.twig" with { "action_path": "work_site_type_index", "object_title": "some_prestations", "error": error } %}
     <!-- Delete Modal -->
     {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 {% endblock %}
