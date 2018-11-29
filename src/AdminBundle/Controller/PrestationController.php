@@ -58,7 +58,7 @@ class PrestationController extends Controller
     public function newAction(Request $request)
     {
         $prestation = new Prestation();
-        $form = $this->createForm(PrestationType::class, $prestation);
+        $form = $this->createForm(PrestationType::class, $prestation, ["mode" => PrestationType::CREATE_MODE]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,7 +99,7 @@ class PrestationController extends Controller
     public function editAction(Request $request, Prestation $prestation)
     {
         $deleteForm = $this->createDeleteForm($prestation);
-        $editForm = $this->createForm(PrestationType::class, $prestation);
+        $editForm = $this->createForm(PrestationType::class, $prestation, ["mode" => PrestationType::EDIT_MODE]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

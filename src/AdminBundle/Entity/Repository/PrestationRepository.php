@@ -10,4 +10,14 @@ namespace AdminBundle\Entity\Repository;
  */
 class PrestationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastCreatedPrestation(){
+        $qb = $this->createQueryBuilder("p");
+        $qb
+            ->where("p.internalReference IS NOT NULL")
+            ->orderBy("p.created", "DESC");
+
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

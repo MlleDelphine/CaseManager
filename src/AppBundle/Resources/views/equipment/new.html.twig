@@ -30,11 +30,35 @@
                     <br>
                     {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
-                        <span class="required">*</span>
+                        {% if form.name.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(form.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if form.brand.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(form.brand, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.brand, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.brand) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if form.model.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(form.model, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.model) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if form.serialNumber.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(form.serialNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.serialNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.serialNumber) }}
                         </div>
                     </div>
                     <div class="form-group">

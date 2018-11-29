@@ -30,7 +30,7 @@
                     <br>
                     {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
-                        <span class="required">*</span>
+                        {% if edit_form.name.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
@@ -38,7 +38,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <span class="required">*</span>
+                        {% if edit_form.brand.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(edit_form.brand, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.brand, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.brand) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if edit_form.model.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(edit_form.model, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.model, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.model) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if edit_form.serialNumber.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(edit_form.serialNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.serialNumber, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.serialNumber) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if edit_form.reference.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(edit_form.reference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.reference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
@@ -46,6 +70,7 @@
                         </div>
                     </div>
                     <div class="item form-group">
+                        {% if edit_form.description.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(edit_form.description, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
@@ -53,6 +78,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        {% if edit_form.working.vars.required %} <span class="required">*</span> {%  endif %}
                         {{ form_label(edit_form.working, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12 checkbox-align">
                             {{ form_widget(edit_form.working, {'attr': {'class': 'green-icheck'}}) }}

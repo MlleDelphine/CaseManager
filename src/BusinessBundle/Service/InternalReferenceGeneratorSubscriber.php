@@ -8,6 +8,7 @@
 
 namespace BusinessBundle\Service;
 
+use AdminBundle\Entity\Prestation;
 use BusinessBundle\Entity\BusinessCase;
 use CustomerBundle\Entity\CorporationGroup;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -31,7 +32,7 @@ class InternalReferenceGeneratorSubscriber implements EventSubscriber
         if($entity instanceof BusinessCase){
             //No ref exists
             if(!$entity->getInternalReference()) {
-               // if ($entity->getCustomer()->getObjectName() == CorporationGroup::ObjectName) {
+                // if ($entity->getCustomer()->getObjectName() == CorporationGroup::ObjectName) {
                 if (preg_match("/(DB)\d{1}\/\d{6}$/", $entity->getExternalReference(), $m)) {
                     $lastSixDigitsOfExternalReference = preg_match("/\d{6}$/", $entity->getExternalReference(), $m);
                     $projectManagerName = $entity->getCustomerContact()->getFullName();
@@ -50,6 +51,23 @@ class InternalReferenceGeneratorSubscriber implements EventSubscriber
                     $em->persist($entity);
                     $em->flush();
                 }
+            }
+        } elseif ($entity instanceof Prestation){
+            //No ref exists
+            if(!$entity->getInternalReference()) {
+                $lastRef = 0;
+                $lastPrestationCreated = $em->getRepository("AdminBundle:Prestation")->getLastCreatedPrestation();
+
+                if($lastPrestationCreated){
+                    dump($lastPrestationCreated);
+                    if(preg_match("/\d{5}$/", $lastPrestationCreated->getInternalReference(), $m)){
+                        $lastRef = $m[0];
+                    }
+                }
+                $internalReference = "PE".str_pad($lastRef+1, 5, 0, STR_PAD_LEFT);
+                $entity->setInternalReference($internalReference);
+                $em->persist($entity);
+                $em->flush();
             }
         }
     }

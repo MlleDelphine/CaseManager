@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PrestationType extends AbstractType
 {
+    const EDIT_MODE = "EDITION";
+    const CREATE_MODE = "CREATION";
     /**
      * {@inheritdoc}
      */
@@ -44,6 +46,13 @@ class PrestationType extends AbstractType
                 ],
                 "label_format" => "prices_definition_capitalize",
                 "required" => false));
+
+        if($options['mode'] == self::EDIT_MODE){
+            $builder->add('internalReference', TextType::class, array(
+                "label_format" => "internal_reference_capitalize",
+                "required" => true,
+                "attr" => ["readonly" => true]));
+        }
     }
 
     /**
@@ -52,7 +61,8 @@ class PrestationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AdminBundle\Entity\Prestation'
+            'data_class' => 'AdminBundle\Entity\Prestation',
+            "mode" => self::CREATE_MODE
         ));
     }
 

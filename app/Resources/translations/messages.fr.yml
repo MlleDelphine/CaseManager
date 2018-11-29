@@ -45,6 +45,12 @@ postal_address: adresse postale
 postal_address_capitalize: Adresse postale
 undefined: indéfini
 undefined_capitalize: Indéfini
+brand: marque
+brand_capitalize: Marque
+model: modèle
+model_capitalize: Modèle
+serial_number: n° de série
+serial_number_capitalize: N° de série
 
 no_result_found: Aucun résultat trouvé.
 

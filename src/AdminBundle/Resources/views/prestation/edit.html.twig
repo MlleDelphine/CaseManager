@@ -31,10 +31,18 @@
                     {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                     <div class="form-group">
                         {% if edit_form.name.vars.required %} <span class="required">*</span> {%  endif %}
-                        {{ form_label(edit_form.name, 'Intitulé', {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                             {{ form_errors(edit_form.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if edit_form.internalReference.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(edit_form.internalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(edit_form.internalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.internalReference) }}
                         </div>
                     </div>
                     <div class="item form-group">

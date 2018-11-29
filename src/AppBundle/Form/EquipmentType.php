@@ -22,6 +22,15 @@ class EquipmentType extends AbstractType
             ->add("name", TextType::class, array(
                 "label_format" => "title_capitalize",
                 "required" => true))
+            ->add("brand", TextType::class, array(
+                "label_format" => "brand_capitalize",
+                "required" => false))
+            ->add("model", TextType::class, array(
+                "label_format" => "model_capitalize",
+                "required" => false))
+            ->add("serialNumber", TextType::class, array(
+                "label_format" => "serial_number_capitalize",
+                "required" => false))
             ->add("reference", TextType::class, array(
                 "label_format" => "unique_reference_capitalize",
                 "required" => true))

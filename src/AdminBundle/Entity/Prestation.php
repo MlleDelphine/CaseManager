@@ -80,6 +80,13 @@ class Prestation {
     protected $slug;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="internalReference", type="string", length=255, nullable=true, unique=true)
+     */
+    private $internalReference;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
@@ -182,6 +189,30 @@ class Prestation {
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set internalReference
+     *
+     * @param string $internalReference
+     *
+     * @return Prestation
+     */
+    public function setInternalReference($internalReference)
+    {
+        $this->internalReference = $internalReference;
+
+        return $this;
+    }
+
+    /**
+     * Get internalReference
+     *
+     * @return string
+     */
+    public function getInternalReference()
+    {
+        return $this->internalReference;
     }
 
     /**

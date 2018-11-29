@@ -50,6 +50,42 @@ class Equipment implements ResourceSubjectInterface
      */
     private $reference;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="brand", type="string", length=255, unique=false, nullable=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment"})
+     */
+    private $brand;
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="model", type="string", length=255, unique=false, nullable=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment"})
+     */
+    private $model;
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="serial_number", type="string", length=255, unique=false, nullable=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_equipment"})
+     */
+    private $serialNumber;
+
+
     /**
      * @var string
      *
@@ -177,6 +213,79 @@ class Equipment implements ResourceSubjectInterface
     {
         return $this->reference;
     }
+
+    /**
+     * Set brand
+     *
+     * @param string $brand
+     *
+     * @return Equipment
+     */
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return string
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return Equipment
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set serialNumber
+     *
+     * @param string $serialNumber
+     *
+     * @return Equipment
+     */
+    public function setSerialNumber($serialNumber)
+    {
+        $this->serialNumber = $serialNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get serialNumber
+     *
+     * @return string
+     */
+    public function getSerialNumber()
+    {
+        return $this->serialNumber;
+    }
+
 
     /**
      * Set description
