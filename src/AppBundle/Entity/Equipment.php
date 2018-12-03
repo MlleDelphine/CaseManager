@@ -42,6 +42,15 @@ class Equipment implements ResourceSubjectInterface
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
+     * @ORM\Column(length=128, unique=true)
+     *
+     */
+    protected $slug;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="reference", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      *
@@ -49,7 +58,6 @@ class Equipment implements ResourceSubjectInterface
      * @JMSSer\Groups({"admin_export_equipment"})
      */
     private $reference;
-
 
     /**
      * @var string
@@ -61,8 +69,6 @@ class Equipment implements ResourceSubjectInterface
      */
     private $brand;
 
-
-
     /**
      * @var string
      *
@@ -72,8 +78,6 @@ class Equipment implements ResourceSubjectInterface
      * @JMSSer\Groups({"admin_export_equipment"})
      */
     private $model;
-
-
 
     /**
      * @var string
@@ -106,15 +110,6 @@ class Equipment implements ResourceSubjectInterface
      * @JMSSer\Groups({"admin_export_equipment"})
      */
     private $working;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
-     * @ORM\Column(length=128, unique=true)
-     *
-     */
-    protected $slug;
 
     /**
      * @var ArrayCollection
