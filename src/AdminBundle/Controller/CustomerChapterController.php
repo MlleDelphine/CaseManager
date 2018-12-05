@@ -3,8 +3,12 @@
 namespace AdminBundle\Controller;
 
 use AdminBundle\Entity\CustomerChapter;
+use AdminBundle\Form\CustomerChapterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Customerchapter controller.
@@ -22,7 +26,7 @@ class CustomerChapterController extends Controller
 
         $customerChapters = $em->getRepository('AdminBundle:CustomerChapter')->findAll();
 
-        return $this->render('customerchapter/index.html.twig', array(
+        return $this->render('AdminBundle:customerchapter:index.html.twig', array(
             'customerChapters' => $customerChapters,
         ));
     }
@@ -34,7 +38,7 @@ class CustomerChapterController extends Controller
     public function newAction(Request $request)
     {
         $customerChapter = new Customerchapter();
-        $form = $this->createForm('AdminBundle\Form\CustomerChapterType', $customerChapter);
+        $form = $this->createForm(CustomerChapterType::class, $customerChapter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,10 +46,10 @@ class CustomerChapterController extends Controller
             $em->persist($customerChapter);
             $em->flush();
 
-            return $this->redirectToRoute('customerchapter_show', array('id' => $customerChapter->getId()));
+            return $this->redirectToRoute('customer_chapter_show', array("slug" => $customerChapter->getSlug()));
         }
 
-        return $this->render('customerchapter/new.html.twig', array(
+        return $this->render('AdminBundle:customerchapter:new.html.twig', array(
             'customerChapter' => $customerChapter,
             'form' => $form->createView(),
         ));
@@ -59,7 +63,7 @@ class CustomerChapterController extends Controller
     {
         $deleteForm = $this->createDeleteForm($customerChapter);
 
-        return $this->render('customerchapter/show.html.twig', array(
+        return $this->render('AdminBundle:customerchapter:show.html.twig', array(
             'customerChapter' => $customerChapter,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -69,21 +73,35 @@ class CustomerChapterController extends Controller
      * Displays a form to edit an existing customerChapter entity.
      * @param Request $request
      * @param CustomerChapter $customerChapter
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response|JsonResponse
      */
     public function editAction(Request $request, CustomerChapter $customerChapter)
     {
+        if ($request->isMethod('PUT')) {
+            $em = $this->getDoctrine()->getManager();
+            $originalName = $customerChapter->getName();
+            $name = $request->get("customer_chapter_name");
+            if($name){
+                $customerChapter->setName($name);
+                $em->persist($customerChapter);
+                $em->flush();
+                $newEditRoute = $this->generateUrl("customer_chapter_edit", ["slug" => $customerChapter->getSlug()]);
+                return new JsonResponse(["slug" => $newEditRoute, "msg" => "Le chapitre \"$originalName\" a bien été renommé en \"$name\"."]);
+            }
+            return new JsonResponse(["msg" => "Le renommage du chapitre \"$originalName\" a échoué."], 400);
+        }
+
         $deleteForm = $this->createDeleteForm($customerChapter);
-        $editForm = $this->createForm('AdminBundle\Form\CustomerChapterType', $customerChapter);
+        $editForm = $this->createForm(CustomerChapterType::class, $customerChapter);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('customerchapter_edit', array('id' => $customerChapter->getId()));
+            return $this->redirectToRoute('customer_chapter_edit', array("slug" => $customerChapter->getSlug()));
         }
 
-        return $this->render('customerchapter/edit.html.twig', array(
+        return $this->render('AdminBundle:customerchapter:edit.html.twig', array(
             'customerChapter' => $customerChapter,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -105,7 +123,7 @@ class CustomerChapterController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('customerchapter_index');
+        return $this->redirectToRoute('customer_chapter_index');
     }
 
     /**
@@ -118,7 +136,7 @@ class CustomerChapterController extends Controller
     private function createDeleteForm(CustomerChapter $customerChapter)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customerchapter_delete', array('id' => $customerChapter->getId())))
+            ->setAction($this->generateUrl('customer_chapter_delete', array("slug" => $customerChapter->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
         ;

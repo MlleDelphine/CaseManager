@@ -202,15 +202,13 @@ span.required{
     color: #880000;
 }
 
-/*1px solid #ccc*/
 /* Changes on a moved to form if a is encapsulated in a form */
 .nav-tabs > li.active form, .nav-tabs > li.active form:focus, .nav-tabs > li.active form:hover {
     color: #555;
     cursor: default;
     background-color: #fff;
     border: 1px solid #ddd;
-    /*border-bottom-color: rgb(221, 221, 221);*/
-    border-bottom: 2px transparent;
+    border-bottom: 0px solid transparent;
 }
 
 /* Cancelling border on a if a encapsulated in a form because form has border changes */
@@ -218,8 +216,6 @@ span.required{
     color: #555;
     cursor: default;
     background-color: #fff;
-    /*border: 1px solid #ddd;*/
-    /*border-bottom-color: rgb(221, 221, 221);*/
     border-bottom-color: transparent;
 }
 
@@ -228,8 +224,6 @@ span.required{
     color: #555;
     cursor: default;
     background-color: #fff;
-    /*border: 1px solid #ddd;*/
-    /*border-bottom-color: rgb(221, 221, 221);*/
     border-bottom-color: transparent;
 }
 
@@ -257,4 +251,24 @@ ul.bar_tabs > li > form a:hover {
 
 ul.bar_tabs > li:not(active) > form:hover, ul.bar_tabs > li:not(active) > form> a > input:hover {
 cursor: pointer;
+}
+
+/** LEFT TABS **/
+.tabs-left > li.active > form, .tabs-left > li.active > form:focus, .tabs-left > li.active > form:hover {
+    border-bottom: 1px solid #F7F7F7;
+    border-right-color: transparent;
+}
+
+.tabs-left > li > form, .tabs-right > li > form {
+    margin-right: 0;
+    background: rgb(247, 247, 247);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tabs-left > li > form {
+    border-radius: 4px 0 0 4px;
+    padding: 13px 15px 12px;
+}
+ul.tabs-left > li:not(active) > form:hover, ul.tabs-left > li:not(active) > form > a > input:hover {
+    cursor: pointer;
 }

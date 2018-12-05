@@ -17,7 +17,7 @@ customer_chapter_new:
 customer_chapter_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:CustomerChapter:edit" }
-    methods:  [GET, POST]
+    methods:  [GET, POST, PUT]
     host: "%casemanager_admin_url%"
 
 customer_chapter_delete:

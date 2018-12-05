@@ -70,9 +70,16 @@
                                             {% set isActive = "" %}
                                         {% endif %}
                                         <li class="{{ isActive }}">
-                                            <a href="#{{ customerChapter.slug }}" data-toggle="tab" style="font-weight: bold;">
-                                                {{ customerChapter }}
-                                            </a>
+                                            {#<a href="#{{ customerChapter.slug }}" data-toggle="tab" style="font-weight: bold;">#}
+                                                {#{{ customerChapter }}#}
+                                            {#</a>#}
+
+                                            <form class="chapter-name-form" method="PUT" action="{{ path('customer_chapter_edit', {"slug": customerChapter.slug}) }}">
+                                                <a href="#{{ customerChapter.slug }}" id="{{ customerChapter.slug }}-tab" role="tab" data-toggle="tab" aria-expanded="true" style="font-weight: bold;">
+                                                    <input style="border:none; background: transparent; width: 100%;" class="edit-customer-chapter-name" type="text" required=required name="customer_chapter_name" data-slug="{{ customerChapter.slug }}" value="{{ customerChapter.name }}">
+                                                </a>
+                                                <input style="display: none;" type="submit"/>
+                                            </form>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -86,8 +93,7 @@
                                         {% else %}
                                             {% set isActive = "" %}
                                         {% endif %}
-                                        <div class="tab-pane {{ isActive }}" id="{{ customerChapter.slug }}">
-
+                                        <div role="tabpanel" class="tab-pane {{ isActive }}" id="{{ customerChapter.slug }}">
                                             <ul class="stats-overview" style="min-height: 49px;">
                                                 <li>
                                                     <a class="btn btn-sm btn-info btn-li" href="{{ path("customer_chapter_edit",{ "slug": customerChapter.slug}) }}"><i class="fa fa-edit"></i> {{ "modify"|trans|capitalize }} {{ "the_customer_chapter"|trans }}</a>
@@ -100,8 +106,8 @@
                                                 </li>
                                             </ul>
 
-
                                             Articles of {{ customerChapter.slug }}
+
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -132,11 +138,10 @@
 {% endblock %}
 {% block plain_js_bundle %}
     <script type="application/javascript">
-        /**
-         * Launch collection function
-         */
         $(document).ready(function() {
-
+            /**
+             * Edit dynamically SERIAL name
+             */
             $("form.serial-name-form").on("submit", function(e){
                 e.preventDefault();
                 e.stopPropagation();
@@ -168,13 +173,64 @@
                         new PNotify({
                             title: '{{ 'failed_edit'|trans }}',
                             text: 'Oh No! '+request.responseText,
-                            type: 'info',
-                            styling: 'bootstrap3',
-                            addclass: 'dark'
+                            type: 'error',
+                            styling: 'bootstrap3'
                         });
                     }
                 });
             });
+            /**
+             * Edit dynamically CHAPTER name
+             */
+            $("form.chapter-name-form").on("submit", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                $form = $(this);
+                var data = $form.serializeArray();
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    dataType: "json", //response format
+                    data: data,
+                    beforeSend: function () {
+                        $('#ajax-spinner').show();
+                    },
+                    complete: function () {
+                        $('#ajax-spinner').hide("slow");
+                    },
+                    success: function (jsonData) {
+                        new PNotify({
+                            title: '{{ 'successfully_edit'|trans }}',
+                            text: jsonData.msg,
+                            type: 'success',
+                            styling: 'bootstrap3'
+                        });
+                        $form.attr("action", jsonData.slug);
+                        console.log("Everything is ok json");
+                    },
+                    error: function(request, status, error){
+                        new PNotify({
+                            title: '{{ 'failed_edit'|trans }}',
+                            text: 'Oh zut ! <br>'+request.responseJSON.msg,
+                            type: 'error',
+                            styling: 'bootstrap3'
+                        });
+                    }
+                });
+            });
+
+            /**
+             *
+             */
+            $("input").on("click", function(){
+                $(this).trigger("blur");
+            });
+
+            $("input").on("dblclick", function(){
+                var val = $(this).val();
+                $(this).focus().val('').val(val);
+            })
 
         });
     </script>

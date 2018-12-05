@@ -100,7 +100,6 @@ class CustomerSerialController extends Controller
      */
     public function editAction(Request $request, CustomerSerial $customerSerial)
     {
-
         if ($request->isMethod('PUT')) {
             $em = $this->getDoctrine()->getManager();
             $originalName = $customerSerial->getName();
@@ -114,8 +113,9 @@ class CustomerSerialController extends Controller
             }
             return new JsonResponse(["msg" => "Le renommage de la série \"$originalName\" a échoué"], 400);
         }
+
         $deleteForm = $this->createDeleteForm($customerSerial);
-        $editForm = $this->createForm('AdminBundle\Form\CustomerSerialType', $customerSerial);
+        $editForm = $this->createForm(CustomerSerialType::class, $customerSerial);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
