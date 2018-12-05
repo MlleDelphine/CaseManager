@@ -53,6 +53,8 @@ serial_number: n° de série
 serial_number_capitalize: N° de série
 
 no_result_found: Aucun résultat trouvé.
+successfully_edit: "Modification réussie"
+failed_edit: "Echec de la modification"
 
 status: statut
 statuses: statuts
@@ -99,6 +101,7 @@ all_users: tous les utilisateurs
 users_management: gestion utilisateurs
 catalog_management: gestion du catalogue
 resources_management: gestion des ressources
+manage_resources: gérer les ressources
 customers_management: gestion des clients
 business_management: gestion des affaires
 
@@ -249,6 +252,29 @@ all_prestations: toutes les prestations
 prestation: prestation
 a_prestation: une prestation
 some_prestations: des prestations
+
+customer_serials_capitalize: Séries
+customer_serials: séries
+all_customer_serials: toutes les séries
+customer_serial: série
+a_customer_serial: une série
+some_customer_serials: des séries
+
+customer_chapters_capitalize: Chapitres
+customer_chapters: chapitres
+all_customer_chapters: tous les chapitres
+customer_chapter: chapitre
+a_customer_chapter: un chapitre
+the_customer_chapter: le chapitre
+some_customer_chapters: des chapitres
+
+customer_articles_capitalize: Chapitres
+customer_articles: articles
+all_customer_articles: tous les articles
+customer_article: article
+a_customer_article: un article
+the_customer_article: le article
+some_customer_articles: des articles
 
 rates_capitalize: Taux
 rates: taux

@@ -66,7 +66,7 @@ class PrestationController extends Controller
             $em->persist($prestation);
             $em->flush();
 
-            return $this->redirectToRoute('work_site_type_index');
+            return $this->redirectToRoute('prestation_index');
         }
 
         return $this->render('AdminBundle:prestation:new.html.twig', array(
@@ -105,7 +105,7 @@ class PrestationController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('work_site_type_index');
+            return $this->redirectToRoute('prestation_index');
         }
 
         return $this->render('AdminBundle:prestation:edit.html.twig', array(
@@ -142,7 +142,7 @@ class PrestationController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('work_site_type_index');
+        return $this->redirectToRoute('prestation_index');
     }
 
     /**
@@ -154,7 +154,7 @@ class PrestationController extends Controller
     private function createDeleteForm(Prestation $prestation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('work_site_type_delete', array('slug' => $prestation->getSlug())))
+            ->setAction($this->generateUrl('prestation_delete', array('slug' => $prestation->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
         ;

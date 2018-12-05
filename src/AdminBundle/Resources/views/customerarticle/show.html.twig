@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Customerarticle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ customerArticle.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ customerArticle.name }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ customerArticle.designation }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ customerArticle.color }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ customerArticle.slug }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ customerArticle.reference }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if customerArticle.created %}{{ customerArticle.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if customerArticle.updated %}{{ customerArticle.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('customerarticle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('customerarticle_edit', { 'id': customerArticle.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

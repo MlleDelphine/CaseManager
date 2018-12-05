@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Unittimepoints list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Unit</th>
+                <th>Unitarypoint</th>
+                <th>Fromdate</th>
+                <th>Untildate</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unitTimePoint in unitTimePoints %}
+            <tr>
+                <td><a href="{{ path('unittimepoint_show', { 'id': unitTimePoint.id }) }}">{{ unitTimePoint.id }}</a></td>
+                <td>{{ unitTimePoint.unit }}</td>
+                <td>{{ unitTimePoint.unitaryPoint }}</td>
+                <td>{% if unitTimePoint.fromDate %}{{ unitTimePoint.fromDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if unitTimePoint.untilDate %}{{ unitTimePoint.untilDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if unitTimePoint.created %}{{ unitTimePoint.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if unitTimePoint.updated %}{{ unitTimePoint.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('unittimepoint_show', { 'id': unitTimePoint.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('unittimepoint_edit', { 'id': unitTimePoint.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('unittimepoint_new') }}">Create a new unitTimePoint</a>
+        </li>
+    </ul>
+{% endblock %}

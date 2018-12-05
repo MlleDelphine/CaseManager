@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="">{{ "catalog_management"|trans|capitalize }}</li>
+    <li class="active">{{ "all_customer_serials"|trans|capitalize|capitalize }}</li>
+{% endblock %}
+
+{% block page_title %}{{ "all_customer_serials"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block title %}{{ "all_customer_serials"|trans|capitalize|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-lightbulb-o"></i> {{ "all_customer_serials"|trans|capitalize }}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button id="import-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                            <i class="fa fa-upload" aria-hidden="true"></i> {{ "import_verb"|trans|capitalize }}
+                        </button>
+                    </li>
+                    <li>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('customer_serial_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                    </li>
+                    <li class="inherit-li">
+                        <a class="btn btn-success btn-li" href="{{ path("customer_serial_new") }}"><i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "a_customer_serial"|trans }}</a>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div id="all-customer-serials" class="x_content container">
+                <ul id="customerCatalogTab" class="nav nav-tabs bar_tabs" role="tablist">
+                    {% for customerSerial in customerSerials %}
+                        {% if loop.first %}
+                            {% set isActive = "active" %}
+                        {% else %}
+                            {% set isActive = "" %}
+                        {% endif %}
+                        <li role="presentation" class="{{ isActive }}">
+                            <form class="serial-name-form" method="PUT" action="{{ path('customer_serial_edit', {"slug": customerSerial.slug}) }}">
+                                <a href="#tab_serial{{ customerSerial.id }}" id="{{ customerSerial.slug }}-tab" role="tab" data-toggle="tab" aria-expanded="true">
+                                    <input style="border:none; background: transparent; width: auto;" class="edit-customer-serial-name" type="text" required=required name="customer_serial_name" data-slug="{{ customerSerial.slug }}" value="{{ customerSerial.name }}">
+                                </a>
+                                <input style="display: none;" type="submit"/>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div id="customerCatalogTabContent" class="tab-content">
+                    {% for customerSerial in customerSerials %}
+                        {% if loop.first %}
+                            {% set isFirstSerial = true %}
+                            {% set isActive = "active in" %}
+                        {% else %}
+                            {% set isActive = "" %}
+                            {% set isFirstSerial = false %}
+                        {% endif %}
+                        <div role="tabpanel" class="tab-pane fade {{ isActive }}" id="tab_serial{{ customerSerial.id }}" aria-labelledby="{{ customerSerial.slug }}-tab">
+                            <div class="col-xs-2">
+                                <ul class="nav nav-tabs tabs-left">
+                                    {% for customerChapter in customerSerial.customerChapters %}
+                                        {% if loop.first %}
+                                            {% set isActive = "active" %}
+                                        {% else %}
+                                            {% set isActive = "" %}
+                                        {% endif %}
+                                        <li class="{{ isActive }}">
+                                            <a href="#{{ customerChapter.slug }}" data-toggle="tab" style="font-weight: bold;">
+                                                {{ customerChapter }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-xs-10">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    {% for customerChapter in customerSerial.customerChapters %}
+                                        {% if loop.first %}
+                                            {% set isActive = "active" %}
+                                        {% else %}
+                                            {% set isActive = "" %}
+                                        {% endif %}
+                                        <div class="tab-pane {{ isActive }}" id="{{ customerChapter.slug }}">
+
+                                            <ul class="stats-overview" style="min-height: 49px;">
+                                                <li>
+                                                    <a class="btn btn-sm btn-info btn-li" href="{{ path("customer_chapter_edit",{ "slug": customerChapter.slug}) }}"><i class="fa fa-edit"></i> {{ "modify"|trans|capitalize }} {{ "the_customer_chapter"|trans }}</a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-sm btn-gold btn-li" href="{{ path("customer_serial_new") }}"><i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "some_customer_articles"|trans }}</a>
+                                                </li>
+                                                <li class="hidden-phone">
+                                                    <a class="btn btn-sm btn-success btn-li" href="{{ path("customer_serial_new") }}"><i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "a_customer_serial"|trans }}</a>
+                                                </li>
+                                            </ul>
+
+
+                                            Articles of {{ customerChapter.slug }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    {% include  ":common:import_modal.html.twig" with { "action_path": "customer_serial_index", "object_title": "some_customer_serials", "error": error } %}
+    <!-- Delete Modal -->
+    {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
+{% endblock %}
+
+{% block custom_javascripts %}
+    {{ parent() }}
+    {% if error %}
+        $(document).ready(function(){
+        $("#import-btn").trigger("click");
+        });
+    {% endif %}
+
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "customer_serial_delete" } %}
+{% endblock %}
+{% block plain_js_bundle %}
+    <script type="application/javascript">
+        /**
+         * Launch collection function
+         */
+        $(document).ready(function() {
+
+            $("form.serial-name-form").on("submit", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                $form = $(this);
+                var data = $form.serializeArray();
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    dataType: "json", //response format
+                    data: data,
+                    beforeSend: function () {
+                        $('#ajax-spinner').show();
+                    },
+                    complete: function () {
+                        $('#ajax-spinner').hide("slow");
+                    },
+                    success: function (jsonData) {
+                        new PNotify({
+                            title: '{{ 'successfully_edit'|trans }}',
+                            text: jsonData.msg,
+                            type: 'success',
+                            styling: 'bootstrap3'
+                        });
+                        $form.attr("action", jsonData.slug);
+                        console.log("Everything is ok json");
+                    },
+                    error: function(request, status, error){
+                        new PNotify({
+                            title: '{{ 'failed_edit'|trans }}',
+                            text: 'Oh No! '+request.responseText,
+                            type: 'info',
+                            styling: 'bootstrap3',
+                            addclass: 'dark'
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+{% endblock %}

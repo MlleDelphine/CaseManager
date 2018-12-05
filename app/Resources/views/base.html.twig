@@ -17,7 +17,7 @@
 
     {#<!-- BS File input CSS -->#}
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-fileinput/css/fileinput.min.css') }}"  />
-    <!-- GRID CSS -->
+    <!-- FORM inputs + GRID CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/r-2.2.1/datatables.min.css"/>
@@ -26,6 +26,11 @@
     <link rel="stylesheet" href="{{ asset('vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/select2/dist/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/iCheck/skins/flat/_all.css') }}" />
+
+    {# <!--- PNotify CSS --->#}
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/pnotify/dist/pnotify.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/pnotify/dist/pnotify.buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/gentelella/vendors/pnotify/dist/pnotify.nonblock.css') }}">
 
     {#<!-- Original GentellelaTheme Style -->#}
     <link rel="stylesheet" href="{{ asset('vendor/gentelella/build/css/custom.min.css') }}">
@@ -105,6 +110,11 @@
     'vendor/gentelella/vendors/parsleyjs/dist/parsley.min.js'
     'vendor/tinymce/jquery.tinymce.min.js'
     'vendor/symfony-collection/jquery.collection.js'
+    'vendor/gentelella/vendors/pnotify/dist/pnotify.js'
+    'vendor/gentelella/vendors/pnotify/dist/pnotify.animate.js'
+    'vendor/gentelella/vendors/pnotify/dist/pnotify.confirm.js'
+    'vendor/gentelella/vendors/pnotify/dist/pnotify.buttons.js'
+    'vendor/gentelella/vendors/pnotify/dist/pnotify.tooltip.js'
 
 %}
     <script src="{{ asset_url }}"></script>

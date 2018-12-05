@@ -21,10 +21,10 @@
                         </button>
                     </li>
                     <li>
-                        <a type="button" class="btn btn-warning btn-li" href="{{ path('work_site_type_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
+                        <a type="button" class="btn btn-warning btn-li" href="{{ path('prestation_export_all') }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_all"|trans|capitalize }}</a>
                     </li>
                     <li class="inherit-li">
-                        <a class="btn btn-success btn-li" href="{{ path("work_site_type_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
+                        <a class="btn btn-success btn-li" href="{{ path("prestation_new") }}"><i class="fa fa-plus"></i> {{ "addition"|trans|capitalize }}</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -65,8 +65,8 @@
                                             <td>{% if prestation.created %}{{ prestation.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>{% if prestation.updated %}{{ prestation.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('work_site_type_edit', { 'slug': prestation.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('work_site_type_export', { 'slug': prestation.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-info" href="{{ path('prestation_edit', { 'slug': prestation.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ path('prestation_export', { 'slug': prestation.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
                                                 <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ prestation.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
                                                 </button>
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Import Modal -->
-    {% include  ":common:import_modal.html.twig" with { "action_path": "work_site_type_index", "object_title": "some_prestations", "error": error } %}
+    {% include  ":common:import_modal.html.twig" with { "action_path": "prestation_index", "object_title": "some_prestations", "error": error } %}
     <!-- Delete Modal -->
     {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
 {% endblock %}
@@ -98,5 +98,5 @@
         });
     {% endif %}
 
-    {% include ":common:delete_pop_up.js.twig" with { "routeName": "work_site_type_delete" } %}
+    {% include ":common:delete_pop_up.js.twig" with { "routeName": "prestation_delete" } %}
 {% endblock %}

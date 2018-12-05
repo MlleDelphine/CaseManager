@@ -6,20 +6,20 @@
 
 {% block breadcrumb %}
     <li class="">{{ "catalog_management"|trans|capitalize }}</li>
-    <li class=""><a href="{{ path('prestation_index') }}">{{ "all_prestations"|trans|capitalize }}</a></li>
+    <li class=""><a href="{{ path('customer_serial_index') }}">{{ "all_customer_serials"|trans|capitalize }}</a></li>
     <li class="active">{{ "addition"|trans|capitalize }}</li>
 {% endblock %}
 
-{% block page_title %}{{ "creation_of_prestation"|trans|capitalize }}{% endblock %}
+{% block page_title %}{{ "creation_of_customer_serial"|trans|capitalize }}{% endblock %}
 
-{% block title %}{{ "creation_of_prestation"|trans|capitalize }}{% endblock %}
+{% block title %}{{ "creation_of_customer_serial"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>{{ "create"|trans|capitalize }} {{ "a_prestation"|trans }}</h2>
+                    <h2>{{ "create"|trans|capitalize }} {{ "a_customer_serial"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -37,35 +37,18 @@
                             {{ form_errors(form.name) }}
                         </div>
                     </div>
-                    <div class="item form-group">
-                        {{ form_label(form.description, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        {% if form.description.vars.required %} <span class="required">*</span> {%  endif %}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(form.description) }}
-                        </div>
-                    </div>
                     <div class="form-group">
-                        {{ form_label(form.color, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        {% if form.color.vars.required %} <span class="required">*</span> {%  endif %}
-                        <div class="col-md-6 col-sm-6 col-xs-12 color-picker input-group" style="padding-right: 10px; padding-left: 10px">
-                            {{ form_widget(form.color, {"attr": {"class": "form-control"}}) }}
-                            <span class="input-group-addon"><i></i></span>
-                            {{ form_errors(form.color) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.unitTimePrices, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        {% if form.unitTimePrices.vars.required %} <span class="required">*</span> {%  endif %}
+                        {{ form_label(form.customerChapters, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {% if form.customerChapters.vars.required %} <span class="required">*</span> {%  endif %}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(form.unitTimePrices) }}
-                            {{ form_errors(form.unitTimePrices) }}
+                            {{ form_widget(form.customerChapters) }}
+                            {{ form_errors(form.customerChapters) }}
                         </div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('prestation_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <a href="{{ path('customer_serial_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
                             <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>{{ "create"|trans|capitalize }}</button>
                         </div>
                     </div>
@@ -96,10 +79,10 @@
                 allow_down: false,
                 allow_add: true,
                 allow_remove: true,
-                min: 1,
+                min: 0,
                 // max: 200,
-                add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-                remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
+                add: '<a href="#" class="collection-add btn btn-sm btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                remove: '<a href="#" class="collection-remove btn btn-sm btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
             });
         });
     </script>

@@ -1,0 +1,27 @@
+customer_chapter_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:CustomerChapter:index" }
+    methods: [GET, POST]
+
+customer_chapter_show:
+    path:     /{slug}/show
+    defaults: { _controller: "AdminBundle:CustomerChapter:show" }
+    methods:  GET
+
+customer_chapter_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:CustomerChapter:new" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+customer_chapter_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AdminBundle:CustomerChapter:edit" }
+    methods:  [GET, POST]
+    host: "%casemanager_admin_url%"
+
+customer_chapter_delete:
+    path:     /{slug}/delete
+    defaults: { _controller: "AdminBundle:CustomerChapter:delete" }
+    methods:  DELETE
+    host: "%casemanager_admin_url%"

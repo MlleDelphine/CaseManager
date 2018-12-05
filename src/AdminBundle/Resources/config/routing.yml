@@ -3,7 +3,7 @@ admin_homepage:
     defaults: { _controller: AdminBundle:Default:index }
     host: "%casemanager_admin_url%"
 
-admin_work_site_type:
+admin_prestation:
     resource: "@AdminBundle/Resources/config/routing/prestation.yml"
     prefix: /prestation
 #    host: "%casemanager_admin_url%"
@@ -11,4 +11,21 @@ admin_work_site_type:
 admin_rate:
     resource: "@AdminBundle/Resources/config/routing/rate.yml"
     prefix: /rate
+
+customer_serial:
+    resource: "@AdminBundle/Resources/config/routing/customerserial.yml"
+    prefix: /customer-serial
 #    host: "%casemanager_admin_url%"
+
+customer_chapter:
+    resource: "@AdminBundle/Resources/config/routing/customerchapter.yml"
+    prefix: /customer-chapter
+
+customer_article:
+    resource: "@AdminBundle/Resources/config/routing/customerarticle.yml"
+    prefix: /customer-article
+
+unit_time_point:
+    resource: "@AdminBundle/Resources/config/routing/unittimepoint.yml"
+    prefix: /unit-time-point
+

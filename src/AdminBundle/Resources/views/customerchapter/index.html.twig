@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Customerchapters list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customerChapter in customerChapters %}
+            <tr>
+                <td><a href="{{ path('customerchapter_show', { 'id': customerChapter.id }) }}">{{ customerChapter.id }}</a></td>
+                <td>{{ customerChapter.name }}</td>
+                <td>{{ customerChapter.slug }}</td>
+                <td>{% if customerChapter.created %}{{ customerChapter.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if customerChapter.updated %}{{ customerChapter.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('customerchapter_show', { 'id': customerChapter.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('customerchapter_edit', { 'id': customerChapter.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('customerchapter_new') }}">Create a new customerChapter</a>
+        </li>
+    </ul>
+{% endblock %}

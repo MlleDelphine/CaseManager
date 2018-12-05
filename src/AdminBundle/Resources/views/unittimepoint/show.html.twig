@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Unittimepoint</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ unitTimePoint.id }}</td>
+            </tr>
+            <tr>
+                <th>Unit</th>
+                <td>{{ unitTimePoint.unit }}</td>
+            </tr>
+            <tr>
+                <th>Unitarypoint</th>
+                <td>{{ unitTimePoint.unitaryPoint }}</td>
+            </tr>
+            <tr>
+                <th>Fromdate</th>
+                <td>{% if unitTimePoint.fromDate %}{{ unitTimePoint.fromDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Untildate</th>
+                <td>{% if unitTimePoint.untilDate %}{{ unitTimePoint.untilDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if unitTimePoint.created %}{{ unitTimePoint.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if unitTimePoint.updated %}{{ unitTimePoint.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('unittimepoint_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('unittimepoint_edit', { 'id': unitTimePoint.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

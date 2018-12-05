@@ -203,3 +203,58 @@ span.required{
 }
 
 /*1px solid #ccc*/
+/* Changes on a moved to form if a is encapsulated in a form */
+.nav-tabs > li.active form, .nav-tabs > li.active form:focus, .nav-tabs > li.active form:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    /*border-bottom-color: rgb(221, 221, 221);*/
+    border-bottom: 2px transparent;
+}
+
+/* Cancelling border on a if a encapsulated in a form because form has border changes */
+.nav-tabs > li.active > form > a, .nav-tabs > li.active > form > a:focus, .nav-tabs > li.active > form > a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    /*border: 1px solid #ddd;*/
+    /*border-bottom-color: rgb(221, 221, 221);*/
+    border-bottom-color: transparent;
+}
+
+/* Cancelling border on input if input encapsulated in a form > a because form has border changes */
+.nav-tabs > li.active input, .nav-tabs > li.active input:focus, .nav-tabs > li.active input:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    /*border: 1px solid #ddd;*/
+    /*border-bottom-color: rgb(221, 221, 221);*/
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li form {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+ul.bar_tabs > li.active a{
+    border-bottom: inherit;
+}
+
+ul.bar_tabs > li form {
+    padding: 9px 17px;
+    background: #F5F7FA;
+    margin: 0;
+    border-top-right-radius: 0;
+}
+
+ul.bar_tabs > li > form a:hover {
+    border: none;
+}
+
+ul.bar_tabs > li:not(active) > form:hover, ul.bar_tabs > li:not(active) > form> a > input:hover {
+cursor: pointer;
+}

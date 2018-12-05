@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Customerarticles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Color</th>
+                <th>Slug</th>
+                <th>Reference</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customerArticle in customerArticles %}
+            <tr>
+                <td><a href="{{ path('customerarticle_show', { 'id': customerArticle.id }) }}">{{ customerArticle.id }}</a></td>
+                <td>{{ customerArticle.name }}</td>
+                <td>{{ customerArticle.designation }}</td>
+                <td>{{ customerArticle.color }}</td>
+                <td>{{ customerArticle.slug }}</td>
+                <td>{{ customerArticle.reference }}</td>
+                <td>{% if customerArticle.created %}{{ customerArticle.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if customerArticle.updated %}{{ customerArticle.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('customerarticle_show', { 'id': customerArticle.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('customerarticle_edit', { 'id': customerArticle.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('customerarticle_new') }}">Create a new customerArticle</a>
+        </li>
+    </ul>
+{% endblock %}

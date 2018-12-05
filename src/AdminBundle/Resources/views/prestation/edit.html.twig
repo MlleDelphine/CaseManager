@@ -6,7 +6,7 @@
 
 {% block breadcrumb %}
     <li class="">{{ "catalog_management"|trans|capitalize }}</li>
-    <li class=""><a href="{{ path('work_site_type_index') }}">{{ "all_prestations"|trans|capitalize }}</a></li>
+    <li class=""><a href="{{ path('prestation_index') }}">{{ "all_prestations"|trans|capitalize }}</a></li>
     <li class="active">{{ "modify"|trans|capitalize }}</li>
 {% endblock %}
 
@@ -73,7 +73,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('work_site_type_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
+                            <a href="{{ path('prestation_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
                             <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "modify"|trans|capitalize }}</button>
                         </div>
                     </div>

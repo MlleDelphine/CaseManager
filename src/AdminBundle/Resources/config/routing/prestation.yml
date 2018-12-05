@@ -1,26 +1,26 @@
-work_site_type_index:
+prestation_index:
     path:     /
     defaults: { _controller: "AdminBundle:Prestation:index" }
     methods:   [GET, POST]
 
-work_site_type_show:
+prestation_show:
     path:     /{slug}/show
     defaults: { _controller: "AdminBundle:Prestation:show" }
     methods:  GET
 
-work_site_type_new:
+prestation_new:
     path:     /new
     defaults: { _controller: "AdminBundle:Prestation:new" }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
 
-work_site_type_edit:
+prestation_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:Prestation:edit" }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
 
-work_site_type_delete:
+prestation_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AdminBundle:Prestation:delete" }
     methods:  DELETE
@@ -28,10 +28,10 @@ work_site_type_delete:
         expose: true
     host: "%casemanager_admin_url%"
 
-work_site_type_export:
+prestation_export:
     path: /export/{slug}
     defaults: { _controller: "AdminBundle:Prestation:exportPrestation" }
 
-work_site_type_export_all:
+prestation_export_all:
     path: /export
     defaults: { _controller: "AdminBundle:Prestation:exportAllPrestation" }
