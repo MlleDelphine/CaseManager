@@ -34,17 +34,17 @@
                 <div class="clearfix"></div>
             </div>
             <div id="all-customer-serials" class="x_content container">
-                <ul id="customerCatalogTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <ul id="customerCatalogTab" class="nav nav-tabs bar_tabs bar_tabs_olive_green" role="tablist">
                     {% for customerSerial in customerSerials %}
                         {% if loop.first %}
                             {% set isActive = "active" %}
                         {% else %}
                             {% set isActive = "" %}
                         {% endif %}
-                        <li role="presentation" class="{{ isActive }}">
+                        <li role="presentation" class="medium-tab {{ isActive }}">
                             <form class="serial-name-form" method="PUT" action="{{ path('customer_serial_edit', {"slug": customerSerial.slug}) }}">
                                 <a href="#tab_serial{{ customerSerial.id }}" id="{{ customerSerial.slug }}-tab" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <input style="border:none; background: transparent; width: auto;" class="edit-customer-serial-name" type="text" required=required name="customer_serial_name" data-slug="{{ customerSerial.slug }}" value="{{ customerSerial.name }}">
+                                    <input style="border:none; background: transparent; width: 100%;" class="edit-customer-serial-name" type="text" required=required name="customer_serial_name" data-slug="{{ customerSerial.slug }}" value="{{ customerSerial.name }}">
                                 </a>
                                 <input style="display: none;" type="submit"/>
                             </form>
@@ -70,10 +70,6 @@
                                             {% set isActive = "" %}
                                         {% endif %}
                                         <li class="{{ isActive }}">
-                                            {#<a href="#{{ customerChapter.slug }}" data-toggle="tab" style="font-weight: bold;">#}
-                                                {#{{ customerChapter }}#}
-                                            {#</a>#}
-
                                             <form class="chapter-name-form" method="PUT" action="{{ path('customer_chapter_edit', {"slug": customerChapter.slug}) }}">
                                                 <a href="#{{ customerChapter.slug }}" id="{{ customerChapter.slug }}-tab" role="tab" data-toggle="tab" aria-expanded="true" style="font-weight: bold;">
                                                     <input style="border:none; background: transparent; width: 100%;" class="edit-customer-chapter-name" type="text" required=required name="customer_chapter_name" data-slug="{{ customerChapter.slug }}" value="{{ customerChapter.name }}">
@@ -94,20 +90,24 @@
                                             {% set isActive = "" %}
                                         {% endif %}
                                         <div role="tabpanel" class="tab-pane {{ isActive }}" id="{{ customerChapter.slug }}">
-                                            <ul class="stats-overview" style="min-height: 49px;">
+                                            <ul class="stats-overview dark-green-borders" style="min-height: 49px;">
                                                 <li>
-                                                    <a class="btn btn-sm btn-info btn-li" href="{{ path("customer_chapter_edit",{ "slug": customerChapter.slug}) }}"><i class="fa fa-edit"></i> {{ "modify"|trans|capitalize }} {{ "the_customer_chapter"|trans }}</a>
+                                                    <button class="btn btn-sm btn-info btn-li add-customer-chapters" data-toggle="modal" data-target="#addChapterModal" data-slug="{{ customerSerial.slug }}">
+                                                        <i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "a_customer_chapter"|trans }}
+                                                    </button>
                                                 </li>
                                                 <li>
-                                                    <a class="btn btn-sm btn-gold btn-li" href="{{ path("customer_serial_new") }}"><i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "some_customer_articles"|trans }}</a>
+                                                    <button class="btn btn-sm btn-gold btn-li add-customer-articles" data-toggle="modal" data-target="#addArticleModal" data-slug="{{ customerChapter.slug }}">
+                                                        <i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "a_customer_article"|trans }}
+                                                    </button>
                                                 </li>
-                                                <li class="hidden-phone">
-                                                    <a class="btn btn-sm btn-success btn-li" href="{{ path("customer_serial_new") }}"><i class="fa fa-plus"></i> {{ "add"|trans|capitalize }} {{ "a_customer_serial"|trans }}</a>
+                                                <li>
+                                                    <button id="delete-btn" type="button" class="btn btn-sm btn-danger delete-customer-chapter" data-toggle="modal" data-target="#deleteModal" data-slug="{{ customerChapter.slug }}">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
+                                                    </button>
                                                 </li>
                                             </ul>
-
                                             Articles of {{ customerChapter.slug }}
-
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -124,6 +124,10 @@
     {% include  ":common:import_modal.html.twig" with { "action_path": "customer_serial_index", "object_title": "some_customer_serials", "error": error } %}
     <!-- Delete Modal -->
     {% include  ":common:remove_object_modal.html.twig" with { "default": true } %}
+    <!-- Add articles Modal -->
+    {% include "AdminBundle:customerarticle:add_article_modal.html.twig" with {"default": true } %}
+    <!-- Add Chapter Modal -->
+    {% include "AdminBundle:customerchapter:add_chapter_modal.html.twig" with {"default": true } %}
 {% endblock %}
 
 {% block custom_javascripts %}
@@ -134,7 +138,13 @@
         });
     {% endif %}
 
-    {% include ":common:delete_pop_up.js.twig" with { "routeName": "customer_serial_delete" } %}
+    <!-- Delete Modal Ajax Call-->
+    {% include ":common:delete_pop_up.js.twig" with { "classEntity": "delete-customer-serial", "routeName": "customer_serial_delete" } %}
+    {% include ":common:delete_pop_up.js.twig" with { "classEntity": "delete-customer-chapter", "routeName": "customer_chapter_delete" } %}
+
+    <!-- Add articles/chapters Ajax Call -->
+    {% include "AdminBundle:customerarticle:add_customer_object_pop_up.js.twig" with { "classEntity": "add-customer-articles", "routeName": "customer_article_new", "targetPopUp": "addArticleModal", "slugParam": "slugChapter" } %}
+    {% include "AdminBundle:customerarticle:add_customer_object_pop_up.js.twig" with { "classEntity": "add-customer-chapters", "routeName": "customer_chapter_new", "targetPopUp": "addChapterModal", "slugParam": "slugSerial"  } %}
 {% endblock %}
 {% block plain_js_bundle %}
     <script type="application/javascript">
@@ -167,7 +177,6 @@
                             styling: 'bootstrap3'
                         });
                         $form.attr("action", jsonData.slug);
-                        console.log("Everything is ok json");
                     },
                     error: function(request, status, error){
                         new PNotify({

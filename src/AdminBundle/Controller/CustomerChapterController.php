@@ -3,7 +3,9 @@
 namespace AdminBundle\Controller;
 
 use AdminBundle\Entity\CustomerChapter;
+use AdminBundle\Entity\CustomerSerial;
 use AdminBundle\Form\CustomerChapterType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -33,12 +35,34 @@ class CustomerChapterController extends Controller
 
     /**
      * Creates a new customerChapter entity.
+     * @param Request $request
+     * @param CustomerSerial $customerSerial
      *
+     * @ParamConverter("customerSerial", class="AdminBundle:CustomerSerial", options={"mapping": {"slugSerial" : "slug"}}, isOptional="true" )
+
+     * @return RedirectResponse|Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, CustomerSerial $customerSerial = null)
     {
         $customerChapter = new Customerchapter();
-        $form = $this->createForm(CustomerChapterType::class, $customerChapter);
+        if(isset($customerSerial)){
+            $customerChapter->setCustomerSerial($customerSerial);
+            $form = $this->createForm(CustomerChapterType::class, $customerChapter, ["MODE" => CustomerChapterType::MODE_POP_UP, "action" => $this->generateUrl("customer_chapter_new", ["slugSerial" => $customerSerial->getSlug()])]);
+        }else{
+            $form = $this->createForm(CustomerChapterType::class, $customerChapter);
+        }
+        /**
+         * INSIDE POP UP
+         */
+        if ($request->isXmlHttpRequest()) {
+            return $this->render("AdminBundle:customerchapter:add_chapter_modal.html.twig",
+                [
+                    "form" => $form->createView(),
+                    "object_title" => $customerChapter,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,7 +70,8 @@ class CustomerChapterController extends Controller
             $em->persist($customerChapter);
             $em->flush();
 
-            return $this->redirectToRoute('customer_chapter_show', array("slug" => $customerChapter->getSlug()));
+            //return $this->redirectToRoute('customer_chapter_show', array("slug" => $customerChapter->getSlug()));
+            return $this->redirectToRoute('customer_serial_index', ["_fragment" => "tab_serial".$customerChapter->getCustomerSerial()->getId()]);
         }
 
         return $this->render('AdminBundle:customerchapter:new.html.twig', array(
@@ -115,6 +140,16 @@ class CustomerChapterController extends Controller
     public function deleteAction(Request $request, CustomerChapter $customerChapter)
     {
         $form = $this->createDeleteForm($customerChapter);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $customerChapter,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -131,7 +166,7 @@ class CustomerChapterController extends Controller
      *
      * @param CustomerChapter $customerChapter The customerChapter entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(CustomerChapter $customerChapter)
     {
@@ -139,6 +174,6 @@ class CustomerChapterController extends Controller
             ->setAction($this->generateUrl('customer_chapter_delete', array("slug" => $customerChapter->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 }

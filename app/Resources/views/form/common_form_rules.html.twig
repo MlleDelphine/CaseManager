@@ -564,3 +564,34 @@
         {% endfor %}
     {% endspaceless %}
 {% endblock _adminbundle_customerserial_customerChapters_entry_widget %}
+
+
+{# UNIT TIME POINTS - CUSTOMER ARTICLE #}
+{% block _adminbundle_customerarticle_unitTimePoints_widget %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock _adminbundle_customerarticle_unitTimePoints_widget %}
+
+{% block _adminbundle_customerarticle_unitTimePoints_entry_widget %}
+    {% spaceless %}
+        <div class="ln_solid"></div>
+        {% for child in form %}
+            <div class="form-group">
+                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
+                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                    {% elseif child.vars.money_pattern is defined  %}
+                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
+                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
+                    {% else %}
+                        {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
+                    {% endif %}
+                    {{ form_errors(child) }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock _adminbundle_customerarticle_unitTimePoints_entry_widget %}

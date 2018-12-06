@@ -1,4 +1,10 @@
-$('.delete-entity').on('click', function (e) {
+{% if classEntity is defined %}
+{% set rootClass = classEntity %}
+{% else %}
+{% set rootClass = "delete-entity" %}
+{% endif %}
+
+$('.{{ rootClass }}').on('click', function (e) {
     var slugData = $(this).data('slug');
     $.ajax({
         method: "delete",

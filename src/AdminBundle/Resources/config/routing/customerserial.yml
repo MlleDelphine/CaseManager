@@ -25,6 +25,8 @@ customer_serial_delete:
     defaults: { _controller: "AdminBundle:CustomerSerial:delete" }
     methods:  DELETE
     host: "%casemanager_admin_url%"
+    options:
+        expose: true
 
 customer_serial_export:
     path: /export/{slug}

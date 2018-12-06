@@ -9,19 +9,25 @@ customer_chapter_show:
     methods:  GET
 
 customer_chapter_new:
-    path:     /new
-    defaults: { _controller: "AdminBundle:CustomerChapter:new" }
+    path:     /new/{slugSerial}
+    defaults: { _controller: "AdminBundle:CustomerChapter:new", slugSerial: ~ }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
+    options:
+        expose: true
 
 customer_chapter_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:CustomerChapter:edit" }
     methods:  [GET, POST, PUT]
     host: "%casemanager_admin_url%"
+    options:
+        expose: true
 
 customer_chapter_delete:
     path:     /{slug}/delete
     defaults: { _controller: "AdminBundle:CustomerChapter:delete" }
     methods:  DELETE
     host: "%casemanager_admin_url%"
+    options:
+        expose: true

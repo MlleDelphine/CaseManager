@@ -66,6 +66,7 @@ class CustomerContactController extends Controller
             $customerContact->setCustomer($customer);
         }
         $form = $this->createForm(CustomerContactType::class, $customerContact);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

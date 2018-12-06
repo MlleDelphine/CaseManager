@@ -67,7 +67,7 @@
                                             <td align="center" style="vertical-align: middle">
                                                 <a class="btn btn-sm btn-info" href="{{ path('prestation_edit', { 'slug': prestation.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
                                                 <a class="btn btn-sm btn-warning" href="{{ path('prestation_export', { 'slug': prestation.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ prestation.slug }}">
+                                                <button id="delete-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ prestation.slug }}">
                                                     <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
                                                 </button>
                                             </td>
@@ -95,6 +95,7 @@
     {% if error %}
         $(document).ready(function(){
         $("#import-btn").trigger("click");
+        $("#delete-btn").trigger("click");
         });
     {% endif %}
 

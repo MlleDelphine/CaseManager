@@ -51,10 +51,13 @@ model: modèle
 model_capitalize: Modèle
 serial_number: n° de série
 serial_number_capitalize: N° de série
+contacts: contacts
 
 no_result_found: Aucun résultat trouvé.
 successfully_edit: "Modification réussie"
+successfully_add: "Modification réussie"
 failed_edit: "Echec de la modification"
+failed_add: "Echec de la création"
 
 status: statut
 statuses: statuts
@@ -85,6 +88,7 @@ modify: modifier
 modification: modification
 add_contact: ajouter un contact
 add_site: ajouter un site
+sure_to_delete: " Êtes-vous sûr(e) de vouloir supprimer cette entrée ?"
 #Capitalize
 select: Sélectionnez
 select_capitalize: Sélectionnez
@@ -104,6 +108,8 @@ resources_management: gestion des ressources
 manage_resources: gérer les ressources
 customers_management: gestion des clients
 business_management: gestion des affaires
+
+customer_catalog: catalogue Enedis
 
 dashboard: tableau de bord
 administration: administration
@@ -159,7 +165,19 @@ edition_of_the_jobstatus: édition du poste interne
 
 creation_of_prestation: création d'une prestation
 edition_of_prestation: édition d'une prestation
-edition_of_the_prestation: édition d'une prestation
+edition_of_the_prestation: édition de la prestation
+
+creation_of_customer_serial: création d'une série
+edition_of_customer_serial: édition d'une série
+edition_of_the_customer_serial: édition de la série
+
+creation_of_customer_chapter: création d'un chapitre
+edition_of_customer_chapter: édition d'un chapitre
+edition_of_the_customer_chapter: édition du chapitre
+
+creation_of_customer_article: création d'un article
+edition_of_customer_article: édition d'un article
+edition_of_the_customer_article: édition dun article
 
 creation_of_rate: création d'un taux
 edition_of_rate: édition d'un taux
@@ -257,6 +275,7 @@ customer_serials_capitalize: Séries
 customer_serials: séries
 all_customer_serials: toutes les séries
 customer_serial: série
+customer_serial_capitalize: Série
 a_customer_serial: une série
 some_customer_serials: des séries
 
@@ -264,11 +283,12 @@ customer_chapters_capitalize: Chapitres
 customer_chapters: chapitres
 all_customer_chapters: tous les chapitres
 customer_chapter: chapitre
+customer_chapter_capitalize: Chapitre
 a_customer_chapter: un chapitre
 the_customer_chapter: le chapitre
 some_customer_chapters: des chapitres
 
-customer_articles_capitalize: Chapitres
+customer_articles_capitalize: Articles
 customer_articles: articles
 all_customer_articles: tous les articles
 customer_article: article
@@ -457,8 +477,10 @@ export_all: tout exporter
 export_verb: exporter
 add: ajouter
 addition: ajout
+addition_of: ajout d'
 remove: supprimer
 delete_verb: supprimer
+deletetion_of: suppression de
 supression: suppression
 open: ouvrir
 an_open: ouverture
@@ -505,7 +527,7 @@ file_mandatory_error_msg: "Vous devez charger un fichier !"
 
 reference: référence
 references: références
-reference_capitalize: référence
+reference_capitalize: Référence
 references_capitalize: Références
 unique_reference: référence unique
 unique_reference_capitalize: Référence unique
@@ -542,6 +564,10 @@ percentage: pourcentage
 percentages: pourcentages
 percentage_capitalize: Pourcentage
 percentages_capitalize: Pourcentages
+
+points_definition_capitalize: Définitions des points
+points: points
+points_capitalize: Points
 
 #CUSTOMER SPECIFICS
 corporation_legal_status_ei: "(EI) Entreprise individuelle"

@@ -9,16 +9,20 @@ customer_article_show:
     methods:  GET
 
 customer_article_new:
-    path:     /new
-    defaults: { _controller: "AdminBundle:CustomerArticle:new" }
+    path:     /new/{slugChapter}
+    defaults: { _controller: "AdminBundle:CustomerArticle:new", slugChatper: ~ }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
+    options:
+        expose: true
 
 customer_article_edit:
     path:     /{slug}/edit
     defaults: { _controller: "AdminBundle:CustomerArticle:edit" }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
+    options:
+        expose: true
 
 customer_article_delete:
     path:     /{slug}/delete

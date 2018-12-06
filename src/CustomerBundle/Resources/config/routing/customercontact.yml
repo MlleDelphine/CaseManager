@@ -12,11 +12,15 @@ customer_contact_new:
     path:     /new/{slugCustomer}
     defaults: { _controller: "CustomerBundle:CustomerContact:new", slugCustomer: ~}
     methods:  [GET, POST]
+    options:
+        expose: true
 
 customer_contact_edit:
     path:     /{slug}/edit
     defaults: { _controller: "CustomerBundle:CustomerContact:edit" }
     methods:  [GET, POST]
+    options:
+        expose: true
 
 customer_contact_delete:
     path:     /{slug}/delete

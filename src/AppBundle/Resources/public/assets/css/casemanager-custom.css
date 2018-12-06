@@ -245,12 +245,20 @@ ul.bar_tabs > li form {
     border-top-right-radius: 0;
 }
 
+ul.bar_tabs > li > form > a {
+    padding: 0px;
+}
+
 ul.bar_tabs > li > form a:hover {
     border: none;
 }
 
 ul.bar_tabs > li:not(active) > form:hover, ul.bar_tabs > li:not(active) > form> a > input:hover {
 cursor: pointer;
+}
+
+ul.bar_tabs_olive_green > li.active {
+    border-right: 6px solid #808000;
 }
 
 /** LEFT TABS **/
@@ -271,4 +279,14 @@ cursor: pointer;
 }
 ul.tabs-left > li:not(active) > form:hover, ul.tabs-left > li:not(active) > form > a > input:hover {
     cursor: pointer;
+}
+
+ul.dark-green-borders {
+    border-bottom: 1px dotted #808000;
+}
+ul.dark-green-borders li {
+    border-right: 1px dotted #808000;
+}
+li.medium-tab{
+    width: 10%;
 }

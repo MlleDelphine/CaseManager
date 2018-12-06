@@ -59,7 +59,6 @@ class InternalReferenceGeneratorSubscriber implements EventSubscriber
                 $lastPrestationCreated = $em->getRepository("AdminBundle:Prestation")->getLastCreatedPrestation();
 
                 if($lastPrestationCreated){
-                    dump($lastPrestationCreated);
                     if(preg_match("/\d{5}$/", $lastPrestationCreated->getInternalReference(), $m)){
                         $lastRef = $m[0];
                     }

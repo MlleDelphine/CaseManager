@@ -6,13 +6,17 @@
             {% if delete_form is defined %}
                 {{ form_start(delete_form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
                 <div class="modal-header">
-                    <h5 class="modal-title" style="width: 80%">{{ "delete_verb"|trans|capitalize }} {{ object_title|trans }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="col-md-10">
+                        <h5 class="modal-title" style="font-weight: bold;">{{ "deletetion_of"|trans|capitalize }} <em>"{{ object_title|trans }}"</em></h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="modal-body" style="text-align: center">
-                    Êtes-vous sûr(e) de vouloir supprimer cette entrée ?
+                    {{ "sure_to_delete"|trans }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>

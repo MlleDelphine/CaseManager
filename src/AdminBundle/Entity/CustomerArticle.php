@@ -100,6 +100,7 @@ class CustomerArticle {
     protected $updated;
 
     /**
+     * Inverse side
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\UnitTimePoint", mappedBy="customerArticle", cascade={"persist", "merge", "remove"}, fetch="EXTRA_LAZY")
      *

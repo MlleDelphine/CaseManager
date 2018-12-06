@@ -97,6 +97,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    app.twig.extension.word_extension:
+        class: AppBundle\Twig\Extension\WordExtension
+        tags:
+            - { name: twig.extension }
+
 genemu_form:
     tinymce:
         enabled: true

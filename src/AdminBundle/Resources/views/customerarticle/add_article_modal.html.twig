@@ -1,0 +1,102 @@
+{% if default %}
+<div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    {% endif %}
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            {% if form is defined %}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                <div class="modal-header">
+                    <div class="col-md-10">
+                        <h5 class="modal-title" style="font-weight: bold;">{{ "addition_of"|trans|capitalize }} {{ "a_customer_article"|trans }}</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.designation, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.designation, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.designation) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.reference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.reference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.reference) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="required">*</span>
+                        {{ form_label(form.customerChapter, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.customerChapter) }}
+                            {{ form_errors(form.customerChapter) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.color, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {% if form.color.vars.required %} <span class="required">*</span> {%  endif %}
+                        <div class="col-md-6 col-sm-6 col-xs-12 color-picker input-group" style="padding-right: 10px; padding-left: 10px">
+                            {{ form_widget(form.color, {"attr": {"class": "form-control"}}) }}
+                            <span class="input-group-addon"><i></i></span>
+                            {{ form_errors(form.color) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.unitTimePoints, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        {% if form.unitTimePoints.vars.required %} <span class="required">*</span> {%  endif %}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {{ form_widget(form.unitTimePoints) }}
+                            {{ form_errors(form.unitTimePoints) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>{{ "add"|trans|capitalize }}</button>
+                </div>
+                {{ form_end(form) }}
+            {% endif %}
+        </div>
+    </div>
+    {% if default %}
+</div>
+{% endif %}
+<script type="application/javascript">
+    /**
+     * Launch collection function
+     */
+    $(document).ready(function() {
+        $(".item-collection").collection({
+            allow_duplicate: false,
+            after_add: function () {
+                $("select").select2({ width: '100%' });
+                return true;
+            },
+            allow_up: false,
+            allow_down: false,
+            allow_add: true,
+            allow_remove: true,
+            min: 1,
+            // max: 200,
+            add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+            remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
+        });
+    });
+</script>

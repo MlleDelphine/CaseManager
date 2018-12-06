@@ -1,0 +1,31 @@
+{% if classEntity is defined %}
+{% set rootClass = classEntity %}
+{% else %}
+{% set rootClass = "add-customer-articles" %}
+{% endif %}
+
+$('.{{ rootClass }}').on('click', function (e) {
+    var slugData = $(this).data('slug');
+    $.ajax({
+        method: "POST",
+        url: Routing.generate('{{ routeName }}', { '{{ slugParam }}': slugData }),
+        dataType: "html",
+        success: function(response) {
+            $("#{{ targetPopUp }}").html(response);
+
+            {#new PNotify({#}
+                {#title: '{{ 'successfully_edit'|trans }}',#}
+                {#text: jsonData.msg,#}
+                {#type: 'success',#}
+                {#styling: 'bootstrap3'#}
+            {#});#}
+        }
+    }).fail(function(jxh, textmsg, errorThrown){
+        new PNotify({
+            title: '{{ 'failed_add'|trans }}',
+            text: 'Oh No! '+request.responseText,
+            type: 'error',
+            styling: 'bootstrap3'
+        });
+    });
+});

@@ -2,7 +2,11 @@
 
 namespace AdminBundle\Form;
 
+use AdminBundle\Entity\AbstractClass\Unit;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +17,34 @@ class UnitTimePointType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('unit')->add('unitaryPoint')->add('fromDate')->add('untilDate')->add('created')->add('updated')->add('customerArticle');
-    }/**
+        $builder
+            ->add("fromDate", DateType::class, array(
+                "label_format" => "from_capitalize",
+                "required" => true,
+                "widget" => "single_text"))
+            ->add("untilDate", DateType::class, array(
+                "label_format" => "until_cod_capitalize",
+                "required" => false,
+                "widget" => "single_text"))
+            ->add("unit", ChoiceType::class, array(
+                "label_format" => "measure_unit_capitalize",
+                "required" => true,
+                "choices" => Unit::getAllUnits()))
+//            ->add("customerArticles",  Select2EntityType::class, array(
+//                "class" => "AdminBundle:CustomerArticles",
+//                "choice_label" => "name",
+//                "label_format" => "application_domain_capitalize",
+//                "multiple" => true,
+//                "placeholder" => "-",
+//                "required" => true))
+            ->add("unitaryPrice", IntegerType::class, array(
+                "label_format" => "points_capitalize",
+                "required" => true,
+                "invalid_message" => "error_message_decimal_number"));
+
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
