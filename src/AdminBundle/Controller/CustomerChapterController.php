@@ -39,7 +39,7 @@ class CustomerChapterController extends Controller
      * @param CustomerSerial $customerSerial
      *
      * @ParamConverter("customerSerial", class="AdminBundle:CustomerSerial", options={"mapping": {"slugSerial" : "slug"}}, isOptional="true" )
-
+     *
      * @return RedirectResponse|Response
      */
     public function newAction(Request $request, CustomerSerial $customerSerial = null)

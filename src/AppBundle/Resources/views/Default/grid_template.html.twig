@@ -47,8 +47,7 @@
         {# --------------------------------------------------- grid_no_data ------------------------------------------------- #}
     {% block grid_no_data %}
         <div id="callout-badges-ie8-empty" class="bs-callout bs-callout-danger col-md-12">
-            <h4>No data found</h4>
-            <p>No logs details available.</p>
+            <h4>{{ "no_result_found"|trans }}</h4>
         </div>
 
         {#<p class="no_data">{{ grid.noDataMessage|default('No data')|trans|raw }}</p>#}

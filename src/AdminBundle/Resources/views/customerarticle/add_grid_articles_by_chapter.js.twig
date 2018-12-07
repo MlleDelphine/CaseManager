@@ -1,0 +1,21 @@
+$('.{{ rootClass }}').on('click', function (e) {
+    var slugData = $(this).data('slug');
+    $.ajax({
+        method: "POST",
+        url: Routing.generate('{{ routeName }}', { '{{ slugParam }}': slugData }),
+        dataType: "html",
+        success: function(response) {
+            $("#{{ targetElement }}-"+slugData).html(response);
+            $("#{{ targetElement }}-"+slugData).find("select").select2(
+                {width: "100%"}
+            );
+        }
+    }).fail(function(jxh, textmsg, errorThrown){
+        new PNotify({
+            title: '{{ 'failed_add'|trans }}',
+            text: 'Oh No! '+textmsg,
+            type: 'error',
+            styling: 'bootstrap3'
+        });
+    });
+});

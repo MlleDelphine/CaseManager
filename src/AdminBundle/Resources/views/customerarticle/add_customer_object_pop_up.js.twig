@@ -6,6 +6,7 @@
 
 $('.{{ rootClass }}').on('click', function (e) {
     var slugData = $(this).data('slug');
+    console.log(slugData);
     $.ajax({
         method: "POST",
         url: Routing.generate('{{ routeName }}', { '{{ slugParam }}': slugData }),

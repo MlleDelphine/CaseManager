@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CustomerArticle
@@ -23,6 +24,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, name, designation, reference, color")
+ *
  */
 class CustomerArticle {
 
@@ -32,6 +36,8 @@ class CustomerArticle {
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
      */
     private $id;
 
@@ -43,7 +49,9 @@ class CustomerArticle {
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_prestation"})
+     * @JMSSer\Groups({"admin_export_customerarticle"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
      */
     private $name;
 
@@ -53,7 +61,9 @@ class CustomerArticle {
      * @ORM\Column(name="designation", type="text", nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_prestation"})
+     * @JMSSer\Groups({"admin_export_customerarticle"})
+     *
+     * @GRID\Column(title="designation", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
      */
     private $designation;
 
@@ -66,6 +76,8 @@ class CustomerArticle {
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"business_export_business_work_site"})
+     *
+     * @GRID\Column(title="color", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
      */
     private $color;
 
@@ -75,6 +87,7 @@ class CustomerArticle {
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false)
      */
     protected $slug;
 
@@ -82,6 +95,8 @@ class CustomerArticle {
      * @var string
      *
      * @ORM\Column(name="reference", type="string", length=255, nullable=false, unique=true)
+     *
+     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
      */
     private $reference;
 
@@ -89,6 +104,8 @@ class CustomerArticle {
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="created_m_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $created;
 
@@ -96,6 +113,8 @@ class CustomerArticle {
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $updated;
 
@@ -329,7 +348,7 @@ class CustomerArticle {
     {
         return $this->unitTimePoints;
     }
-    
+
     /**
      * Set customerChapter
      *

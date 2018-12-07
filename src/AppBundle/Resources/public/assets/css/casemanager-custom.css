@@ -254,11 +254,7 @@ ul.bar_tabs > li > form a:hover {
 }
 
 ul.bar_tabs > li:not(active) > form:hover, ul.bar_tabs > li:not(active) > form> a > input:hover {
-cursor: pointer;
-}
-
-ul.bar_tabs_olive_green > li.active {
-    border-right: 6px solid #808000;
+    cursor: pointer;
 }
 
 /** LEFT TABS **/
@@ -281,12 +277,31 @@ ul.tabs-left > li:not(active) > form:hover, ul.tabs-left > li:not(active) > form
     cursor: pointer;
 }
 
+/**
+* OLIVE TABS
+*/
+ul.bar_tabs_olive_green > li {
+    /*border-left: 1px solid #808000;*/
+    /*border-top: 1px solid #808000;*/
+    /*border-right: 1px solid #808000;*/
+    /*background: #808000; /* rgba(128, 128, 0, 0.5); */
+}
+
+ul.bar_tabs_olive_green > li.active {
+    border-right: 6px solid #808000;
+}
+
 ul.dark-green-borders {
     border-bottom: 1px dotted #808000;
 }
 ul.dark-green-borders li {
     border-right: 1px dotted #808000;
 }
+
+.border-left-olive-green {
+    border-left: 1px dotted #808000;
+}
+
 li.medium-tab{
     width: 10%;
 }

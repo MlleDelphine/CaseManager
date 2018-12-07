@@ -87,7 +87,6 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @ORM\Column(name="updated", type="datetime")
      *
      * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
-
      */
     protected $updated;
 

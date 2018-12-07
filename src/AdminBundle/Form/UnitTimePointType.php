@@ -37,7 +37,7 @@ class UnitTimePointType extends AbstractType
 //                "multiple" => true,
 //                "placeholder" => "-",
 //                "required" => true))
-            ->add("unitaryPrice", IntegerType::class, array(
+            ->add("unitaryPoint", IntegerType::class, array(
                 "label_format" => "points_capitalize",
                 "required" => true,
                 "invalid_message" => "error_message_decimal_number"));

@@ -20,7 +20,7 @@
         <tbody>
         {% for customerArticle in customerArticles %}
             <tr>
-                <td><a href="{{ path('customerarticle_show', { 'id': customerArticle.id }) }}">{{ customerArticle.id }}</a></td>
+                <td><a href="{{ path('customer_article_show', { 'id': customerArticle.id }) }}">{{ customerArticle.id }}</a></td>
                 <td>{{ customerArticle.name }}</td>
                 <td>{{ customerArticle.designation }}</td>
                 <td>{{ customerArticle.color }}</td>
@@ -31,10 +31,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('customerarticle_show', { 'id': customerArticle.id }) }}">show</a>
+                            <a href="{{ path('customer_article_show', { 'id': customerArticle.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('customerarticle_edit', { 'id': customerArticle.id }) }}">edit</a>
+                            <a href="{{ path('customer_article_edit', { 'id': customerArticle.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -45,7 +45,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('customerarticle_new') }}">Create a new customerArticle</a>
+            <a href="{{ path('customer_article_new') }}">Create a new customerArticle</a>
         </li>
     </ul>
 {% endblock %}

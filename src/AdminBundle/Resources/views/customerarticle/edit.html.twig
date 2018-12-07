@@ -2,20 +2,85 @@
 
 {% block body %}
     <h1>Customerarticle edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
     <ul>
         <li>
-            <a href="{{ path('customerarticle_index') }}">Back to the list</a>
+            <a href="{{ path('customer_article_index') }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+    <div class="modal-header">
+        <div class="col-md-10">
+            <h5 class="modal-title" style="font-weight: bold;">{{ "addition_of"|trans|capitalize }} {{ "a_customer_article"|trans }}</h5>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body" style="text-align: center">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left', 'novalidate': ''}}) }}
+        <div class="form-group">
+            <span class="required">*</span>
+            {{ form_label(form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="required">*</span>
+            {{ form_label(form.designation, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.designation, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                {{ form_errors(form.designation) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="required">*</span>
+            {{ form_label(form.reference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.reference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                {{ form_errors(form.reference) }}
+            </div>
+        </div>
+        {% if form.customerChapter is defined %}
+            <div class="form-group">
+                <span class="required">*</span>
+                {{ form_label(form.customerChapter, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {{ form_widget(form.customerChapter) }}
+                    {{ form_errors(form.customerChapter) }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            {{ form_label(form.color, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+            {% if form.color.vars.required %} <span class="required">*</span> {%  endif %}
+            <div class="col-md-6 col-sm-6 col-xs-12 color-picker input-group" style="padding-right: 10px; padding-left: 10px">
+                {{ form_widget(form.color, {"attr": {"class": "form-control"}}) }}
+                <span class="input-group-addon"><i></i></span>
+                {{ form_errors(form.color) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.unitTimePoints, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+            {% if form.unitTimePoints.vars.required %} <span class="required">*</span> {%  endif %}
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                {{ form_widget(form.unitTimePoints) }}
+                {{ form_errors(form.unitTimePoints) }}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "cancel"|trans|capitalize }}</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>{{ "add"|trans|capitalize }}</button>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

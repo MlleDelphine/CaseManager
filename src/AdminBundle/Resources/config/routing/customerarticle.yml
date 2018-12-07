@@ -3,6 +3,14 @@ customer_article_index:
     defaults: { _controller: "AdminBundle:CustomerArticle:index" }
     methods: [GET, POST]
 
+customer_article_grid:
+    path:     /grid/{slugChapter}
+    defaults: { _controller: "AdminBundle:CustomerArticle:grid", slugChapter: ~ }
+    methods:  [GET, POST]
+#    host: "%casemanager_admin_url%"
+    options:
+        expose: true
+
 customer_article_show:
     path:     /{slug}/show
     defaults: { _controller: "AdminBundle:CustomerArticle:show" }
@@ -10,7 +18,7 @@ customer_article_show:
 
 customer_article_new:
     path:     /new/{slugChapter}
-    defaults: { _controller: "AdminBundle:CustomerArticle:new", slugChatper: ~ }
+    defaults: { _controller: "AdminBundle:CustomerArticle:new", slugChapter: ~ }
     methods:  [GET, POST]
     host: "%casemanager_admin_url%"
     options:

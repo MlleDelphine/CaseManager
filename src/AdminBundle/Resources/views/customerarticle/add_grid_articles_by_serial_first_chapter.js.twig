@@ -1,0 +1,26 @@
+$(document).ready(function() {
+    $("#customerCatalogTab").find("li.active").find("input.edit-customer-serial-name").trigger("click");
+    console.log("force click on first serial");
+});
+
+$('.{{ rootClass }}').on('click', function (e) {
+    var slugData = $(this).data('first-chapter-slug');
+    $.ajax({
+        method: "POST",
+        url: Routing.generate('{{ routeName }}', { '{{ slugParam }}': slugData }),
+        dataType: "html",
+        success: function(response) {
+            $("#{{ targetElement }}-"+slugData).html(response);
+            $("#{{ targetElement }}-"+slugData).find("select").select2(
+                {width: "100%"}
+            );
+        }
+    }).fail(function(jxh, textmsg, errorThrown){
+        new PNotify({
+            title: '{{ 'failed_add'|trans }}',
+            text: 'Oh No! '+textmsg,
+            type: 'error',
+            styling: 'bootstrap3'
+        });
+    });
+});

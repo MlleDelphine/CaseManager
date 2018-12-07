@@ -5,7 +5,12 @@ namespace AdminBundle\Controller;
 use AdminBundle\Entity\CustomerArticle;
 use AdminBundle\Entity\CustomerChapter;
 use AdminBundle\Form\CustomerArticleType;
-use AdminBundle\Form\CustomerChapterType;
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -53,6 +58,87 @@ class CustomerArticleController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param CustomerChapter|null $customerChapter
+     * @return Response
+     * @throws \Exception
+     * @ParamConverter("customerChapter", class="AdminBundle:CustomerChapter", options={"mapping": {"slugChapter" : "slug"}}, isOptional="true" )
+     */
+    public function gridAction(Request $request, CustomerChapter $customerChapter = null){
+
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("customer_article_grid", ["slugChapter" => $customerChapter->getSlug()]);
+
+        $source = new Entity("AdminBundle:CustomerArticle");
+        $tableAlias = $source->getTableAlias();
+        if($customerChapter) {
+            $source->manipulateQuery(function (QueryBuilder $query) use ($tableAlias, $customerChapter) {
+                $query
+                    ->andWhere("$tableAlias.customerChapter = ".$customerChapter->getId());
+            });
+        }
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('name', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'customer_article_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+//
+//        $rowAction2 = new CustomGridRowAction('add_site', 'corporation_site_new');
+//        $rowAction2->addRouteParameters(array('slug'));
+//        $rowAction2->setRouteParametersMapping(array('slug' => 'slugCorpGroup'));
+//        $rowAction2->setConfirm(true);
+//        $rowAction2->setConfirmMessage("Sure ?");
+//        $rowAction2->setTarget("_blank");
+//        $rowAction2->setAttributes(["class" =>"btn btn-sm btn-primary"]);
+//        $rowAction2->setPrevIcon("fa-plus");
+//
+//        $rowActionContact = new CustomGridRowAction('add_contact', 'customer_contact_new');
+//        $rowActionContact->addRouteParameters(array('slug'));
+//        $rowActionContact->setRouteParametersMapping(array('slug' => 'slugCustomer'));
+//        $rowActionContact->setConfirm(true);
+//        $rowActionContact->setConfirmMessage("Sure ?");
+//        $rowActionContact->setTarget("_blank");
+//        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
+//        $rowActionContact->setPrevIcon("fa-user-plus");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1,
+            //  $rowAction2,
+            //  $rowActionContact
+        ]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][CustomerArticle] - Articles ENEDIS $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][CustomerArticle] - Articles ENEDIS $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':common:default_datatable_grid.html.twig', array('grid' => $grid, "customerChapter" => $customerChapter));
+        }else{
+            return $grid->getGridResponse("AdminBundle:customerarticle:index.html.twig", array('grid' => $grid));
+        }
+    }
+
+    /**
      * Creates a new customerArticle entity.
      * @param Request $request
      * @param CustomerChapter $customerChapter
@@ -60,9 +146,9 @@ class CustomerArticleController extends Controller
      * @ParamConverter("customerChapter", class="AdminBundle:CustomerChapter", options={"mapping": {"slugChapter" : "slug"}}, isOptional="true" )
      * @return RedirectResponse|Response
      */
-    public function newAction(Request $request, CustomerChapter $customerChapter)
+    public function newAction(Request $request, CustomerChapter $customerChapter = null)
     {
-        $customerArticle = new Customerarticle();
+        $customerArticle = new CustomerArticle();
         if(isset($customerChapter)){
             $customerArticle->setCustomerChapter($customerChapter);
         }
@@ -87,7 +173,7 @@ class CustomerArticleController extends Controller
             $em->persist($customerArticle);
             $em->flush();
 
-            return $this->redirectToRoute('customer_article_show', array('id' => $customerArticle->getId()));
+            return $this->redirectToRoute('customer_serial_index', ["_fragment" => "tab_serial".$customerArticle->getCustomerChapter()->getCustomerSerial()->getId()]);
         }
 
         return $this->render('AdminBundle:CustomerArticle:new.html.twig', array(
@@ -120,18 +206,18 @@ class CustomerArticleController extends Controller
     public function editAction(Request $request, CustomerArticle $customerArticle)
     {
         $deleteForm = $this->createDeleteForm($customerArticle);
-        $editForm = $this->createForm('AdminBundle\Form\CustomerArticleType', $customerArticle);
+        $editForm = $this->createForm(CustomerArticleType::class, $customerArticle);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('customerarticle_edit', array('id' => $customerArticle->getId()));
+            return $this->redirectToRoute('customer_article_edit', array('slug' => $customerArticle->getSlug()));
         }
 
-        return $this->render('AdminBundle:CustomerArticle:edit.html.twig', array(
+        return $this->render('AdminBundle:customerarticle:edit.html.twig', array(
             'customerArticle' => $customerArticle,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -151,7 +237,7 @@ class CustomerArticleController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('customerarticle_index');
+        return $this->redirectToRoute('customer_article_index');
     }
 
     /**
@@ -159,14 +245,13 @@ class CustomerArticleController extends Controller
      *
      * @param CustomerArticle $customerArticle The customerArticle entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
     private function createDeleteForm(CustomerArticle $customerArticle)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customerarticle_delete', array('id' => $customerArticle->getId())))
+            ->setAction($this->generateUrl('customer_article_delete', array('slug' => $customerArticle->getSlug())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

@@ -38,7 +38,6 @@ class CorporationGroupController extends Controller
             $file = $request->files->get('file');
 
             if($file) {
-
                 $jsonDatas = file_get_contents($file->getRealPath());
                 $deserialize = $this->get('object.eximportdatas')->import("admin_export_corporationgroup", $jsonDatas, "CustomerBundle\Entity\CorporationGroup");
 
@@ -52,7 +51,6 @@ class CorporationGroupController extends Controller
         $routeAtSubmit = $this->get("router")->generate("corporation_group_index");
 
         //concatenated_postal_address
-
         $source = new Entity("CustomerBundle:CorporationGroup");
         $source->manipulateQuery(function($query){
             //"postalAddress.streetNumber, postalAddress.streetName, postalAddress.postalCode, postalAddress.city,
@@ -68,9 +66,6 @@ class CorporationGroupController extends Controller
         $grid->setRouteUrl($routeAtSubmit);
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
-
-//        dump($grid->getSource());
-//        die;
 
         /***
          * ACTIONS

@@ -52,6 +52,10 @@ model_capitalize: Modèle
 serial_number: n° de série
 serial_number_capitalize: N° de série
 contacts: contacts
+color: couleur
+color_capitalize: Couleur
+colors: couleurs
+colors_capitalize: Couleurs
 
 no_result_found: Aucun résultat trouvé.
 successfully_edit: "Modification réussie"
