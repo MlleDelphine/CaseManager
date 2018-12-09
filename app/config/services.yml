@@ -81,3 +81,9 @@ services:
         public: false
         tags:
           - { name: grid.column.extension }
+
+    grid.column.color_tag:
+        class: AppBundle\Services\ColorTagGridColumn
+        public: false
+        tags:
+          - { name: grid.column.extension }

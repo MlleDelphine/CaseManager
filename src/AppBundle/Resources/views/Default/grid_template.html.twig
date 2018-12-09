@@ -194,7 +194,9 @@
     {% endblock grid_pager %}
         {# ---------------------------------------------------- grid_pager_totalcount -------------------------------------------------- #}
     {% block grid_pager_totalcount %}
-        <div class="col-xs-3 col-sm-2 alert alert-info center-block remove-float" role="alert" > {{ '%count% results ' | transchoice(grid.totalCount, {'%count%': grid.totalCount}) }} </div>
+        <div class="col-md-12" role="alert" >
+            <div class="alert alert-info" style="display: inline-block;">{{ '%count%' | transchoice(grid.totalCount, {'%count%': grid.totalCount}) }} {{ "results"|trans }}</div>
+        </div>
     {% endblock grid_pager_totalcount %}
         {# ---------------------------------------------------- grid_pager_selectpage -------------------------------------------------- #}
     {% block grid_pager_selectpage %}
@@ -232,15 +234,6 @@
                             {% endif %}
                             <li {% if grid.pageCount == grid.page +1 %}class="active"{% endif %}><span data-index="{{ grid.pageCount }}" onclick="return {{ grid.hash }}_clickPage(event, parseInt(this.dataset.index)-1);">{{ grid.pageCount }}</span></li>
                         {% endif %}
-
-                        {#{% for i in 1..limit %}#}
-                        {#<li {% if i == grid.page +1 %}class="active"{% endif %}><span data-index="{{ i }}" onclick="return {{ grid.hash }}_clickPage(event, parseInt(this.dataset.index)-1);">{{ i }}</span></li>#}
-                        {#{% endfor %}#}
-                        {#{% if limit != grid.pageCount and grid.pageCount > 10 %}#}
-                        {#<li><span>...</span></li>#}
-                        {#{% endif %}#}
-                        {#<li {% if grid.pageCount == grid.page +1 %}class="active"{% endif %}><span data-index="{{ grid.pageCount }}" onclick="return {{ grid.hash }}_clickPage(event, parseInt(this.dataset.index)-1);">{{ grid.pageCount }}</span></li>#}
-
                         <li>
             <span aria-label="Next" {% if grid.page >= grid.pageCount-1 %}class="disabled" {% else %} onclick="return {{ grid.hash }}_nextPage();"{% endif %} >
         <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
@@ -254,21 +247,21 @@
         {# ---------------------------------------------------- grid_disposition_selectpagenbr_itemsnbr --------------------------------- #}
     {% block grid_disposition_selectpagenbr_itemsnbr %}
         <div class="col-md-12">
-            <div class="btn-group no-display-inline" role="group">
-                <div class="input-group col-md-2 col-sm-2 col-xs-5 middle-input" style="margin-bottom:5px">
+            <div class="" role="group" style="display: inline-block">
+                <div class="input-group middle-input" style="margin-bottom:5px">
                     <input type="number" placeholder="Aller à la page..." class="current form-control" value="{{ grid.page + 1 }}" size="2" style="text-align: center;" onkeypress="return {{ grid.hash }}_enterPage(event, parseInt(this.value)-1);"/>
                     <span class="input-group-btn">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
-            </span>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                    </span>
                 </div>
-                <div class="input-group col-md-2 col-sm-2 col-xs-3 middle-input" style="margin-bottom:5px">
-      <span class="item-pagination">
-        <span class="left-label">
-            <span class="">Item per page</span>
-        </span>
-            </span>
+                <div class="input-group middle-input" style="margin-bottom:5px">
+                    <span class="item-pagination">
+                        <span class="left-label">
+                            <span class="">{{ "result_per_page"|trans|ucfirst }}</span>
+                        </span>
+                    </span>
                     <select onchange="return {{ grid.hash }}_resultsPerPage(this.value);">
                         {% for key, value in grid.limits %}
                             <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
@@ -317,11 +310,11 @@
                         {#</optgroup>#}
                     </select>
                 </div>
-            <div class="cold-md-6 col-sm-6 col-xs-12">
-                <button type="submit" class="btn btn-warning text-center" style="margin:1px">
-                    <span class="glyphicon glyphicon-export"></span> {{ "export_verb"|trans|capitalize }}</button>
-                {#<input type="submit" value="{{ 'Export'|trans }}"/>#}
-            </div>
+                <div class="cold-md-6 col-sm-6 col-xs-12">
+                    <button type="submit" class="btn btn-sm btn-warning text-center" style="margin:1px">
+                        <span class="glyphicon glyphicon-export"></span> {{ "export_verb"|trans|capitalize }}</button>
+                    {#<input type="submit" value="{{ 'Export'|trans }}"/>#}
+                </div>
             {% endspaceless %}
         </div>
     {% endblock grid_exports %}
@@ -346,8 +339,22 @@
         {#<ul class="grid-row-actions">#}
         {% for action in actions %}
             {#<li>#}
-            <a href="{{ url(action.route, column.routeParameters(row, action), false) }}" target="{{ action.target }}"{% if action.confirm %} onclick="return confirm('{{ action.confirmMessage }}')"{% endif %}{% for name, value in action.attributes %} {{ name }}="{{ value }}" {% endfor %}>
-            {% if action.prevIcon %} <i class="fa {{ action.prevIcon }}" aria-hidden="true"></i>{% endif %} {{ action.title|trans|capitalize }}</a>
+
+            {% if action.isButton == false %}
+                <a href="{{ url(action.route, column.routeParameters(row, action), false) }}" target="{{ action.target }}"{% if action.confirm %} onclick="return confirm('{{ action.confirmMessage }}')"{% endif %}{% for name, value in action.attributes %} {{ name }}="{{ value }}" {% endfor %}>
+            {% else %}
+                <button type="button" data-url="{{ url(action.route, column.routeParameters(row, action), false) }}" {% for dataName, dataValue in column.routeParameters(row, action) %} data-{{ dataName }}="{{ dataValue }}" {% endfor %} {% if action.confirm %} onclick="return confirm('{{ action.confirmMessage }}')"{% endif %} {% for name, value in action.attributes %} {{ name }}="{{ value }}" {% endfor %}>
+            {% endif %}
+
+            {% if action.prevIcon %}<i class="fa {{ action.prevIcon }}" aria-hidden="true"></i>{% endif %}
+
+            {{ action.title|trans|capitalize }}
+
+             {% if action.isButton == false %}
+            </a>
+            {% else %}
+            </button>
+            {% endif %}
             {#</li>#}
         {% endfor %}
         {#</ul>#}
@@ -402,6 +409,16 @@
     {% endblock %}
     {% block grid_column_type_country_cell %}
         {{ block('grid_column_country_cell') }}
+    {% endblock %}
+
+  {# ------------------------------------------------ grid_column_type_color_tag_cell --------------------------------------------- #}
+    {% block grid_column_color_tag_cell %}
+        <span class="small-round-bullet" style="color: transparent; background-color: {{ value }}">
+           {#{{ block("grid_column_cell") }}#}
+        </span>
+    {% endblock %}
+    {% block grid_column_type_color_tag_cell %}
+        {{ block('grid_column_color_tag_cell') }}
     {% endblock %}
         {# ------------------------------------------- grid_column_cell ---------------------------------------- #}
     {% block grid_column_cell %}
@@ -513,6 +530,11 @@
     {% block grid_scripts %}
         <script type="text/javascript">
             //
+
+            // $("body").find(".edit-customer-article").on("click", function(){
+            //     console.log("kliiiyyyyyyiik");
+            // });
+
             {{ grid_scripts_goto(grid) }}
             {{ grid_scripts_reset(grid) }}
             {{ grid_scripts_previous_page(grid) }}
@@ -544,7 +566,7 @@
     {% block grid_scripts_goto %}
 
         function {{ grid.hash }}_goto(url)
-
+        console.log('Grid Go To...');
         window.location.href = url;
 
         return false;
@@ -555,6 +577,9 @@
         function {{ grid.hash }}_reset()
         {
         {{ grid.hash }}_goto('{{ grid_url('reset', grid) }}');
+        $("#"+ {{ grid.hash }}).find("select").select2(
+        {width: "100%"}
+        );
 
         return false;
         }
@@ -740,6 +765,7 @@
         event.stopPropagation();
         event.preventDefault();
         key = event.which;
+        console.log('Grid_submittt');
 
         if (window.event) {
         key = window.event.keyCode; //IE
@@ -777,6 +803,7 @@
 
         // Mass actions submit
         $('#{{ grid.hash }} input.submit-massaction').click(function () {
+        console.log('Grsi Massaction');
         var selector = $('#{{ grid.hash }} .grid_massactions select');
 
         {{ grid.hash }}_goto('{{ grid.routeUrl }}', selector.attr('name') + '=' + selector.val(), 'POST');

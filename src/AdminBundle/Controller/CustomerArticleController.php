@@ -88,14 +88,15 @@ class CustomerArticleController extends Controller
         /***
          * ACTIONS
          */
-        $rowAction1 = new CustomGridRowAction('modify', 'customer_article_edit');
-        $rowAction1->addRouteParameters(array('slug'));
-        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
-        $rowAction1->setConfirm(true);
-        $rowAction1->setConfirmMessage("Sure ?");
-        $rowAction1->setTarget("_blank");
-        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
-        $rowAction1->setPrevIcon("fa-pencil-square-o");
+        $rowActionEdit = new CustomGridRowAction('modify', 'customer_article_edit');
+        $rowActionEdit->addRouteParameters(array('slug'));
+        $rowActionEdit->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowActionEdit->setIsButton(true);
+//        $rowActionEdit->setConfirm(true);
+//        $rowActionEdit->setConfirmMessage("Sure ?");
+//        $rowActionEdit->setTarget("_blank");
+        $rowActionEdit->setAttributes(["class" =>"btn btn-sm btn-info edit-customer-article", "data-toggle" => "modal", "data-target" => "#addArticleModal" ]);
+        $rowActionEdit->setPrevIcon("fa-pencil-square-o");
 //
 //        $rowAction2 = new CustomGridRowAction('add_site', 'corporation_site_new');
 //        $rowAction2->addRouteParameters(array('slug'));
@@ -115,11 +116,14 @@ class CustomerArticleController extends Controller
 //        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
 //        $rowActionContact->setPrevIcon("fa-user-plus");
 
+//        dump($rowActionEdit);
         $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
-            $rowAction1,
+            $rowActionEdit,
             //  $rowAction2,
             //  $rowActionContact
         ]);
+//        dump($actionsColumn);
+//        die;
         $actionsColumn->setAlign("center");
 
         $grid->addColumn($actionsColumn);
@@ -149,23 +153,12 @@ class CustomerArticleController extends Controller
     public function newAction(Request $request, CustomerChapter $customerChapter = null)
     {
         $customerArticle = new CustomerArticle();
+        $action = $this->generateUrl("customer_article_new");
         if(isset($customerChapter)){
             $customerArticle->setCustomerChapter($customerChapter);
+            $action = $this->generateUrl("customer_article_new", ["slugChapter" => $customerChapter->getSlug()]);
         }
-        $form = $this->createForm(CustomerArticleType::class, $customerArticle, ["mode" => CustomerArticleType::POP_UP_MODE, "action" => $this->generateUrl("customer_article_new")]);
-
-        /**
-         * INSIDE POP UP
-         */
-        if ($request->isXmlHttpRequest()) {
-            return $this->render("AdminBundle:customerarticle:add_article_modal.html.twig",
-                [
-                    "form" => $form->createView(),
-                    "object_title" => $customerArticle,
-                    "default" => false
-                ]);
-        }
-
+        $form = $this->createForm(CustomerArticleType::class, $customerArticle, ["mode" => CustomerArticleType::POP_UP_MODE, "action" => $action]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -176,9 +169,24 @@ class CustomerArticleController extends Controller
             return $this->redirectToRoute('customer_serial_index', ["_fragment" => "tab_serial".$customerArticle->getCustomerChapter()->getCustomerSerial()->getId()]);
         }
 
+        /**
+         * INSIDE POP UP
+         */
+        if ($request->isXmlHttpRequest()) {
+            return $this->render("AdminBundle:customerarticle:add_article_modal.html.twig",
+                [
+                    "form" => $form->createView(),
+                    "object_title" => $customerArticle,
+                    "default" => false,
+                    "mode" => "CREATE"
+                ]);
+        }
+
+
         return $this->render('AdminBundle:CustomerArticle:new.html.twig', array(
             'customerArticle' => $customerArticle,
             'form' => $form->createView(),
+            "mode" => "CREATE"
         ));
     }
 
@@ -206,20 +214,43 @@ class CustomerArticleController extends Controller
     public function editAction(Request $request, CustomerArticle $customerArticle)
     {
         $deleteForm = $this->createDeleteForm($customerArticle);
-        $editForm = $this->createForm(CustomerArticleType::class, $customerArticle);
+
+        if($request->isXmlHttpRequest()){
+            $editForm = $this->createForm(CustomerArticleType::class, $customerArticle, ["mode" => CustomerArticleType::POP_UP_MODE, "action" => $this->generateUrl("customer_article_edit", ["slug" => $customerArticle->getSlug()])]);
+        }else{
+            $editForm = $this->createForm(CustomerArticleType::class, $customerArticle);
+        }
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('customer_article_edit', array('slug' => $customerArticle->getSlug()));
+            if ($request->isXmlHttpRequest()) {
+                return $this->render("AdminBundle:customerarticle:add_article_modal.html.twig",
+                    [
+                        "form" => $editForm->createView(),
+                        "object_title" => $customerArticle,
+                        "default" => false
+                    ]);
+            }else {
+                return $this->redirectToRoute('customer_article_edit', array('slug' => $customerArticle->getSlug()));
+            }
         }
 
-        return $this->render('AdminBundle:customerarticle:edit.html.twig', array(
-            'customerArticle' => $customerArticle,
-            'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        if ($request->isXmlHttpRequest()) {
+            return $this->render("AdminBundle:customerarticle:add_article_modal.html.twig",
+                [
+                    "form" => $editForm->createView(),
+                    "object_title" => $customerArticle,
+                    "default" => false
+                ]);
+        }else{
+            return $this->render('AdminBundle:customerarticle:edit.html.twig', array(
+                'customerArticle' => $customerArticle,
+                'form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
     }
 
     /**

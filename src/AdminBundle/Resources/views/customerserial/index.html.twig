@@ -61,7 +61,7 @@
                             {% set isActive = "" %}
                             {% set isFirstSerial = false %}
                         {% endif %}
-                        <div role="tabpanel" class="tab-pane fade {{ isActive }}" id="tab_serial{{ customerSerial.id }}" aria-labelledby="{{ customerSerial.slug }}-tab">
+                        <div role="tabpanel" class="tab-pane fade {{ isActive }} serial-tab-content" id="tab_serial{{ customerSerial.id }}" aria-labelledby="{{ customerSerial.slug }}-tab">
                             <div class="col-xs-2">
                                 <ul class="nav nav-tabs tabs-left">
                                     {% for customerChapter in customerSerial.customerChapters %}
@@ -151,8 +151,11 @@
     <!-- Grid articles by chapter Ajax Call -->
     {% include "AdminBundle:customerarticle:add_grid_articles_by_chapter.js.twig" with { "rootClass": "edit-customer-chapter-name", "routeName": "customer_article_grid", "targetElement": "articles-grid", "slugParam": "slugChapter"  } %}
 
-    <!-- Grid articles by chapter Ajax Call -->
+    <!-- Grid articles by serial > first chapter Ajax Call -->
     {% include "AdminBundle:customerarticle:add_grid_articles_by_serial_first_chapter.js.twig" with { "rootClass": "edit-customer-serial-name", "routeName": "customer_article_grid", "targetElement": "articles-grid", "slugParam": "slugChapter"  } %}
+
+    <!-- Edit articles from grid Ajax call -->
+    {% include "AdminBundle:customerarticle:add_customer_object_pop_up.js.twig" with { "classEntity": "edit-customer-article", "routeName": "customer_article_edit", "targetPopUp": "addArticleModal", "slugParam": "slug" } %}
 
 {% endblock %}
 {% block plain_js_bundle %}
@@ -241,7 +244,7 @@
             /**
              *
              */
-            $("input.ajax-edit").on("click", function(){
+            $("input.ajax-edit").on("click", function() {
                 $(this).trigger("blur");
             });
 
@@ -249,7 +252,6 @@
                 var val = $(this).val();
                 $(this).focus().val('').val(val);
             })
-
         });
     </script>
 {% endblock %}

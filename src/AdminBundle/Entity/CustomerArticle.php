@@ -77,7 +77,7 @@ class CustomerArticle {
      * @JMSSer\Expose()
      * @JMSSer\Groups({"business_export_business_work_site"})
      *
-     * @GRID\Column(title="color", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
+     * @GRID\Column(title="color", operators={"like", "nlike", "rslike", "llike" }, type="color_tag", visible=true, align="center", class="column-title")
      */
     private $color;
 

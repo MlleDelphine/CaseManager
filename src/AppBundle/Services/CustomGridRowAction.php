@@ -13,7 +13,7 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 class CustomGridRowAction extends RowAction
 {
     protected $prevIcon;
-
+    protected $isButton = false;
     protected $isSubRow = false;
 
     public function __construct(string $title, string $route, bool $confirm = false, string $target = '_self', array $attributes = [], string $role = null)
@@ -52,5 +52,22 @@ class CustomGridRowAction extends RowAction
     {
         $this->isSubRow = $isSubRow;
     }
+
+    /**
+     * @return bool
+     */
+    public function isButton(): bool
+    {
+        return $this->isButton;
+    }
+
+    /**
+     * @param bool $isButton
+     */
+    public function setIsButton(bool $isButton)
+    {
+        $this->isButton = $isButton;
+    }
+
 
 }

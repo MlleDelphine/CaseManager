@@ -305,3 +305,97 @@ ul.dark-green-borders li {
 li.medium-tab{
     width: 10%;
 }
+
+/**
+* Ribbon tag
+*/
+span.ribbon {
+    background: #2E2E2E;
+    display: block;
+    width: 0;
+    height: 0;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 13px solid #2E2E2E;
+}
+
+span.ribbon::before, span.ribbon:before {
+    content: '';
+    background: #FFF;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 7px;
+    height: 7px;
+    display: block;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    z-index: 1;
+}
+
+span.ribbon::after, span.ribbon:after {
+    background: #2E2E2E;
+    content: '';
+    width: 50px;
+    height: 36px;
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -9px;
+    display: block;
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+    -o-transform: rotateZ(45deg);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+/**
+ * Round circle
+ */
+span.big-round-bullet {
+    display: block;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 2em;
+}
+
+span.medium-round-bullet {
+    display: block;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+span.small-round-bullet {
+    display: block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 0.9em;
+}

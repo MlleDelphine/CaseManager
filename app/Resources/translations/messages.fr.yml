@@ -56,6 +56,10 @@ color: couleur
 color_capitalize: Couleur
 colors: couleurs
 colors_capitalize: Couleurs
+designation: désignation
+designation_capitalier: Désignation
+results: résultat(s)
+result_per_page: résultat(s) par page
 
 no_result_found: Aucun résultat trouvé.
 successfully_edit: "Modification réussie"
