@@ -60,6 +60,7 @@ designation: désignation
 designation_capitalier: Désignation
 results: résultat(s)
 result_per_page: résultat(s) par page
+go_to_page: aller à la page
 
 no_result_found: Aucun résultat trouvé.
 successfully_edit: "Modification réussie"

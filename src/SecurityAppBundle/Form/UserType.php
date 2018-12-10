@@ -59,9 +59,10 @@ class UserType extends AbstractType
                 "required" => false))
             ->add("enabled", CheckboxType::class,  array(
                 "label_format" => "authorized_connection_capitalize"))
-            ->add("unit", ChoiceType::class, array("label_format" => "Unité de mesure", "required" => true,
-                "choices" =>
-                    Unit::getSubUnitsByMainKey("Temps")))
+            ->add("unit", ChoiceType::class, array(
+                "label_format" => "unit_capitalize",
+                "required" => true,
+                "choices" => Unit::getSubUnitsByMainKey("Temps")))
             ->add("timePrices", CollectionType::class, [
                 "entry_type" => TimePriceType::class,
                 "entry_options" => ["label" => false],

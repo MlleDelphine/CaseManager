@@ -83,7 +83,7 @@ class CustomerArticleController extends Controller
         $grid->setSource($source);
         $grid->setRouteUrl($routeAtSubmit);
         $grid->setDefaultOrder('name', 'ASC');
-        $grid->setDefaultLimit(20);
+        $grid->setDefaultLimit(10);
 
         /***
          * ACTIONS
@@ -92,51 +92,39 @@ class CustomerArticleController extends Controller
         $rowActionEdit->addRouteParameters(array('slug'));
         $rowActionEdit->setRouteParametersMapping(array('slug' => 'slug'));
         $rowActionEdit->setIsButton(true);
-//        $rowActionEdit->setConfirm(true);
-//        $rowActionEdit->setConfirmMessage("Sure ?");
-//        $rowActionEdit->setTarget("_blank");
         $rowActionEdit->setAttributes(["class" =>"btn btn-sm btn-info edit-customer-article", "data-toggle" => "modal", "data-target" => "#addArticleModal" ]);
         $rowActionEdit->setPrevIcon("fa-pencil-square-o");
-//
-//        $rowAction2 = new CustomGridRowAction('add_site', 'corporation_site_new');
-//        $rowAction2->addRouteParameters(array('slug'));
-//        $rowAction2->setRouteParametersMapping(array('slug' => 'slugCorpGroup'));
-//        $rowAction2->setConfirm(true);
-//        $rowAction2->setConfirmMessage("Sure ?");
-//        $rowAction2->setTarget("_blank");
-//        $rowAction2->setAttributes(["class" =>"btn btn-sm btn-primary"]);
-//        $rowAction2->setPrevIcon("fa-plus");
-//
-//        $rowActionContact = new CustomGridRowAction('add_contact', 'customer_contact_new');
-//        $rowActionContact->addRouteParameters(array('slug'));
-//        $rowActionContact->setRouteParametersMapping(array('slug' => 'slugCustomer'));
-//        $rowActionContact->setConfirm(true);
-//        $rowActionContact->setConfirmMessage("Sure ?");
-//        $rowActionContact->setTarget("_blank");
-//        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
-//        $rowActionContact->setPrevIcon("fa-user-plus");
 
-//        dump($rowActionEdit);
+        $rowActionDelete = new CustomGridRowAction('delete', 'customer_article_delete');
+        $rowActionDelete->addRouteParameters(array('slug'));
+        $rowActionDelete->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowActionDelete->setIsButton(true);
+        $rowActionDelete->setAttributes(["class" =>"btn btn-sm btn-danger delete-customer-article", "data-toggle" => "modal", "data-target" => "#deleteModal" ]);
+        $rowActionDelete->setPrevIcon("fa-trash-o");
+
         $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
             $rowActionEdit,
-            //  $rowAction2,
-            //  $rowActionContact
+            $rowActionDelete
         ]);
-//        dump($actionsColumn);
-//        die;
-        $actionsColumn->setAlign("center");
 
+        $actionsColumn->setAlign("center");
         $grid->addColumn($actionsColumn);
 
         $date = date('Y-m-d H:i:s');
         $grid->addExport(new ExcelExport("Export", "[CaseManager][CustomerArticle] - Articles ENEDIS $date"));
         $grid->addExport(new CSVExport("Export CSV", "[CaseManager][CustomerArticle] - Articles ENEDIS $date"));
-
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();
 
+        //  {% include ":common:delete_pop_up.js.twig" with { "classEntity": "delete-customer-article", "routeName": "customer_article_delete" } %}
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse(':common:default_datatable_grid.html.twig', array('grid' => $grid, "customerChapter" => $customerChapter));
+            return $grid->getGridResponse(':common:default_datatable_grid.html.twig', array(
+                'grid' => $grid,
+                "customerChapter" => $customerChapter,
+                "deleteModals" => [
+                    ["classEntity" => "delete-customer-article", "routeName" => "customer_article_delete"]
+                ]
+            ));
         }else{
             return $grid->getGridResponse("AdminBundle:customerarticle:index.html.twig", array('grid' => $grid));
         }
@@ -255,11 +243,22 @@ class CustomerArticleController extends Controller
 
     /**
      * Deletes a customerArticle entity.
-     *
+     * @param Request $request
+     * @param CustomerArticle $customerArticle
+     * @return RedirectResponse|Response
      */
     public function deleteAction(Request $request, CustomerArticle $customerArticle)
     {
         $form = $this->createDeleteForm($customerArticle);
+        if ($request->isXmlHttpRequest()) {
+            return $this->render(":common:remove_object_modal.html.twig",
+                [
+                    "delete_form" => $form->createView(),
+                    "object_title" => $customerArticle,
+                    "default" => false
+                ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -267,8 +266,11 @@ class CustomerArticleController extends Controller
             $em->remove($customerArticle);
             $em->flush();
         }
-
-        return $this->redirectToRoute('customer_article_index');
+        if ($request->isXmlHttpRequest()) {
+            return $this->redirectToRoute('customer_article_index');
+        }else{
+            return $this->redirectToRoute('customer_serial_index');
+        }
     }
 
     /**

@@ -158,7 +158,11 @@ class CustomerChapterController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('customer_chapter_index');
+        if ($request->isXmlHttpRequest()) {
+            return $this->redirectToRoute('customer_chapter_index');
+        }else{
+            return $this->redirectToRoute('customer_serial_index');
+        }
     }
 
     /**

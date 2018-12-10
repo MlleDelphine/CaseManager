@@ -25,7 +25,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, designation, reference, color")
+ * @GRID\Source(columns="id, slug, name, reference, designation")
  *
  */
 class CustomerArticle {
@@ -70,20 +70,6 @@ class CustomerArticle {
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=8, unique=true)
-     *
-     * @Assert\NotBlank()
-     *
-     * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_work_site"})
-     *
-     * @GRID\Column(title="color", operators={"like", "nlike", "rslike", "llike" }, type="color_tag", visible=true, align="center", class="column-title")
-     */
-    private $color;
-
-    /**
-     * @var string
-     *
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
@@ -96,7 +82,7 @@ class CustomerArticle {
      *
      * @ORM\Column(name="reference", type="string", length=255, nullable=false, unique=true)
      *
-     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title")
+     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="center", class="column-title")
      */
     private $reference;
 
@@ -189,23 +175,6 @@ class CustomerArticle {
         $this->designation = $designation;
 
         return $this;
-    }
-
-    /**
-     * @param string $color
-     * @return CustomerArticle
-     */
-    public function setColor(string $color) {
-        $this->color = $color;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getColor() {
-        return $this->color;
     }
 
     /**

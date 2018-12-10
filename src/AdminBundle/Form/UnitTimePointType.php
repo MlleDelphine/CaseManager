@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UnitTimePointType extends AbstractType
@@ -42,6 +44,16 @@ class UnitTimePointType extends AbstractType
                 "required" => true,
                 "invalid_message" => "error_message_decimal_number"));
 
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+
+            $form ->add("unit", ChoiceType::class, array(
+                "label_format" => "measure_unit_capitalize",
+                "required" => true,
+                "choices" => Unit::getAllUnits(),
+                "data" => $event->getData() ? $event->getData()->getUnit() : "Pièce"));
+        });
     }
 
     /**

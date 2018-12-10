@@ -1,1 +1,14 @@
 {{ grid(grid, ':common:default_block_js_datatable.jquery.twig') }}
+
+<script type="text/javascript">
+    $(function () {
+        {% if deleteModals is defined %}
+        {% for index, params in deleteModals %}
+        console.log("print deleteModals");
+        {% include ":common:delete_pop_up.js.twig" with params %}
+        {% endfor %}
+        {% else %}
+        console.log("no deleteModals to print ...");
+        {% endif %}
+    });
+</script>

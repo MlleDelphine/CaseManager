@@ -180,6 +180,7 @@
             {{ grid_no_result(grid) }}
         {% endfor %}
     {% endblock grid_rows %}
+
         {# ---------------------------------------------------- grid_pager -------------------------------------------------- #}
     {% block grid_pager %}
         {% if pagerfanta %}
@@ -194,21 +195,20 @@
     {% endblock grid_pager %}
         {# ---------------------------------------------------- grid_pager_totalcount -------------------------------------------------- #}
     {% block grid_pager_totalcount %}
-        <div class="col-md-12" role="alert" >
+        <div class="col-md-4 col-sm-12" style="text-align:left" role="alert" >
             <div class="alert alert-info" style="display: inline-block;">{{ '%count%' | transchoice(grid.totalCount, {'%count%': grid.totalCount}) }} {{ "results"|trans }}</div>
         </div>
     {% endblock grid_pager_totalcount %}
         {# ---------------------------------------------------- grid_pager_selectpage -------------------------------------------------- #}
     {% block grid_pager_selectpage %}
-        {#{{ 'Page'|trans }}#}
         {% spaceless %}
-            <div class="col-md-12">
+            <div class="col-md-4 col-sm-12">
                 <nav>
                     <ul class="pagination grid-pagination">
                         <li>
-            <span aria-label="Previous" {% if grid.page <= 0 %}class="disabled" {% else %}onclick="return {{ grid.hash }}_previousPage();"{% endif %} >
-        <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-            </span>
+                            <span aria-label="Previous" {% if grid.page <= 0 %}class="disabled" {% else %}onclick="return {{ grid.hash }}_previousPage();"{% endif %} >
+                                <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </span>
                         </li>
                         {# On affiche 1er ... 7 pages ... dernier #}
                         {% set limit = 10 %}
@@ -246,9 +246,13 @@
     {% endblock grid_pager_selectpage %}
         {# ---------------------------------------------------- grid_disposition_selectpagenbr_itemsnbr --------------------------------- #}
     {% block grid_disposition_selectpagenbr_itemsnbr %}
-        <div class="col-md-12">
-            <div class="" role="group" style="display: inline-block">
-                <div class="input-group middle-input" style="margin-bottom:5px">
+        <div class="col-md-4 col-sm-12">
+            {#<div class="" role="group" style="display: inline-block">#}
+            <div class="col-md-6 col-sm-12" style="margin:0px">
+                <span class="left-label">
+                    <span class=""> {{ 'go_to_page'|trans|ucfirst }}</span>
+                </span>
+                <div class="input-group">
                     <input type="number" placeholder="Aller à la page..." class="current form-control" value="{{ grid.page + 1 }}" size="2" style="text-align: center;" onkeypress="return {{ grid.hash }}_enterPage(event, parseInt(this.value)-1);"/>
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-default">
@@ -256,21 +260,23 @@
                     </button>
                     </span>
                 </div>
-                <div class="input-group middle-input" style="margin-bottom:5px">
-                    <span class="item-pagination">
+            </div>
+            <div class="col-md-6 col-sm-12" > {# style="margin-bottom:5px" #}
+                <span class="item-pagination">
                         <span class="left-label">
                             <span class="">{{ "result_per_page"|trans|ucfirst }}</span>
                         </span>
                     </span>
-                    <select onchange="return {{ grid.hash }}_resultsPerPage(this.value);">
-                        {% for key, value in grid.limits %}
-                            <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <select onchange="return {{ grid.hash }}_resultsPerPage(this.value);">
+                    {% for key, value in grid.limits %}
+                        <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
             </div>
+            {#</div>#}
         </div>
     {% endblock %}
+
         {# ---------------------------------------------------- grid_actions ------------------------------------------------- #}
     {% block grid_actions %}
         <div class="mass-actions">
@@ -531,10 +537,6 @@
         <script type="text/javascript">
             //
 
-            // $("body").find(".edit-customer-article").on("click", function(){
-            //     console.log("kliiiyyyyyyiik");
-            // });
-
             {{ grid_scripts_goto(grid) }}
             {{ grid_scripts_reset(grid) }}
             {{ grid_scripts_previous_page(grid) }}
@@ -558,7 +560,6 @@
                 });
 
                 $('#all-customers').find('select:disabled').prev('div').hide();
-
             });
         </script>
     {% endblock grid_scripts %}

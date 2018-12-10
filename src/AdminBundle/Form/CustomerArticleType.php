@@ -30,11 +30,6 @@ class CustomerArticleType extends AbstractType
                 "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
                 "required" => false,
                 "attr" => ["class" => "tinymce-textarea"]))
-            ->add("color", TextType::class, array(
-                "label_format" => "tag_color_capitalize",
-                "required" => true,
-                "attr" => ["class" => "input-group colorpicker-element"]
-            ))
             ->add('reference', TextType::class, array(
                 "label" => "reference_capitalize",
                 "required" => true))
