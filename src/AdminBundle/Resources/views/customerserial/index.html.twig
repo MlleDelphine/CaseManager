@@ -34,9 +34,9 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
-            {# SERIALS TABS MENU #}
+
             <div id="all-customer-serials" class="x_content container">
-                <ul id="customerCatalogTab" class="nav nav-tabs bar_tabs bar_tabs_olive_green" role="tablist">
+                <ul id="customerCatalogTab" class="nav nav-tabs bar_tabs bar_tabs_olive_green" style="min-height: 25px;" role="tablist">
                     {% for customerSerial in customerSerials %}
                         {% if loop.first %}
                             {% set isActive = "active" %}
@@ -62,7 +62,7 @@
                             {% set isActive = "" %}
                             {% set isFirstSerial = false %}
                         {% endif %}
-                        {# CHAPTERS TABS MENU #}
+
                         <div role="tabpanel" class="tab-pane fade {{ isActive }} serial-tab-content" id="tab_serial{{ customerSerial.id }}" aria-labelledby="{{ customerSerial.slug }}-tab">
                             <div class="col-xs-2" style="border-right: 1px dotted olive;">
                                 <ul class="nav nav-tabs tabs-left">
@@ -75,7 +75,7 @@
                                         <li class="{{ isActive }}">
                                             <form class="chapter-name-form" method="PUT" action="{{ path('customer_chapter_edit', {"slug": customerChapter.slug}) }}">
                                                 <a href="#{{ customerChapter.slug }}" id="{{ customerChapter.slug }}-tab" role="tab" data-toggle="tab" aria-expanded="true" style="font-weight: bold;">
-                                                     <textarea class="edit-customer-chapter-name ajax-edit" required=required name="customer_chapter_name" data-slug="{{ customerChapter.slug }}">{{ customerChapter.name }}</textarea>
+                                                    <textarea class="edit-customer-chapter-name ajax-edit" required=required name="customer_chapter_name" data-slug="{{ customerChapter.slug }}">{{ customerChapter.name }}</textarea>
                                                 </a>
                                                 <input style="display: none;" type="submit"/>
                                             </form>
@@ -117,14 +117,13 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="clearfix"></div>
     <!-- Import Modal -->
     {% include  ":common:import_modal.html.twig" with { "action_path": "customer_serial_index", "object_title": "some_customer_serials", "error": error } %}
     <!-- Delete Modal -->

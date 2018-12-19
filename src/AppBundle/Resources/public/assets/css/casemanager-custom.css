@@ -151,14 +151,27 @@ div[class$="-collection-actions"]{
 /*** END ***/
 
 /** FIXE footer override body **/
-body .container.body .right_col {
+
+.right_col{
     padding-bottom: 10px;
-    margin-bottom: 45px; /** Because footer override **/
+}
+
+.full-content{
+    padding-bottom: 45px;
+}
+
+.nav_menu_top{
+    margin-bottom: 0px;
 }
 
 .sidebar-footer{
     padding-top: 15px; /** footer heigh : 49.14..px **/
 }
+
+footer.darker-gray-footer{
+    background: #EDEDED;
+}
+
 /** END **/
 
 /**** CUSTOM BUTTONS ****/
