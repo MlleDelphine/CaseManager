@@ -110,7 +110,6 @@ genemu_form:
             entity_encoding: raw
             plugins : 'advlist autolink link image lists charmap print preview'
         script_url: 'vendor/tinymce/tinymce.min.js'
-
     date: ~
     image: ~
     select2:
@@ -120,7 +119,6 @@ genemu_form:
             width: off
             allowClear: false
             minimumInputLength: 0
-    date: ~
 # Doctrine Configuration
 doctrine:
     dbal:
