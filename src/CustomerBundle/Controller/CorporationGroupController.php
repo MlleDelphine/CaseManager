@@ -57,7 +57,7 @@ class CorporationGroupController extends Controller
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
                 ->leftJoin("_a.postalAddress", "postalAddress");
         });
-       // $source->s
+        // $source->s
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -118,14 +118,6 @@ class CorporationGroupController extends Controller
             return $grid->getGridResponse("CustomerBundle:corporationgroup:index.html.twig", array('grid' => $grid, "error" => $error));
         }
 
-        /****/
-
-        $corporationGroups = $em->getRepository('CustomerBundle:CorporationGroup')->findAll();
-
-        return $this->render('CustomerBundle:corporationgroup:index.html.twig', array(
-            'corporationGroups' => $corporationGroups,
-            "error" => $error
-        ));
     }
 
     /**

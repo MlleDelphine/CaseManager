@@ -358,8 +358,8 @@ some_corporation_employees: des contacts
 no_corporation_employee: aucun contact (société)
 
 all_customer_contacts: tous les contacts (client)
-corpo_employees: contacts
-corpo_employees_capitalize: Contacts
+corpo_customer_contacts: contacts
+corpo_customer_contacts_capitalize: Contacts
 customer_contact_capitalize: Contacts
 customer_contacts: contacts (client)
 customer_contact: contact (client)
@@ -498,8 +498,6 @@ a_close: fermeture
 cancel: annuler
 cancellation: annulation
 file: fichier
-name: nom
-name_capitalize: Nom
 fold: replier
 unfold: déplier
 

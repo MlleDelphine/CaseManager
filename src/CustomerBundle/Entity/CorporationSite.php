@@ -3,14 +3,12 @@
 namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
-use CustomerBundle\Entity\AbstractClass\CustomerSubjectInterface;
-use CustomerBundle\Entity\CorporationGroup;
-use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CorporationSite
@@ -20,6 +18,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, name, legalStatus, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated")
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true)
  */
 class CorporationSite extends Customer
 {
@@ -30,6 +31,8 @@ class CorporationSite extends Customer
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationsite"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_address"})
      */
     protected $name;
 
@@ -40,14 +43,16 @@ class CorporationSite extends Customer
      * @Assert\Regex("/^((\+\d{2})|0)[0-9]{9}$/")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationsite"})
+     *
+     * @GRID\Column(title="phone_number_capitalize", operators={"like", "nlike", "rslike", "llike" }, defaultOperator="like", type="text", visible=true, align="left")
      */
     protected $phoneNumber;
 
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $updated;
+//    /**
+//     * @var \DateTime
+//     * @Gedmo\Timestampable(on="update")
+//     */
+//    protected $updated;
 
     /**
      * @var CorporationGroup
@@ -62,13 +67,13 @@ class CorporationSite extends Customer
     /**
      * @var CustomerContact[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationSite", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
+     * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="customer", fetch="EXTRA_LAZY", cascade={"persist", "detach"})
      */
-    protected $employees;
+    protected $customerContacts;
 
     public function __construct()
     {
-        $this->employees = new ArrayCollection();
+        $this->customerContacts = new ArrayCollection();
     }
 
     public function __toString()
@@ -207,37 +212,37 @@ class CorporationSite extends Customer
     }
 
     /**
-     * Add employee
+     * Add customerContact
      *
-     * @param CustomerContact $employee
+     * @param CustomerContact $customerContact
      *
      * @return CorporationSite
      */
-    public function addEmployee(CustomerContact $employee)
+    public function addCustomerContact(CustomerContact $customerContact)
     {
-        $this->employees[] = $employee;
+        $this->customerContacts[] = $customerContact;
 
         return $this;
     }
 
     /**
-     * Remove employee
+     * Remove customerContact
      *
-     * @param CustomerContact $employee
+     * @param CustomerContact $customerContact
      */
-    public function removeEmployee(CustomerContact $employee)
+    public function removeCustomerContact(CustomerContact $customerContact)
     {
-        $this->employees->removeElement($employee);
+        $this->customerContacts->removeElement($customerContact);
     }
 
     /**
-     * Get employees
+     * Get customerContacts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEmployees()
+    public function getCustomerContacts()
     {
-        return $this->employees;
+        return $this->customerContacts;
     }
 
     public function getObjectName() {
