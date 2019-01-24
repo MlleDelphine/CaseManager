@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * CustomerContact
  *
@@ -17,6 +19,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, honorific, firstName, lastName, mailAddress, phoneNumber, concatenated_full_name, created, updated")
+ * @GRID\Column(id="concatenated_full_name", type="text", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, source=true)
  */
 class CustomerContact extends Person
 {
@@ -29,6 +34,8 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
      */
     protected $id;
 
@@ -37,6 +44,10 @@ class CustomerContact extends Person
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
+     *
      */
     protected $firstName;
 
@@ -45,6 +56,10 @@ class CustomerContact extends Person
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
+     *
      *
      */
     protected $lastName;
@@ -57,6 +72,8 @@ class CustomerContact extends Person
      * @Assert\Regex("/^((\+\d{2})|0)[0-9]{9}$/")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="phone_number_capitalize", operators={"like", "nlike", "rslike", "llike" }, defaultOperator="like", type="text", visible=true, align="left")
      */
     protected $phoneNumber;
 
@@ -70,6 +87,9 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="mail_address_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_full_name"})
+     *
      */
     private $mailAddress;
 
@@ -78,6 +98,8 @@ class CustomerContact extends Person
      *
      * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
+     *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general", "merged_full_name"})
      *
      */
     protected $slug;
@@ -89,6 +111,9 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, groups={"general"}, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=false,  groups={"merged_full_name"}, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
      */
     private $honorific;
 
@@ -96,6 +121,8 @@ class CustomerContact extends Person
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="created_m_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $created;
 
@@ -103,6 +130,8 @@ class CustomerContact extends Person
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_m_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $updated;
 
@@ -116,7 +145,7 @@ class CustomerContact extends Person
     protected $corporationJobStatus;
 
     /**
-     * If employee deleted, Customer (corpo) noy deleted
+     * If employee deleted, Customer (corpo) no deleted
      * Owning side here
      * @var Customer
      * @ORM\ManyToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", inversedBy="customerContacts")
@@ -124,7 +153,10 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(title="created_m_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
+
     protected $customer;
 
     /**

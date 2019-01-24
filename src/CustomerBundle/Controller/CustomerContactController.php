@@ -2,6 +2,11 @@
 
 namespace CustomerBundle\Controller;
 
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use CustomerBundle\Entity\CorporationSite;
@@ -22,6 +27,7 @@ class CustomerContactController extends Controller
      * Lists all customerContact entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
@@ -43,12 +49,66 @@ class CustomerContactController extends Controller
             }
         }
 
-        $customerContacts = $em->getRepository('CustomerBundle:CustomerContact')->findAll();
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("customer_contact_index");
 
-        return $this->render('CustomerBundle:customercontact:index.html.twig', array(
-            'customerContacts' => $customerContacts,
-            "error" => $error
-        ));
+        //concatenated_postal_address
+        $source = new Entity("CustomerBundle:CustomerContact", "merged_full_name");
+        $source->manipulateQuery(function($query){
+            //"postalAddress.streetNumber, postalAddress.streetName, postalAddress.postalCode, postalAddress.city,
+            $query->addSelect(["CONCAT(_a.honorific, ' ', _a.lastName, ' ', _a.firstName) as concatenated_full_name"]);
+                //->leftJoin("_a.postalAddress", "postalAddress");
+        });
+        // $source->s
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('lastName', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'customer_contact_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $rowActionContact = new CustomGridRowAction('add_contact', 'customer_contact_new');
+        $rowActionContact->addRouteParameters(array('slug'));
+        $rowActionContact->setRouteParametersMapping(array('slug' => 'slugCustomer'));
+        $rowActionContact->setConfirm(true);
+        $rowActionContact->setConfirmMessage("Sure ?");
+        $rowActionContact->setTarget("_blank");
+        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
+        $rowActionContact->setPrevIcon("fa-user-plus");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1,
+            $rowActionContact]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][Customer] - Contacts société $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - Contacts société $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse('CustomerBundle:customercontact:index_datatable_grid.html.twig', array('grid' => $grid, "error" => $error));
+        }else{
+            return $grid->getGridResponse("CustomerBundle:customercontact:index.html.twig", array('grid' => $grid, "error" => $error));
+        }
     }
 
     /**

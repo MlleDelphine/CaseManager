@@ -33,67 +33,6 @@
                 <div class="clearfix"></div>
             </div>
             <div id="all-customers" class="x_content container">
-                {#<a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a>#}
-                {#<a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>#}
-                {#<hr>#}
-
-                {#<!-- start accordion -->#}
-                {#<div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">#}
-                    {#{% for corporationGroup in corporationGroups %}#}
-                        {#<div class="panel">#}
-                            {#<a class="panel-heading" role="tab" id="heading{{ corporationGroup.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ corporationGroup.id }}" aria-expanded="true" aria-controls="collapse{{ corporationGroup.id }}">#}
-                                {#<h4 class="panel-title">{{ corporationGroup.name }}</h4>#}
-                            {#</a>#}
-                            {#<div id="collapse{{ corporationGroup.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ corporationGroup.id }}">#}
-                                {#<div class="panel-body">#}
-                                    {#<table class="table table-bordered">#}
-                                        {#<thead>#}
-                                        {#<tr>#}
-                                            {#<th>#</th>#}
-                                            {#<th>{{ "name"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "legal_status"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_street_number"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_street_name"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_complement"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_postal_code"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_city"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "address_country"|trans|capitalize }}</th>#}
-                                            {#<th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>#}
-                                            {#<th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>#}
-                                            {#<th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>#}
-                                        {#</tr>#}
-                                        {#</thead>#}
-                                        {#<tbody>#}
-                                        {#<tr>#}
-                                            {#<th scope="row">{{ corporationGroup.id }}</th>#}
-                                            {#<td>{{ corporationGroup.name }}</td>#}
-                                            {#<td>{{ corporationGroup.legalStatus }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.streetNumber }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.streetName }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.complement }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.postalCode }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.city }}</td>#}
-                                            {#<td>{{ corporationGroup.postalAddress.country|country }}</td>#}
-                                            {#<td>{% if corporationGroup.created %}{{ corporationGroup.created|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-                                            {#<td>{% if corporationGroup.updated %}{{ corporationGroup.updated|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-                                            {#<td align="center" style="vertical-align: middle">#}
-                                                {#<a class="btn btn-sm btn-info" href="{{ path('corporation_group_edit', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>#}
-                                                {#<a class="btn btn-sm btn-primary" href="{{ path('corporation_site_new', { 'slugCorpGroup': corporationGroup.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "add_site"|trans|capitalize }}</a>#}
-                                                {#<a class="btn btn-sm btn-gold" href="{{ path('customer_contact_new', { 'slugCustomer': corporationGroup.slug }) }}"><i class="fa fa-user-plus" aria-hidden="true"></i>  {{ "add_contact"|trans|capitalize }}</a>#}
-                                                {#<a class="btn btn-sm btn-warning" href="{{ path('corporation_group_export', { 'slug': corporationGroup.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>#}
-                                                {#<button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ corporationGroup.slug }}">#}
-                                                    {#<i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}#}
-                                                {#</button>#}
-                                            {#</td>#}
-                                        {#</tr>#}
-                                        {#</tbody>#}
-                                    {#</table>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-                {#</div>#}
-                {#<!-- end of accordion -->#}
                 {% include 'CustomerBundle:corporationgroup:index_datatable_grid.html.twig' with {'grid': grid} %}
             </div>
         </div>
