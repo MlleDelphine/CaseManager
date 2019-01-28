@@ -21,7 +21,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, honorific, firstName, lastName, mailAddress, phoneNumber, concatenated_full_name, created, updated")
+ * @GRID\Source(columns="id, slug, concatenated_full_name, customer.name, corporationJobStatus.name, honorific, firstName, lastName, mailAddress, phoneNumber , created, updated", groups={"default", "general", "merged_address", "merged_address_full_name", "merged_full_name"})
  * @GRID\Column(id="concatenated_full_name", type="civility", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, translateCivility=true, source=true)
  */
 class CustomerContact extends Person
@@ -112,7 +112,7 @@ class CustomerContact extends Person
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
-     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, groups={"general"}, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, groups={"general"}, align="left")
      * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=false,  groups={"merged_full_name"}, align="left")
      */
     private $honorific;
@@ -141,6 +141,8 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @GRID\Column(field="corporationJobStatus.name", title="job_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center",  filter="select", groups={"general", "default", "merged_full_name"})
      */
     protected $corporationJobStatus;
 
@@ -154,7 +156,7 @@ class CustomerContact extends Person
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
-     * @GRID\Column(title="created_m_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     * @GRID\Column(field="customer.name", title="customer", operators={"like", "nlike"}, defaultOperator="like", type="text", visible=true, align="center", groups={"general", "default", "merged_full_name"})
      */
 
     protected $customer;

@@ -99,7 +99,7 @@ class PrivateIndividualController extends Controller
 
         $date = date('Y-m-d H:i:s');
         $grid->addExport(new ExcelExport("Export", "[CaseManager][Customer] - Particuliers $date"));
-        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - particuliers $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - Particuliers $date"));
 
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();

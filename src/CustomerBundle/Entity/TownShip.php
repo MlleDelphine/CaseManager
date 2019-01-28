@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * TownShip
@@ -15,6 +16,11 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ * @GRID\Source(columns="id, slug, name, phoneNumber, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated", groups={"default", "general"})
+ * @GRID\Source(columns="id, slug, name, phoneNumber, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated", groups={"merged_address"})
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"merged_address_full_name"})
+ * @GRID\Column(id="concatenated_full_name", type="civility", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, translateCivility=true, source=true, groups={"merged_address_full_name"})
+ *
  */
 class TownShip extends Customer
 {
@@ -25,6 +31,9 @@ class TownShip extends Customer
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_township"})
+     *
+     * @GRID\Column(title="name_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"default", "general", "merged_address"})
+     *
      */
     protected $name;
 
@@ -35,6 +44,8 @@ class TownShip extends Customer
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_township"})
+     *
+     * @GRID\Column(title="phone_number_capitalize", operators={"like", "nlike", "rslike", "llike" }, defaultOperator="like", type="text", visible=true, align="left", groups={"default", "general", "merged_address"})
      */
     private $phoneNumber;
 

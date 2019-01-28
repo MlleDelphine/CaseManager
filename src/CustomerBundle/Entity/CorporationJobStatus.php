@@ -2,12 +2,12 @@
 
 namespace CustomerBundle\Entity;
 
-use CustomerBundle\Entity\CustomerContact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CorporationJobStatus
@@ -17,6 +17,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, name, customerContacts.name", groups={"merged_full_name"})
+ *
  */
 class CorporationJobStatus
 {
@@ -37,6 +40,8 @@ class CorporationJobStatus
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationcontact", "admin_export_corporationjobstatus"})
+     *
+     * @GRID\Column(title="job_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"general", "merged_full_name"})
      */
     private $name;
 
@@ -67,6 +72,7 @@ class CorporationJobStatus
      * @var CustomerContact[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
+     * @GRID\Column(field="customerContacts.name", title="full_name_capitalize")
      */
     protected $customerContacts;
 

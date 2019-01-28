@@ -99,16 +99,16 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @GRID\Column(field="postalAddress.streetNumber", title="address_street_number", align="center", type="number", visible=true, groups={"general"})
      * @GRID\Column(field="postalAddress.streetNumber", title="address_street_number", align="center", type="number", visible=false, groups={"merged_address"})
      *
-     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
-     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false)
+     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general", "default"})
+     * @GRID\Column(field="postalAddress.streetName", title="address_street_name", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address"})
      *
-     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true,groups={"general"})
-     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false)
+     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true,groups={"general", "default"})
+     * @GRID\Column(field="postalAddress.complement", title="address_complement", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address"})
      *
-     * @GRID\Column(field="postalAddress.postalCode", title="address_postal_code", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.postalCode", title="address_postal_code", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general", "default"})
      * @GRID\Column(field="postalAddress.postalCode", title="address_postal_code", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address", "merged_address_full_name"})
      *
-     * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general"})
+     * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general", "default"})
      * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address", "merged_address_full_name"})
      *
      * @GRID\Column(field="postalAddress.country", title="address_country", align="center", type="country", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"default", "general", "merged_address", "merged_address_full_name"})

@@ -65,7 +65,7 @@
                                                 <div class="x_panel">
                                                     <div class="x_title">
                                                         <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if corporationJobStatus.employees|length == 1 %}{{ "corporation_employee"|trans|capitalize }}{% elseif corporationJobStatus.employees|length > 1 %}{{ "corporation_employees"|trans|capitalize }}{% else %}{{ "no_corporation_employee"|trans|capitalize }}{% endif %}</small></h2>
+                                                            <small>{% if corporationJobStatus.customerContacts|length == 1 %}{{ "corporation_employee"|trans|capitalize }}{% elseif corporationJobStatus.customerContacts|length > 1 %}{{ "corporation_employees"|trans|capitalize }}{% else %}{{ "no_corporation_employee"|trans|capitalize }}{% endif %}</small></h2>
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                             </li>
@@ -83,7 +83,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for employee in corporationJobStatus.employees %}
+                                                            {% for employee in corporationJobStatus.customerContacts %}
                                                                 <tr>
                                                                     <td>{{ employee.id }}</td>
                                                                     <td>{{ employee.firstName }}</td>

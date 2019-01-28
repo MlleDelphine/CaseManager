@@ -32,53 +32,8 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content container">
-                <a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a>
-                <a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>
-                <hr>
-                <!-- start accordion -->
-                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for townShip in townShips %}
-                        <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ townShip.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ townShip.id }}" aria-expanded="true" aria-controls="collapse{{ townShip.id }}">
-                                <h4 class="panel-title">{{ townShip.name }}</h4>
-                            </a>
-                            <div id="collapse{{ townShip.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ townShip.id }}">
-                                <div class="panel-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>{{ "name"|trans|capitalize }}</th>
-                                            <th>{{ "phone_number"|trans|capitalize }}</th>
-                                            <th>{{ "created_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
-                                            <th>{{ "updated_f_s"|trans|capitalize }} {{ "on_date"|trans }}</th>
-                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">{{ townShip.id }}</th>
-                                            <td>{{ townShip.name }}</td>
-                                            <td>{{ townShip.phoneNumber }}</td>
-                                            <td>{% if townShip.created %}{{ townShip.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if townShip.updated %}{{ townShip.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('township_edit', { 'slug': townShip.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-gold" href="{{ path('customer_contact_new', { 'slugCustomer': townShip.slug }) }}"><i class="fa fa-user-plus" aria-hidden="true"></i>  {{ "add_contact"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('township_export', { 'slug': townShip.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export_verb"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ townShip.slug }}">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
-                                                </button>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <!-- end of accordion -->
+            <div id="all-customers" class="x_content container">
+                {% include ':customer:index_datatable_grid_customer.html.twig' with {'grid': grid} %}
             </div>
         </div>
     </div>

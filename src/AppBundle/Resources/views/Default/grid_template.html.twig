@@ -515,7 +515,7 @@
                     </span>
                     {#{% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}#}
                 {% else %}
-                    <select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from" data-width="75%" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+                    <select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from" data-width="100%" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
                         <option value="">&nbsp;</option>
                         {% for key, value in column.values %}
                             <option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value|trans }}</option>
@@ -565,8 +565,9 @@
                 $('#tab-logs').find('div:not(.select2-container-disabled)').find('select').select2();
                 $('#tab-logs').find('select:disabled').prev('div').hide();
                 $('#all-customers').find('tr.grid-row-filters').find('select:enabled').select2({
-                    width: "60%"
+                    width: "100%"
                 });
+
                 $('.exports').find('select:enabled').select2({
                     width: "100%"
                 });
