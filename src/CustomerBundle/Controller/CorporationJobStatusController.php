@@ -2,6 +2,11 @@
 
 namespace CustomerBundle\Controller;
 
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\CorporationJobStatus;
 use CustomerBundle\Form\CorporationJobStatusType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,10 +25,10 @@ class CorporationJobStatusController extends Controller
      * Lists all corporationJobStatus entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $error = false;
         if ($request->isMethod('POST')) {
 
@@ -41,12 +46,53 @@ class CorporationJobStatusController extends Controller
             }
         }
 
-        $corporationJobStatuses = $em->getRepository('CustomerBundle:CorporationJobStatus')->findAll();
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("corporation_jobstatus_index");
 
-        return $this->render('CustomerBundle:corporationjobstatus:index.html.twig', array(
-            'corporationJobStatuses' => $corporationJobStatuses,
-            'error' => $error
-        ));
+        //concatenated_full_name
+        $source = new Entity("CustomerBundle:CorporationJobStatus", "general");
+//        $source->manipulateQuery(function($query){
+//            $query->addSelect(["CONCAT(_a.honorific, ' ', UPPER(_a.lastName), ' ', _a.firstName) as concatenated_full_name"]);
+//        });
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('name', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'corporation_jobstatus_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][Customer] - Poste clients $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - Postes clients $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error));
+        }else{
+            return $grid->getGridResponse("CustomerBundle:corporationjobstatus:index.html.twig", array('grid' => $grid, "error" => $error));
+        }
     }
 
     /**

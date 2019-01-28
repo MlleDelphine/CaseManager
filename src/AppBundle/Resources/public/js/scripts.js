@@ -1,6 +1,6 @@
 
 //inputName = :radio
-function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName, inputName, targetInputName, previousInput) {
+function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName, inputName, targetInputName, previousInput, isEdition = false) {
     var $form = $("." + formRootClass);
     //businessbundle_businesscase[customerType]
     $form.on("ifChecked change", inputType + "[name='" + inputRootName + "[" + inputName + "]']", function (event) {
@@ -41,6 +41,10 @@ function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName,
             }
             data[$val.attr('name')] = $val.val();
         });
+
+        if(isEdition === false){
+           data = $form.serializeArray()
+        }
 
         console.log(data);
         $.ajax({

@@ -33,7 +33,6 @@ class CustomerContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $error = false;
         if ($request->isMethod('POST')) {
 
@@ -151,6 +150,8 @@ class CustomerContactController extends Controller
      * Displays a form to edit an existing customerContact entity.
      * @param Request          $request
      * @param CustomerContact $customerContact
+     *
+     * @ParamConverter("customerContact", class="CustomerBundle:CustomerContact", options={"mapping": {"slug" : "slug"}}, isOptional="false" )
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, CustomerContact $customerContact)

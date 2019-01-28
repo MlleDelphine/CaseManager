@@ -18,7 +18,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, customerContacts.name", groups={"merged_full_name"})
+ * @GRID\Source(columns="id, slug, name, customerContacts.firstName:group_concat, created, updated", groups={"default", "general"})
+ * @GRID\Column(id="customerContacts", type="array", title="customer_contacts_capitalize", field="customerContacts.firstName:group_concat", source=true, groups={"default", "general"})
  *
  */
 class CorporationJobStatus
@@ -31,6 +32,9 @@ class CorporationJobStatus
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationcontact"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
+     *
      */
     private $id;
 
@@ -41,7 +45,7 @@ class CorporationJobStatus
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationcontact", "admin_export_corporationjobstatus"})
      *
-     * @GRID\Column(title="job_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"general", "merged_full_name"})
+     * @GRID\Column(title="title_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default", "general"})
      */
     private $name;
 
@@ -51,6 +55,7 @@ class CorporationJobStatus
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
      */
     protected $slug;
 
@@ -58,6 +63,9 @@ class CorporationJobStatus
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $created;
 
@@ -65,6 +73,9 @@ class CorporationJobStatus
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $updated;
 
@@ -72,7 +83,8 @@ class CorporationJobStatus
      * @var CustomerContact[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
-     * @GRID\Column(field="customerContacts.name", title="full_name_capitalize")
+     * @GRID\Column(field="customerContacts.firstName:group_concat", title="customer_contact_capitalize")
+     *
      */
     protected $customerContacts;
 
