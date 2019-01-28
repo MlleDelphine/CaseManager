@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * PrivateIndividual
@@ -18,6 +19,10 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, concatenated_full_name, firstName, lastName, mailAddress, phoneNumber, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated", groups={"merged_address_full_name"})
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"merged_address_full_name"})
+ * @GRID\Column(id="concatenated_full_name", type="civility", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, translateCivility=true, source=true, groups={"merged_address_full_name"})
  */
 class PrivateIndividual extends Customer implements PostalAddressSubjectInterface
 {
@@ -29,6 +34,9 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name", "merged_address_full_name"})
+     *
      */
     protected $firstName;
 
@@ -40,6 +48,10 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
+     *
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name", "merged_address_full_name"})
+     *
      */
     protected $lastName;
 
@@ -51,6 +63,8 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
+     *
+     * @GRID\Column(title="phone_number_capitalize", operators={"like", "nlike", "rslike", "llike" }, defaultOperator="like", type="text", visible=true, align="left")
      */
     protected $phoneNumber;
 
@@ -63,6 +77,9 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
+     *
+     * @GRID\Column(title="mail_address_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_full_name", "merged_address_full_name"})
+     *
      */
     protected $mailAddress;
 
@@ -73,20 +90,21 @@ class PrivateIndividual extends Customer implements PostalAddressSubjectInterfac
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_privateindividual"})
+     *
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, groups={"general"}, align="left")
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=false, groups={"merged_full_name", "merged_address_full_name"}, align="left")
+     *
      */
     protected $honorific;
 
     /**
      * Virtual Property for slug generation = __toString()
      * @var string
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name", "merged_address_full_name"})
+     *
      */
     protected $name;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $updated;
 
     public function __construct()
     {

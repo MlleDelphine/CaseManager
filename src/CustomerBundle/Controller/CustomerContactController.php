@@ -16,6 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 
 /**
  * CustomerContact controller.
@@ -52,14 +54,11 @@ class CustomerContactController extends Controller
         /*** GRID ***/
         $routeAtSubmit = $this->get("router")->generate("customer_contact_index");
 
-        //concatenated_postal_address
+        //concatenated_full_name
         $source = new Entity("CustomerBundle:CustomerContact", "merged_full_name");
         $source->manipulateQuery(function($query){
-            //"postalAddress.streetNumber, postalAddress.streetName, postalAddress.postalCode, postalAddress.city,
-            $query->addSelect(["CONCAT(_a.honorific, ' ', _a.lastName, ' ', _a.firstName) as concatenated_full_name"]);
-                //->leftJoin("_a.postalAddress", "postalAddress");
+            $query->addSelect(["CONCAT(_a.honorific, ' ', UPPER(_a.lastName), ' ', _a.firstName) as concatenated_full_name"]);
         });
-        // $source->s
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -81,18 +80,8 @@ class CustomerContactController extends Controller
         $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
         $rowAction1->setPrevIcon("fa-pencil-square-o");
 
-        $rowActionContact = new CustomGridRowAction('add_contact', 'customer_contact_new');
-        $rowActionContact->addRouteParameters(array('slug'));
-        $rowActionContact->setRouteParametersMapping(array('slug' => 'slugCustomer'));
-        $rowActionContact->setConfirm(true);
-        $rowActionContact->setConfirmMessage("Sure ?");
-        $rowActionContact->setTarget("_blank");
-        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
-        $rowActionContact->setPrevIcon("fa-user-plus");
-
         $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
-            $rowAction1,
-            $rowActionContact]);
+            $rowAction1]);
         $actionsColumn->setAlign("center");
 
         $grid->addColumn($actionsColumn);
@@ -105,7 +94,7 @@ class CustomerContactController extends Controller
         $grid->isReadyForRedirect();
 
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse('CustomerBundle:customercontact:index_datatable_grid.html.twig', array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error));
         }else{
             return $grid->getGridResponse("CustomerBundle:customercontact:index.html.twig", array('grid' => $grid, "error" => $error));
         }

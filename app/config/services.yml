@@ -76,6 +76,7 @@ services:
             - { name: twig.extension }
         arguments: ['@twig.form.renderer']
 
+# NEW GRID COLUMN TYPE FOR DATATABLE - APY Bundle
     grid.column.country:
         class: AppBundle\Services\CountryGridColumn
         public: false
@@ -87,3 +88,9 @@ services:
         public: false
         tags:
           - { name: grid.column.extension }
+
+    grid.column.cvility:
+        class: AppBundle\Services\CivilityGridColumn
+        public: false
+        tags:
+            - { name: grid.column.extension }

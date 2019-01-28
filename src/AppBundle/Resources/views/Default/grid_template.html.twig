@@ -168,7 +168,7 @@
                 {% set gridColumns %}
                     {% for column in grid.columns %}
                         {% if column.visible(grid.isReadyForExport) %}
-                            <td class="grid-column-{{ column.renderBlockId }}{% if column.class %} {{ column.class }}{% endif %}{% if column.align != 'left'%} align-{{ column.align }}{% endif %}{% if loop.last %} last-column{% endif %}{% if last_row %} last-row{% endif %}">{{  grid_cell(column, row, grid)|raw }}</td>
+                            <td class="grid-column-{{ column.renderBlockId }}{% if column.class %} {{ column.class }}{% endif %}{% if column.align != 'left'%} align-{{ column.align }}{% endif %}{% if loop.last %} last-column{% endif %}{% if last_row %} last-row{% endif %}">{{ grid_cell(column, row, grid)|raw }}</td>
                         {% endif %}
                     {% endfor %}
                 {% endset %}
@@ -417,6 +417,18 @@
         {{ block('grid_column_country_cell') }}
     {% endblock %}
 
+        {# ------------------------------------------------ grid_column_type_civility_cell --------------------------------------------- #}
+    {% block grid_column_civility_cell %}
+        {% set splittedValue = value|split(' ', 2) %}
+        {% set civility = attribute(splittedValue, 0)|trans %}
+        {% set full_name = attribute(splittedValue, 1) %}
+        {% set value = civility ~ ' ' ~ full_name %}
+        {{ block("grid_column_cell") }}
+    {% endblock %}
+    {% block grid_column_type_civility_cell %}
+        {{ block('grid_column_country_cell') }}
+    {% endblock %}
+
   {# ------------------------------------------------ grid_column_type_color_tag_cell --------------------------------------------- #}
     {% block grid_column_color_tag_cell %}
         <span class="small-round-bullet" style="color: transparent; background-color: {{ value }}">
@@ -435,7 +447,7 @@
             {% elseif column.safe is sameas(false) %}
                 {{ value|raw }}
             {% else %}
-                {{ value|escape(column.safe)|trans|raw }}
+                {{ value|escape(column.safe)|trans({'%value': value})|raw }}
             {% endif %}
         {% endspaceless -%}
     {% endblock grid_column_cell %}

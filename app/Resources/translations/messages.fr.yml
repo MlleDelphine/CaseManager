@@ -31,6 +31,7 @@ not_yet_registered: pas encore de compte
 create_an_account: créer un compte
 phone_number: téléphone (num)
 phone_number_capitalize: Téléphone (num)
+full_name_capitalize: Nom complet
 firstname: prénom
 firstname_capitalize: Prénom
 lastname: nom de famille
@@ -611,3 +612,13 @@ address_country_capitalize: "Pays"
 mister: Monsieur
 miss: Mademoiselle
 madam: Madame
+
+
+#"mister SMITH John": Bouya
+
+"mister %lastname% %firstname%": M. %lastname% %firstname%
+"mister %value%": M. %value%
+"miss %name%": Mlle %name%
+'madam %name%': mme %name%
+
+'Hello %name%': Bonjour %name%

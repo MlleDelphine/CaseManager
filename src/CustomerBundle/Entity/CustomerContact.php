@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+//
 
 /**
  * CustomerContact
@@ -21,7 +22,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @JMSSer\ExclusionPolicy("all")
  *
  * @GRID\Source(columns="id, slug, honorific, firstName, lastName, mailAddress, phoneNumber, concatenated_full_name, created, updated")
- * @GRID\Column(id="concatenated_full_name", type="text", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, source=true)
+ * @GRID\Column(id="concatenated_full_name", type="civility", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, translateCivility=true, source=true)
  */
 class CustomerContact extends Person
 {
@@ -45,8 +46,8 @@ class CustomerContact extends Person
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
-     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
-     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
      *
      */
     protected $firstName;
@@ -57,9 +58,8 @@ class CustomerContact extends Person
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
-     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
-     * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
-     *
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
      *
      */
     protected $lastName;
@@ -113,7 +113,7 @@ class CustomerContact extends Person
      * @JMSSer\Groups({"admin_export_employee"})
      *
      * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, groups={"general"}, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
-     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=false,  groups={"merged_full_name"}, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
+     * @GRID\Column(title="honorific_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=false,  groups={"merged_full_name"}, align="left")
      */
     private $honorific;
 
