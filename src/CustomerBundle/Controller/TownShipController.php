@@ -56,7 +56,6 @@ class TownShipController extends Controller
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
                 ->leftJoin("_a.postalAddress", "postalAddress");
         });
-        // $source->s
         // Get a grid instance
         $grid = $this->get('grid');
 

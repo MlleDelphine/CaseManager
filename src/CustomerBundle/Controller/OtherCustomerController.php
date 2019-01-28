@@ -2,6 +2,11 @@
 
 namespace CustomerBundle\Controller;
 
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\OtherCustomer;
 use CustomerBundle\Form\OtherCustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,10 +25,10 @@ class OtherCustomerController extends Controller
      * Lists all otherCustomer entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $error = false;
         if ($request->isMethod('POST')) {
 
@@ -40,13 +45,64 @@ class OtherCustomerController extends Controller
                 $error = "file_mandatory_error_msg";
             }
         }
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("other_customer_index");
 
-        $otherCustomers = $em->getRepository('CustomerBundle:OtherCustomer')->findAll();
+        //concatenated_postal_address
+        $source = new Entity("CustomerBundle:OtherCustomer", "merged_address");
+        $source->manipulateQuery(function($query){
+            $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
+                ->leftJoin("_a.postalAddress", "postalAddress");
+        });
+        // Get a grid instance
+        $grid = $this->get('grid');
 
-        return $this->render('CustomerBundle:othercustomer:index.html.twig', array(
-            'otherCustomers' => $otherCustomers,
-            "error" => $error
-        ));
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('name', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'other_customer_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $rowActionContact = new CustomGridRowAction('add_contact', 'customer_contact_new');
+        $rowActionContact->addRouteParameters(array('slug'));
+        $rowActionContact->setRouteParametersMapping(array('slug' => 'slugCustomer'));
+        $rowActionContact->setConfirm(true);
+        $rowActionContact->setConfirmMessage("Sure ?");
+        $rowActionContact->setTarget("_blank");
+        $rowActionContact->setAttributes(["class" =>"btn btn-sm btn-gold"]);
+        $rowActionContact->setPrevIcon("fa-user-plus");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1,
+            $rowActionContact]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][Customer] - Autres clients $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Customer] - Autres clients $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error));
+        }else{
+            return $grid->getGridResponse("CustomerBundle:othercustomer:index.html.twig", array('grid' => $grid, "error" => $error));
+        }
     }
 
     /**

@@ -4,7 +4,6 @@ namespace CustomerBundle\Entity;
 
 use CustomerBundle\Entity\AbstractClass\Customer;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 use APY\DataGridBundle\Grid\Mapping as GRID;
@@ -18,8 +17,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @JMSSer\ExclusionPolicy("all")
  * @GRID\Source(columns="id, slug, name, phoneNumber, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated", groups={"default", "general"})
  * @GRID\Source(columns="id, slug, name, phoneNumber, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated", groups={"merged_address"})
- * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"merged_address_full_name"})
- * @GRID\Column(id="concatenated_full_name", type="civility", title="full_name_capitalize", field="CONCAT(honorific, ' ', lastName, ' ', firstName)", operators={"like"}, isManualField=true, translateCivility=true, source=true, groups={"merged_address_full_name"})
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"merged_address"})
  *
  */
 class TownShip extends Customer

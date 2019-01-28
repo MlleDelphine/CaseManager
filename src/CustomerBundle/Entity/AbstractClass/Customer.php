@@ -75,7 +75,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      *
-     * @GRID\Column(title="created_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
      */
     protected $created;
 
