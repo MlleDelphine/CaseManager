@@ -42,8 +42,9 @@ function ajaxSubmitReloadNextByRadioBox(formRootClass, inputType, inputRootName,
             data[$val.attr('name')] = $val.val();
         });
 
-        if(isEdition === false){
-           data = $form.serializeArray()
+        if(isEdition === true){
+            console.log("Edition yes");
+            //data = $form.serializeArray()
         }
 
         console.log(data);

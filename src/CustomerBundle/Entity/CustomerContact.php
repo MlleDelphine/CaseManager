@@ -43,6 +43,8 @@ class CustomerContact extends Person
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\NotNull()
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
@@ -55,6 +57,8 @@ class CustomerContact extends Person
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\NotNull()
+     *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
      *
@@ -155,6 +159,8 @@ class CustomerContact extends Person
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_employee"})
+     *
+     * @Assert\NotNull()
      *
      * @GRID\Column(field="customer.name", title="customer", operators={"like", "nlike"}, defaultOperator="like", type="text", visible=true, align="center", groups={"general", "default", "merged_full_name"})
      */
@@ -391,7 +397,9 @@ class CustomerContact extends Person
     public function setCorporationJobStatus(CorporationJobStatus $corporationJobStatus = null)
     {
         $this->corporationJobStatus = $corporationJobStatus;
-        $corporationJobStatus->addCustomerContact($this);
+        if($corporationJobStatus){
+            $corporationJobStatus->addCustomerContact($this);
+        }
 
         return $this;
     }
