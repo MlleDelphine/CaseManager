@@ -102,7 +102,7 @@ class CorporationJobStatusController extends Controller
      */
     public function newAction(Request $request)
     {
-        $corporationJobStatus = new Corporationjobstatus();
+        $corporationJobStatus = new CorporationJobStatus();
         $form = $this->createForm(CorporationJobStatusType::class, $corporationJobStatus);
         $form->handleRequest($request);
 

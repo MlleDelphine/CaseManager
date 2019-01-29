@@ -4,52 +4,100 @@
 
     function {{ grid.hash }}_goto(url, data, type)
     {
-    console.log('Ajax call');
-    console.log(url);
-    type = type || 'GET';
-    data = data || [];
+        type = type || 'GET';
+        data = data || [];
 
-    $.ajax({
-    url: url,
-    data: data,
-    type: type
-    }).done(function( msg ) {
-    $('#{{ grid.hash }}').parent().replaceWith(msg);
-    });
+        $.ajax({
+            url: url,
+            data: data,
+            type: type
+        }).done(function( msg ) {
+            $('#{{ grid.hash }}').parent().replaceWith(msg);
+        });
 
-    return false
+        return false
     }
 {% endblock grid_scripts_goto %}
 
 {% block grid_scripts_submit_form %}
     function {{ grid.hash }}_submitForm(event, form)
     {
-    console.log('Submit');
-    if (event.type != 'keypress' || event.which == 13) {
-    var data = '';
-    $('.grid-filter-operator select, .grid-filter-input-query-from, .grid-filter-input-query-to, .grid-filter-select-query-from, .grid-filter-select-query-to', form).each(function () {
-    if ($(this).is(':disabled') == false) {
-    var name = $(this).attr('name');
-    var value = $(this).val();
-    if (value != null) {
-    if ($(this).attr('multiple') == 'multiple') {
-    for(var i= 0; i < value.length; i++)
-    {
-    data += '&' + name + '=' + value[i];
-    }
-    } else {
-    data += '&' + name + '=' + value;
-    }
-    } else {
-    data += '&' + name + '=';
-    }
-    }
-    });
+        console.log('Submit');
+        if (event.type != 'keypress' || event.which == 13) {
+            var data = '';
+            $('.grid-filter-operator select, .grid-filter-input-query-from, .grid-filter-input-query-to, .grid-filter-select-query-from, .grid-filter-select-query-to', form).each(function () {
+                if ($(this).is(':disabled') == false) {
+                    var name = $(this).attr('name');
+                    var value = $(this).val();
+                    if (value != null) {
+                        if ($(this).attr('multiple') == 'multiple') {
+                            for(var i= 0; i < value.length; i++){
+                                data += '&' + name + '=' + value[i];
+                            }
+                        } else {
+                            data += '&' + name + '=' + value;
+                        }
+                    } else {
+                        data += '&' + name + '=';
+                    }
+                }
+            });
 
-    {{ grid.hash }}_goto("{{ grid.routeUrl }}", data.substring(1), 'POST');
+        {{ grid.hash }}_goto("{{ grid.routeUrl }}", data.substring(1), 'POST');
 
-    return false;
-    }
+        return false;
+        }
     }
 {% endblock grid_scripts_submit_form %}
+
+{% block grid_load_child_rows %}
+
+    /* Formatting function for row details - modify as you need */
+    function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    '<tr>'+
+        '<td>Full name:</td>'+
+        '<td>'+d.name+'</td>'+
+        '</tr>'+
+    '<tr>'+
+        '<td>Extension number:</td>'+
+        '<td>'+d.extn+'</td>'+
+        '</tr>'+
+    '<tr>'+
+        '<td>Extra info:</td>'+
+        '<td>And any further details here (images etc)...</td>'+
+        '</tr>'+
+    '</table>';
+    }
+
+    $(document).ready(function() {
+
+        $.ajax({
+            url: url,
+            data: data,
+            type: type
+        }).done(function( msg ) {
+            $('#{{ grid.hash }}').parent().replaceWith(msg);
+        });
+
+    // Add event listener for opening and closing details
+    $('#example tbody').on('click', 'td.details-control', function () {
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
+
+    if ( row.child.isShown() ) {
+    // This row is already open - close it
+    row.child.hide();
+    tr.removeClass('shown');
+    }
+    else {
+    // Open this row
+    row.child( format(row.data()) ).show();
+    tr.addClass('shown');
+    }
+    } );
+    } );
+
+{% endblock %}
 

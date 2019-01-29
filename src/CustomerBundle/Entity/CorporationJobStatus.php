@@ -18,8 +18,10 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, customerContacts.firstName:group_concat, created, updated", groups={"default", "general"})
- * @GRID\Column(id="customerContacts", type="array", title="customer_contacts_capitalize", field="customerContacts.firstName:group_concat", source=true, groups={"default", "general"})
+ * @GRID\Source(columns="id, slug, name, customerContacts.firstName:group_concat, customerContacts.lastName:group_concat, created, updated", groupBy={"id"}, groups={"default", "general"})
+ * @GRID\Column(id="customerContacts", type="joincell", title="customer_contacts_capitalize", field="customerContacts.firstName:group_concat", source=true, groups={"default", "general"})
+ * @GRID\Column(id="customerContacts", type="array", title="customer_contacts_capitalize", field="customerContacts.lasttName:group_concat", source=true, groups={"default", "general"})
+ *
  *
  */
 class CorporationJobStatus
@@ -44,6 +46,9 @@ class CorporationJobStatus
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationcontact", "admin_export_corporationjobstatus"})
+     *
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      *
      * @GRID\Column(title="title_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default", "general"})
      */
@@ -84,6 +89,7 @@ class CorporationJobStatus
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
      * @GRID\Column(field="customerContacts.firstName:group_concat", title="customer_contact_capitalize")
+     * @GRID\Column(field="customerContacts.lastName:group_concat", title="customer_contact_capitalize")
      *
      */
     protected $customerContacts;
