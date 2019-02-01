@@ -18,11 +18,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, customerContacts.firstName:group_concat, customerContacts.lastName:group_concat, created, updated", groupBy={"id"}, groups={"default", "general"})
- * @GRID\Column(id="customerContacts", type="joincell", title="customer_contacts_capitalize", field="customerContacts.firstName:group_concat", source=true, groups={"default", "general"})
- * @GRID\Column(id="customerContacts", type="array", title="customer_contacts_capitalize", field="customerContacts.lasttName:group_concat", source=true, groups={"default", "general"})
- *
- *
+ * @GRID\Source(columns="id, slug, name, concatenated_full_name, created, updated", groupBy={"id"}, groups={"default", "general"})
+ * @GRID\Column(id="concatenated_full_name", type="civility", field="GROUP_CONCAT(CONCAT_WS(' ', customerContacts.honorific, UPPER(customerContacts.lastName), customerContacts.firstName) separator ', ')", isAggregate=true, title="full_name_capitalize", operators={"like"}, isManualField=true, source=true, groups={"default", "general"})
  */
 class CorporationJobStatus
 {
@@ -88,9 +85,9 @@ class CorporationJobStatus
      * @var CustomerContact[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CustomerBundle\Entity\CustomerContact", mappedBy="corporationJobStatus", fetch="EXTRA_LAZY")
-     * @GRID\Column(field="customerContacts.firstName:group_concat", title="customer_contact_capitalize")
-     * @GRID\Column(field="customerContacts.lastName:group_concat", title="customer_contact_capitalize")
-     *
+     * @GRID\Column(field="customerContacts.honorific", type="text", visible="false", groups={"general", "defautl"})
+     * @GRID\Column(field="customerContacts.firstName", visible="false", groups={"general", "default"})
+     * @GRID\Column(field="customerContacts.lastName", visible="false", groups={"general", "default"})
      */
     protected $customerContacts;
 

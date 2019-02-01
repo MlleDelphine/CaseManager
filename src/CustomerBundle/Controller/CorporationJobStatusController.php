@@ -51,8 +51,14 @@ class CorporationJobStatusController extends Controller
 
         //concatenated_full_name
         $source = new Entity("CustomerBundle:CorporationJobStatus", "general");
-//        $source->manipulateQuery(function($query){
-//            $query->addSelect(["CONCAT(_a.honorific, ' ', UPPER(_a.lastName), ' ', _a.firstName) as concatenated_full_name"]);
+        $source->manipulateQuery(function($query){
+            $query->addSelect(["GROUP_CONCAT(CONCAT_WS(' ', customerContacts.honorific, UPPER(customerContacts.lastName), customerContacts.firstName) separator ', ') as concatenated_full_name"]);
+            $query->leftJoin("_a.customerContacts", "customerContacts");
+            $query->groupBy("_a.id");
+        });
+
+//        $source->manipulateRow(function($row){
+//
 //        });
         // Get a grid instance
         $grid = $this->get('grid');
@@ -62,6 +68,9 @@ class CorporationJobStatusController extends Controller
         $grid->setRouteUrl($routeAtSubmit);
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
+//
+//        dump($grid);
+//        die;
 
         /***
          * ACTIONS
@@ -203,7 +212,7 @@ class CorporationJobStatusController extends Controller
             ->setAction($this->generateUrl('corporation_jobstatus_delete', array('slug' => $corporationJobStatus->getSlug())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 
     /**

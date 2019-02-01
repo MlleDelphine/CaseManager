@@ -419,10 +419,18 @@
 
         {# ------------------------------------------------ grid_column_type_civility_cell --------------------------------------------- #}
     {% block grid_column_civility_cell %}
-        {% set splittedValue = value|split(' ', 2) %}
-        {% set civility = attribute(splittedValue, 0)|trans %}
-        {% set full_name = attribute(splittedValue, 1) %}
-        {% set value = civility ~ ' ' ~ full_name %}
+        {% set allFullNames = value|split(', ') %}
+        {% set allFullNamesTrans = [] %}
+
+        {% for key, fullName in allFullNames %}
+            {% set splittedValue = fullName|split(' ', 2) %}
+            {% set civility = attribute(splittedValue, 0)|trans %}
+            {% set full_name = attribute(splittedValue, 1) %}
+            {% set concatenated_full_name = civility ~ ' ' ~ full_name %}
+
+            {% set allFullNamesTrans = allFullNamesTrans|merge([concatenated_full_name]) %}
+        {% endfor %}
+        {% set value = allFullNamesTrans|join(', ') %}
         {{ block("grid_column_cell") }}
     {% endblock %}
     {% block grid_column_type_civility_cell %}
