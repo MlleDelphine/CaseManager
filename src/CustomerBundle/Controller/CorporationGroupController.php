@@ -7,6 +7,7 @@ use AppBundle\Services\CustomGridRowAction;
 use AppBundle\Services\ExcelExport;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
 use APY\DataGridBundle\Grid\Column\JoinColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\CorporationGroup;
@@ -57,7 +58,12 @@ class CorporationGroupController extends Controller
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
                 ->leftJoin("_a.postalAddress", "postalAddress");
         });
-        // $source->s
+//        $source->manipulateRow(function($row){
+//            $entity = $row->getEntity();
+//           // $row->setField = $entity;
+//            return $row;
+//        });
+
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -66,6 +72,10 @@ class CorporationGroupController extends Controller
         $grid->setRouteUrl($routeAtSubmit);
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
+
+        $childButtonColumn = new BlankColumn();
+        $childButtonColumn->setClass("details-control");
+        $grid->addColumn($childButtonColumn, 1);
 
         /***
          * ACTIONS
@@ -111,6 +121,13 @@ class CorporationGroupController extends Controller
 
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();
+
+//        foreach ($grid->getRows() as $row) {
+//            $entity = $row->getEntity();
+//            dump($entity);
+//        }
+//
+//    //    die;
 
         if($request->isXmlHttpRequest()){
             return $grid->getGridResponse('CustomerBundle:corporationgroup:index_datatable_grid.html.twig', array('grid' => $grid, "error" => $error));

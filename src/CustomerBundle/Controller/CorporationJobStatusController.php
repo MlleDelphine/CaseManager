@@ -98,9 +98,9 @@ class CorporationJobStatusController extends Controller
         $grid->isReadyForRedirect();
 
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error, "childrenRow" => "customerContacts"));
         }else{
-            return $grid->getGridResponse("CustomerBundle:corporationjobstatus:index.html.twig", array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse("CustomerBundle:corporationjobstatus:index.html.twig", array('grid' => $grid, "error" => $error, "childrenRow" => "customerContacts"));
         }
     }
 

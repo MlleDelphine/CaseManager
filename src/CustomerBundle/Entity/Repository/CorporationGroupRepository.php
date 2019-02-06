@@ -10,4 +10,5 @@ namespace CustomerBundle\Entity\Repository;
  */
 class CorporationGroupRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

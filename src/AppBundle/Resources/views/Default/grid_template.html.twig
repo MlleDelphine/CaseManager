@@ -176,6 +176,14 @@
                 {{ gridColumns }}
             {% endspaceless %}
             </tr>
+            {#{{ dump(row.entity) }}#}
+            {#{{ dump(childrenRow) }}#}
+            {% if childrenRow is defined %}
+                {% set items = attribute(row.entity, childrenRow) %}
+                {% for item in items %}
+                    {{ dump(item) }}
+                {% endfor %}
+            {% endif %}
         {% else %}
             {{ grid_no_result(grid) }}
         {% endfor %}
