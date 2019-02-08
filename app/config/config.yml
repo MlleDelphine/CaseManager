@@ -102,6 +102,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    app.twig.extension.translation_extension:
+        class: AppBundle\Twig\Extension\TranslationExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            - "@translator"
+
 genemu_form:
     tinymce:
         enabled: true

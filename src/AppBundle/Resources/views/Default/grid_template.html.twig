@@ -178,12 +178,12 @@
             </tr>
             {#{{ dump(row.entity) }}#}
             {#{{ dump(childrenRow) }}#}
-            {% if childrenRow is defined %}
-                {% set items = attribute(row.entity, childrenRow) %}
-                {% for item in items %}
-                    {{ dump(item.firstName) }}
-                {% endfor %}
-            {% endif %}
+            {#{% if childrenRow is defined %}#}
+                {#{% set items = attribute(row.entity, childrenRow) %}#}
+                {#{% for item in items %}#}
+                    {#{{ dump(item.firstName) }}#}
+                {#{% endfor %}#}
+            {#{% endif %}#}
         {% else %}
             {{ grid_no_result(grid) }}
         {% endfor %}
@@ -427,17 +427,20 @@
 
         {# ------------------------------------------------ grid_column_type_civility_cell --------------------------------------------- #}
     {% block grid_column_civility_cell %}
-        {% set allFullNames = value|split(', ') %}
         {% set allFullNamesTrans = [] %}
 
-        {% for key, fullName in allFullNames %}
-            {% set splittedValue = fullName|split(' ', 2) %}
-            {% set civility = attribute(splittedValue, 0)|trans %}
-            {% set full_name = attribute(splittedValue, 1) %}
-            {% set concatenated_full_name = civility ~ ' ' ~ full_name %}
+        {% if value is not empty %}
+            {% set allFullNames = value|split(', ') %}
 
-            {% set allFullNamesTrans = allFullNamesTrans|merge([concatenated_full_name]) %}
-        {% endfor %}
+            {% for key, fullName in allFullNames %}
+                {% set splittedValue = fullName|split(' ', 2) %}
+                {% set civility = attribute(splittedValue, 0)|trans %}
+                {% set full_name = attribute(splittedValue, 1) %}
+                {% set concatenated_full_name = civility ~ ' ' ~ full_name %}
+
+                {% set allFullNamesTrans = allFullNamesTrans|merge([concatenated_full_name]) %}
+            {% endfor %}
+        {% endif %}
         {% set value = allFullNamesTrans|join(', ') %}
         {{ block("grid_column_cell") }}
     {% endblock %}

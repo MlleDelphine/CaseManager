@@ -57,18 +57,29 @@
 
     function format (data) {
         var colspan = {{ grid.columns|length }};
+        var childrenProperties = {{ childrenProperties|transArray|json_encode|raw }};
 
-        var childRowHtml = '<tr class="child"> <td class="child" colspan="' +colspan+ '">'+
-                    '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        var childRowHtml = '<tr class="child childDatatables_wrapper no-hover"> <td class="child" colspan="' +colspan+ '">'+
+                            '<table class="childDatatable cell-border compact hover row-border stripe" cellpadding="5" cellspacing="0" border="0">'+
+                            '<thead><tr role="row" style="width: auto">';
+
+        // HEADERS
+
+        $.each(childrenProperties, function(i, header){
+                childRowHtml += '<th>'+header+'</th>';
+        });
+
+        childRowHtml += '</tr><thead>';
+
         $.each(data, function(k, value){
-            childRowHtml += '<tr>';
+            childRowHtml += '<tbody><tr role="row">';
             $.each(value, function(key, value){
-                    childRowHtml += '<td>'+key+'</td>';
+                    //childRowHtml += '<td>'+childrenProperties[k]+' : </td>';
                     childRowHtml += '<td>'+value+'</td>';
             });
             childRowHtml += '</tr>';
         });
-        childRowHtml += '</table></td></tr>';
+        childRowHtml += '</tbody></table></td></tr>';
 
         return childRowHtml;
     }
