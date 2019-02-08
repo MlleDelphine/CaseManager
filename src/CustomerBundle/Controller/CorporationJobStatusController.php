@@ -6,11 +6,14 @@ use AppBundle\Services\CSVExport;
 use AppBundle\Services\CustomGridRowAction;
 use AppBundle\Services\ExcelExport;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\CorporationJobStatus;
 use CustomerBundle\Form\CorporationJobStatusType;
+use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -57,9 +60,6 @@ class CorporationJobStatusController extends Controller
             $query->groupBy("_a.id");
         });
 
-//        $source->manipulateRow(function($row){
-//
-//        });
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -68,9 +68,10 @@ class CorporationJobStatusController extends Controller
         $grid->setRouteUrl($routeAtSubmit);
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
-//
-//        dump($grid);
-//        die;
+
+        $childButtonColumn = new BlankColumn();
+        $childButtonColumn->setClass("details-control");
+        $grid->addColumn($childButtonColumn, 1);
 
         /***
          * ACTIONS
@@ -98,9 +99,9 @@ class CorporationJobStatusController extends Controller
         $grid->isReadyForRedirect();
 
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error, "childrenRow" => "customerContacts"));
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error, "childrenRow" => "CustomerContacts", "childrenRouteName" => "corporation_jobstatus_get_children"));
         }else{
-            return $grid->getGridResponse("CustomerBundle:corporationjobstatus:index.html.twig", array('grid' => $grid, "error" => $error, "childrenRow" => "customerContacts"));
+            return $grid->getGridResponse("CustomerBundle:corporationjobstatus:index.html.twig", array('grid' => $grid, "error" => $error, "childrenRow" => "CustomerContacts", "childrenRouteName" => "corporation_jobstatus_get_children"));
         }
     }
 
@@ -235,5 +236,23 @@ class CorporationJobStatusController extends Controller
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationjobstatus","CustomerBundle:CorporationJobStatus", "Corporation Sites" )->prepare($request);
 
         return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param CorporationJobStatus $corporationJobStatus
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, CorporationJobStatus $corporationJobStatus, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $corporationJobStatus->{$mappingFunctionName}();
+
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("corpo_job_status_childrow", $childElements);
+
+        return $response;
+
     }
 }

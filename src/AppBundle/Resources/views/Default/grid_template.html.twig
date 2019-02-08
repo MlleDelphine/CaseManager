@@ -9,7 +9,7 @@
                         {% endif %}
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped jambo_table">
+                        <table id="datagrid-items" class="table table-striped jambo_table">
                             {% if grid.isTitleSectionVisible %}
                                 <thead>
                                 {{ grid_titles(grid) }}
@@ -172,7 +172,7 @@
                         {% endif %}
                     {% endfor %}
                 {% endset %}
-                <tr{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
+                <tr{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}" data-row-line="{{ row.field(row.primaryField) }}">
                 {{ gridColumns }}
             {% endspaceless %}
             </tr>
@@ -181,7 +181,7 @@
             {% if childrenRow is defined %}
                 {% set items = attribute(row.entity, childrenRow) %}
                 {% for item in items %}
-                    {{ dump(item) }}
+                    {{ dump(item.firstName) }}
                 {% endfor %}
             {% endif %}
         {% else %}
@@ -576,6 +576,7 @@
             {{ grid_scripts_switch_operator(grid) }}
             {{ grid_scripts_submit_form(grid) }}
             {{ grid_scripts_ajax(grid) }}
+            {{ grid_load_child_rows(grid) }}
             $(function () {
                 //Activate select on grid headers for both individual page and general page
                 $('#tab-logs').find('div:not(.select2-container-disabled)').find('select').select2();

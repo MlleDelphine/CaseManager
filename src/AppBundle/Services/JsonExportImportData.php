@@ -114,4 +114,25 @@ class JsonExportImportData
 
         return $response;
     }
+
+    public function serializeInJsonString($groupName, $entities){
+        $serializerContext = new SerializationContext();
+        $serializerContext->setGroups($groupName);
+
+        $json = $this->serializer->serialize($entities, 'json', $serializerContext);
+
+        $response = new StreamedResponse(
+            function () use ($json) {
+                echo $json;
+            }
+        );
+
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Cache-Control', '');
+        $response->headers->set('Content-Length', strlen($json));
+        $response->headers->set('Last-Modified', gmdate('D, d M Y H:i:s'));
+
+        return $response;
+//
+    }
 }

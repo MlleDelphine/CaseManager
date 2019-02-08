@@ -46,7 +46,7 @@ class CustomerContact extends Person
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_employee", "corpo_job_status_childrow"})
      *
      * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
      * @GRID\Column(title="firstName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
@@ -60,7 +60,7 @@ class CustomerContact extends Person
      * @Assert\NotNull()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_employee"})
+     * @JMSSer\Groups({"admin_export_employee", "corpo_job_status_childrow"})
      *
      * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
      * @GRID\Column(title="lastName", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"merged_full_name"})
