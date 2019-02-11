@@ -31,3 +31,10 @@ other_customer_export:
 
 other_customer_export_all:
     path: /export
+
+other_contact_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "CustomerBundle:OtherCustomer:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

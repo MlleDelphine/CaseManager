@@ -36,3 +36,10 @@ customer_contact_export:
 customer_contact_export_all:
     path: /export
     defaults: { _controller: "CustomerBundle:CustomerContact:exportAllCustomerContact" }
+
+customer_contact_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "CustomerBundle:CustomerContact:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

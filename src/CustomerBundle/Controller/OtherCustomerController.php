@@ -11,6 +11,7 @@ use CustomerBundle\Entity\OtherCustomer;
 use CustomerBundle\Form\OtherCustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -234,6 +235,22 @@ class OtherCustomerController extends Controller
      */
     public function exportAllOtherCustomerAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_other_customer","CustomerBundle:OtherCustomer", "Other Customers" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param OtherCustomer $otherCustomer
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, OtherCustomer $otherCustomer, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $otherCustomer->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("something_childrow", $childElements);
 
         return $response;
     }

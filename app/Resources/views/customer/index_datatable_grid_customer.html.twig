@@ -1,1 +1,7 @@
+{% if childrenRow is not defined %}
+    {% set childrenRow = false %}
+    {% set childrenProperties = [] %}
+    {% set childrenRouteName = "" %}
+{% endif %}
+
 {{ grid(grid, ':customer:block_js_datatable.jquery.html.twig', "", { 'childrenRow' : childrenRow, 'childrenProperties': childrenProperties, 'childrenRouteName': childrenRouteName } ) }}

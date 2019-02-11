@@ -27,6 +27,7 @@ class CorporationSiteController extends Controller
      * Lists all corporationSite entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
@@ -52,12 +53,12 @@ class CorporationSiteController extends Controller
         $routeAtSubmit = $this->get("router")->generate("corporation_site_index");
 
         //concatenated_postal_address
-        $source = new Entity("CustomerBundle:CorporationSite");
+        $source = new Entity("CustomerBundle:CorporationSite", "merged_address");
         $source->manipulateQuery(function($query){
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
                 ->leftJoin("_a.postalAddress", "postalAddress");
         });
-        // $source->s
+
         // Get a grid instance
         $grid = $this->get('grid');
 
@@ -112,10 +113,18 @@ class CorporationSiteController extends Controller
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();
 
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => false,
+            "childrenProperties" => [],
+            "childrenRouteName" => false
+        ];
+
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse('CustomerBundle:corporationsite:index_datatable_grid.html.twig', array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', $returnParams);
         }else{
-            return $grid->getGridResponse("CustomerBundle:corporationsite:index.html.twig", array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse("CustomerBundle:corporationsite:index.html.twig", $returnParams);
         }
     }
 

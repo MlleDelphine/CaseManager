@@ -11,6 +11,7 @@ use CustomerBundle\Entity\TownShip;
 use CustomerBundle\Form\TownShipType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -236,6 +237,22 @@ class TownShipController extends Controller
      */
     public function exportAllTownShipAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_township","CustomerBundle:TownShip", "Townships" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param TownShip $townShip
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, TownShip $townShip, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $townShip->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("something_childrow", $childElements);
 
         return $response;
     }

@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * CorporationGroup controller.
@@ -34,7 +35,6 @@ class CorporationGroupController extends Controller
         $em = $this->getDoctrine()->getManager();
         $error = false;
         if ($request->isMethod('POST')) {
-
             /** @var UploadedFile $file */
             $file = $request->files->get('file');
 
@@ -52,17 +52,12 @@ class CorporationGroupController extends Controller
         $routeAtSubmit = $this->get("router")->generate("corporation_group_index");
 
         //concatenated_postal_address
-        $source = new Entity("CustomerBundle:CorporationGroup");
+        $source = new Entity("CustomerBundle:CorporationGroup", "merged_address");
         $source->manipulateQuery(function($query){
             //"postalAddress.streetNumber, postalAddress.streetName, postalAddress.postalCode, postalAddress.city,
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])
                 ->leftJoin("_a.postalAddress", "postalAddress");
         });
-//        $source->manipulateRow(function($row){
-//            $entity = $row->getEntity();
-//           // $row->setField = $entity;
-//            return $row;
-//        });
 
         // Get a grid instance
         $grid = $this->get('grid');
@@ -73,8 +68,12 @@ class CorporationGroupController extends Controller
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
 
-        $childButtonColumn = new BlankColumn();
-        $childButtonColumn->setClass("details-control");
+        $childButtonColumn = new BlankColumn(["id" => "child-row"]);
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
+            if(!empty($row->getEntity()->getCorporationSites())){
+                $childButtonColumn->setClass("details-control");
+            }
+        });
         $grid->addColumn($childButtonColumn, 1);
 
         /***
@@ -122,17 +121,18 @@ class CorporationGroupController extends Controller
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();
 
-//        foreach ($grid->getRows() as $row) {
-//            $entity = $row->getEntity();
-//            dump($entity);
-//        }
-//
-//    //    die;
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => "CorporationSites",
+            "childrenProperties" => ["name"],
+            "childrenRouteName" => "corporation_group_get_children"
+        ];
 
         if($request->isXmlHttpRequest()){
-            return $grid->getGridResponse('CustomerBundle:corporationgroup:index_datatable_grid.html.twig', array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse(":customer:index_datatable_grid_customer.html.twig", $returnParams);
         }else{
-            return $grid->getGridResponse("CustomerBundle:corporationgroup:index.html.twig", array('grid' => $grid, "error" => $error));
+            return $grid->getGridResponse("CustomerBundle:corporationgroup:index.html.twig", $returnParams);
         }
 
     }
@@ -266,6 +266,22 @@ class CorporationGroupController extends Controller
      */
     public function exportAllCorporationGroupAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_corporationgroup","CustomerBundle:CorporationGroup", "Corporation Groups" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param CorporationGroup $corporationGroup
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, CorporationGroup $corporationGroup, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $corporationGroup->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("corpo_site_childrow", $childElements);
 
         return $response;
     }

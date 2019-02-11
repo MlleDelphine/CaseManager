@@ -31,3 +31,10 @@ township_export:
 
 township_export_all:
     path: /export
+
+township_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "CustomerBundle:Township:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

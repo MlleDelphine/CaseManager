@@ -199,6 +199,7 @@ class JobStatus
     public function addUser(\SecurityAppBundle\Entity\User $user)
     {
         $this->users[] = $user;
+        $user->setJobStatus($this);
 
         return $this;
     }
@@ -211,6 +212,7 @@ class JobStatus
     public function removeUser(\SecurityAppBundle\Entity\User $user)
     {
         $this->users->removeElement($user);
+        $user->setJobStatus(null);
     }
 
     /**

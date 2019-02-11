@@ -1,0 +1,119 @@
+{% extends 'AppBundle:Default:grid_template.html.twig' %}
+
+{% block grid_scripts_goto %}
+
+    function {{ grid.hash }}_goto(url, data, type)
+    {
+    type = type || 'GET';
+    data = data || [];
+
+    $.ajax({
+    url: url,
+    data: data,
+    type: type
+    }).done(function( msg ) {
+    $('#{{ grid.hash }}').parent().replaceWith(msg);
+    });
+
+    return false
+    }
+{% endblock grid_scripts_goto %}
+
+{% block grid_scripts_submit_form %}
+    function {{ grid.hash }}_submitForm(event, form)
+    {
+    console.log('Submit');
+    if (event.type != 'keypress' || event.which == 13) {
+    var data = '';
+    $('.grid-filter-operator select, .grid-filter-input-query-from, .grid-filter-input-query-to, .grid-filter-select-query-from, .grid-filter-select-query-to', form).each(function () {
+    if ($(this).is(':disabled') == false) {
+    var name = $(this).attr('name');
+    var value = $(this).val();
+    if (value != null) {
+    if ($(this).attr('multiple') == 'multiple') {
+    for(var i= 0; i < value.length; i++){
+    data += '&' + name + '=' + value[i];
+    }
+    } else {
+    data += '&' + name + '=' + value;
+    }
+    } else {
+    data += '&' + name + '=';
+    }
+    }
+    });
+
+    {{ grid.hash }}_goto("{{ grid.routeUrl }}", data.substring(1), 'POST');
+
+    return false;
+    }
+    }
+{% endblock grid_scripts_submit_form %}
+
+{% block grid_load_child_rows %}
+
+    /* Formatting function for row details - modify as you need */
+    // `d` is the original data object for the row
+
+    function format (data) {
+        var colspan = {{ grid.columns|length }};
+        var childrenProperties = {{ childrenProperties|transArray|json_encode|raw }};
+
+        var childRowHtml = '<tr class="child childDatatables_wrapper no-hover"> <td class="child" colspan="' +colspan+ '">'+
+                            '<table class="childDatatable half compact hover stripe" cellpadding="5" cellspacing="0" border="0">'+
+                            '<thead><tr role="row" style="width: auto">';
+
+        // HEADERS
+        $.each(childrenProperties, function(i, header){
+                childRowHtml += '<th>'+header+'</th>';
+        });
+
+        childRowHtml += '</tr><thead>';
+
+        $.each(data, function(k, value){
+            childRowHtml += '<tbody><tr role="row">';
+            $.each(value, function(key, value){
+                    childRowHtml += '<td>'+value+'</td>';
+            });
+            childRowHtml += '</tr>';
+        });
+        childRowHtml += '</tbody></table></td></tr>';
+
+        return childRowHtml;
+    }
+
+    $(document).ready(function() {
+
+        // Add event listener for opening and closing details
+        $('#datagrid-items tbody').on('click', 'td.details-control', function () {
+            var $tr = $(this).closest('tr');
+            var rowObjId = $tr.data('row-line');
+
+            if ($tr.hasClass("shown")) {
+                // This row is already open - close it
+                $tr.next('tr.child').fadeOut().remove();
+                $tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                $.ajax({
+                    url: Routing.generate('{{ childrenRouteName }}', { 'id': rowObjId, 'childElement': '{{ childrenRow }}' }),
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (jsonChildRow) {
+                        console.log(jsonChildRow);
+                        var htmlChild = format(jsonChildRow);
+                        $tr.addClass('shown');
+                        $(htmlChild).hide().insertAfter($tr).fadeIn("slow");
+                    }
+                });
+            }
+        });
+    });
+
+{% endblock %}
+
+{#<script>#}
+ {##}
+{#</script>#}

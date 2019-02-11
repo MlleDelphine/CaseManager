@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * @ORM\Entity
@@ -20,6 +21,10 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, username, joined_full_name, lastName, firstName, email, jobStatus.name, team.name, enabled, created, updated", groups={"default", "general"})
+ * @GRID\Column(id="joined_full_name", type="join", title="full_name_capitalize", operators={"like"}, columns={"lastName", "firstName"}, source="true", groups={"default", "general"})
+ *
  */
 class User extends BaseUser implements ResourceSubjectInterface
 {
@@ -30,6 +35,9 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
+     *
      */
     protected $id;
 
@@ -39,6 +47,9 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(title="firstname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
+     * @GRID\Column(title="firstname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
      */
     protected $firstName;
 
@@ -48,6 +59,8 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
      *
+     * @GRID\Column(title="lastname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
+     * @GRID\Column(title="lastname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
      */
     protected $lastName;
 
@@ -55,6 +68,8 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(title="nickname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default", "general"})
      */
     protected $username;
 
@@ -64,6 +79,8 @@ class User extends BaseUser implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(title="email_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default", "general"})
      */
     protected $email;
 
@@ -73,6 +90,7 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @Gedmo\Slug(fields={"firstName", "lastName"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
      */
     protected $slug;
 
@@ -85,9 +103,18 @@ class User extends BaseUser implements ResourceSubjectInterface
     protected $phoneNumber;
 
     /**
+     * @var bool
+     * @GRID\Column(title="status_capitalize", type="boolean", visible=true, groups={"default", "general"})
+     */
+    protected $enabled;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $created;
 
@@ -95,6 +122,9 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $updated;
 
@@ -104,6 +134,9 @@ class User extends BaseUser implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(field="jobStatus.name", title="job_capitalize", visible="true", groups={"general", "default"})
+     *
      */
     protected $jobStatus;
 
@@ -113,6 +146,9 @@ class User extends BaseUser implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(field="team.name", title="team_capitalize", visible="true", groups={"general", "default"})
+     *
      */
     protected $team;
 
@@ -314,11 +350,11 @@ class User extends BaseUser implements ResourceSubjectInterface
     /**
      * Set jobStatus
      *
-     * @param \AppBundle\Entity\JobStatus $jobStatus
+     * @param JobStatus $jobStatus
      *
      * @return User
      */
-    public function setJobStatus(\AppBundle\Entity\JobStatus $jobStatus = null)
+    public function setJobStatus(JobStatus $jobStatus = null)
     {
         $this->jobStatus = $jobStatus;
 
@@ -328,7 +364,7 @@ class User extends BaseUser implements ResourceSubjectInterface
     /**
      * Get jobStatus
      *
-     * @return \AppBundle\Entity\JobStatus
+     * @return JobStatus
      */
     public function getJobStatus()
     {
@@ -338,11 +374,11 @@ class User extends BaseUser implements ResourceSubjectInterface
     /**
      * Set team
      *
-     * @param \AppBundle\Entity\Team $team
+     * @param Team $team
      *
      * @return User
      */
-    public function setTeam(\AppBundle\Entity\Team $team = null)
+    public function setTeam(Team $team = null)
     {
         $this->team = $team;
 
@@ -352,7 +388,7 @@ class User extends BaseUser implements ResourceSubjectInterface
     /**
      * Get team
      *
-     * @return \AppBundle\Entity\Team
+     * @return Team
      */
     public function getTeam()
     {

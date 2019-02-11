@@ -33,7 +33,7 @@
                 <div class="clearfix"></div>
             </div>
             <div id="all-customers" class="x_content container">
-                {% include 'CustomerBundle:corporationgroup:index_datatable_grid.html.twig' with {'grid': grid} %}
+                {% include ":customer:index_datatable_grid_customer.html.twig" with {'grid': grid, 'childrenRow' : childrenRow, 'childrenProperties': childrenProperties, 'childrenRouteName': childrenRouteName} %}
             </div>
         </div>
     </div>

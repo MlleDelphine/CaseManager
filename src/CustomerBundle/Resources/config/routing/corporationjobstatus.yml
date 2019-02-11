@@ -31,7 +31,7 @@ corporation_jobstatus_export:
 
 corporation_jobstatus_export_all:
     path: /export
-    defaults: { _controller: "CustomerBundle:CorporationJobStatus:exportAllCorporationCorporationJobStatus" }
+    defaults: { _controller: "CustomerBundle:CorporationJobStatus:exportAllCorporationJobStatus" }
 
 corporation_jobstatus_get_children:
     path:     /{id}/children/{childElement}

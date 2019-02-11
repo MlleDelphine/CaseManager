@@ -14,8 +14,10 @@ use CustomerBundle\Form\CustomerContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 
@@ -91,6 +93,14 @@ class CustomerContactController extends Controller
 
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();
+
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => "CorporationSites",
+            "childrenProperties" => ["name"],
+            "childrenRouteName" => "corporation_group_get_children"
+        ];
 
         if($request->isXmlHttpRequest()){
             return $grid->getGridResponse(':customer:index_datatable_grid_customer.html.twig', array('grid' => $grid, "error" => $error));
@@ -236,6 +246,22 @@ class CustomerContactController extends Controller
      */
     public function exportAllCustomerContactAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_customercontact","CustomerBundle:CustomerContact", "Corporation Sites" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param CustomerContact $customerContact
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, CustomerContact $customerContact, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $customerContact->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("something_childrow", $childElements);
 
         return $response;
     }

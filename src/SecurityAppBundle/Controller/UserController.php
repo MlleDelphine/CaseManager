@@ -2,6 +2,12 @@
 
 namespace SecurityAppBundle\Controller;
 
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use SecurityAppBundle\Entity\User;
 use SecurityAppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -9,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -26,6 +33,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
@@ -38,7 +46,6 @@ class UserController extends Controller
             $file = $request->files->get('file');
 
             if($file) {
-
                 $jsonDatas = file_get_contents($file->getRealPath());
                 $deserialize = $this->get('object.eximportdatas')->import("admin_export_user", $jsonDatas, "AppBundle\Entity\User");
 
@@ -48,12 +55,67 @@ class UserController extends Controller
             }
         }
 
-        $users = $em->getRepository('SecurityAppBundle:User')->findAll();
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("user_index");
 
-        return $this->render('SecurityAppBundle:user:index.html.twig', array(
-            'users' => $users,
-            'error' => $error
-        ));
+        //concatenated_full_name
+        $source = new Entity("SecurityAppBundle:User", "general");
+
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('lastName', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        $childButtonColumn = new BlankColumn(["id" => "child-row"]);
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
+            if(!empty($row->getEntity()->getRoles())){
+                $childButtonColumn->setClass("details-control");
+            }
+        });
+        $grid->addColumn($childButtonColumn, 1);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'user_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][User] - Utilisateurs internes - $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][User] - Utilisateurs internes - $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => "Roles",
+            "childrenProperties" => ["firstname_capitalize", "lastname_capitalize"],
+            "childrenRouteName" => "user_get_children"
+        ];
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':common:index_datatable_grid_common.html.twig', $returnParams);
+        }else{
+            return $grid->getGridResponse("SecurityAppBundle:user:index.html.twig", $returnParams);
+        }
     }
 
     /**
@@ -185,6 +247,22 @@ class UserController extends Controller
      */
     public function exportAllUserAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_user","SecurityAppBundle:User", "Users" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, User $user, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $user->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("corpo_job_status_childrow", $childElements);
 
         return $response;
     }

@@ -32,3 +32,10 @@ corporation_site_export:
 corporation_site_export_all:
     path: /export
     defaults: { _controller: "CustomerBundle:CorporationSite:exportAllCorporationSite" }
+
+corporation_site_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "CustomerBundle:CorporationSite:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

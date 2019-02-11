@@ -176,14 +176,6 @@
                 {{ gridColumns }}
             {% endspaceless %}
             </tr>
-            {#{{ dump(row.entity) }}#}
-            {#{{ dump(childrenRow) }}#}
-            {#{% if childrenRow is defined %}#}
-                {#{% set items = attribute(row.entity, childrenRow) %}#}
-                {#{% for item in items %}#}
-                    {#{{ dump(item.firstName) }}#}
-                {#{% endfor %}#}
-            {#{% endif %}#}
         {% else %}
             {{ grid_no_result(grid) }}
         {% endfor %}
@@ -379,7 +371,13 @@
     {% endblock grid_column_massaction_cell %}
         {# ------------------------------------------------ grid_column_type_boolean_cell --------------------------------------------- #}
     {% block grid_column_boolean_cell %}
-        <span class="grid_boolean_{{ value }}" title="{{ value }}">{{ block('grid_column_cell') }}</span>
+        {% set originalValue = value %}
+        {% if value == true %}
+            <i title="{{ value }}" class="grid_boolean_{{ value }} fa fa-check" aria-hidden="true" style="color:#1C9A71"></i>
+        {% else %}
+            <i title="{{ value }}" class="grid_boolean_{{ value }} fa fa-times" aria-hidden="true" style="color:#D44950"></i>
+        {% endif %}
+        {#<span class="grid_boolean_{{ value }}" title="{{ value }}">{{ block('grid_column_cell') }}</span>#}
     {% endblock grid_column_boolean_cell %}
     {% block grid_column_type_boolean_cell %}
         {{ block('grid_column_boolean_cell') }}

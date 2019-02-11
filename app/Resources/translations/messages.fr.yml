@@ -70,7 +70,9 @@ failed_edit: "Echec de la modification"
 failed_add: "Echec de la création"
 
 status: statut
+status_capitalize: Statut
 statuses: statuts
+statuses_capitalize: Statuts
 
 state: état
 states: états
@@ -327,6 +329,8 @@ corporation: société
 corporations: sociétés
 all_corporation_groups: toutes les sociétés (groupes)
 corporation_groups: sociétés (groupes)
+corpo_group: groupe
+corpo_group_capitalize: Groupe
 corpo_groups: groupes
 corpo_groups_capitalize: Groupes
 corporation_group: société (groupe)

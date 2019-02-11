@@ -19,8 +19,9 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, phoneNumber, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated")
- * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true)
+ * @GRID\Source(columns="id, slug, name,corporationGroup.name, phoneNumber, created, updated", groups={"general"})
+ * @GRID\Source(columns="id, slug, name,corporationGroup.name, phoneNumber, concatenated_postal_address, created, updated", groups={"general", "merged_address"})
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"merged_address"})
  */
 class CorporationSite extends Customer
 {
@@ -30,7 +31,7 @@ class CorporationSite extends Customer
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_corporationsite", "corpo_site_childrow"})
      *
      * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_address"})
      */
@@ -61,6 +62,8 @@ class CorporationSite extends Customer
      * @Assert\NotNull()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationsite"})
+     *
+     * @GRID\Column(field="corporationGroup.name", title="corpo_group_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_address"})
      */
     public $corporationGroup;
 
@@ -197,6 +200,7 @@ class CorporationSite extends Customer
     public function setCorporationGroup(CorporationGroup $corporationGroup = null)
     {
         $this->corporationGroup = $corporationGroup;
+        $corporationGroup->addCorporationSite($this);
 
         return $this;
     }

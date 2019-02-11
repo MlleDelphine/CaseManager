@@ -51,7 +51,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @JMSSer\Expose
      * @JMSSer\Groups({"admin_export_customers"})
      *
-     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left", groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
      */
     protected $id;
 
@@ -75,7 +75,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      *
-     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
      */
     protected $created;
 
@@ -84,7 +84,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
      *
-     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
      */
     protected $updated;
 
@@ -111,7 +111,8 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
      * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"general", "default"})
      * @GRID\Column(field="postalAddress.city", title="address_postal_city", align="center", type="text", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address", "merged_address_full_name"})
      *
-     * @GRID\Column(field="postalAddress.country", title="address_country", align="center", type="country", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"default", "general", "merged_address", "merged_address_full_name"})
+     * @GRID\Column(field="postalAddress.country", title="address_country", align="center", type="country", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=true, groups={"default", "general"})
+     * @GRID\Column(field="postalAddress.country", title="address_country", align="center", type="country", operators={"like", "nlike", "rslike", "llike"}, align="center", visible=false, groups={"merged_address", "merged_address_full_name"})
      */
     protected $postalAddress;
 

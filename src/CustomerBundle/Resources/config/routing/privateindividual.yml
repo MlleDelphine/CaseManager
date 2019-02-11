@@ -31,3 +31,10 @@ private_individual_export:
 
 private_individual_export_all:
     path: /export
+
+private_individual_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "CustomerBundle:PrivateIndividual:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

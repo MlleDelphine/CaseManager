@@ -21,8 +21,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @JMSSer\ExclusionPolicy("all")
  *
  *
- * @GRID\Source(columns="id, slug, name, legalStatus, concatenated_postal_address, postalAddress.country, postalAddress.streetNumber, postalAddress.streetName, postalAddress.complement, postalAddress.postalCode, created, updated")
- * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true)
+ * @GRID\Source(columns="id, slug, name, concatenated_postal_address, legalStatus, created, updated", groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
+ * @GRID\Column(id="concatenated_postal_address", type="text", title="postal_address", field="CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city)", operators={"like"}, isManualField=true, source=true, groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
  */
 class CorporationGroup extends Corporation implements CustomerSubjectInterface
 {
@@ -36,7 +36,7 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
-     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general", "merged_address"})
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
      *
      */
     protected $name;
@@ -50,7 +50,7 @@ class CorporationGroup extends Corporation implements CustomerSubjectInterface
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_corporationgroup", "admin_export_corporationsite"})
      *
-     * @GRID\Column(title="legal_status_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" })
+     * @GRID\Column(title="legal_status_capitalize", operators={"like"}, defaultOperator="like", type="text", visible=true, align="left", filter="select", selectMulti=true, selectFrom="source", values={""="Tous", "EI"="corporation_legal_status_ei", "SARL"="corporation_legal_status_sarl", "SAS"="corporation_legal_status_sas" }, groups={"default", "general", "merged_address", "merged_full_name", "merged_address_full_name"})
      */
     protected $legalStatus;
 

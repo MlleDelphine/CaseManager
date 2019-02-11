@@ -34,3 +34,10 @@ user_export:
 user_export_all:
     path: /export
     defaults: { _controller: "SecurityAppBundle:User:exportAllUser" }
+
+user_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "SecurityAppBundle:User:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

@@ -7,10 +7,12 @@ use AppBundle\Services\CustomGridRowAction;
 use AppBundle\Services\ExcelExport;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use CustomerBundle\Entity\CustomerContact;
 use CustomerBundle\Entity\PrivateIndividual;
 use CustomerBundle\Form\PrivateIndividualType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -240,6 +242,22 @@ class PrivateIndividualController extends Controller
      */
     public function exportAllPrivateIndividualAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_privateindividual","CustomerBundle:PrivateIndividual", "Private Individuals" )->prepare($request);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param PrivateIndividual $privateIndividual
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, PrivateIndividual $privateIndividual, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $privateIndividual->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("something_childrow", $childElements);
 
         return $response;
     }
