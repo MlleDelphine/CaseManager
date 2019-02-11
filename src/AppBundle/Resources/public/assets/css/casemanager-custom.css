@@ -465,8 +465,12 @@ table.childDatatable {
     /*
      * Body styles
      */ }
+
+table.childDatatable.half{
+    width: 50%;
+}
 table.childDatatable thead{
-    background: #195f91;
+    background: rgba(25,95,145, 0.85); /*#195f91;*/
 }
 table.childDatatable thead th,
 table.childDatatable tfoot th {

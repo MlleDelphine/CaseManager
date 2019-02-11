@@ -18,7 +18,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @GRID\Source(columns="id, slug, name, concatenated_full_name, created, updated", groupBy={"id"}, groups={"default", "general"})
+ * @GRID\Source(columns="id, slug, name, created, updated", groupBy={"id"}, groups={"default", "general"})
  * @GRID\Column(id="concatenated_full_name", type="civility", field="GROUP_CONCAT(CONCAT_WS(' ', customerContacts.honorific, UPPER(customerContacts.lastName), customerContacts.firstName) separator ', ')", isAggregate=true, title="full_name_capitalize", operators={"like"}, isManualField=true, source=true, groups={"default", "general"})
  */
 class CorporationJobStatus

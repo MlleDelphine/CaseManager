@@ -10,7 +10,6 @@ use APY\DataGridBundle\Grid\Column\BlankColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use CustomerBundle\Entity\CorporationJobStatus;
 use CustomerBundle\Form\CorporationJobStatusType;
-use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -70,7 +69,11 @@ class CorporationJobStatusController extends Controller
         $grid->setDefaultLimit(20);
 
         $childButtonColumn = new BlankColumn();
-        $childButtonColumn->setClass("details-control");
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
+            if(!empty($row->getEntity()->getCustomerContacts())){
+                $childButtonColumn->setClass("details-control");
+            }
+        });
         $grid->addColumn($childButtonColumn, 1);
 
         /***

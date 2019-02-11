@@ -60,11 +60,10 @@
         var childrenProperties = {{ childrenProperties|transArray|json_encode|raw }};
 
         var childRowHtml = '<tr class="child childDatatables_wrapper no-hover"> <td class="child" colspan="' +colspan+ '">'+
-                            '<table class="childDatatable c ell-border compact hover r ow-border stripe" cellpadding="5" cellspacing="0" border="0">'+
+                            '<table class="childDatatable half compact hover stripe" cellpadding="5" cellspacing="0" border="0">'+
                             '<thead><tr role="row" style="width: auto">';
 
         // HEADERS
-
         $.each(childrenProperties, function(i, header){
                 childRowHtml += '<th>'+header+'</th>';
         });
@@ -74,7 +73,6 @@
         $.each(data, function(k, value){
             childRowHtml += '<tbody><tr role="row">';
             $.each(value, function(key, value){
-                    //childRowHtml += '<td>'+childrenProperties[k]+' : </td>';
                     childRowHtml += '<td>'+value+'</td>';
             });
             childRowHtml += '</tr>';
@@ -93,7 +91,7 @@
 
             if ($tr.hasClass("shown")) {
                 // This row is already open - close it
-                $tr.next('tr.child').remove();
+                $tr.next('tr.child').fadeOut().remove();
                 $tr.removeClass('shown');
             }
             else {
@@ -101,14 +99,13 @@
                 $.ajax({
                     url: Routing.generate('{{ childrenRouteName }}', { 'id': rowObjId, 'childElement': '{{ childrenRow }}' }),
                     type: 'POST',
-                    dataType: "json", //response format
+                    dataType: "json",
                     contentType: "application/json",
                     success: function (jsonChildRow) {
                         console.log(jsonChildRow);
                         var htmlChild = format(jsonChildRow);
-                    console.log(htmlChild);
                         $tr.addClass('shown');
-                        $tr.after(htmlChild);
+                        $(htmlChild).hide().insertAfter($tr).fadeIn("slow");
                     }
                 });
             }
