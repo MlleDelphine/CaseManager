@@ -32,3 +32,10 @@ equipment_export:
 equipment_export_all:
     path: /export
     defaults: { _controller: "AppBundle:Equipment:exportAllEquipment" }
+
+equipment_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "AppBundle:Equipment:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

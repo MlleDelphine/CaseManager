@@ -4,9 +4,17 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Equipment;
 use AppBundle\Form\EquipmentType;
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Export\JSONExport;
+use APY\DataGridBundle\Grid\Source\Entity;
 use SecurityAppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -33,7 +41,6 @@ class EquipmentController extends Controller
             $file = $request->files->get('file');
 
             if($file) {
-
                 $jsonDatas = file_get_contents($file->getRealPath());
                 $deserialize = $this->get('object.eximportdatas')->import("admin_export_equipment", $jsonDatas, "AppBundle\Entity\Equipment");
 
@@ -43,12 +50,81 @@ class EquipmentController extends Controller
             }
         }
 
-        $equipments = $em->getRepository('AppBundle:Equipment')->findAll();
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("equipment_index");
+        $source = new Entity("AppBundle:Equipment", "general");
 
-        return $this->render('AppBundle:equipment:index.html.twig', array(
-            'equipments' => $equipments,
-            'error' => $error
-        ));
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('name', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        $childButtonColumn = new BlankColumn(["id" => "child-row"]);
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
+            if(!empty($row->getEntity()->getRoles())){
+                $childButtonColumn->setClass("details-control");
+            }
+        });
+        $grid->addColumn($childButtonColumn, 1);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'equipment_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $rowAction2 = new CustomGridRowAction('export', 'equipment_export');
+        $rowAction2->addRouteParameters(array('slug'));
+        $rowAction2->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction2->setAttributes(["class" =>"btn btn-sm btn-warning"]);
+        $rowAction2->setPrevIcon("fa-download");
+
+        $rowAction3 = new CustomGridRowAction('delete', 'equipment_delete');
+        $rowAction3->addRouteParameters(array('slug'));
+        $rowAction3->setIsButton(true);
+        $rowAction3->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction3->setAttributes(["class" => "btn btn-sm btn-danger delete-entity", "data-toggle" => "modal", "data-target" => "#deleteModal"]);
+        $rowAction3->setPrevIcon("fa-download");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1,
+            $rowAction2,
+            $rowAction3]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export", "[CaseManager][Equipment] - Matériel - $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][Equipment] - Matériel - $date"));
+        $grid->addExport(new JSONExport("Export JSON", "[CaseManager][Equipment] - Matériel - $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => "Roles",
+            "childrenProperties" => ["firstname_capitalize", "lastname_capitalize"],
+            "childrenRouteName" => "user_get_children"
+        ];
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':common:index_datatable_grid_common.html.twig', $returnParams);
+        }else{
+            return $grid->getGridResponse("AppBundle:equipment:index.html.twig", $returnParams);
+        }
     }
 
     /**
@@ -179,6 +255,23 @@ class EquipmentController extends Controller
      */
     public function exportAllEquipmentAction(Request $request){
         $response = $this->get("object.eximportdatas")->exportAll("admin_export_equipment","AppBundle:Equipment", "Equipments" )->prepare($request);
+
+        return $response;
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Equipment $equipment
+     * @param $childElement
+     * @return JsonResponse
+     */
+    public function getChildFromParentAction(Request $request, Equipment $equipment, $childElement){
+
+        $mappingFunctionName = "get$childElement";
+        $childElements = $equipment->{$mappingFunctionName}();
+
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("corpo_site_childrow", $childElements);
 
         return $response;
     }

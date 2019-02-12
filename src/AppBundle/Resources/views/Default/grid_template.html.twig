@@ -162,7 +162,6 @@
         {# ---------------------------------------------------- grid_rows --------------------------------------------------- #}
     {% block grid_rows %}
         {% for row in grid.rows %}
-            {#{{ dump(row) }}#}
             {% set last_row = loop.last %}
             {% spaceless %}
                 {% set gridColumns %}

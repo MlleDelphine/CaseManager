@@ -31,7 +31,8 @@ not_yet_registered: pas encore de compte
 create_an_account: créer un compte
 phone_number: téléphone (num)
 phone_number_capitalize: Téléphone (num)
-full_name_capitalize: Nom complet
+fullname_capitalize: Nom complet
+full_name_capitalize: Nom
 firstname: prénom
 firstname_capitalize: Prénom
 lastname: nom de famille

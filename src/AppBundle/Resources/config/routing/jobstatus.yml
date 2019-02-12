@@ -32,3 +32,10 @@ jobstatus_export:
 jobstatus_export_all:
     path: /export
     defaults: { _controller: "AppBundle:JobStatus:exportAllJobStatus" }
+
+jobstatus_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "AppBundle:JobStatus:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

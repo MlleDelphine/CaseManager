@@ -32,3 +32,10 @@ material_export:
 material_export_all:
     path: /export
     defaults: { _controller: "AppBundle:Material:exportAllMaterial" }
+
+material_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "AppBundle:Material:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

@@ -46,7 +46,7 @@ class User extends BaseUser implements ResourceSubjectInterface
      *
      * @Assert\NotBlank()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_user"})
+     * @JMSSer\Groups({"admin_export_user", "user_as_childrow"})
      *
      * @GRID\Column(title="firstname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
      * @GRID\Column(title="firstname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
@@ -57,7 +57,7 @@ class User extends BaseUser implements ResourceSubjectInterface
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_user"})
+     * @JMSSer\Groups({"admin_export_user", "user_as_childrow"})
      *
      * @GRID\Column(title="lastname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
      * @GRID\Column(title="lastname_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
@@ -357,6 +357,7 @@ class User extends BaseUser implements ResourceSubjectInterface
     public function setJobStatus(JobStatus $jobStatus = null)
     {
         $this->jobStatus = $jobStatus;
+        $jobStatus->addUser($this);
 
         return $this;
     }
@@ -381,6 +382,7 @@ class User extends BaseUser implements ResourceSubjectInterface
     public function setTeam(Team $team = null)
     {
         $this->team = $team;
+        //$team->addUser($this);
 
         return $this;
     }

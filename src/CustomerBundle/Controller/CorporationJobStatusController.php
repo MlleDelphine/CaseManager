@@ -68,12 +68,13 @@ class CorporationJobStatusController extends Controller
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
 
-        $childButtonColumn = new BlankColumn();
-        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
-            if(!empty($row->getEntity()->getCustomerContacts())){
-                $childButtonColumn->setClass("details-control");
+        $childButtonColumn = new BlankColumn(["id" => "child-row"]); //["id" => "child-row"]
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router){
+            if(!empty($row->getEntity()->getCustomerContacts()) && count($row->getEntity()->getCustomerContacts()) > 0){
+                return "<span class='details-control'></span>";
             }
         });
+        $childButtonColumn->setSafe(false);
         $grid->addColumn($childButtonColumn, 1);
 
         /***

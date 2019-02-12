@@ -32,3 +32,10 @@ team_export:
 team_export_all:
     path: /export
     defaults: { _controller: "AppBundle:Team:exportAllTeam" }
+
+team_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "AppBundle:Team:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

@@ -85,7 +85,7 @@
     $(document).ready(function() {
 
         // Add event listener for opening and closing details
-        $('#datagrid-items tbody').on('click', 'td.details-control', function () {
+        $('#datagrid-items tbody').on('click', 'span.details-control', function () {
             var $tr = $(this).closest('tr');
             var rowObjId = $tr.data('row-line');
 

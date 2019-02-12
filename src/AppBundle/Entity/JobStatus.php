@@ -5,8 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use SecurityAppBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JobStatus
@@ -16,6 +18,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @GRID\Source(columns="id, slug, name, created, updated", groups={"general"})
+ *
  */
 class JobStatus
 {
@@ -27,6 +32,8 @@ class JobStatus
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left", groups={"default", "general"})
      */
     private $id;
 
@@ -40,6 +47,9 @@ class JobStatus
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_user", "admin_export_jobstatus"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $name;
 
@@ -49,6 +59,7 @@ class JobStatus
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
      */
     protected $slug;
 
@@ -56,6 +67,8 @@ class JobStatus
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
      */
     protected $created;
 
@@ -63,6 +76,8 @@ class JobStatus
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
      */
     protected $updated;
 
@@ -70,6 +85,7 @@ class JobStatus
      * @var User[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="SecurityAppBundle\Entity\User", mappedBy="jobStatus", fetch="EXTRA_LAZY")
+     *
      */
     protected $users;
 
@@ -192,14 +208,14 @@ class JobStatus
     /**
      * Add user
      *
-     * @param \SecurityAppBundle\Entity\User $user
+     * @param User $user
      *
      * @return JobStatus
      */
-    public function addUser(\SecurityAppBundle\Entity\User $user)
+    public function addUser(User $user)
     {
         $this->users[] = $user;
-        $user->setJobStatus($this);
+        //$user->setJobStatus($this);
 
         return $this;
     }
@@ -207,9 +223,9 @@ class JobStatus
     /**
      * Remove user
      *
-     * @param \SecurityAppBundle\Entity\User $user
+     * @param User $user
      */
-    public function removeUser(\SecurityAppBundle\Entity\User $user)
+    public function removeUser(User $user)
     {
         $this->users->removeElement($user);
         $user->setJobStatus(null);

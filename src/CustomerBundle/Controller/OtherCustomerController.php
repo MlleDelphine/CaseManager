@@ -48,8 +48,6 @@ class OtherCustomerController extends Controller
         }
         /*** GRID ***/
         $routeAtSubmit = $this->get("router")->generate("other_customer_index");
-
-        //concatenated_postal_address
         $source = new Entity("CustomerBundle:OtherCustomer", "merged_address");
         $source->manipulateQuery(function($query){
             $query->addSelect(["CONCAT(postalAddress.streetNumber, ', ', postalAddress.streetName, ' ', postalAddress.postalCode, ' ', postalAddress.city) as concatenated_postal_address"])

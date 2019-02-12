@@ -7,6 +7,7 @@ use AppBundle\Services\CustomGridRowAction;
 use AppBundle\Services\ExcelExport;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Export\JSONExport;
 use APY\DataGridBundle\Grid\Source\Entity;
 use SecurityAppBundle\Entity\User;
 use SecurityAppBundle\Form\UserType;
@@ -90,8 +91,22 @@ class UserController extends Controller
         $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
         $rowAction1->setPrevIcon("fa-pencil-square-o");
 
+        $rowAction2 = new CustomGridRowAction('export', 'user_export');
+        $rowAction2->addRouteParameters(array('slug'));
+        $rowAction2->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction2->setAttributes(["class" =>"btn btn-sm btn-warning"]);
+        $rowAction2->setPrevIcon("fa-download");
+
+        $rowAction3 = new CustomGridRowAction('delete', 'user_delete');
+        $rowAction3->addRouteParameters(array('slug'));
+        $rowAction3->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction3->setAttributes(["class" => "btn btn-sm btn-danger delete-entity", "data-toggle" => "modal", "data-target" => "#deleteModal", "data-slug" => "slug"]);
+        $rowAction3->setPrevIcon("fa-download");
+
         $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
-            $rowAction1]);
+            $rowAction1,
+            $rowAction2,
+            $rowAction3]);
         $actionsColumn->setAlign("center");
 
         $grid->addColumn($actionsColumn);
@@ -99,6 +114,7 @@ class UserController extends Controller
         $date = date('Y-m-d H:i:s');
         $grid->addExport(new ExcelExport("Export", "[CaseManager][User] - Utilisateurs internes - $date"));
         $grid->addExport(new CSVExport("Export CSV", "[CaseManager][User] - Utilisateurs internes - $date"));
+        $grid->addExport(new JSONExport("Export JSON", "[CaseManager][User] - Utilisateurs internes - $date"));
 
         $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
         $grid->isReadyForRedirect();

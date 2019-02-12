@@ -32,3 +32,10 @@ resource_export:
 resource_export_all:
     path: /export
     defaults: { _controller: "AppBundle:Resource:exportAllResource" }
+
+resource_get_children:
+    path:     /{id}/children/{childElement}
+    defaults: { _controller: "AppBundle:Resource:getChildFromParent" }
+    methods:  POST
+    options:
+        expose: true

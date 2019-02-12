@@ -32,82 +32,85 @@
                 </ul>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content container">
-                <a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a> <a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>
-                <hr>
-                <!-- start accordion -->
-                <div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for jobStatus in jobStatuses %}
-                        <div class="panel">
-                            <a class="panel-heading" role="tab" id="heading{{ jobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ jobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ jobStatus.id }}">
-                                <h4 class="panel-title">{{ jobStatus.name }}</h4>
-                            </a>
-                            <div id="collapse{{ jobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ jobStatus.id }}">
-                                <div class="panel-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>{{ "title"|trans|capitalize }}</th>
-                                            <th>{{ "users"|trans|capitalize }}</th>
-                                            <th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>
-                                            <th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>
-                                            <th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th scope="row">{{ jobStatus.id }}</th>
-                                            <td>{{ jobStatus.name }}</td>
-                                            <td>
-                                                <div class="x_panel">
-                                                    <div class="x_title">
-                                                        <h2><i class="fa fa-sitemap" aria-hidden="true"></i>
-                                                            <small>{% if jobStatus.users|length == 1 %}Utilisateur{% elseif jobStatus.users|length > 1 %}Utilisateurs{% else %}Aucun utilisateur{% endif %}</small></h2>
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                    <div class="x_content" style="display: none">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Nom</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            {% for user in jobStatus.users %}
-                                                                <tr>
-                                                                    <td>{{ user.id }}</td>
-                                                                    <td>{{ user }}</td>
-                                                                </tr>
-                                                            {% endfor %}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>{% if jobStatus.created %}{{ jobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td>{% if jobStatus.updated %}{{ jobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                            <td align="center" style="vertical-align: middle">
-                                                <a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>
-                                                <a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>
-                                                <button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ jobStatus.slug }}">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <!-- end of accordion -->
+            {#<div class="x_content container">#}
+                {#<a href="#" class="btn btn-default openall"><i class="fa fa-angle-down" aria-hidden="true"></i> {{ "unfold"|trans|capitalize }}</a> <a href="#" class="btn btn-default closeall"><i class="fa fa-angle-up" aria-hidden="true"></i> {{ "fold"|trans|capitalize }}</a>#}
+                {#<hr>#}
+                {#<!-- start accordion -->#}
+                {#<div class="panel-group accordion" id="accordion" role="tablist" aria-multiselectable="true">#}
+                    {#{% for jobStatus in jobStatuses %}#}
+                        {#<div class="panel">#}
+                            {#<a class="panel-heading" role="tab" id="heading{{ jobStatus.id }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ jobStatus.id }}" aria-expanded="true" aria-controls="collapse{{ jobStatus.id }}">#}
+                                {#<h4 class="panel-title">{{ jobStatus.name }}</h4>#}
+                            {#</a>#}
+                            {#<div id="collapse{{ jobStatus.id }}" class="panel-collapse collapse{% if loop.first %} in{% endif %}" role="tabpanel" aria-labelledby="heading{{ jobStatus.id }}">#}
+                                {#<div class="panel-body">#}
+                                    {#<table class="table table-bordered">#}
+                                        {#<thead>#}
+                                        {#<tr>#}
+                                            {#<th>#</th>#}
+                                            {#<th>{{ "title"|trans|capitalize }}</th>#}
+                                            {#<th>{{ "users"|trans|capitalize }}</th>#}
+                                            {#<th>{{ "created_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }}</th>#}
+                                            {#<th>{{ "updated_m_s"|trans|capitalize ~ " " ~ "on_date"|trans }} </th>#}
+                                            {#<th style="text-align: center;">{{ "actions"|trans|capitalize }}</th>#}
+                                        {#</tr>#}
+                                        {#</thead>#}
+                                        {#<tbody>#}
+                                        {#<tr>#}
+                                            {#<th scope="row">{{ jobStatus.id }}</th>#}
+                                            {#<td>{{ jobStatus.name }}</td>#}
+                                            {#<td>#}
+                                                {#<div class="x_panel">#}
+                                                    {#<div class="x_title">#}
+                                                        {#<h2><i class="fa fa-sitemap" aria-hidden="true"></i>#}
+                                                            {#<small>{% if jobStatus.users|length == 1 %}Utilisateur{% elseif jobStatus.users|length > 1 %}Utilisateurs{% else %}Aucun utilisateur{% endif %}</small></h2>#}
+                                                        {#<ul class="nav navbar-right panel_toolbox">#}
+                                                            {#<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>#}
+                                                            {#</li>#}
+                                                        {#</ul>#}
+                                                        {#<div class="clearfix"></div>#}
+                                                    {#</div>#}
+                                                    {#<div class="x_content" style="display: none">#}
+                                                        {#<table class="table table-bordered">#}
+                                                            {#<thead>#}
+                                                            {#<tr>#}
+                                                                {#<th>#</th>#}
+                                                                {#<th>Nom</th>#}
+                                                            {#</tr>#}
+                                                            {#</thead>#}
+                                                            {#<tbody>#}
+                                                            {#{% for user in jobStatus.users %}#}
+                                                                {#<tr>#}
+                                                                    {#<td>{{ user.id }}</td>#}
+                                                                    {#<td>{{ user }}</td>#}
+                                                                {#</tr>#}
+                                                            {#{% endfor %}#}
+                                                            {#</tbody>#}
+                                                        {#</table>#}
+                                                    {#</div>#}
+                                                {#</div>#}
+                                            {#</td>#}
+                                            {#<td>{% if jobStatus.created %}{{ jobStatus.created|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                                            {#<td>{% if jobStatus.updated %}{{ jobStatus.updated|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                                            {#<td align="center" style="vertical-align: middle">#}
+                                                {#<a class="btn btn-sm btn-info" href="{{ path('jobstatus_edit', { 'slug': jobStatus.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{ "modify"|trans|capitalize }}</a>#}
+                                                {#<a class="btn btn-sm btn-warning" href="{{ path('jobstatus_export', { 'slug': jobStatus.slug }) }}"><i class="fa fa-download" aria-hidden="true"></i> {{ "export"|trans|capitalize }}</a>#}
+                                                {#<button id="import-btn" type="button" class="btn btn-sm btn-danger delete-entity" data-toggle="modal" data-target="#deleteModal" data-slug="{{ jobStatus.slug }}">#}
+                                                    {#<i class="fa fa-trash" aria-hidden="true"></i> {{ "delete_verb"|trans|capitalize }}#}
+                                                {#</button>#}
+                                            {#</td>#}
+                                        {#</tr>#}
+                                        {#</tbody>#}
+                                    {#</table>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
+                {#</div>#}
+                {#<!-- end of accordion -->#}
+            {#</div>#}
+            <div id="all-customers" class="x_content container">
+                {% include ":common:index_datatable_grid_common.html.twig" with {'grid': grid, 'childrenRow' : childrenRow, 'childrenProperties': childrenProperties, 'childrenRouteName': childrenRouteName} %}
             </div>
         </div>
     </div>
