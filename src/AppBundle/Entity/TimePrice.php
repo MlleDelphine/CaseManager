@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Resource;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use SecurityAppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -44,12 +45,12 @@ class TimePrice
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource", "time_prices_as_childrow"})
      */
     private $unitaryPrice;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="fromDate", type="datetime")
      * @Assert\NotBlank()
@@ -58,12 +59,12 @@ class TimePrice
      * @Assert\Date()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource", "time_prices_as_childrow"})
      */
     private $fromDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="untilDate", type="datetime", nullable=true)
      *
@@ -71,19 +72,19 @@ class TimePrice
      * @Assert\GreaterThan(propertyPath="fromDate", message="Oops, la date de fin doit être postérieure à la date de départ.")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_material", "admin_export_resource"})
+     * @JMSSer\Groups({"admin_export_material", "admin_export_resource", "time_prices_as_childrow"})
      */
     private $untilDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
      */
@@ -112,7 +113,7 @@ class TimePrice
 
     public function __construct()
     {
-        $now = new \DateTime();
+        $now = new DateTime();
         $this->untilDate = $now->add(new \DateInterval("P2Y"));
     }
 
@@ -173,7 +174,7 @@ class TimePrice
     /**
      * Set fromDate
      *
-     * @param \DateTime $fromDate
+     * @param DateTime $fromDate
      *
      * @return TimePrice
      */
@@ -187,7 +188,7 @@ class TimePrice
     /**
      * Get fromDate
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getFromDate()
     {
@@ -197,7 +198,7 @@ class TimePrice
     /**
      * Set untilDate
      *
-     * @param \DateTime $untilDate
+     * @param DateTime $untilDate
      *
      * @return TimePrice
      */
@@ -211,7 +212,7 @@ class TimePrice
     /**
      * Get untilDate
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getUntilDate()
     {
@@ -221,7 +222,7 @@ class TimePrice
     /**
      * Set created
      *
-     * @param \DateTime $created
+     * @param DateTime $created
      *
      * @return TimePrice
      */
@@ -235,7 +236,7 @@ class TimePrice
     /**
      * Get created
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreated()
     {
@@ -245,7 +246,7 @@ class TimePrice
     /**
      * Set updated
      *
-     * @param \DateTime $updated
+     * @param DateTime $updated
      *
      * @return TimePrice
      */
@@ -259,7 +260,7 @@ class TimePrice
     /**
      * Get updated
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getUpdated()
     {

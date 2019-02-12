@@ -473,6 +473,10 @@ on_time: à
 
 from: de
 from_capitalize: De
+from_m: du
+from_m_capitalize: Du
+from_f: de la
+from_f_capitalize: De la
 from_long: à partir de
 from_long_capitalize: A partir de
 
@@ -549,6 +553,7 @@ price: prix
 no_price: aucun prix
 prices: prix
 unitary_price: prix unitaire
+unitary_price_capitalize: Prix unitaire
 unitary_prices: prix unitaires
 prices_definition_capitalize: Définition des prix
 cost: coût

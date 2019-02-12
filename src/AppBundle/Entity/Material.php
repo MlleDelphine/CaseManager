@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Material
@@ -16,6 +17,9 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @@GRID\Source(columns="id, slug, name, created, updated", groups={"general"})
+ *
  */
 class Material implements ResourceSubjectInterface
 {
@@ -28,6 +32,9 @@ class Material implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_timeprice"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left", groups={"default", "general"})
+     *
      */
     private $id;
 
@@ -39,6 +46,9 @@ class Material implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $name;
 
@@ -49,6 +59,9 @@ class Material implements ResourceSubjectInterface
      * @Assert\NotBlank()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
+     *
+     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $reference;
 
@@ -77,6 +90,8 @@ class Material implements ResourceSubjectInterface
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
+     *
      */
     protected $slug;
 
@@ -84,6 +99,9 @@ class Material implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $created;
 
@@ -91,6 +109,9 @@ class Material implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $updated;
 
