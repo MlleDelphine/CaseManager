@@ -74,7 +74,7 @@
             childRowHtml += '<tbody><tr role="row">';
             $.each(value, function(key, value){
                     if(moment(value, moment.ISO_8601, true).isValid()){
-                        childRowHtml += '<td>'+ moment(value).format('DD/MM/YYYY')+'</td>';
+                        childRowHtml += '<td>'+ moment(value).format('Do MMM YYYY')+'</td>';
                     } else {
                         childRowHtml += '<td>'+value+'</td>';
                     }
@@ -87,7 +87,6 @@
     }
 
     $(document).ready(function() {
-
         // Add event listener for opening and closing details
         $('#datagrid-items tbody').on('click', 'span.details-control', function () {
             var $tr = $(this).closest('tr');
