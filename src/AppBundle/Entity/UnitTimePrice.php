@@ -40,7 +40,7 @@ class UnitTimePrice
      * @ORM\Column(name="unit", type="string")
      * @Assert\NotNull()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_unittimeprice"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_unittimeprice", "unit_time_prices_as_childrow"})
      */
     private $unit;
 
@@ -54,7 +54,7 @@ class UnitTimePrice
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment", "unit_time_prices_as_childrow"})
      */
     private $unitaryPrice;
 
@@ -67,7 +67,7 @@ class UnitTimePrice
      * @Assert\Date()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment", "unit_time_prices_as_childrow"})
      */
     private $fromDate;
 
@@ -80,7 +80,7 @@ class UnitTimePrice
      * @Assert\GreaterThan(propertyPath="fromDate", message="Oops, la date de fin doit être postérieure à la date de départ.")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_equipment"})
+     * @JMSSer\Groups({"admin_export_equipment", "admin_export_equipment", "unit_time_prices_as_childrow"})
      */
     private $untilDate;
 

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Equipment
@@ -25,6 +26,9 @@ class Equipment implements ResourceSubjectInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left", groups={"default", "general"})
+     *
      */
     private $id;
 
@@ -36,6 +40,10 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $name;
 
@@ -44,6 +52,8 @@ class Equipment implements ResourceSubjectInterface
      *
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
+     *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
      *
      */
     protected $slug;
@@ -56,6 +66,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $reference;
 
@@ -66,6 +79,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="brand_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $brand;
 
@@ -76,6 +92,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="model_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $model;
 
@@ -86,6 +105,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="serial_number_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $serialNumber;
 
@@ -97,6 +119,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="description_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"general"})
+     *
      */
     private $description;
 
@@ -108,6 +133,9 @@ class Equipment implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
+     *
+     * @GRID\Column(title="state_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="boolean", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $working;
 
@@ -132,6 +160,9 @@ class Equipment implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $created;
 
@@ -139,6 +170,9 @@ class Equipment implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $updated;
 

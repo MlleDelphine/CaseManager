@@ -63,12 +63,13 @@ class EquipmentController extends Controller
         $grid->setDefaultOrder('name', 'ASC');
         $grid->setDefaultLimit(20);
 
-        $childButtonColumn = new BlankColumn(["id" => "child-row"]);
-        $childButtonColumn->manipulateRenderCell(function($value, $row, $router) use ($childButtonColumn){
-            if(!empty($row->getEntity()->getRoles())){
-                $childButtonColumn->setClass("details-control");
+        $childButtonColumn = new BlankColumn(["id" => "child-row"]); //["id" => "child-row"]
+        $childButtonColumn->manipulateRenderCell(function($value, $row, $router){
+            if(!empty($row->getEntity()->getUnitTimePrices()) && count($row->getEntity()->getUnitTimePrices()) > 0){
+                return "<span class='details-control'></span>";
             }
         });
+        $childButtonColumn->setSafe(false);
         $grid->addColumn($childButtonColumn, 1);
 
         /***
@@ -115,9 +116,9 @@ class EquipmentController extends Controller
         $returnParams = [
             "grid" => $grid,
             "error" => $error,
-            "childrenRow" => "Roles",
-            "childrenProperties" => ["firstname_capitalize", "lastname_capitalize"],
-            "childrenRouteName" => "user_get_children"
+            "childrenRow" => "UnitTimePrices",
+            "childrenProperties" => ["unit_capitalize", "unitary_price_capitalize", "from_m_capitalize", "until_cod_capitalize"],
+            "childrenRouteName" => "equipment_get_children"
         ];
 
         if($request->isXmlHttpRequest()){
@@ -271,7 +272,7 @@ class EquipmentController extends Controller
         $mappingFunctionName = "get$childElement";
         $childElements = $equipment->{$mappingFunctionName}();
 
-        $response = $this->get("object.eximportdatas")->serializeInJsonString("corpo_site_childrow", $childElements);
+        $response = $this->get("object.eximportdatas")->serializeInJsonString("unit_time_prices_as_childrow", $childElements);
 
         return $response;
     }

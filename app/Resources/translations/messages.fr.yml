@@ -76,7 +76,9 @@ statuses: statuts
 statuses_capitalize: Statuts
 
 state: état
+state_capitalize: état
 states: états
+states_capitalize: états
 
 role: rôle
 roles: rôles
