@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Resource
@@ -16,6 +17,8 @@ use JMS\Serializer\Annotation as JMSSer;
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
+ *
+ * @@GRID\Source(columns="id, slug, name, reference, unit, created, updated", groups={"general"})
  */
 class Resource implements ResourceSubjectInterface
 {
@@ -27,6 +30,9 @@ class Resource implements ResourceSubjectInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_timeprice"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left", groups={"default", "general"})
+     *
      */
     private $id;
 
@@ -38,6 +44,11 @@ class Resource implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_timeprice", "bo_export_resource"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
+     * @GRID\Column(title="name", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $name;
 
@@ -49,6 +60,9 @@ class Resource implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_resource"})
+     *
+     * @GRID\Column(title="reference", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $reference;
 
@@ -59,6 +73,9 @@ class Resource implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_resource"})
+     *
+     * @GRID\Column(title="description_capitalize", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=false, align="left", class="column-title", groups={"general"})
+     *
      */
     private $description;
 
@@ -70,6 +87,9 @@ class Resource implements ResourceSubjectInterface
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"bo_export_resource"})
+     *
+     * @GRID\Column(title="unit", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $unit;
 
@@ -79,6 +99,10 @@ class Resource implements ResourceSubjectInterface
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $slug;
 
@@ -86,6 +110,9 @@ class Resource implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $created;
 
@@ -93,6 +120,9 @@ class Resource implements ResourceSubjectInterface
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center", groups={"default", "general"})
+     *
      */
     protected $updated;
 

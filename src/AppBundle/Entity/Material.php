@@ -18,7 +18,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  *
  * @JMSSer\ExclusionPolicy("all")
  *
- * @@GRID\Source(columns="id, slug, name, created, updated", groups={"general"})
+ * @@GRID\Source(columns="id, slug, name, reference, unit, created, updated", groups={"general"})
  *
  */
 class Material implements ResourceSubjectInterface
@@ -81,6 +81,9 @@ class Material implements ResourceSubjectInterface
      * @Assert\NotNull()
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_material", "admin_export_timeprice"})
+     *
+     * @GRID\Column(title="unit", operators={"like", "nlike", "rslike", "llike" }, type="text", visible=true, align="left", class="column-title", groups={"general"})
+     *
      */
     private $unit;
 
