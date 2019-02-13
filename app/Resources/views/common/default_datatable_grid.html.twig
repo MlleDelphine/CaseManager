@@ -1,4 +1,10 @@
-{{ grid(grid, ':common:default_block_js_datatable.jquery.twig') }}
+{% if childrenRow is not defined %}
+    {% set childrenRow = false %}
+    {% set childrenProperties = [] %}
+    {% set childrenRouteName = "" %}
+{% endif %}
+
+{{ grid(grid, ':common:common_block_js_datatable.jquery.twig',  "", {'childrenRow': childrenRow, 'childrenProperties': childrenProperties, 'childrenRouteName': childrenRouteName }) }}
 
 <script type="text/javascript">
     $(function () {
