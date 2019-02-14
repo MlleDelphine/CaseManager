@@ -520,9 +520,14 @@ error: erreur
 errors: erreurs
 home: accueil
 
-general_data: Données de base
-internal_data: Données internes
-media: Média
+general_data: données de base
+general_data_capitalize: Données de base
+internal_data: données internes
+internal_data_capitalize: Données internes
+media: média
+media_capitalize: Média
+step: étape
+step_capitalize: Etape
 
 external_reference: référence externe
 external_reference_capitalize: Référence externe
@@ -532,7 +537,8 @@ internal_reference: référence interne
 internal_reference_capitalize: Référence interne
 
 customer: client
-customer_data: Informations client / MOA
+customer_data: informations client / MOA
+customer_data_capitalize: Informations client / MOA
 customer_capitalize: Client
 customer_project_manager: chargé de projet
 customer_project_manager_capitalize: Chargé de projet (client)
