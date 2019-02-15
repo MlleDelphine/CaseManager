@@ -29,7 +29,9 @@ class BusinessCaseGalleryType extends AbstractType
                 "placeholder" => "select_type_before_capitalize",
                 "required" => true
             ))
-            ->add('galleryHasMedias',FileType::class, );
+            ->add('galleryHasMedias',FileType::class, [
+
+            ]);
 
     }
 
