@@ -841,5 +841,5 @@ table.childDatatable td {
     /*padding: 0;*/
     /*border: 0 solid #CCC;*/
     overflow-x: visible;
-    height: inherit;
+    /*height: inherit;*/
 }

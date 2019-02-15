@@ -39,7 +39,7 @@
                                 <a href="#step-1">
                                     <span class="step_no">1</span>
                                     <span class="step_descr">
-                                              {{ "step_capitalize"|trans }} 1<br />
+                                              {#{{ "step_capitalize"|trans }} 1<br />#}
                                               <small>{{ "general_data_capitalize"|trans }}</small>
                                           </span>
                                 </a>
@@ -48,7 +48,7 @@
                                 <a href="#step-2">
                                     <span class="step_no">2</span>
                                     <span class="step_descr">
-                                              {{ "step_capitalize"|trans }} 2<br />
+                                              {#{{ "step_capitalize"|trans }} 2<br />#}
                                               <small> {{ "customer_data_capitalize"|trans }}</small>
                                           </span>
                                 </a>
@@ -57,7 +57,7 @@
                                 <a href="#step-3">
                                     <span class="step_no">3</span>
                                     <span class="step_descr">
-                                              {{ "step_capitalize"|trans }} 3<br />
+                                              {#{{ "step_capitalize"|trans }} 3<br />#}
                                               <small>{{ "internal_data_capitalize"|trans }}</small>
                                           </span>
                                 </a>
@@ -66,7 +66,7 @@
                                 <a href="#step-4">
                                     <span class="step_no">4</span>
                                     <span class="step_descr">
-                                              {{ "step_capitalize"|trans }} 4<br />
+                                              {#{{ "step_capitalize"|trans }} 4<br />#}
                                               <small>{{ "media_capitalize"|trans }}</small>
                                           </span>
                                 </a>
@@ -207,6 +207,13 @@
 
             // DropZone for medias
             Dropzone.autoDiscover = false;
+            $("#id_dropzone").dropzone({
+                maxFiles: 2000,
+                url: "/ajax_file_upload_handler/",
+                success: function (file, response) {
+                    console.log(response);
+                }
+            });
         });
     </script>
 {% endblock %}

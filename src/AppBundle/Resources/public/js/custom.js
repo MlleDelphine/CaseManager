@@ -597,10 +597,11 @@ function init_SmartWizard() {
     console.log('init_SmartWizard mine');
 
     $('#wizard').smartWizard({
-        selected: 0,
+        selected: 2,
         labelNext: "Suivant",
         labelPrevious: "Précédent",
         labelFinish: "Fin",
+        autoAdjustHeight: false,
         toolbarSettings: {
             toolbarPosition: 'bottom', // none, top, bottom, both
             toolbarButtonPosition: 'right', // left, right
@@ -626,10 +627,13 @@ function init_SmartWizard() {
 
     function onShowStepCallback(obj, context){
         $stepClicked = obj[0];
-        var showedStepId = $stepClicked.attributes["href"]["value"];
-        var showedStepObj = $(showedStepId);
+        var shownStepId = $stepClicked.attributes["href"]["value"];
+        var shownStepObj = $(shownStepId);
 
-        showedStepObj.find("select").select2({
+        //Do not fix height size of step container because sometimes content is dynamic. e.g: collection fields
+        shownStepObj.parent(".stepContainer").removeAttr("style");
+        shownStepObj.parent(".stepContainer").css("min-height", "230px");
+        shownStepObj.find("select").select2({
             'width': '100%'
         })
     }
@@ -911,8 +915,9 @@ function init_parsley() {
 
     try {
         hljs.initHighlightingOnLoad();
-    } catch (err) {}
+    } catch (err) {
 
+    }
 };
 
 /* AUTOCOMPLETE */
@@ -934,7 +939,6 @@ function init_autocomplete() {
     $('#autocomplete-custom-append').autocomplete({
         lookup: countriesArray
     });
-
 };
 
 
