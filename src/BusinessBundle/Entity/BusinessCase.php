@@ -3,8 +3,11 @@
 namespace BusinessBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\BusinessCaseDocument;
+use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
+use Assetic\Cache\ArrayCache;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use SecurityAppBundle\Entity\User;
@@ -122,6 +125,14 @@ class BusinessCase
      * @JMSSer\Groups({"business_export_business_case"})
      */
     protected $documents;
+
+    /**
+     * @var ArrayCollection[BusinessCaseGallery]
+     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     * @JMSSer\Expose
+     * @JMSSer\Groups({"business_export_business_case"})
+     */
+    protected $businessCaseGalleries;
 
     /**
      * @var \DateTime
@@ -305,7 +316,6 @@ class BusinessCase
         return $this->customerContact;
     }
 
-
     /**
      * Set user
      *
@@ -376,6 +386,40 @@ class BusinessCase
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add businessCaseGallery
+     *
+     * @param BusinessCaseGallery $businessCaseGallery
+     *
+     *
+     */
+    public function addBusinessCaseGallery(BusinessCaseGallery $businessCaseGallery)
+    {
+        $this->businessCaseGalleries[] = $businessCaseGallery;
+        //$user->setTeam($this);
+    }
+
+    /**
+     * Remove businessCaseGallery
+     *
+     * @param BusinessCaseGallery $businessCaseGallery
+     */
+    public function removeBusinessCaseGallery(BusinessCaseGallery $businessCaseGallery)
+    {
+        $this->businessCaseGalleries->removeElement($businessCaseGallery);
+        //$businessCaseGallery->setBusinessCase(null);
+    }
+
+    /**
+     * Get businessCaseGalleries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBusinessCaseGalleries()
+    {
+        return $this->businessCaseGalleries;
     }
 }
 

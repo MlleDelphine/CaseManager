@@ -3,12 +3,14 @@
 namespace BusinessBundle\Form;
 
 use AppBundle\Form\Type\Select2EntityType;
+use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\EntityRepository;
 use SecurityAppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -30,10 +32,10 @@ class BusinessCaseType extends AbstractType
                 "translation_domain" => "messages"))
             ->add('externalReference', TextType::class, array(
                 "label_format" => "external_reference_capitalize",
-                "required" => true))
+                "required" => false))
             ->add('internalReference', TextType::class, array(
                 "label_format" => "internal_reference_capitalize",
-                "required" => true,
+                "required" => false,
                 "attr" => ["pattern" => "^(E|EC)[0-9]{8-10}[A-Z]{0-3}$"]))
             ->add("customerType", ChoiceType::class, array(
                 "label_format" => "customer_type_capitalize",
@@ -78,7 +80,20 @@ class BusinessCaseType extends AbstractType
                 "choice_translation_domain" => "messages",
                 "multiple" => false,
                 "placeholder" => "---",
-                "required" => true));
+                "required" => true))
+            ->add("businessCaseGalleries", CollectionType::class, array(
+                "entry_type" => BusinessCaseGalleryType::class,
+                "entry_options" => ["label" => false],
+                "allow_add" => true,
+                "allow_delete" => true,
+                "delete_empty" => true,
+                "prototype" => true,
+                "by_reference" => false, //ensures that the setter is called in all BusinessCaseGallery
+                "attr" => [
+                    "class" => "item-collection col-md-12 col-xs-12",
+                ],
+                "label_format" => "media_gallery_capitalize",
+                "required" => false));
 
         $formModifierCustomerType = function (FormInterface $form, $formModifierCustomer, $formModifierCustomerContact, $customerType = null){
             if($customerType != null){

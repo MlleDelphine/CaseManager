@@ -10,6 +10,7 @@ namespace Application\Sonata\MediaBundle\Entity;
 
 
 use BusinessBundle\Entity\BusinessCase;
+use BusinessBundle\Entity\DocumentType;
 use Sonata\MediaBundle\Entity\BaseMedia;
 
 class BusinessCaseDocument extends BaseMedia {
@@ -26,7 +27,9 @@ class BusinessCaseDocument extends BaseMedia {
     protected $businessCase;
 
     /**
-     * @var int
+     * @var DocumentType
+     * @ORM\ManyToOne(targetEntity="BusinessBundle\Entity\DocumentType", inversedBy="businessCaseDocuments")
+     *
      */
     protected $type;
 
@@ -68,6 +71,30 @@ class BusinessCaseDocument extends BaseMedia {
 
     public function getBase64Image(){
 
+    }
+
+    /**
+     * Set user
+     *
+     * @param DocumentType $documentType
+     *
+     * @return BusinessCaseDocument
+     */
+    public function setDocumentType(DocumentType $documentType = null)
+    {
+        $this->type = $documentType;
+
+        return $this;
+    }
+
+    /**
+     * Get DocumentType
+     *
+     * @return DocumentType
+     */
+    public function getDocumentType()
+    {
+        return $this->type;
     }
 
 }

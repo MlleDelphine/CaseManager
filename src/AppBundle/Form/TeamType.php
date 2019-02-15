@@ -15,20 +15,21 @@ class TeamType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("name", TextType::class, array(
-            "label" => "title_capitalize",
-            "required" => true))
+        $builder
+            ->add("name", TextType::class, array(
+                "label" => "title_capitalize",
+                "required" => true))
             ->add("users",  Select2EntityType::class, array(
                 "class" => "SecurityAppBundle:User",
                 "choice_label" => function ($user){
                     return $user->getFirstname()." ".$user->getLastName();
-                    },
+                },
                 "label" => "Utilisateurs",
                 "multiple" => true,
                 "by_reference" => true,
                 "required" => false));
     }
-    
+
     /**
      * {@inheritdoc}
      */

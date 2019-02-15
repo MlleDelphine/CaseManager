@@ -45,7 +45,7 @@ class PostalAddress
     /**
      * @var string
      *
-     * @ORM\Column(name="streetName", type="string", length=255)
+     * @ORM\Column(name="streetName", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()

@@ -1,0 +1,58 @@
+<?php declare(strict_types=1);
+
+namespace Application\Migrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20190215132349 extends AbstractMigration
+{
+    public function up(Schema $schema)
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('CREATE TABLE business_case_gallery (id INT AUTO_INCREMENT NOT NULL, business_case_id INT DEFAULT NULL, gallery_type_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, context VARCHAR(64) NOT NULL, default_format VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, updated_at DATETIME NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_ABA0A08292236FB8 (business_case_id), INDEX IDX_ABA0A082FD36CDBB (gallery_type_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE UTF8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE business_case_gallery ADD CONSTRAINT FK_ABA0A08292236FB8 FOREIGN KEY (business_case_id) REFERENCES business_case (id)');
+        $this->addSql('ALTER TABLE business_case_gallery ADD CONSTRAINT FK_ABA0A082FD36CDBB FOREIGN KEY (gallery_type_id) REFERENCES document_type (id)');
+        $this->addSql('ALTER TABLE business_case_document CHANGE business_case_id business_case_id INT DEFAULT NULL, CHANGE type_id type_id INT DEFAULT NULL, CHANGE provider_metadata provider_metadata LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json)\', CHANGE width width INT DEFAULT NULL, CHANGE height height INT DEFAULT NULL, CHANGE length length NUMERIC(10, 0) DEFAULT NULL, CHANGE content_type content_type VARCHAR(255) DEFAULT NULL, CHANGE content_size content_size INT DEFAULT NULL, CHANGE copyright copyright VARCHAR(255) DEFAULT NULL, CHANGE author_name author_name VARCHAR(255) DEFAULT NULL, CHANGE context context VARCHAR(64) DEFAULT NULL, CHANGE cdn_is_flushable cdn_is_flushable TINYINT(1) DEFAULT NULL, CHANGE cdn_flush_identifier cdn_flush_identifier VARCHAR(64) DEFAULT NULL, CHANGE cdn_flush_at cdn_flush_at DATETIME DEFAULT NULL, CHANGE cdn_status cdn_status INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE media__gallery_media CHANGE gallery_id gallery_id INT DEFAULT NULL, CHANGE media_id media_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE media__media CHANGE provider_metadata provider_metadata LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json)\', CHANGE width width INT DEFAULT NULL, CHANGE height height INT DEFAULT NULL, CHANGE length length NUMERIC(10, 0) DEFAULT NULL, CHANGE content_type content_type VARCHAR(255) DEFAULT NULL, CHANGE content_size content_size INT DEFAULT NULL, CHANGE copyright copyright VARCHAR(255) DEFAULT NULL, CHANGE author_name author_name VARCHAR(255) DEFAULT NULL, CHANGE context context VARCHAR(64) DEFAULT NULL, CHANGE cdn_is_flushable cdn_is_flushable TINYINT(1) DEFAULT NULL, CHANGE cdn_flush_identifier cdn_flush_identifier VARCHAR(64) DEFAULT NULL, CHANGE cdn_flush_at cdn_flush_at DATETIME DEFAULT NULL, CHANGE cdn_status cdn_status INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE equipment CHANGE brand brand VARCHAR(255) DEFAULT NULL, CHANGE model model VARCHAR(255) DEFAULT NULL, CHANGE serial_number serial_number VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE time_price CHANGE material_id material_id INT DEFAULT NULL, CHANGE resource_id resource_id INT DEFAULT NULL, CHANGE user_employee_id user_employee_id INT DEFAULT NULL, CHANGE untilDate untilDate DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE unit_time_price CHANGE equipment_id equipment_id INT DEFAULT NULL, CHANGE prestation_id prestation_id INT DEFAULT NULL, CHANGE untilDate untilDate DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE fos_user CHANGE job_status_id job_status_id INT DEFAULT NULL, CHANGE team_id team_id INT DEFAULT NULL, CHANGE salt salt VARCHAR(255) DEFAULT NULL, CHANGE last_login last_login DATETIME DEFAULT NULL, CHANGE confirmation_token confirmation_token VARCHAR(180) DEFAULT NULL, CHANGE password_requested_at password_requested_at DATETIME DEFAULT NULL, CHANGE phone_number phone_number VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE prestation CHANGE internalReference internalReference VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE rate CHANGE untilDate untilDate DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE unit_time_point CHANGE until_date until_date DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE customer CHANGE postal_address_id postal_address_id INT DEFAULT NULL, CHANGE corporation_group_id corporation_group_id INT DEFAULT NULL, CHANGE name name VARCHAR(255) DEFAULT NULL, CHANGE legalStatus legalStatus VARCHAR(255) DEFAULT NULL, CHANGE phoneNumber phoneNumber VARCHAR(15) DEFAULT NULL, CHANGE firstName firstName VARCHAR(255) DEFAULT NULL, CHANGE lastName lastName VARCHAR(255) DEFAULT NULL, CHANGE mailAddress mailAddress VARCHAR(255) DEFAULT NULL, CHANGE honorific honorific VARCHAR(10) DEFAULT NULL');
+        $this->addSql('ALTER TABLE customer_contact CHANGE corporation_job_status_id corporation_job_status_id INT DEFAULT NULL, CHANGE customer_id customer_id INT DEFAULT NULL, CHANGE phoneNumber phoneNumber VARCHAR(15) DEFAULT NULL, CHANGE mailAddress mailAddress VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE postal_address CHANGE streetNumber streetNumber VARCHAR(10) DEFAULT NULL, CHANGE complement complement VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE business_case CHANGE customer_id customer_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL, CHANGE customer_contact_id customer_contact_id INT DEFAULT NULL, CHANGE internalReference internalReference VARCHAR(255) DEFAULT NULL');
+    }
+
+    public function down(Schema $schema)
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('DROP TABLE business_case_gallery');
+        $this->addSql('ALTER TABLE business_case CHANGE customer_id customer_id INT DEFAULT NULL, CHANGE customer_contact_id customer_contact_id INT DEFAULT NULL, CHANGE user_id user_id INT DEFAULT NULL, CHANGE internalReference internalReference VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE business_case_document CHANGE business_case_id business_case_id INT DEFAULT NULL, CHANGE type_id type_id INT DEFAULT NULL, CHANGE provider_metadata provider_metadata LONGTEXT DEFAULT \'NULL\' COLLATE utf8_unicode_ci COMMENT \'(DC2Type:json)\', CHANGE width width INT DEFAULT NULL, CHANGE height height INT DEFAULT NULL, CHANGE length length NUMERIC(10, 0) DEFAULT \'NULL\', CHANGE content_type content_type VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE content_size content_size INT DEFAULT NULL, CHANGE copyright copyright VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE author_name author_name VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE context context VARCHAR(64) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE cdn_is_flushable cdn_is_flushable TINYINT(1) DEFAULT \'NULL\', CHANGE cdn_flush_identifier cdn_flush_identifier VARCHAR(64) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE cdn_flush_at cdn_flush_at DATETIME DEFAULT \'NULL\', CHANGE cdn_status cdn_status INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE customer CHANGE postal_address_id postal_address_id INT DEFAULT NULL, CHANGE corporation_group_id corporation_group_id INT DEFAULT NULL, CHANGE name name VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE legalStatus legalStatus VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE phoneNumber phoneNumber VARCHAR(15) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE firstName firstName VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE lastName lastName VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE mailAddress mailAddress VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE honorific honorific VARCHAR(10) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE customer_contact CHANGE corporation_job_status_id corporation_job_status_id INT DEFAULT NULL, CHANGE customer_id customer_id INT DEFAULT NULL, CHANGE phoneNumber phoneNumber VARCHAR(15) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE mailAddress mailAddress VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE equipment CHANGE brand brand VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE model model VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE serial_number serial_number VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE fos_user CHANGE job_status_id job_status_id INT DEFAULT NULL, CHANGE team_id team_id INT DEFAULT NULL, CHANGE salt salt VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE last_login last_login DATETIME DEFAULT \'NULL\', CHANGE confirmation_token confirmation_token VARCHAR(180) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE password_requested_at password_requested_at DATETIME DEFAULT \'NULL\', CHANGE phone_number phone_number VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE media__gallery_media CHANGE gallery_id gallery_id INT DEFAULT NULL, CHANGE media_id media_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE media__media CHANGE provider_metadata provider_metadata LONGTEXT DEFAULT \'NULL\' COLLATE utf8_unicode_ci COMMENT \'(DC2Type:json)\', CHANGE width width INT DEFAULT NULL, CHANGE height height INT DEFAULT NULL, CHANGE length length NUMERIC(10, 0) DEFAULT \'NULL\', CHANGE content_type content_type VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE content_size content_size INT DEFAULT NULL, CHANGE copyright copyright VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE author_name author_name VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE context context VARCHAR(64) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE cdn_is_flushable cdn_is_flushable TINYINT(1) DEFAULT \'NULL\', CHANGE cdn_flush_identifier cdn_flush_identifier VARCHAR(64) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE cdn_flush_at cdn_flush_at DATETIME DEFAULT \'NULL\', CHANGE cdn_status cdn_status INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE postal_address CHANGE streetNumber streetNumber VARCHAR(10) DEFAULT \'NULL\' COLLATE utf8_unicode_ci, CHANGE complement complement VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE prestation CHANGE internalReference internalReference VARCHAR(255) DEFAULT \'NULL\' COLLATE utf8_unicode_ci');
+        $this->addSql('ALTER TABLE rate CHANGE untilDate untilDate DATETIME DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE time_price CHANGE material_id material_id INT DEFAULT NULL, CHANGE resource_id resource_id INT DEFAULT NULL, CHANGE user_employee_id user_employee_id INT DEFAULT NULL, CHANGE untilDate untilDate DATETIME DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE unit_time_point CHANGE until_date until_date DATETIME DEFAULT \'NULL\'');
+        $this->addSql('ALTER TABLE unit_time_price CHANGE equipment_id equipment_id INT DEFAULT NULL, CHANGE prestation_id prestation_id INT DEFAULT NULL, CHANGE untilDate untilDate DATETIME DEFAULT \'NULL\'');
+    }
+}

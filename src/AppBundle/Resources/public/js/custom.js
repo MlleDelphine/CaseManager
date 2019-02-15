@@ -590,20 +590,53 @@ function init_daterangepicker_reservation() {
 }
 
 
-/* SMART WIZARD */
+/* SMART WIZARD 3.3.1 */
 function init_SmartWizard() {
 
     if( typeof ($.fn.smartWizard) === 'undefined'){ return; }
-    console.log('init_SmartWizard');
+    console.log('init_SmartWizard mine');
 
-    $('#wizard').smartWizard();
-    $("#wizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
-        console.log('cc !)');
-        alert("You are on step "+stepNumber+" now");
-        $(this).find("select").select2({
+    $('#wizard').smartWizard({
+        selected: 0,
+        labelNext: "Suivant",
+        labelPrevious: "Précédent",
+        labelFinish: "Fin",
+        toolbarSettings: {
+            toolbarPosition: 'bottom', // none, top, bottom, both
+            toolbarButtonPosition: 'right', // left, right
+            showNextButton: true, // show/hide a Next button
+            showPreviousButton: true, // show/hide a Previous button
+            toolbarExtraButtons: [
+                $('<button></button>').text('Finish')
+                    .addClass('btn btn-info')
+                    .on('click', function(){
+                        alert('Finish button click');
+                    }),
+                $('<button></button>').text('Cancel')
+                    .addClass('btn btn-danger')
+                    .on('click', function(){
+                        alert('Cancel button click');
+                    })
+            ]
+        },
+        buttonOrder: ['prev', 'next', 'finish'],
+        onShowStep: onShowStepCallback,
+        onFinish: onFinishCallback,
+    });
+
+    function onShowStepCallback(obj, context){
+        $stepClicked = obj[0];
+        var showedStepId = $stepClicked.attributes["href"]["value"];
+        var showedStepObj = $(showedStepId);
+
+        showedStepObj.find("select").select2({
             'width': '100%'
         })
-    });
+    }
+
+    function onFinishCallback(obj, context){
+        $form = $('#wizard').parent('form').submit();
+    }
 
     $('#wizard_verticle').smartWizard({
         transitionEffect: 'slide',

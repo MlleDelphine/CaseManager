@@ -31,7 +31,6 @@ class BusinessCaseController extends Controller
             $file = $request->files->get('file');
 
             if($file) {
-
                 $jsonDatas = file_get_contents($file->getRealPath());
                 $deserialize = $this->get('object.eximportdatas')->import("admin_export_business_case", $jsonDatas, "BusinessCaseBundle\Entity\BusinessCase");
 

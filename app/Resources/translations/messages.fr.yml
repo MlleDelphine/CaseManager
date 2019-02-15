@@ -490,7 +490,7 @@ until_cod: jusqu'au
 until_cod_capitalize: Jusqu'au
 until_p: jusqu'aux
 
-#GLOBAL /COMMON ACTION
+#GLOBAL / COMMON ACTION
 search: rechercher
 import_verb: importer
 import_all: tout importer
@@ -519,6 +519,14 @@ export: export
 error: erreur
 errors: erreurs
 home: accueil
+
+next: suivant
+next_capitalize: Suivant
+previous: précédent
+previous_capitalize: précédent
+
+media_gallery_capitalize: Galerie média
+document_type_capitalize: Type de document/galerie
 
 general_data: données de base
 general_data_capitalize: Données de base

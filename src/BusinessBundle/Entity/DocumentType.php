@@ -2,6 +2,8 @@
 
 namespace BusinessBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -62,6 +64,15 @@ class DocumentType
      * @ORM\Column(name="updated", type="datetime")
      */
     private $updated;
+
+    /**
+     * @var ArrayCollection|BusinessCaseGallery
+     *
+     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     * @JMSSer\Expose
+     * @JMSSer\Groups({"business_export_business_case"})
+     */
+    protected $businessCaseGalleries;
 
 
     /**
@@ -169,6 +180,40 @@ class DocumentType
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add businessCaseGallery
+     *
+     * @param BusinessCaseGallery $businessCaseGallery
+     *
+     * @return void
+     */
+    public function addBusinessCaseGallery(BusinessCaseGallery $businessCaseGallery)
+    {
+        $this->businessCaseGalleries[] = $businessCaseGallery;
+        //$user->setTeam($this);
+    }
+
+    /**
+     * Remove businessCaseGallery
+     *
+     * @param BusinessCaseGallery $businessCaseGallery
+     */
+    public function removeBusinessCaseGallery(BusinessCaseGallery $businessCaseGallery)
+    {
+        $this->businessCaseGalleries->removeElement($businessCaseGallery);
+        //$businessCaseGallery->setBusinessCase(null);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBusinessCaseGalleries()
+    {
+        return $this->businessCaseGalleries;
     }
 }
 

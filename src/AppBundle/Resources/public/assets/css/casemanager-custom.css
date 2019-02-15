@@ -833,3 +833,13 @@ table.childDatatable td {
         text-align: center; }
     .childDatatables_wrapper .childDatatables_filter {
         margin-top: 0.5em; } }
+
+.form_wizard .stepContainer {
+    /*display: block;*/
+    /*position: relative;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*border: 0 solid #CCC;*/
+    overflow-x: visible;
+    height: inherit;
+}
