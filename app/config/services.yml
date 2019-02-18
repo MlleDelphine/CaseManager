@@ -94,3 +94,14 @@ services:
         public: false
         tags:
             - { name: grid.column.extension }
+
+# CUSTOM FORM TYPES
+    application.sonata.mediabundle.formtype.galleryhasmediacollection:
+        class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType
+        tags:
+            - { name: form.type, alias: galleryHasMedias_collection_form }
+
+#    business.formtype.gallery:
+#        class: BusinessBundle\Form\BusinessCaseGalleryType
+#        tags:
+#            - { name: form.type, alias: businesscase_gallery }

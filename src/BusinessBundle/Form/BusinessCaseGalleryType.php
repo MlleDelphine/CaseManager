@@ -2,15 +2,14 @@
 
 namespace BusinessBundle\Form;
 
-use AdminBundle\Entity\AbstractClass\Unit;
 use AppBundle\Form\Type\Select2EntityType;
+use Application\Sonata\MediaBundle\Form\GalleryHasMediaType;
+use Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sonata\Form\Type\CollectionType as SonataCollectionType;
 
 class BusinessCaseGalleryType extends AbstractType
 {
@@ -29,10 +28,19 @@ class BusinessCaseGalleryType extends AbstractType
                 "placeholder" => "select_type_before_capitalize",
                 "required" => true
             ))
-            ->add('galleryHasMedias',FileType::class, [
-
-            ]);
-
+            ->add('galleryHasMedias', GalleryHasMediaCollectionType::class, array(
+                "entry_type" => GalleryHasMediaType::class,
+                "entry_options" => ["label" => false],
+                "allow_add" => true,
+                "allow_delete" => true,
+                "delete_empty" => true,
+                "prototype" => true,
+                "by_reference" => false, //ensures that the setter is called in all BusinessCaseGallery
+                "attr" => [
+                    "class" => "item-collection col-md-12 col-xs-12",
+                ],
+                "label_format" => "media_galleryhasmedia_capitalize",
+                "required" => false));
     }
 
     /**
@@ -50,7 +58,7 @@ class BusinessCaseGalleryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return "businessbundle_businesscase_gallery";
+        return "businesscase_gallery";
     }
 
 

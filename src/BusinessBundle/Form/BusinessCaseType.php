@@ -94,6 +94,14 @@ class BusinessCaseType extends AbstractType
                 ],
                 "label_format" => "media_gallery_capitalize",
                 "required" => false));
+//            ->add('businessCaseGalleries', \Sonata\Form\Type\CollectionType::class, [], array(
+//                'edit' => 'inline',
+//                'inline' => 'table',
+//                'link_parameters' => array(
+//                    'context' => 'business_case_document',
+//                    'provider' => 'sonata.media.provider.image'
+//                )
+//            ));
 
         $formModifierCustomerType = function (FormInterface $form, $formModifierCustomer, $formModifierCustomerContact, $customerType = null){
             if($customerType != null){
