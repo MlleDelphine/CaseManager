@@ -1,0 +1,8 @@
+{# FILE INPOUT #}
+{% block file_widget %}
+    {% spaceless %}
+        <div class="form-group col-md-7">
+            <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+        </div>
+    {% endspaceless %}
+{% endblock %}

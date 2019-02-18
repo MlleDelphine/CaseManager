@@ -1,0 +1,20 @@
+{% block file_widget %}
+    {% spaceless %}
+        {#<div class="col-md-6 col-sm-6 col-xs-12">#}
+        <input type="file" {{ block('widget_attributes') }} class="file form-control" data-show-upload="false" data-show-caption="true" />
+        {#</div>#}
+        <div class="clearfix"></div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block sonata_media_type_widget %}
+    {% spaceless %}
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }} {# OK#}
+
+        {% for child in form %}
+            {# REMOVE label for checkbox#}
+            {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-6 col-sm-6 col-xs-12'}}) }}
+            {{ form_widget(child)}}
+        {%  endfor %}
+    {% endspaceless %}
+{% endblock %}
