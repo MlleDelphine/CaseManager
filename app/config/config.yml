@@ -319,7 +319,7 @@ sonata_media:
             formats:
                 small: { width: 100 , quality: 70}
                 big:   { width: 500 , quality: 70}
-        business_case_document:  # to manage business case documents
+        business_case_media_context:  # to manage business case documents
             providers:
                 - sonata.media.provider.dailymotion
                 - sonata.media.provider.youtube

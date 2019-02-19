@@ -17,6 +17,12 @@
     {% endspaceless %}
 {% endblock %}
 
+{% block sonata_media_type_widget %}
+    <div class="file-loading">
+        <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+    </div>
+{% endblock %}
+
 {# RADIO WIDGET #}
 {% block radio_label -%}
 
@@ -84,9 +90,8 @@
     </div>
 {% endblock %}
 
-{# SONATA COLLECTION WIDGET #}
+{# SONATA COLLECTION WIDGET UNUSED 19/02/2019 #}
 {% block sonata_type_collection_widget %}
-    SonataCollectionWidget
     {% spaceless %}
         {{ block('form_widget') }}
     {% endspaceless %}
@@ -94,7 +99,6 @@
 
 {# (UNIT) TIME PRICES - MATERIAL - RESOURCE - EQUIPMENT - USER as resourceEmployee#}
 {% block collection_widget %}
-    CollectionField
     {% spaceless %}
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
@@ -103,7 +107,6 @@
         {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
         {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
-        {#{{ dump(attr) }}#}
         {{ block('form_widget') }}
     {% endspaceless %}
 {% endblock collection_widget %}
@@ -197,7 +200,6 @@
         {% endfor %}
     {% endspaceless %}
 {% endblock _securityappbundle_user_timePrices_entry_widget %}
-
 
 {# UNIT TIME PRICES - EQUIPMENT #}
 {% block _appbundle_equipment_unitTimePrices_widget %}
@@ -535,13 +537,11 @@
     </div>
 {% endblock %}
 
-
 {# PERCENT - CATALOG #}
 {% block _appbundle_rate_percentage_widget %}
     <input {{ block('widget_attributes') }} value="{{ value }}" type="text">
     <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
 {% endblock %}
-
 
 {# CUSTOMER CHAPTER - PRESTATION #}
 {% block _adminbundle_customerserial_customerChapters_widget %}
@@ -614,7 +614,6 @@
 
 {% block _businessbundle_businesscase_businessCaseGalleries_entry_widget %}
     {% spaceless %}
-        businessCaseGalleries_FIELD
         <div class="ln_solid"></div>
         {% for child in form %}
             {% set classes =  "form-control col-md-12 col-xs-12" %}
@@ -627,7 +626,6 @@
                         {% else %}
                             {% set classes = classes ~ " has-feedback-left" %}
                         {% endif %}
-
                         {{ form_widget(child, {'attr': {'class': classes }}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
 
@@ -637,17 +635,17 @@
                         {% else %}
                             {% set classes = classes ~ " has-feedback-left" %}
                         {% endif %}
-
                         {{ form_widget(child, {'attr': {'class': classes }}) }}
                         <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-
+                    {% elseif child.vars.prototype is defined  %}
+                        {% set form = child %}
+                        {{ block('form_widget') }}
+                        {{ form_widget(form) }}
                     {% else %}
                         {% if child.vars.attr.class is defined %}
                             {% set classes = classes ~ " " ~ child.vars.attr.class %}
                         {% endif %}
-                        here
                         {{ form_widget(child, {'attr': {'class': classes }}) }}
-
                     {% endif %}
                     {{ form_errors(child) }}
                 </div>
@@ -656,16 +654,8 @@
     {% endspaceless %}
 {% endblock _businessbundle_businesscase_businessCaseGalleries_entry_widget %}
 
-
-
-
-
-
-
-
 {% block galleryHasMedias_collection_form_widget %}
     {% spaceless %}
-        COLLECTION_galleryhasMedias_FIELD
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
             {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
@@ -673,56 +663,6 @@
         {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
         {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
-        {#{{ dump(attr) }}#}
         {{ block('form_widget') }}
     {% endspaceless %}
-    {% spaceless %}
-        galleryhasMedias_FIELD
-        {#{{ form_widget(form) }}#}
-        {{ block('galleryHasMedias_collection_form_entry_widget') }}
-    {% endspaceless %}
 {% endblock galleryHasMedias_collection_form_widget %}
-
-{% block galleryHasMedias_collection_form_entry_widget %}
-    {% spaceless %}
-        {{ dump(form) }}
-        <div class="ln_solid"></div>
-        {% for child in form %}
-            {% set classes =  "form-control col-md-12 col-xs-12" %}
-            <div class="form-group">
-                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
-                        {% else %}
-                            {% set classes = classes ~ " has-feedback-left" %}
-                        {% endif %}
-
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-
-                    {% elseif child.vars.money_pattern is defined  %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
-                        {% else %}
-                            {% set classes = classes ~ " has-feedback-left" %}
-                        {% endif %}
-
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-
-                    {% else %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " " ~ child.vars.attr.class %}
-                        {% endif %}
-                        here
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-
-                    {% endif %}
-                    {{ form_errors(child) }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endspaceless %}
-{% endblock galleryHasMedias_collection_form_entry_widget %}

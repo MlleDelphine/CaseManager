@@ -6,10 +6,8 @@ use AppBundle\Form\Type\Select2EntityType;
 use Application\Sonata\MediaBundle\Form\GalleryHasMediaType;
 use Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Sonata\Form\Type\CollectionType as SonataCollectionType;
 
 class BusinessCaseGalleryType extends AbstractType
 {
@@ -37,7 +35,7 @@ class BusinessCaseGalleryType extends AbstractType
                 "prototype" => true,
                 "by_reference" => false, //ensures that the setter is called in all BusinessCaseGallery
                 "attr" => [
-                    "class" => "item-collection col-md-12 col-xs-12",
+                    "class" => "item-collection-multiple-media col-md-12 col-xs-12",
                 ],
                 "label_format" => "media_galleryhasmedia_capitalize",
                 "required" => false));

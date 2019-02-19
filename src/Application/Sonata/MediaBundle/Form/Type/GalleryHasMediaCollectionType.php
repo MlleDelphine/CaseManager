@@ -8,7 +8,6 @@
 
 namespace Application\Sonata\MediaBundle\Form\Type;
 
-
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class GalleryHasMediaCollectionType extends CollectionType

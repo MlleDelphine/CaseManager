@@ -525,8 +525,18 @@ next_capitalize: Suivant
 previous: précédent
 previous_capitalize: précédent
 
+add_media: ajouter un média
+add_media_capitalize: Ajouter un média
 media_gallery_capitalize: Galerie média
 document_type_capitalize: Type de document/galerie
+media_galleryhasmedia: médias
+media_galleryhasmedia_capitalize: Medias
+filename: nom du fichier
+filename_media: nom du fichier/média
+filename_media_capitalize: Nom du fichier/média
+
+position_: position
+position_capitalize: Position
 
 general_data: données de base
 general_data_capitalize: Données de base

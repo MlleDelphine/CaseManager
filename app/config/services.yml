@@ -95,13 +95,26 @@ services:
         tags:
             - { name: grid.column.extension }
 
-# CUSTOM FORM TYPES
+# CUSTOM FORM TYPES EXTENSION, NOT OBJECT
     application.sonata.mediabundle.formtype.galleryhasmediacollection:
         class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType
         tags:
             - { name: form.type, alias: galleryHasMedias_collection_form }
 
-#    business.formtype.gallery:
-#        class: BusinessBundle\Form\BusinessCaseGalleryType
-#        tags:
-#            - { name: form.type, alias: businesscase_gallery }
+    business.formtype.gallery:
+        class: BusinessBundle\Form\BusinessCaseGalleryType
+        tags:
+            - { name: form.type, alias: businesscase_gallery }
+
+    application.sonata.mediabundle.form.galleryhasmediaform:
+        class: Application\Sonata\MediaBundle\Form\GalleryHasMediaType
+        tags:
+            - { name: form.type, alias: galleryHasMedias_form }
+
+    application.sonata.mediabundle.formtype.businesscasemediatype:
+        class: Application\Sonata\MediaBundle\Form\BusinessCaseMediaType
+        autowire: true
+        autoconfigure: true
+        arguments:
+            - "@sonata.media.pool"
+            - "Application\\Sonata\\MediaBundle\\Entity\\Media"
