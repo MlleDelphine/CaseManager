@@ -18,8 +18,10 @@
 {% endblock %}
 
 {% block sonata_media_type_widget %}
-    <div class="file-loading">
-        <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+    <div style="margin-top: 50px">
+        <div class="file-loading">
+            <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+        </div>
     </div>
 {% endblock %}
 
