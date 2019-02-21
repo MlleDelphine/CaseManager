@@ -17,17 +17,6 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block sonata_media_type_widget %}
-    <div class="col-sm-6 col-md-8" style="text-align: right;">
-        <div class="kv-avatar">
-            <div class="file-loading">
-                <input type="file" {{ block('widget_attributes') }} class="file form-control"/>
-                {# data-show-upload="false" data-show-caption="true" #}
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
 {# RADIO WIDGET #}
 {% block radio_label -%}
 
@@ -610,7 +599,19 @@
 {% endblock _adminbundle_customerarticle_unitTimePoints_entry_widget %}
 
 {# BUSINESS CASE GALLERY - BUSINESS CASE #}
-{# TIME PRICES - USER as resourceEmployee #}
+
+{# BUSINESS CASE GALLERY - MEDIA FIELD IN COLLECTION #}
+{% block sonata_media_type_widget %}
+    <div class="col-sm-6 col-md-6" style="text-align: right;">
+        <div class="kv-avatar">
+            <div class="file-loading">
+                <input type="file" {{ block('widget_attributes') }} class="file form-control"/>
+                {# data-show-upload="false" data-show-caption="true" #}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block _businessbundle_businesscase_businessCaseGalleries_widget %}
     {% spaceless %}
         {{ form_widget(form) }}
@@ -625,7 +626,7 @@
             <div class="form-group">
                 {% if child.vars.prototype is defined %}
                     {#<div class="col-md-12 col-sm-12 col-xs-12">#}
-                        {{ form_widget(child) }}
+                    {{ form_widget(child) }}
                     {#</div>#}
                 {% else %}
                     {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
@@ -678,7 +679,7 @@
 
 {% block galleryHasMedias_form_widget %}
     {% set divExtraFileDataFieldsOpened = false %}
-    {% set divExtraFileDataFields = '<div class="col-sm-6 col-md-4">' %}
+    {% set divExtraFileDataFields = '<div class="col-sm-6 col-md-6">' %}
     <div class="row col-md-11"> {# 4, 10 #}
     {% for child in form %}
         {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "sonata_media_type" %}
@@ -703,10 +704,12 @@
         {% endif %}
     {% endfor %}
     </div>
-    <div class="col-md-1 btn-group-vertical" role="group">
-        <button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>
-        <button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>
-        <button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>
-        <button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>
+    <div class="col-md-1 collection">
+        <div class="btn-group-vertical" role="group">
+            <button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button class="collection-up btn btn-xs btn-info" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <button class="collection-down btn btn-xs btn-info" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>
+            <button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
     </div>
 {% endblock galleryHasMedias_form_widget %}

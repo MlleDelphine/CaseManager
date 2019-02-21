@@ -536,8 +536,8 @@ document_type_capitalize: Type de document/galerie
 media_galleryhasmedia: médias
 media_galleryhasmedia_capitalize: Medias
 filename: nom du fichier
-filename_media: nom du fichier/média
-filename_media_capitalize: Nom du fichier/média
+filename_media: nom du fichier
+filename_media_capitalize: Nom du fichier
 
 position_: position
 position_capitalize: Position
