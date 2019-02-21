@@ -99,7 +99,12 @@ services:
     application.sonata.mediabundle.formtype.galleryhasmediacollection:
         class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType
         tags:
-            - { name: form.type, alias: galleryHasMedias_collection_form }
+            - { name: form.type, alias: galleryHasMedias_collection_type }
+
+    application.sonata.mediabundle.formtype.galleryhasmedianametype:
+        class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaNameTextType
+        tags:
+            - { name: form.type, alias: galleryHasMedias_name_text_type }
 
     business.formtype.gallery:
         class: BusinessBundle\Form\BusinessCaseGalleryType
@@ -111,6 +116,7 @@ services:
         tags:
             - { name: form.type, alias: galleryHasMedias_form }
 
+    #TO FIX AN ERROR
     application.sonata.mediabundle.formtype.businesscasemediatype:
         class: Application\Sonata\MediaBundle\Form\BusinessCaseMediaType
         autowire: true

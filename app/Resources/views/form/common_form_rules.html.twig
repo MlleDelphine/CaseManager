@@ -18,9 +18,12 @@
 {% endblock %}
 
 {% block sonata_media_type_widget %}
-    <div style="margin-top: 50px">
-        <div class="file-loading">
-            <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+    <div class="col-sm-6 col-md-8" style="text-align: right;">
+        <div class="kv-avatar">
+            <div class="file-loading">
+                <input type="file" {{ block('widget_attributes') }} class="file form-control"/>
+                {# data-show-upload="false" data-show-caption="true" #}
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -127,7 +130,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -157,7 +160,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -187,7 +190,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -217,7 +220,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -248,7 +251,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -559,7 +562,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -590,7 +593,7 @@
             <div class="form-group">
                 {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
+                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
                         {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
                         <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                     {% elseif child.vars.money_pattern is defined  %}
@@ -620,43 +623,46 @@
         {% for child in form %}
             {% set classes =  "form-control col-md-12 col-xs-12" %}
             <div class="form-group">
-                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.type is defined and child.vars.type == "date" %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
-                        {% else %}
-                            {% set classes = classes ~ " has-feedback-left" %}
-                        {% endif %}
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                {% if child.vars.prototype is defined %}
+                    {#<div class="col-md-12 col-sm-12 col-xs-12">#}
+                        {{ form_widget(child) }}
+                    {#</div>#}
+                {% else %}
+                    {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {% if child.vars.block_prefixes.2 is defined and child.vars.block_prefixes.2 == "date" %}
+                            {% if child.vars.attr.class is defined %}
+                                {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
+                            {% else %}
+                                {% set classes = classes ~ " has-feedback-left" %}
+                            {% endif %}
+                            {{ form_widget(child, {'attr': {'class': classes }}) }}
+                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
 
-                    {% elseif child.vars.money_pattern is defined  %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
+                        {% elseif child.vars.money_pattern is defined  %}
+                            {% if child.vars.attr.class is defined %}
+                                {% set classes = classes ~ " has-feedback-left " ~ child.vars.attr.class %}
+                            {% else %}
+                                {% set classes = classes ~ " has-feedback-left" %}
+                            {% endif %}
+                            {{ form_widget(child, {'attr': {'class': classes }}) }}
+                            <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
+
                         {% else %}
-                            {% set classes = classes ~ " has-feedback-left" %}
+                            {% if child.vars.attr.class is defined %}
+                                {% set classes = classes ~ " " ~ child.vars.attr.class %}
+                            {% endif %}
+                            {{ form_widget(child, {'attr': {'class': classes }}) }}
                         {% endif %}
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-                    {% elseif child.vars.prototype is defined  %}
-                        {% set form = child %}
-                        {{ block('form_widget') }}
-                        {{ form_widget(form) }}
-                    {% else %}
-                        {% if child.vars.attr.class is defined %}
-                            {% set classes = classes ~ " " ~ child.vars.attr.class %}
-                        {% endif %}
-                        {{ form_widget(child, {'attr': {'class': classes }}) }}
-                    {% endif %}
-                    {{ form_errors(child) }}
-                </div>
+                        {{ form_errors(child) }}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     {% endspaceless %}
 {% endblock _businessbundle_businesscase_businessCaseGalleries_entry_widget %}
 
-{% block galleryHasMedias_collection_form_widget %}
+{% block galleryHasMedias_collection_type_widget %}
     {% spaceless %}
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
@@ -665,6 +671,42 @@
         {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
         {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
         {{ block('form_widget') }}
     {% endspaceless %}
-{% endblock galleryHasMedias_collection_form_widget %}
+{% endblock galleryHasMedias_collection_type_widget %}
+
+{% block galleryHasMedias_form_widget %}
+    {% set divExtraFileDataFieldsOpened = false %}
+    {% set divExtraFileDataFields = '<div class="col-sm-6 col-md-4">' %}
+    <div class="row col-md-11"> {# 4, 10 #}
+    {% for child in form %}
+        {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "sonata_media_type" %}
+            {% if divExtraFileDataFieldsOpened == true %}
+                </div> {# closing divExtraFileDataFields #}
+            {% endif %}
+            {# MEDIA FIELD(s) #}
+            {{ form_widget(child) }}
+        {% else %}
+            {% if divExtraFileDataFieldsOpened == false %}
+                {{ divExtraFileDataFields|raw }}
+                {% set divExtraFileDataFieldsOpened = true %}
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>{{ child.vars.label_format|trans }}<span class="kv-reqd">*</span></label>
+                        {{ form_widget(child) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <div class="col-md-1 btn-group-vertical" role="group">
+        <button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>
+        <button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>
+        <button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        <button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>
+    </div>
+{% endblock galleryHasMedias_form_widget %}

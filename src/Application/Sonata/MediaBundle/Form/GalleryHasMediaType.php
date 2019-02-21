@@ -14,9 +14,10 @@
 
 namespace Application\Sonata\MediaBundle\Form;
 
+use Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaNameTextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,13 +29,18 @@ class GalleryHasMediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("name", TextType::class, [
+
+            ->add("name", GalleryHasMediaNameTextType::class, [
                 "label_format" => "filename_media_capitalize",
-                "attr" => ["class" => "form-control col-md-12 col-xs-12"]
+                "attr" => ["class" => "form-control col-sm-12"] //form-control
+            ])
+            ->add("description", TextareaType::class, [
+                "label_format" => "description_capitalize",
+                "attr" => ["class" => "form-control tinymce-textarea col-sm-12"] //form-control
             ])
             ->add("position", NumberType::class, [
                 "label_format" => "position_capitalize",
-                "attr" => ["class" => "form-control col-md-12 col-xs-12"]
+                "attr" => ["class" => "form-control col-sm-12 media-position"]
             ])
             ->add('media', BusinessCaseMediaType::class, [
                 //'provider' => 'sonata.media.provider.image',
@@ -53,7 +59,6 @@ class GalleryHasMediaType extends AbstractType
                 'label' => false,
                 "attr" => ["class" => "media-file-input"]
             ]);
-
     }
 
     /**

@@ -8,15 +8,15 @@
 
 namespace Application\Sonata\MediaBundle\Form\Type;
 
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class GalleryHasMediaCollectionType extends CollectionType
+class GalleryHasMediaNameTextType extends TextType
 {
     /**
      * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
-        return 'galleryHasMedias_collection_type';
+        return 'galleryHasMedias_name_text_type';
     }
 }

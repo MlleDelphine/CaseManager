@@ -525,6 +525,10 @@ next_capitalize: Suivant
 previous: précédent
 previous_capitalize: précédent
 
+up_media: Remonter
+down_media: Descendre
+delete_media: Supprimer
+
 add_media: ajouter un média
 add_media_capitalize: Ajouter un média
 media_gallery_capitalize: Galerie média
