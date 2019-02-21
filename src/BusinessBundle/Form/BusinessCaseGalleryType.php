@@ -28,7 +28,7 @@ class BusinessCaseGalleryType extends AbstractType
             ))
             ->add('galleryHasMedias', GalleryHasMediaCollectionType::class, array(
                 "entry_type" => GalleryHasMediaType::class,
-                "entry_options" => ["label" => false],
+                "entry_options" => ["label" => false, "attr" => ["class" => "col-md-6"]],
                 "allow_add" => true,
                 "allow_delete" => true,
                 "delete_empty" => true,

@@ -55,7 +55,7 @@ class GalleryHasMediaType extends AbstractType
                 'context' => 'business_case_media_context',
                 'data_class'   =>  'Application\Sonata\MediaBundle\Entity\Media',
                 'required' => false,
-                'by_reference' => true,
+                'by_reference' => false, //Calling to setMedia() / true = does not call it
                 'label' => false,
                 "attr" => ["class" => "media-file-input"]
             ]);
