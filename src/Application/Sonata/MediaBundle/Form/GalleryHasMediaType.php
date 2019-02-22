@@ -40,7 +40,7 @@ class GalleryHasMediaType extends AbstractType
             ])
             ->add("position", NumberType::class, [
                 "label_format" => "position_capitalize",
-                "attr" => ["class" => "form-control col-sm-12 media-position"]
+                "attr" => ["class" => "form-control col-sm-12 media-position", "readonly" => true]
             ])
             ->add('media', BusinessCaseMediaType::class, [
                 //'provider' => 'sonata.media.provider.image',

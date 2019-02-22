@@ -96,6 +96,22 @@ services:
             - { name: grid.column.extension }
 
 # CUSTOM FORM TYPES EXTENSION, NOT OBJECT
+
+    customerbundle.formtype.postaladdresstype:
+        class: CustomerBundle\Form\PostalAddressType
+        tags:
+            - { name: form.type, alias: customerbundle_postaladdress }
+
+    appbundle.formtype.timepricetype:
+        class: AppBundle\Form\TimePriceType
+        tags:
+            - { name: form.type, alias: appbundle_timeprice }
+
+    appbundle.formtype.unittimepricetype:
+        class: AppBundle\Form\UnitTimePriceType
+        tags:
+            - { name: form.type, alias: appbundle_unittimeprice }
+
     application.sonata.mediabundle.formtype.galleryhasmediacollection:
         class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType
         tags:

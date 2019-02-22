@@ -105,14 +105,8 @@
     {% endspaceless %}
 {% endblock collection_widget %}
 
-{# TIME PRICES - MATERIAL #}
-{% block _appbundle_material_timePrices_widget %}
-    {% spaceless %}
-        {{ form_widget(form) }}
-    {% endspaceless %}
-{% endblock _appbundle_material_timePrices_widget %}
-
-{% block _appbundle_material_timePrices_entry_widget %}
+{# TIME PRICES - MATERIAL - RESSOURCE - USER as resourceEmployee #}
+{% block appbundle_timeprice_widget %}
     {% spaceless %}
         <div class="ln_solid"></div>
         {% for child in form %}
@@ -133,16 +127,10 @@
             </div>
         {% endfor %}
     {% endspaceless %}
-{% endblock _appbundle_material_timePrices_entry_widget %}
+{% endblock appbundle_timeprice_widget %}
 
-{# TIME PRICES - RESOURCE #}
-{% block _appbundle_resource_timePrices_widget %}
-    {% spaceless %}
-        {{ form_widget(form) }}
-    {% endspaceless %}
-{% endblock _appbundle_resource_timePrices_widget %}
-
-{% block _appbundle_resource_timePrices_entry_widget %}
+{# UNIT TIME PRICES - EQUIPMENT - PRESTATION #}
+{% block appbundle_unittimeprice_widget %}
     {% spaceless %}
         <div class="ln_solid"></div>
         {% for child in form %}
@@ -163,102 +151,10 @@
             </div>
         {% endfor %}
     {% endspaceless %}
-{% endblock _appbundle_resource_timePrices_entry_widget %}
+{% endblock appbundle_unittimeprice_widget %}
 
-{# TIME PRICES - USER as resourceEmployee #}
-{% block _securityappbundle_user_timePrices_widget %}
-    {% spaceless %}
-        {{ form_widget(form) }}
-    {% endspaceless %}
-{% endblock _securityappbundle_user_timePrices_widget %}
-
-{% block _securityappbundle_user_timePrices_entry_widget %}
-    {% spaceless %}
-        <div class="ln_solid"></div>
-        {% for child in form %}
-            <div class="form-group">
-                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                    {% elseif child.vars.money_pattern is defined  %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-                    {% else %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
-                    {% endif %}
-                    {{ form_errors(child) }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endspaceless %}
-{% endblock _securityappbundle_user_timePrices_entry_widget %}
-
-{# UNIT TIME PRICES - EQUIPMENT #}
-{% block _appbundle_equipment_unitTimePrices_widget %}
-    {% spaceless %}
-        {{ form_widget(form) }}
-    {% endspaceless %}
-{% endblock _appbundle_equipment_unitTimePrices_widget %}
-
-{% block _appbundle_equipment_unitTimePrices_entry_widget %}
-    {% spaceless %}
-        <div class="ln_solid"></div>
-        {% for child in form %}
-            <div class="form-group">
-                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                    {% elseif child.vars.money_pattern is defined  %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-                    {% else %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
-                    {% endif %}
-                    {{ form_errors(child) }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endspaceless %}
-{% endblock _appbundle_equipment_unitTimePrices_entry_widget %}
-
-
-{# UNIT TIME PRICES - PRESTATION #}
-{% block _appbundle_prestation_unitTimePrices_widget %}
-    {% spaceless %}
-        {{ form_widget(form) }}
-    {% endspaceless %}
-{% endblock _appbundle_prestation_unitTimePrices_widget %}
-
-{% block _appbundle_prestation_unitTimePrices_entry_widget %}
-    {% spaceless %}
-        <div class="ln_solid"></div>
-        {% for child in form %}
-            <div class="form-group">
-                {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {% if child.vars.block_prefixes.1 is defined and child.vars.block_prefixes.1 == "date" %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                    {% elseif child.vars.money_pattern is defined  %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control has-feedback-left col-md-12 col-xs-12'}}) }}
-                        <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
-                    {% else %}
-                        {{ form_widget(child, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
-                    {% endif %}
-                    {{ form_errors(child) }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endspaceless %}
-{% endblock _appbundle_prestation_unitTimePrices_entry_widget %}
-
-
-{# POSTAL ADDRESS - CUSTOMER CORPO GROUP #}
-{% block _customerbundle_corporationgroup_postalAddress_widget %}
+{# COMMON POSTAL ADDRESS FIELDS - CUSTOMERS #}
+{% block customerbundle_postaladdress_widget %}
     <div class="form-group">
         <span class="required">*</span>
         {{ form_label(form.streetNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
@@ -308,231 +204,11 @@
             {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
             {{ form_errors(form.country) }}
         </div>
-    </div>
-{% endblock %}
-
-{# POSTAL ADDRESS - CUSTOMER CORPO SITE #}
-{% block _customerbundle_corporationsite_postalAddress_widget %}
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetNumber) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetName, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-road form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetName) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.complement, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.complement, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.complement) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.postalCode, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.postalCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.postalCode) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.city, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.city, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.city) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.country) }}
-        </div>
-    </div>
-    </div>
-{% endblock %}
-
-{# POSTAL ADDRESS - CUSTOMER PRIVATE INDIV. #}
-{% block _customerbundle_privateindividual_postalAddress_widget %}
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetNumber) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetName, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-road form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetName) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.complement, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.complement, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.complement) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.postalCode, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.postalCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.postalCode) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.city, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.city, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.city) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.country) }}
-        </div>
-    </div>
-    </div>
-{% endblock %}
-
-{# POSTAL ADDRESS - CUSTOMER TOWNSHIP #}
-{% block _customerbundle_township_postalAddress_widget %}
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetNumber) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetName, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-road form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetName) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.complement, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.complement, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.complement) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.postalCode, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.postalCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.postalCode) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.city, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.city, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.city) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.country) }}
-        </div>
-    </div>
-    </div>
-{% endblock %}
-
-{# POSTAL ADDRESS - CUSTOMER OTHER CUSTOMER #}
-{% block _customerbundle_other_customer_postalAddress_widget %}
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetNumber, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetNumber, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetNumber) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.streetName, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.streetName, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-road form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.streetName) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.complement, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.complement, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.complement) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.postalCode, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.postalCode, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.postalCode) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.city, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.city, {'attr': {'class': 'form-control has-feedback-left col-md-7 col-xs-12'}}) }}
-            <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
-            {{ form_errors(form.city) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <span class="required">*</span>
-        {{ form_label(form.country, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            {{ form_widget(form.country, {'attr': {'class': 'select2 form-control col-md-7 col-xs-12'}}) }}
-            {{ form_errors(form.country) }}
-        </div>
-    </div>
     </div>
 {% endblock %}
 
 {# PERCENT - CATALOG #}
-{% block _appbundle_rate_percentage_widget %}
+{% block percent_widget %}
     <input {{ block('widget_attributes') }} value="{{ value }}" type="text">
     <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
 {% endblock %}
@@ -566,7 +242,6 @@
         {% endfor %}
     {% endspaceless %}
 {% endblock _adminbundle_customerserial_customerChapters_entry_widget %}
-
 
 {# UNIT TIME POINTS - CUSTOMER ARTICLE #}
 {% block _adminbundle_customerarticle_unitTimePoints_widget %}
