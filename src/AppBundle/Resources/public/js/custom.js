@@ -589,7 +589,6 @@ function init_daterangepicker_reservation() {
 
 }
 
-
 /* SMART WIZARD 3.3.1 */
 function init_SmartWizard() {
 
@@ -650,7 +649,6 @@ function init_SmartWizard() {
     $('.buttonNext').addClass('btn btn-success');
     $('.buttonPrevious').addClass('btn btn-primary');
     $('.buttonFinish').addClass('btn btn-default');
-
 };
 
 // Sidebar
