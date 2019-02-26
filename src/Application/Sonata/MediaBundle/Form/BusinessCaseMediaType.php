@@ -56,6 +56,7 @@ class BusinessCaseMediaType extends MediaType
                     [
                         // replacing specific ones
                         'label' => false,
+                        "multiple" => true
                     ]
                 )
             );

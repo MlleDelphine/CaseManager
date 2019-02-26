@@ -58,4 +58,20 @@ class BusinessCaseMedia extends BaseMedia
 
     }
 
+    /**
+     * @return \BusinessBundle\Entity\BusinessCaseGallery
+     */
+    public function getBusinessCaseGallery(): \BusinessBundle\Entity\BusinessCaseGallery
+    {
+        return $this->businessCaseGallery;
+    }
+
+    /**
+     * @param \BusinessBundle\Entity\BusinessCaseGallery $businessCaseGallery
+     */
+    public function setBusinessCaseGallery(\BusinessBundle\Entity\BusinessCaseGallery $businessCaseGallery)
+    {
+        $this->businessCaseGallery = $businessCaseGallery;
+    }
+
 }

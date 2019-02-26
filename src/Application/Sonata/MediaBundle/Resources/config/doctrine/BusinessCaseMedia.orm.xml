@@ -17,7 +17,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <many-to-one field="businessCaseGallery" target-entity="BusinessBundle\Entity\BusinessCaseGallery" inversed-by="businessCasMedias"></many-to-one>
+        <many-to-one field="businessCaseGallery" target-entity="BusinessBundle\Entity\BusinessCaseGallery" inversed-by="businessCaseMedias"></many-to-one>
 
     </entity>
 </doctrine-mapping>

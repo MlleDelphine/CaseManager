@@ -64,6 +64,11 @@ class BusinessCaseGallery
      */
     private $updated;
 
+    public function __construct()
+    {
+        $this->businessCaseMedias = new ArrayCollection();
+    }
+
 
     /**
      * Get id.
@@ -99,17 +104,27 @@ class BusinessCaseGallery
         return $this->documentType;
     }
 
+    public function setBusinessCaseMedias($businessCaseMedias){
+
+        $this->businessCaseMedias = $businessCaseMedias;
+
+        return $this;
+
+    }
+
     /**
      * Add businessCaseMedia
      *
      * @param BusinessCaseMedia $businessCaseMedia
      *
-     * @return void
+     * @return BusinessCaseGallery
      */
     public function addBusinessCaseMedia(BusinessCaseMedia $businessCaseMedia)
     {
         $this->businessCaseMedias[] = $businessCaseMedia;
-        //$user->setTeam($this);
+        $businessCaseMedia->setBusinessCaseGallery($this);
+
+        return $this;
     }
 
     /**

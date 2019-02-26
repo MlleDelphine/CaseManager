@@ -144,4 +144,4 @@ services:
         autoconfigure: true
         arguments:
             - "@sonata.media.pool"
-            - "Application\\Sonata\\MediaBundle\\Entity\\Media"
+            - "Application\\Sonata\\MediaBundle\\Entity\\BusinessCaseMedia"

@@ -3,7 +3,8 @@
 namespace BusinessBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\BusinessCaseDocument;
-use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
+//use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
+use BusinessBundle\Entity\BusinessCaseGallery;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -136,7 +137,7 @@ class BusinessCase
 
     /**
      * @var ArrayCollection[BusinessCaseGallery]
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
      * @JMSSer\Expose
      * @JMSSer\Groups({"business_export_business_case"})
      */
@@ -169,6 +170,7 @@ class BusinessCase
 
     public function __construct()
     {
+        $this->businessCaseGalleries = new ArrayCollection();
 
     }
 

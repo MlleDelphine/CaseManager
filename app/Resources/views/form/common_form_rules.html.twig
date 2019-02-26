@@ -12,7 +12,8 @@
 {% block file_widget %}
     {% spaceless %}
         <div class="form-group col-md-7">
-            <input type="file" {{ block('widget_attributes') }} class="file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+            {#{{ dump(form.vars) }}#}
+            <input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
         </div>
     {% endspaceless %}
 {% endblock %}
@@ -340,14 +341,16 @@
 
 {# BUSINESS CASE GALLERY - MEDIA FIELD IN COLLECTION #}
 {% block sonata_media_type_widget %}
-    <div class="col-sm-6 col-md-6" style="text-align: right;">
-        <div class="kv-avatar">
-            <div class="file-loading">
-                <input type="file" {{ block('widget_attributes') }} class="file form-control"/>
-                {# data-show-upload="false" data-show-caption="true" #}
-            </div>
-        </div>
-    </div>
+    {#<div class="col-sm-6 col-md-6" style="text-align: right;">#}
+        {#<div class="kv-avatar">#}
+            {#<div class="file-loading">#}
+                {#blbl#}
+                {#<input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control"/>#}
+                 {#data-show-upload="false" data-show-caption="true" #}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    {{ block("form_widget") }}
 {% endblock %}
 
 {% block _businessbundle_businesscase_businessCaseGalleries_widget %}
