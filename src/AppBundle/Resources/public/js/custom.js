@@ -596,7 +596,7 @@ function init_SmartWizard() {
     console.log('init_SmartWizard mine');
 
     $('#wizard').smartWizard({
-        selected: 2,
+        // selected: 2,
         labelNext: "Suivant",
         labelPrevious: "Précédent",
         labelFinish: "Fin",

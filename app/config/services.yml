@@ -102,6 +102,11 @@ services:
         tags:
             - { name: form.type, alias: customerbundle_postaladdress }
 
+    businessbundle.formtype.constructionsitepostaladdresstype:
+        class: BusinessBundle\Form\ConstructionSitePostalAddressType
+        tags:
+            - { name: form.type, alias: businessbundle_postaladdress }
+
     appbundle.formtype.timepricetype:
         class: AppBundle\Form\TimePriceType
         tags:

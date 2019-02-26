@@ -218,6 +218,7 @@ abstract class Customer extends Person implements CustomerSubjectInterface{
     {
         return $this->updated;
     }
+
     /**
      *
      * Set postalAddress

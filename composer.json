@@ -20,7 +20,7 @@
         ]
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.3",
         "apy/datagrid-bundle": "^3.1",
         "beberlei/DoctrineExtensions": "^1.1",
         "doctrine/doctrine-bundle": "^1.6",

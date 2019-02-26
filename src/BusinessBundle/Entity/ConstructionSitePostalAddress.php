@@ -1,23 +1,28 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: DG713C7N
+ * Date: 26/02/2019
+ * Time: 11:23
+ */
 
-namespace CustomerBundle\Entity;
+namespace BusinessBundle\Entity;
 
-use CustomerBundle\Entity\AbstractClass\Customer;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
 
 /**
- * PostalAddress
+ * ConstructionSitePostalAddress
  *
- * @ORM\Table(name="postal_address")
- * @ORM\Entity(repositoryClass="CustomerBundle\Entity\Repository\PostalAddressRepository")
+ * @ORM\Table(name="construction_site_postal_address")
+ * @ORM\Entity(repositoryClass="BusinessBundle\Entity\Repository\ConstructionSitePostalAddressRepository")
  * @ORM\HasLifecycleCallbacks()
  *
  * @JMSSer\ExclusionPolicy("all")
  */
-class PostalAddress
+class ConstructionSitePostalAddress
 {
     /**
      * @var int
@@ -27,7 +32,7 @@ class PostalAddress
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress"})
      */
     protected $id;
 
@@ -37,7 +42,7 @@ class PostalAddress
      * @ORM\Column(name="streetNumber", type="string", length=10, nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $streetNumber;
 
@@ -48,7 +53,7 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $streetName;
 
@@ -58,7 +63,7 @@ class PostalAddress
      * @ORM\Column(name="complement", type="string", length=255, nullable=true)
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $complement;
 
@@ -69,7 +74,7 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $postalCode;
 
@@ -80,7 +85,7 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $city;
 
@@ -91,7 +96,7 @@ class PostalAddress
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"admin_export_postaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
      */
     protected $country;
 
@@ -120,10 +125,10 @@ class PostalAddress
 
     /**
      * @var
-     * @ORM\OneToOne(targetEntity="CustomerBundle\Entity\AbstractClass\Customer", mappedBy="postalAddress")
+     * @ORM\OneToOne(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="constructionSitePostalAddress")
      *
      */
-    public $customer;
+    public $businessCase;
 
     public function __construct()
     {
@@ -144,7 +149,7 @@ class PostalAddress
      *
      * @param string $streetNumber
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setStreetNumber($streetNumber)
     {
@@ -168,7 +173,7 @@ class PostalAddress
      *
      * @param string $streetName
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setStreetName($streetName)
     {
@@ -193,7 +198,7 @@ class PostalAddress
      *
      * @param string $complement
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setComplement($complement)
     {
@@ -217,7 +222,7 @@ class PostalAddress
      *
      * @param string $postalCode
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setPostalCode($postalCode)
     {
@@ -241,7 +246,7 @@ class PostalAddress
      *
      * @param string $city
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setCity($city)
     {
@@ -265,7 +270,7 @@ class PostalAddress
      *
      * @param string $country
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setCountry($country)
     {
@@ -289,7 +294,7 @@ class PostalAddress
      *
      * @param \DateTime $created
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setCreated($created)
     {
@@ -313,15 +318,15 @@ class PostalAddress
      *
      * @param \DateTime $updated
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
 
-        if($updated > $this->getCustomer()->getUpdated())
+        if($updated > $this->getBusinessCase()->getUpdated())
         {
-            $this->getCustomer()->setUpdated($updated);
+            $this->getBusinessCase()->setUpdated($updated);
         }
 
         return $this;
@@ -342,7 +347,7 @@ class PostalAddress
      *
      * @param string $slug
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
     public function setSlug($slug)
     {
@@ -364,24 +369,24 @@ class PostalAddress
     /**
      * Set corporationGroup
      *
-     * @param Customer $customer
+     * @param BusinessCase businessCase
      *
-     * @return PostalAddress
+     * @return ConstructionSitePostalAddress
      */
-    public function setCustomer(Customer $customer = null)
+    public function setBusinessCase(BusinessCase $businessCase = null)
     {
-        $this->customer = $customer;
+        $this->businessCase = $businessCase;
 
         return $this;
     }
 
     /**
-     * Get Customer
+     * Get BusinessCase
      *
-     * @return Customer
+     * @return BusinessCase
      */
-    public function getCustomer()
+    public function getBusinessCase()
     {
-        return $this->customer;
+        return $this->businessCase;
     }
 }

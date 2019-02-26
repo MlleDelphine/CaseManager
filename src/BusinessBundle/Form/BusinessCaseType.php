@@ -2,8 +2,8 @@
 
 namespace BusinessBundle\Form;
 
+use AppBundle\Form\Type\CustomTinyMceType;
 use AppBundle\Form\Type\Select2EntityType;
-use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\EntityRepository;
@@ -30,13 +30,22 @@ class BusinessCaseType extends AbstractType
                 "label_format" => "naming_capitalize",
                 "required" => true,
                 "translation_domain" => "messages"))
+            ->add("description", CustomTinyMceType::class, array(
+                "label_format" => "description_capitalize",
+                "configs" => ["height" => 300, "language_url" => "/bundles/app/js/tinymce/langs/fr_FR.js"],
+                "required" => false,
+                "attr" => ["class" => "tinymce-textarea"]))
             ->add('externalReference', TextType::class, array(
                 "label_format" => "external_reference_capitalize",
                 "required" => false))
             ->add('internalReference', TextType::class, array(
                 "label_format" => "internal_reference_capitalize",
                 "required" => false,
-                "attr" => ["pattern" => "^(E|EC)[0-9]{8-10}[A-Z]{0-3}$"]))
+                "attr" => ["pattern" => "^(E|EC)[0-9]{8-10}[A-Z]{0-3}$", "readonly" => true]))
+            ->add('constructionSitePostalAddress', ConstructionSitePostalAddressType::class, array(
+                "label_format" => null,
+                "required" => true
+            ))
             ->add("customerType", ChoiceType::class, array(
                 "label_format" => "customer_type_capitalize",
                 "required" => true,

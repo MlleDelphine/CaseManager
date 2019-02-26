@@ -567,6 +567,9 @@ customer_project_manager_capitalize: Chargé de projet (client)
 internal_project_manager: gestionnaire EDTPE
 internal_project_manager_capitalize: Gestionnaire EDTPE
 
+construction_site_localization: localisation chantier
+construction_site_localization_capitalize: Localisation chantier
+
 error_message_decimal_number: "error_message_decimal_number"
 
 measure_unit: unité de mesure

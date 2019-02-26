@@ -44,12 +44,18 @@
                             <li>
                                 <a href="#step-2">
                                     <span class="step_no">2</span>
-                                    <span class="step_descr"><small> {{ "customer_data_capitalize"|trans }}</small></span>
+                                    <span class="step_descr"><small> {{ "construction_site_localization_capitalize"|trans }}</small></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#step-3">
                                     <span class="step_no">3</span>
+                                    <span class="step_descr"><small> {{ "customer_data_capitalize"|trans }}</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-4">
+                                    <span class="step_no">4</span>
                                     <span class="step_descr"><small>{{ "media_capitalize"|trans }}</small></span>
                                 </a>
                             </li>
@@ -72,18 +78,26 @@
                                     {{ form_errors(form.name) }}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                {% if form.externalReference.vars.required %} <span class="required">*</span> {% endif %}
-                                {{ form_label(form.externalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            <div class="item form-group">
+                                {% if form.description.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(form.description, "description"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_widget(form.externalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                                    {{ form_errors(form.externalReference) }}
+                                    {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(form.description) }}
                                 </div>
                             </div>
                             <div class="form-group">
+                                {% if form.externalReference.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(form.externalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    {{ form_widget(form.externalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(form.externalReference) }}
+                                </div>
+                            {#</div>#}
+                            {#<div class="form-group">#}
                                 {% if form.internalReference.vars.required %} <span class="required">*</span> {% endif %}
-                                {{ form_label(form.internalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{ form_label(form.internalReference, null, {'label_attr': {'class': 'control-label col-md-2 col-sm-2 col-xs-12'}}) }}
+                                <div class="col-md-2 col-sm-2 col-xs-12">
                                     {{ form_widget(form.internalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                                     {{ form_errors(form.internalReference) }}
                                 </div>
@@ -98,6 +112,10 @@
                             </div>
                         </div>
                         <div id="step-2">
+                            {{ form_widget(form.constructionSitePostalAddress, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(form.constructionSitePostalAddress) }}
+                        </div>
+                        <div id="step-3">
                             <div class="form-group">
                                 {% if form.customerType.vars.required %} <span class="required">*</span> {%  endif %}
                                 {{ form_label(form.customerType, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
@@ -123,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="step-3">
+                        <div id="step-4">
                             <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
                             <div class="form-group">
                                 <div class="row">

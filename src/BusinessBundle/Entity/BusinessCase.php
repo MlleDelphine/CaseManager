@@ -53,6 +53,15 @@ class BusinessCase
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"business_export_business_case"})
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
@@ -135,6 +144,16 @@ class BusinessCase
     protected $businessCaseGalleries;
 
     /**
+     * @var
+     * @ORM\OneToOne(targetEntity="BusinessBundle\Entity\ConstructionSitePostalAddress", inversedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_customers", "admin_export_corporationgroup", "admin_export_corporationsite"})
+     *
+     */
+    protected $constructionSitePostalAddress;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
@@ -191,6 +210,30 @@ class BusinessCase
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return BusinessCase
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
@@ -339,6 +382,33 @@ class BusinessCase
     {
         return $this->user;
     }
+
+    /**
+     *
+     * Set constructionSitePostalAddress
+     *
+     * @param ConstructionSitePostalAddress $postalAddress
+     *
+     * @return BusinessCase
+     */
+    public function setConstructionSitePostalAddress(ConstructionSitePostalAddress $postalAddress = null)
+    {
+        $this->constructionSitePostalAddress = $postalAddress;
+        $postalAddress->setBusinessCase($this);
+
+        return $this;
+    }
+
+    /**
+     * Get constructionSitePostalAddress
+     *
+     * @return ConstructionSitePostalAddress
+     */
+    public function getConstructionSitePostalAddress()
+    {
+        return $this->constructionSitePostalAddress;
+    }
+
 
     /**
      * Set created
