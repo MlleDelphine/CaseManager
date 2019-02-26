@@ -122,10 +122,10 @@ services:
         tags:
             - { name: form.type, alias: galleryHasMedias_collection_type }
 
-    application.sonata.mediabundle.formtype.galleryhasmedianametype:
-        class: Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaNameTextType
+    application.sonata.mediabundle.formtype.mediafiletype:
+        class: Application\Sonata\MediaBundle\Form\Type\MediaFileType
         tags:
-            - { name: form.type, alias: galleryHasMedias_name_text_type }
+            - { name: form.type, alias: application_media_file_type }
 
     business.formtype.gallery:
         class: BusinessBundle\Form\BusinessCaseGalleryType

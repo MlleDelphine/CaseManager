@@ -4,7 +4,6 @@ namespace BusinessBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\BusinessCaseDocument;
 use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
-use Assetic\Cache\ArrayCache;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\Common\Collections\ArrayCollection;

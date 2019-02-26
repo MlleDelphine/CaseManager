@@ -528,6 +528,10 @@ previous_capitalize: précédent
 up_media: Remonter
 down_media: Descendre
 delete_media: Supprimer
+browse: parcourir
+browse_capitalize: Parcourir
+select_files: sélectionner des fichiers
+select_files_capitalize: Sélectionner des fichiers
 
 add_media: ajouter un média
 add_media_capitalize: Ajouter un média

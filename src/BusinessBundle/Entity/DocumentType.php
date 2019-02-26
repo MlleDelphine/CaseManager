@@ -3,6 +3,7 @@
 namespace BusinessBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
+use Application\Sonata\MediaBundle\Entity\BusinessCaseMedia;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -68,12 +69,11 @@ class DocumentType
     /**
      * @var ArrayCollection|BusinessCaseGallery
      *
-     * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCaseGallery", mappedBy="documentType", cascade={"all"}, orphanRemoval=true)
      * @JMSSer\Expose
      * @JMSSer\Groups({"business_export_business_case"})
      */
     protected $businessCaseGalleries;
-
 
     /**
      * Get id
@@ -215,5 +215,7 @@ class DocumentType
     {
         return $this->businessCaseGalleries;
     }
+
+
 }
 

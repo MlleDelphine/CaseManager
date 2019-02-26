@@ -29,7 +29,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left business-case-form dropzone', 'novalidate': '', 'enctype': "multipart/form-data"}}) }}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal form-label-left business-case-form', 'novalidate': '', 'enctype': "multipart/form-data"}}) }}
 
                     <!-- Smart Wizard -->
                     {#<p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>#}
@@ -272,10 +272,29 @@
             /**
              * Launch GalleryMedias collection
              */
-            loadMediasCollection($(".item-collection-multiple-media"));
+        //    loadMediasCollection($(".item-collection-multiple-media"));
 
-            // Load file
-            //$(".media-file-input").fileinput({});
+            /**
+             * Launch multiple media file type
+             */
+            $('.multiple-media').fileinput({
+                msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
+                defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',
+                showBrowse: true,
+                browseOnZoneClick: true,
+                browseLabel: '{{ "browse_capitalize"|trans }}',
+                showRemove: true,
+                showCaption: false,
+                initialPreviewShowDelete: true,
+                showUploadedThumbs: true,
+                showUpload: false,
+                removeLabel: '',
+                removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',
+                initialPreviewAsData: false,
+                overwriteInitial: false,
+                uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"
+                //layoutTemplates: {main2: '{preview} {remove} {browse}'},
+            });
 
             // Textarea WYSIWYG at first load (not used after ajax refresh DOM)
             $("textarea.tinymce-textarea").tinymce();

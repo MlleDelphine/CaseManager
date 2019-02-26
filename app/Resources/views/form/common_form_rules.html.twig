@@ -17,6 +17,15 @@
     {% endspaceless %}
 {% endblock %}
 
+{# MEDIA FILE TYPE INPOUT #}
+{% block application_media_file_type_widget %}
+    {% spaceless %}
+        <div class="file-loading">
+            <input multiple type="file" {{ block('widget_attributes') }} class="{% if child.vars.attr.class is defined %} {{ child.vars.attr.classes }} {% endif %}" data-show-caption="true" data-show-remove="true"/>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
 {# RADIO WIDGET #}
 {% block radio_label -%}
 
