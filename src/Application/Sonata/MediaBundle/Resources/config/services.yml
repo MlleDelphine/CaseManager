@@ -1,0 +1,14 @@
+parameters:
+  application_sonata_media.multiple_file_provider_class: Application\Sonata\MediaBundle\Service\MultipleFileProvider
+
+services:
+  sonata.media.provider.multiple_file:
+    class: "%application_sonata_media.multiple_file_provider_class%"
+    tags:
+      - { name: sonata.media.provider }
+    arguments:
+      - sonata.media.provider.multiple_file
+      - "@sonata.media.filesystem.local"
+      - "@sonata.media.cdn.server"
+      - "@sonata.media.generator.default"
+      - "@sonata.media.thumbnail.format"

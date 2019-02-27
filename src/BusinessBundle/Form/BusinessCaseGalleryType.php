@@ -58,9 +58,10 @@ class BusinessCaseGalleryType extends AbstractType
                 "entry_options" => [
                     "label" => false,
                     "attr" => ["class" => "col-md-6", "multiple" => true],
-                    "provider" => "sonata.media.provider.file",
+                    "provider" => "sonata.media.provider.multiple_file",
                     "context" => "business_case_media_context",
                     "data_class" => "Application\Sonata\MediaBundle\Entity\BusinessCaseMedia",
+
                 ],
                 "allow_add" => true,
                 "allow_delete" => true,
@@ -70,6 +71,7 @@ class BusinessCaseGalleryType extends AbstractType
                 "attr" => [
                     "class" => "item-collection-multiple-media multiple-media col-md-12 col-xs-12",
                 ],
+                'prototype_name' => '__children_name__',
                 "label_format" => "media_galleryhasmedia_capitalize",
                 "required" => false));
 //            ->add('businessCaseMedias', MediaFileType::class, array(

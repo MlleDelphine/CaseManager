@@ -9,17 +9,28 @@
 {% endblock form_errors%}
 
 {# FILE INPOUT #}
-{% block file_widget %}
-    {% spaceless %}
-        <div class="form-group col-md-7">
+{#{% block file_widget %}#}
+    {#file_widget#}
+    {#{% spaceless %}#}
+        {#<div class="form-group col-md-7">#}
             {#{{ dump(form.vars) }}#}
-            <input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
+            {#<input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>#}
+        {#</div>#}
+    {#{% endspaceless %}#}
+{#{% endblock %}#}
+
+{# MEDIA FILE TYPE INPOUT #}
+{% block application_media_file_type_widget %}
+    application_media_file_type_widget
+    {% spaceless %}
+        <div class="file-loading">
+            <input multiple type="file" {{ block('widget_attributes') }} class="{% if child.vars.attr.class is defined %} {{ child.vars.attr.classes }} {% endif %}" data-show-caption="true" data-show-remove="true"/>
         </div>
     {% endspaceless %}
 {% endblock %}
 
-{# MEDIA FILE TYPE INPOUT #}
-{% block application_media_file_type_widget %}
+{% block business_case_media_type_widget %}
+    business_case_media_type_widget
     {% spaceless %}
         <div class="file-loading">
             <input multiple type="file" {{ block('widget_attributes') }} class="{% if child.vars.attr.class is defined %} {{ child.vars.attr.classes }} {% endif %}" data-show-caption="true" data-show-remove="true"/>

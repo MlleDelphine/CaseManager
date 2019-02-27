@@ -216,6 +216,39 @@
                 });
             };
 
+            function loadMultipleFileInput(inputField){
+                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+
+                console.log("Load Multiple File Input");
+
+                inputField.fileinput({
+                    //initialPreviewAsData: true,
+                    // showCaption: true,
+                    //showRemove: true,
+                    //showUpload:true,
+                    //maxFileSize: 1500,
+                    msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
+                    defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',
+                    showBrowse: true,
+                    browseOnZoneClick: true,
+                    browseLabel: '{{ "browse_capitalize"|trans }}',
+                    showRemove: true,
+                    showCaption: false,
+                    initialPreviewShowDelete: true,
+                    showUploadedThumbs: true,
+                    showUpload: false,
+                    removeLabel: '',
+                    removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',
+                    initialPreviewAsData: false,
+                    overwriteInitial: false,
+                    uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"
+                    //layoutTemplates: {main2: '{preview} {remove} {browse}'},
+                });
+            };
+
             function loadMediasCollection(mediaCollectionField){
                 /**
                  * Launch BusinessCaseGallery collection
@@ -253,9 +286,10 @@
                     after_add: function (collection, element) {
                         $("select").select2({ width: '100%' });
                         //console.log(collection);
-                        //console.log(element);
-                        mediasCollection = element.find('.item-collection-multiple-media');
-                        loadMediasCollection(mediasCollection);
+                        console.log(element);
+                        mediasCollection = element.find(':file.multiple-media');
+                        //loadMediasCollection(mediasCollection);
+                        loadMultipleFileInput(mediasCollection);
                         return true;
                     },
                     allow_up: false,
@@ -265,36 +299,57 @@
                     min: 1,
                     // max: 200,
                     add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-                    remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>'
+                    remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>',
+                    prefix: "parent",
+                    children: [{
+                        prefix: 'child',
+                        after_add: function (collection, element) {
+                            loadMultipleFileInput(element.find(":file.media-file-input"));
+                           // $("textarea.tinymce-textarea").tinymce();
+                            $("select").select2({ width: '100%' });
+                            element.addClass("col-md-6");
+                            return true;
+                        },
+                        min: 1,
+                        selector: '.item-collection-multiple-media',
+                        add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',
+                        remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',
+                        up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',
+                        down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',
+                        allow_up: false,
+                        allow_down: false,
+                        allow_duplicate: false,
+                        add_at_the_end: true
+                    }]
                 });
             });
 
             /**
              * Launch GalleryMedias collection
              */
-            loadMediasCollection($(".item-collection-multiple-media"));
+            // loadMediasCollection($(".item-collection-multiple-media"));
 
             /**
              * Launch multiple media file type
              */
-            $('.multiple-media').fileinput({
-                msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
-                defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',
-                showBrowse: true,
-                browseOnZoneClick: true,
-                browseLabel: '{{ "browse_capitalize"|trans }}',
-                showRemove: true,
-                showCaption: false,
-                initialPreviewShowDelete: true,
-                showUploadedThumbs: true,
-                showUpload: false,
-                removeLabel: '',
-                removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',
-                initialPreviewAsData: false,
-                overwriteInitial: false,
-                uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"
-                //layoutTemplates: {main2: '{preview} {remove} {browse}'},
-            });
+            {#$('.multiple-media').fileinput({#}
+                {#msgPlaceholder: '{{ "select_files_capitalize"|trans }}',#}
+                {#defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',#}
+                {#showBrowse: true,#}
+                {#browseOnZoneClick: true,#}
+                {#browseLabel: '{{ "browse_capitalize"|trans }}',#}
+                {#showRemove: true,#}
+                {#showCaption: false,#}
+                {#initialPreviewShowDelete: true,#}
+                {#showUploadedThumbs: true,#}
+                {#showUpload: false,#}
+                {#removeLabel: '',#}
+                {#removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',#}
+                {#initialPreviewAsData: false,#}
+                {#overwriteInitial: false,#}
+                {#uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"#}
+                {#//layoutTemplates: {main2: '{preview} {remove} {browse}'},#}
+            {#});#}
 
             // Textarea WYSIWYG at first load (not used after ajax refresh DOM)
             $("textarea.tinymce-textarea").tinymce();

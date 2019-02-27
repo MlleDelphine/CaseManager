@@ -101,6 +101,7 @@ class BusinessCaseType extends AbstractType
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],
+                'prototype_name' => '__parent_name__',
                 "label_format" => "media_gallery_capitalize",
                 "required" => false));
 //            ->add('businessCaseGalleries', \Sonata\Form\Type\CollectionType::class, [], array(

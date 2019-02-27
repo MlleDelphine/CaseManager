@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class MediaFileType extends FileType
 {
-
     /**
      * {@inheritdoc}
      */

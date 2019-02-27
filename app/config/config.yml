@@ -5,6 +5,7 @@ imports:
     - { resource: "@AdminBundle/Resources/config/services.yml" }
     - { resource: "@CustomerBundle/Resources/config/services.yml" }
     - { resource: "@BusinessBundle/Resources/config/services.yml" }
+    - { resource: "@ApplicationSonataMediaBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -315,6 +316,7 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
+                - sonata.media.provider.multiple_file
                 - sonata.media.provider.vimeo
             formats:
                 small: { width: 100 , quality: 70}
@@ -325,6 +327,7 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
+                - sonata.media.provider.multiple_file
                 - sonata.media.provider.vimeo
             formats:
                 xsmall: { width: 50, quality: 70 }
