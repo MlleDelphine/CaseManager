@@ -8,6 +8,7 @@
 
 namespace Application\Sonata\MediaBundle\Form;
 
+use Application\Sonata\MediaBundle\Form\DataTransformer\ProviderMultiDataTransformer;
 use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 use Sonata\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +24,7 @@ class BusinessCaseMediaType extends MediaType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 //        parent::buildForm($builder, $options);
-        $builder->addModelTransformer(new ProviderDataTransformer($this->pool, $this->class, array(
+        $builder->addModelTransformer(new ProviderMultiDataTransformer($this->pool, $this->class, array(
             'provider' => $options['provider'],
             'context' => $options['context'],
             'empty_on_new' => $options['empty_on_new'],
@@ -34,6 +35,8 @@ class BusinessCaseMediaType extends MediaType
             if ($event->getForm()->has('unlink') && $event->getForm()->get('unlink')->getData()) {
                 $event->setData(null);
             }
+            dump("BusinessCaseMediaType submitEvent");
+           // die;
         });
 
         $this->pool->getProvider($options['provider'])->buildMediaType($builder);
@@ -56,7 +59,8 @@ class BusinessCaseMediaType extends MediaType
                     [
                         // replacing specific ones
                         'label' => false,
-                        "multiple" => true
+                        "multiple" => true,
+                        "attr" => ["class" => "multiple-media"]
                     ]
                 )
             );

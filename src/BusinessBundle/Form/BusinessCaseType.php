@@ -4,6 +4,7 @@ namespace BusinessBundle\Form;
 
 use AppBundle\Form\Type\CustomTinyMceType;
 use AppBundle\Form\Type\Select2EntityType;
+use Application\Sonata\MediaBundle\Form\DataTransformer\BusinessCaseMediaTransformer;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\ORM\EntityRepository;
@@ -104,6 +105,10 @@ class BusinessCaseType extends AbstractType
                 'prototype_name' => '__parent_name__',
                 "label_format" => "media_gallery_capitalize",
                 "required" => false));
+
+
+        $builder->get("businessCaseGalleries")
+            ->addModelTransformer(new BusinessCaseMediaTransformer());
 //            ->add('businessCaseGalleries', \Sonata\Form\Type\CollectionType::class, [], array(
 //                'edit' => 'inline',
 //                'inline' => 'table',

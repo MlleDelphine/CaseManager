@@ -304,7 +304,7 @@
                     children: [{
                         prefix: 'child',
                         after_add: function (collection, element) {
-                            loadMultipleFileInput(element.find(":file.media-file-input"));
+                            loadMultipleFileInput(element.find(":file.multiple-media"));
                            // $("textarea.tinymce-textarea").tinymce();
                             $("select").select2({ width: '100%' });
                             element.addClass("col-md-6");
@@ -319,6 +319,8 @@
                         allow_up: false,
                         allow_down: false,
                         allow_duplicate: false,
+                        allow_add: false,
+                        allow_remove: true,
                         add_at_the_end: true
                     }]
                 });
