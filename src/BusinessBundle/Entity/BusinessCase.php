@@ -465,11 +465,14 @@ class BusinessCase
      * @param BusinessCaseGallery $businessCaseGallery
      *
      *
+     * @return BusinessCase
      */
     public function addBusinessCaseGallery(BusinessCaseGallery $businessCaseGallery)
     {
         $this->businessCaseGalleries[] = $businessCaseGallery;
-        //$user->setTeam($this);
+        $businessCaseGallery->setBusinessCase($this);
+
+        return $this;
     }
 
     /**

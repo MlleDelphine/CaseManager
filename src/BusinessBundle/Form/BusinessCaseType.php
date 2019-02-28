@@ -98,7 +98,7 @@ class BusinessCaseType extends AbstractType
                 "allow_delete" => true,
                 "delete_empty" => true,
                 "prototype" => true,
-                "by_reference" => false, //ensures that the setter is called in all BusinessCaseGallery
+                "by_reference" => false, //false : ensures that the setter is called in all BusinessCaseGallery
                 "attr" => [
                     "class" => "item-collection col-md-12 col-xs-12",
                 ],

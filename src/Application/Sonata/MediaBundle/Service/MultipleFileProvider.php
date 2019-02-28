@@ -71,13 +71,16 @@ class MultipleFileProvider extends FileProvider
      */
     protected function fixBinaryContent(MediaInterface $media)
     {
-        dump("fixBinaryCOntent");
+        dump("fixBinaryContent");
+        dump($media);
         //$media instanceof BusinessCaseMedia
         foreach ($media->getBinaryContent() as $k => $mediaFile) {
+            dump("Loop over mediaFile");
+            echo $k;
             if ($media->getBinaryContent() === null || empty($media->getBinaryContent()) || $mediaFile instanceof File) {
                 return;
             }
-
+            dump("Not a file");
             if ($mediaFile instanceof Request) {
                 $this->generateBinaryFromRequest($media);
                 $this->updateMetadata($media);
@@ -144,7 +147,7 @@ class MultipleFileProvider extends FileProvider
      */
     protected function doTransform(MediaInterface $media)
     {
-        dump("doTransform");
+        dump("doTransform multipleFileProvider");
         $this->fixBinaryContent($media);
         $this->fixFilename($media);
 

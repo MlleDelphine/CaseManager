@@ -6,6 +6,7 @@ use Application\Sonata\MediaBundle\Entity\BusinessCaseMedia;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSer;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
@@ -52,17 +53,17 @@ class BusinessCaseGallery
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     public function __construct()
     {
@@ -104,13 +105,13 @@ class BusinessCaseGallery
         return $this->documentType;
     }
 
-    public function setBusinessCaseMedias($businessCaseMedias){
-
-        $this->businessCaseMedias = $businessCaseMedias;
-
-        return $this;
-
-    }
+//    public function setBusinessCaseMedias($businessCaseMedias){
+//
+//        $this->businessCaseMedias = $businessCaseMedias;
+//
+//        return $this;
+//
+//    }
 
     /**
      * Add businessCaseMedia

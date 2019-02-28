@@ -69,7 +69,7 @@ class BusinessCaseGalleryType extends AbstractType
                 "allow_delete" => true,
                 "delete_empty" => true,
                 "prototype" => true,
-                "by_reference" => false, //ensures that the setter is called in all BusinessCaseGallery
+                "by_reference" => false, //ensures that the setter is called in all BusinessCaseMedias
                 "attr" => [
                     "class" => "item-collection-multiple-media multiple-media col-md-12 col-xs-12",
                 ],
@@ -80,6 +80,7 @@ class BusinessCaseGalleryType extends AbstractType
 
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+            //Not yet reverseTransformed, files still as array
             dump($event->getForm());
             dump($event->getData());
 //            die();

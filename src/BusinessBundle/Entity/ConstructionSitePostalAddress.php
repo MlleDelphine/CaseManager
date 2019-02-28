@@ -51,6 +51,7 @@ class ConstructionSitePostalAddress
      *
      * @ORM\Column(name="streetName", type="string", length=255, nullable=false)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
@@ -72,6 +73,7 @@ class ConstructionSitePostalAddress
      *
      * @ORM\Column(name="postalCode", type="string", length=10)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
@@ -83,6 +85,7 @@ class ConstructionSitePostalAddress
      *
      * @ORM\Column(name="city", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
@@ -94,6 +97,7 @@ class ConstructionSitePostalAddress
      *
      * @ORM\Column(name="country", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_constructionsitepostaladdress", "admin_export_corporationgroup", "admin_export_corporationsite"})
@@ -125,7 +129,7 @@ class ConstructionSitePostalAddress
 
     /**
      * @var
-     * @ORM\OneToOne(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="constructionSitePostalAddress")
+     * @ORM\OneToOne(targetEntity="BusinessBundle\Entity\BusinessCase", mappedBy="constructionSitePostalAddress", cascade={"all"}, orphanRemoval=true)
      *
      */
     public $businessCase;

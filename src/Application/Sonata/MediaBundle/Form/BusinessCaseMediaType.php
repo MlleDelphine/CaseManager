@@ -9,7 +9,6 @@
 namespace Application\Sonata\MediaBundle\Form;
 
 use Application\Sonata\MediaBundle\Form\DataTransformer\ProviderMultiDataTransformer;
-use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 use Sonata\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

@@ -21,7 +21,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa-folder-open"></i> {{ "edition_of_the_business_case"|trans|capitalize }} <em>{{ businessCase.name }}</em></h2>
+                    <h2><i class="fa fa-folder-open"></i> {{ "create"|trans|capitalize }} {{ "a_business_case"|trans }}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -29,75 +29,144 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <br>
-                    {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left business-case-form', 'novalidate': ''}}) }}
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.name) }}
+                    {{ form_start(edit_form, {'attr': {'class': 'form-horizontal form-label-left business-case-form', 'novalidate': '', 'enctype': "multipart/form-data"}}) }}
+
+                    <!-- Smart Wizard -->
+                    {#<p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>#}
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                        <ul class="wizard_steps anchor" style="border-bottom: 1px solid lightgrey">
+                            <li>
+                                <a href="#step-1">
+                                    <span class="step_no">1</span>
+                                    <span class="step_descr"><small>{{ "general_data_capitalize"|trans }}</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-2">
+                                    <span class="step_no">2</span>
+                                    <span class="step_descr"><small> {{ "construction_site_localization_capitalize"|trans }}</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-3">
+                                    <span class="step_no">3</span>
+                                    <span class="step_descr"><small> {{ "customer_data_capitalize"|trans }}</small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-4">
+                                    <span class="step_no">4</span>
+                                    <span class="step_descr"><small>{{ "media_capitalize"|trans }}</small></span>
+                                </a>
+                            </li>
+                            {#<li>#}
+                            {#<a href="#step-4">#}
+                            {#<span class="step_no">4</span>#}
+                            {#<span class="step_descr">#}
+                            {#{{ "step_capitalize"|trans }} 4<br />#}
+                            {#<small>{{ "media_capitalize"|trans }}</small>#}
+                            {#</span>#}
+                            {#</a>#}
+                            {#</li>#}
+                        </ul>
+                        <div id="step-1" >
+                            <div class="form-group">
+                                {% if edit_form.name.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(edit_form.name, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ form_widget(edit_form.name, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.name) }}
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                {% if edit_form.description.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(edit_form.description, "description"|trans|capitalize, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ form_widget(edit_form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.description) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {% if edit_form.externalReference.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(edit_form.externalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    {{ form_widget(edit_form.externalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.externalReference) }}
+                                </div>
+                                {#</div>#}
+                                {#<div class="form-group">#}
+                                {% if edit_form.internalReference.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(edit_form.internalReference, null, {'label_attr': {'class': 'control-label col-md-2 col-sm-2 col-xs-12'}}) }}
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    {{ form_widget(edit_form.internalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.internalReference) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {% if edit_form.user.vars.required %} <span class="required">*</span> {% endif %}
+                                {{ form_label(edit_form.user, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ form_widget(edit_form.user, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.user) }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.externalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.externalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.externalReference) }}
+                        <div id="step-2">
+                            {{ form_widget(edit_form.constructionSitePostalAddress, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                            {{ form_errors(edit_form.constructionSitePostalAddress) }}
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.internalReference, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.internalReference, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.internalReference) }}
+                        <div id="step-3">
+                            <div class="form-group">
+                                {% if edit_form.customerType.vars.required %} <span class="required">*</span> {%  endif %}
+                                {{ form_label(edit_form.customerType, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ form_widget(edit_form.customerType) }}
+                                    {{ form_errors(edit_form.customerType) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {% if edit_form.customer.vars.required %} <span class="required">*</span> {%  endif %}
+                                {{ form_label(edit_form.customer, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12 render-customer-list">
+                                    {{ form_widget(edit_form.customer, {'attr': {'class': 'form- control col-md-12 col-xs- 12'}}) }}
+                                    {{ form_errors(edit_form.customer) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {% if edit_form.customerContact.vars.required %} <span class="required">*</span> {%  endif %}
+                                {{ form_label(edit_form.customerContact, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                <div class="col-md-6 col-sm-6 col-xs-12 render-customerContact-list">
+                                    {{ form_widget(edit_form.customerContact, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
+                                    {{ form_errors(edit_form.customerContact) }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.customerType, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.customerType) }}
-                            {{ form_errors(edit_form.customerType) }}
+                        <div id="step-4">
+                            <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    {{ form_label(edit_form.businessCaseGalleries, null, {'label_attr': {'class': 'control-label col-md-2 col-sm-2 col-xs-12'}}) }}
+                                    {#<div class="col-md-10 col-sm-10 col-xs-12">#}
+                                    {{ form_widget(edit_form.businessCaseGalleries) }}
+                                    {{ form_errors(edit_form.businessCaseGalleries) }}
+                                </div>
+                            </div>
                         </div>
+                        {#<div id="step-4">#}
+                        {#</div>#}
                     </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.customer, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12 render-customer-list">
-                            {{ form_widget(edit_form.customer, {'attr': {'class': 'form- control col-md-12 col-xs- 12'}}) }}
-                            {{ form_errors(edit_form.customer) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.customerContact, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12 render-customerContact-list">
-                            {{ form_widget(edit_form.customerContact, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.customerContact) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        {{ form_label(edit_form.user, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {{ form_widget(edit_form.user, {'attr': {'class': 'form-control col-md-12 col-xs-12'}}) }}
-                            {{ form_errors(edit_form.user) }}
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <a href="{{ path('business_case_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "modify"|trans|capitalize }}</button>
-                        </div>
-                    </div>
-                    {{ form_end(edit_form) }}
+                    {#<a href="{{ path('business_case_index') }}" class="btn btn-primary"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{ "cancel"|trans|capitalize }}</a>#}
+                    {#<button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> {{ "create"|trans|capitalize }}</button>#}
+                    {#</div>#}
+                    {#</div>#}
                 </div>
+                <!-- End SmartWizard Content -->
+                <br>
+                <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true" style="display: none"></i> {{ "create"|trans|capitalize }}</button>
+                {{ form_end(edit_form) }}
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
 
@@ -118,6 +187,174 @@
                     cleanChildren("businessbundle_businesscase_", true, ["customer_contact"]);
                 }
             });
+
+            function loadFileInput(inputField){
+                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+
+                inputField.fileinput({
+                    //initialPreviewAsData: true,
+                    // showCaption: true,
+                    //showRemove: true,
+                    //showUpload:true,
+                    //maxFileSize: 1500,
+                    overwriteInitial: true,
+                    showClose: false,
+                    showCaption: false,
+                    showBrowse: false,
+                    browseOnZoneClick: true,
+                    removeLabel: '',
+                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                    removeTitle: 'Cancel or reset changes',
+                    elErrorContainer: '#kv-avatar-errors-2',
+                    msgErrorClass: 'alert alert-block alert-danger',
+                    defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>', //<img src="/uploads/default_avatar_male.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+                    layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
+                    allowedFileExtensions: ["jpg", "png", "gif"]
+                });
+            };
+
+            function loadMultipleFileInput(inputField){
+                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+
+                console.log("Load Multiple File Input");
+
+                inputField.fileinput({
+                    //initialPreviewAsData: true,
+                    // showCaption: true,
+                    //showRemove: true,
+                    //showUpload:true,
+                    //maxFileSize: 1500,
+                    msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
+                    defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',
+                    showBrowse: true,
+                    browseOnZoneClick: true,
+                    browseLabel: '{{ "browse_capitalize"|trans }}',
+                    showRemove: true,
+                    showCaption: false,
+                    initialPreviewShowDelete: true,
+                    showUploadedThumbs: true,
+                    showUpload: false,
+                    removeLabel: '',
+                    removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',
+                    initialPreviewAsData: false,
+                    overwriteInitial: false,
+                    uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"
+                    //layoutTemplates: {main2: '{preview} {remove} {browse}'},
+                });
+            };
+
+            function loadMediasCollection(mediaCollectionField){
+                /**
+                 * Launch BusinessCaseGallery collection
+                 */
+                mediaCollectionField.collection({
+                    allow_duplicate: false,
+                    after_add: function (collection, element) {
+                        loadFileInput($(".media-file-input"));
+                        $("textarea.tinymce-textarea").tinymce();
+                        $("select").select2({ width: '100%' });
+                        element.addClass("col-md-6");
+                        return true;
+                    },
+                    allow_add: true,
+                    allow_remove: true,
+                    allow_up: true,
+                    allow_down: true,
+                    position_field_selector: '.media-position',
+                    min: 1,
+                    // max: 200,
+                    //custom_add_location: true,
+                    add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',
+                    remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',
+                    up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',
+                    down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',
+                });
+            }
+
+            /**
+             * Launch BusinessCaseGallery collection
+             */
+            $(".item-collection").each(function() {
+                $(this).collection({
+                    allow_duplicate: false,
+                    after_add: function (collection, element) {
+                        $("select").select2({ width: '100%' });
+                        //console.log(collection);
+                        console.log(element);
+                        mediasCollection = element.find(':file.multiple-media');
+                        //loadMediasCollection(mediasCollection);
+                        loadMultipleFileInput(mediasCollection);
+                        return true;
+                    },
+                    allow_up: false,
+                    allow_down: false,
+                    allow_add: true,
+                    allow_remove: true,
+                    //min: 1,
+                    // max: 200,
+                    add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                    remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>',
+                    prefix: "parent",
+                    children: [{
+                        prefix: 'child',
+                        after_add: function (collection, element) {
+                            loadMultipleFileInput(element.find(":file.multiple-media"));
+                            // $("textarea.tinymce-textarea").tinymce();
+                            $("select").select2({ width: '100%' });
+                            element.addClass("col-md-6");
+                            return true;
+                        },
+                        //min: 1,
+                        selector: '.item-collection-multiple-media',
+                        add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',
+                        remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',
+                        up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',
+                        down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',
+                        allow_up: false,
+                        allow_down: false,
+                        allow_duplicate: false,
+                        allow_add: false,
+                        allow_remove: true,
+                        add_at_the_end: true
+                    }]
+                });
+            });
+
+            /**
+             * Launch GalleryMedias collection
+             */
+            // loadMediasCollection($(".item-collection-multiple-media"));
+
+            /**
+             * Launch multiple media file type
+             */
+            {#$('.multiple-media').fileinput({#}
+            {#msgPlaceholder: '{{ "select_files_capitalize"|trans }}',#}
+            {#defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',#}
+            {#showBrowse: true,#}
+            {#browseOnZoneClick: true,#}
+            {#browseLabel: '{{ "browse_capitalize"|trans }}',#}
+            {#showRemove: true,#}
+            {#showCaption: false,#}
+            {#initialPreviewShowDelete: true,#}
+            {#showUploadedThumbs: true,#}
+            {#showUpload: false,#}
+            {#removeLabel: '',#}
+            {#removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',#}
+            {#initialPreviewAsData: false,#}
+            {#overwriteInitial: false,#}
+            {#uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"#}
+            {#//layoutTemplates: {main2: '{preview} {remove} {browse}'},#}
+            {#});#}
+
+            // Textarea WYSIWYG at first load (not used after ajax refresh DOM)
+            $("textarea.tinymce-textarea").tinymce();
         });
     </script>
 {% endblock %}

@@ -90,8 +90,7 @@ class BusinessCaseMediaTransformer implements DataTransformerInterface
                 $businessCaseGallery->getBusinessCaseMedias()->remove($k);
             }
         }
-        dump($businessCaseGalleries);
-        die();
-        // TODO: Implement reverseTransform() method.
+
+        return $businessCaseGalleries;
     }
 }
