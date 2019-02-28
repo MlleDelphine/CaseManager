@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSer;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BusinessCaseGallery
@@ -31,6 +31,8 @@ class BusinessCaseGallery
      * @ORM\ManyToOne(targetEntity="BusinessBundle\Entity\DocumentType", inversedBy="businessCaseGalleries")
      * @JMSSer\Expose
      * @JMSSer\Groups({"business_export_business_case"})
+     *
+     * @Assert\NotNull()
      */
     protected $documentType;
 
@@ -40,6 +42,15 @@ class BusinessCaseGallery
      * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseMedia", mappedBy="businessCaseGallery", cascade={"all"}, orphanRemoval=true)
      * @JMSSer\Expose
      * @JMSSer\Groups({"business_export_business_case"})
+     *
+     * @Assert\NotNull()
+     * @Assert\Count(min=1, minMessage="Vous devez charger au moins un media")
+     * @Assert\All(
+     *      @Assert\Type(
+     *          type="Application\Sonata\MediaBundle\Entity\BusinessCaseMedia"
+     *      )
+     * )
+     * @Assert\Valid()
      */
     protected $businessCaseMedias;
 

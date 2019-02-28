@@ -37,6 +37,7 @@ class Equipment implements ResourceSubjectInterface
      *
      * @ORM\Column(name="name", type="string", length=255, unique=false)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      *
      * @JMSSer\Expose()
      * @JMSSer\Groups({"admin_export_equipment"})
