@@ -188,33 +188,33 @@
                 }
             });
 
-            function loadFileInput(inputField){
-                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
-                    'onclick="alert(\'Call your custom code here.\')">' +
-                    '<i class="glyphicon glyphicon-tag"></i>' +
-                    '</button>';
-
-                inputField.fileinput({
-                    //initialPreviewAsData: true,
-                    // showCaption: true,
-                    //showRemove: true,
-                    //showUpload:true,
-                    //maxFileSize: 1500,
-                    overwriteInitial: true,
-                    showClose: false,
-                    showCaption: false,
-                    showBrowse: false,
-                    browseOnZoneClick: true,
-                    removeLabel: '',
-                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-                    removeTitle: 'Cancel or reset changes',
-                    elErrorContainer: '#kv-avatar-errors-2',
-                    msgErrorClass: 'alert alert-block alert-danger',
-                    defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>', //<img src="/uploads/default_avatar_male.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
-                    layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
-                    allowedFileExtensions: ["jpg", "png", "gif"]
-                });
-            };
+            // function loadFileInput(inputField){
+            //     var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+            //         'onclick="alert(\'Call your custom code here.\')">' +
+            //         '<i class="glyphicon glyphicon-tag"></i>' +
+            //         '</button>';
+            //
+            //     inputField.fileinput({
+            //         //initialPreviewAsData: true,
+            //         // showCaption: true,
+            //         //showRemove: true,
+            //         //showUpload:true,
+            //         //maxFileSize: 1500,
+            //         overwriteInitial: true,
+            //         showClose: false,
+            //         showCaption: false,
+            //         showBrowse: false,
+            //         browseOnZoneClick: true,
+            //         removeLabel: '',
+            //         removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            //         removeTitle: 'Cancel or reset changes',
+            //         elErrorContainer: '#kv-avatar-errors-2',
+            //         msgErrorClass: 'alert alert-block alert-danger',
+            //         defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>', //<img src="/uploads/default_avatar_male.jpg" alt="Your Avatar"><h6 class="text-muted">Click to select</h6>',
+            //         layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
+            //         allowedFileExtensions: ["jpg", "png", "gif"]
+            //     });
+            // };
 
             function loadMultipleFileInput(inputField){
                 var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
@@ -249,33 +249,33 @@
                 });
             };
 
-            function loadMediasCollection(mediaCollectionField){
-                /**
-                 * Launch BusinessCaseGallery collection
-                 */
-                mediaCollectionField.collection({
-                    allow_duplicate: false,
-                    after_add: function (collection, element) {
-                        loadFileInput($(".media-file-input"));
-                        $("textarea.tinymce-textarea").tinymce();
-                        $("select").select2({ width: '100%' });
-                        element.addClass("col-md-6");
-                        return true;
-                    },
-                    allow_add: true,
-                    allow_remove: true,
-                    allow_up: true,
-                    allow_down: true,
-                    position_field_selector: '.media-position',
-                    min: 1,
-                    // max: 200,
-                    //custom_add_location: true,
-                    add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',
-                    remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',
-                    up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',
-                    down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',
-                });
-            }
+            {#function loadMediasCollection(mediaCollectionField){#}
+                {#/**#}
+                 {#* Launch BusinessCaseGallery collection#}
+                 {#*/#}
+                {#mediaCollectionField.collection({#}
+                    {#allow_duplicate: false,#}
+                    {#after_add: function (collection, element) {#}
+                        {#loadFileInput($(".media-file-input"));#}
+                        {#$("textarea.tinymce-textarea").tinymce();#}
+                        {#$("select").select2({ width: '100%' });#}
+                        {#//element.addClass("col-md-6");#}
+                        {#return true;#}
+                    {#},#}
+                    {#allow_add: true,#}
+                    {#allow_remove: true,#}
+                    {#allow_up: true,#}
+                    {#allow_down: true,#}
+                    {#position_field_selector: '.media-position',#}
+                    {#min: 1,#}
+                    {#// max: 200,#}
+                    {#//custom_add_location: true,#}
+                    {#add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',#}
+                    {#remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',#}
+                    {#up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',#}
+                    {#down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',#}
+                {#});#}
+            {#}#}
 
             /**
              * Launch BusinessCaseGallery collection
@@ -307,21 +307,21 @@
                             loadMultipleFileInput(element.find(":file.multiple-media"));
                            // $("textarea.tinymce-textarea").tinymce();
                             $("select").select2({ width: '100%' });
-                            element.addClass("col-md-6");
+                            //element.addClass("col-md-6");
                             return true;
                         },
                         min: 1,
                         selector: '.item-collection-multiple-media',
-                        add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',
-                        remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',
-                        up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',
-                        down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',
+                        {#add: '<button class="collection-add btn btn-xs btn-success" title="{{ 'add_media'|trans }}"><span class="glyphicon glyphicon-plus-sign"></span></button>',#}
+                        {#remove: '<button class="collection-remove btn btn-xs btn-danger" title="{{ 'delete_media'|trans }}"><span class="glyphicon glyphicon-trash"></span></button>',#}
+                        {#up: '<button class="collection-up btn btn-xs btn-success" title="{{ 'up_media'|trans }}"><span class="glyphicon glyphicon-chevron-up"></span></button>',#}
+                        {#down: '<button class="collection-down btn btn-xs btn-success" title="{{ 'down_media'|trans }}"><span class="glyphicon glyphicon-chevron-down"></span></button>',#}
                         allow_up: false,
                         allow_down: false,
                         allow_duplicate: false,
                         allow_add: false,
-                        allow_remove: true,
-                        add_at_the_end: true
+                        allow_remove: false,
+                        //add_at_the_end: true
                     }]
                 });
             });
