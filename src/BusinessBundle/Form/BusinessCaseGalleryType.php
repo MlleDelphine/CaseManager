@@ -60,7 +60,7 @@ class BusinessCaseGalleryType extends AbstractType
                 "entry_type" => BusinessCaseMediaType::class,
                 "entry_options" => [
                     "label" => false,
-                    "attr" => ["class" => "col-md-6", "multiple" => true],
+                    "attr" => ["class" => "col-md-8", "multiple" => true],
                     "provider" => "sonata.media.provider.multiple_file",
                     "context" => "business_case_media_context",
                     "data_class" => "Application\Sonata\MediaBundle\Entity\BusinessCaseMedia",

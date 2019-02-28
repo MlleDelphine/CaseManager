@@ -145,7 +145,7 @@
                             <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
                             <div class="form-group">
                                 <div class="row">
-                                    {{ form_label(form.businessCaseGalleries, null, {'label_attr': {'class': 'control-label col-md-2 col-sm-2 col-xs-12'}}) }}
+                                    {{ form_label(form.businessCaseGalleries, null, {'label_attr': {'class': 'col-md-12 col-sm-12 col-xs-12 te'}}) }}
                                     {#<div class="col-md-10 col-sm-10 col-xs-12">#}
                                     {{ form_widget(form.businessCaseGalleries) }}
                                     {{ form_errors(form.businessCaseGalleries) }}
@@ -325,33 +325,6 @@
                     }]
                 });
             });
-
-            /**
-             * Launch GalleryMedias collection
-             */
-            // loadMediasCollection($(".item-collection-multiple-media"));
-
-            /**
-             * Launch multiple media file type
-             */
-            {#$('.multiple-media').fileinput({#}
-                {#msgPlaceholder: '{{ "select_files_capitalize"|trans }}',#}
-                {#defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',#}
-                {#showBrowse: true,#}
-                {#browseOnZoneClick: true,#}
-                {#browseLabel: '{{ "browse_capitalize"|trans }}',#}
-                {#showRemove: true,#}
-                {#showCaption: false,#}
-                {#initialPreviewShowDelete: true,#}
-                {#showUploadedThumbs: true,#}
-                {#showUpload: false,#}
-                {#removeLabel: '',#}
-                {#removeIcon: '<i class="glyphicon glyphicon-remove" style="color: red"></i>',#}
-                {#initialPreviewAsData: false,#}
-                {#overwriteInitial: false,#}
-                {#uploadUrl: "'"+$('.multiple-media').parent("form").attr("action")+"'", //"/"#}
-                {#//layoutTemplates: {main2: '{preview} {remove} {browse}'},#}
-            {#});#}
 
             // Textarea WYSIWYG at first load (not used after ajax refresh DOM)
             $("textarea.tinymce-textarea").tinymce();

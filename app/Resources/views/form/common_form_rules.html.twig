@@ -21,7 +21,6 @@
 
 {# MEDIA FILE TYPE INPOUT #}
 {% block application_media_file_type_widget %}
-    application_media_file_type_widget
     {% spaceless %}
         <div class="file-loading">
             <input type="file" {{ block('widget_attributes') }} class="{% if form.vars.attr.class is defined %} {{ form.vars.attr.class }} {% endif %}" data-show-caption="true" data-show-remove="true"/>
