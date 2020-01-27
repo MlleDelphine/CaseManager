@@ -42,7 +42,7 @@ class BusinessCaseType extends AbstractType
             ->add('internalReference', TextType::class, array(
                 "label_format" => "internal_reference_capitalize",
                 "required" => false,
-                "attr" => ["pattern" => "^(E|EC)[0-9]{8-10}[A-Z]{0-3}$", "readonly" => true]))
+                "attr" => ["pattern" => "^(E|EC)[0-9]{8,10}[A-Z]{0,3}$", "readonly" => true]))
             ->add('constructionSitePostalAddress', ConstructionSitePostalAddressType::class, array(
                 "label_format" => null,
                 "required" => true
