@@ -44,7 +44,12 @@ twig:
     strict_variables: '%kernel.debug%'
     form_theme:
         - 'form/common_form_rules.html.twig'
+        - 'form/file_input_collection_form.html.twig'
 #        - 'bootstrap_3_horizontal_layout.html.twig'
+    globals:
+        app_admin_url: '%casemanager_admin_url%'
+        app_front_url: '%casemanager_front_url%'
+        app_api_url: '%casemanager_api_url%'
 services:
     gedmo.listener.tree:
         class: Gedmo\Tree\TreeListener

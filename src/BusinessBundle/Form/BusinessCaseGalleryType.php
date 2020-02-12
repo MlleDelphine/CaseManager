@@ -4,13 +4,8 @@ namespace BusinessBundle\Form;
 
 use AppBundle\Form\Type\Select2EntityType;
 use Application\Sonata\MediaBundle\Form\BusinessCaseMediaType;
-use Application\Sonata\MediaBundle\Form\DataTransformer\BusinessCaseMediaTransformer;
-use Application\Sonata\MediaBundle\Form\GalleryHasMediaType;
 use Application\Sonata\MediaBundle\Form\Type\GalleryHasMediaCollectionType;
-use Application\Sonata\MediaBundle\Form\Type\MediaFileType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -78,11 +73,10 @@ class BusinessCaseGalleryType extends AbstractType
                 "required" => false));
 
 
-
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             //Not yet reverseTransformed, files still as array
-            dump($event->getForm());
-            dump($event->getData());
+//            dump($event->getForm());
+//            dump($event->getData());
 //            die();
         });
 //            ->add('businessCaseMedias', MediaFileType::class, array(

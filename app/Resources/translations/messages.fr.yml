@@ -535,6 +535,9 @@ select_files_capitalize: Sélectionner des fichiers
 
 add_media: ajouter un média
 add_media_capitalize: Ajouter un média
+add_media_to_doctype_capitalize: Ajouter un média à ce type de document
+delete_media_capitalize: Supprimer un média
+delete_media_to_doctype_capitalize: Supprimer le média de ce type de document
 media_gallery_capitalize: Galerie média
 document_type_capitalize: Type de document/galerie
 media_galleryhasmedia: médias

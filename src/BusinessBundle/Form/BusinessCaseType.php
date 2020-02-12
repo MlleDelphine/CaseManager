@@ -106,7 +106,6 @@ class BusinessCaseType extends AbstractType
                 "label_format" => "media_gallery_capitalize",
                 "required" => false));
 
-
         $builder->get("businessCaseGalleries")
             ->addModelTransformer(new BusinessCaseMediaTransformer());
 //            ->add('businessCaseGalleries', \Sonata\Form\Type\CollectionType::class, [], array(

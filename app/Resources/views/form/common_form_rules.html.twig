@@ -8,28 +8,34 @@
     {% endif %}
 {% endblock form_errors%}
 
-{# FILE INPOUT #}
-{#{% block file_widget %}#}
-    {#file_widget#}
-    {#{% spaceless %}#}
-        {#<div class="form-group col-md-7">#}
-            {#{{ dump(form.vars) }}#}
-            {#<input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>#}
-        {#</div>#}
-    {#{% endspaceless %}#}
-{#{% endblock %}#}
-
-{# MEDIA FILE TYPE INPOUT #}
-{% block application_media_file_type_widget %}
+{# FILE INPUT #}
+{% block file_widget %}
     {% spaceless %}
-        <div class="file-loading">
-            <input type="file" {{ block('widget_attributes') }} class="{% if form.vars.attr.class is defined %} {{ form.vars.attr.class }} {% endif %}" data-show-caption="true" data-show-remove="true"/>
+        <div class="form-group col-md-7">
+            <input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control col-md-8" data-show-upload="false" data-show-caption="true"/>
         </div>
     {% endspaceless %}
 {% endblock %}
 
+{# MEDIA FILE TYPE INPUT #}
+{% block application_media_file_type_widget %}
+    {% set baseUrl = 'https://' ~ app_front_url %}
+    {% set media = false %}
+    {% if form.parent.vars.data is sameas(null) %}
+        {% set media = true %}
+    {% endif %}
+    {% spaceless %}
+        <div class="file-loading">
+            <input multiple type="file" {{ block('widget_attributes') }} class="{% if form.vars.attr.class is defined %} {{ form.vars.attr.class }} {% endif %}"
+                   data-show-caption="true"
+                   data-show-remove="true"
+                   data-src="{{ baseUrl }}{% path form.parent.vars.data, 'reference' %}"/>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{#DO NOT WORK#}
 {% block business_case_media_type_widget %}
-    business_case_media_type_widget
     {% spaceless %}
         <div class="file-loading">
             <input multiple type="file" {{ block('widget_attributes') }} class="{% if child.vars.attr.class is defined %} {{ child.vars.attr.classes }} {% endif %}" data-show-caption="true" data-show-remove="true"/>
@@ -352,13 +358,13 @@
 {# BUSINESS CASE GALLERY - MEDIA FIELD IN COLLECTION #}
 {% block sonata_media_type_widget %}
     {#<div class="col-sm-6 col-md-6" style="text-align: right;">#}
-        {#<div class="kv-avatar">#}
-            {#<div class="file-loading">#}
-                {#blbl#}
-                {#<input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control"/>#}
-                 {#data-show-upload="false" data-show-caption="true" #}
-            {#</div>#}
-        {#</div>#}
+    {#<div class="kv-avatar">#}
+    {#<div class="file-loading">#}
+    {#blbl#}
+    {#<input type="file" {{ block('widget_attributes') }} class="item-collection-multiple-media multiple-media file form-control"/>#}
+    {#data-show-upload="false" data-show-caption="true" #}
+    {#</div>#}
+    {#</div>#}
     {#</div>#}
     {{ block("form_widget") }}
 {% endblock %}
@@ -377,7 +383,7 @@
             <div class="form-group">
                 {% if child.vars.prototype is defined %}
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                    {{ form_widget(child) }}
+                        {{ form_widget(child) }}
                     </div>
                 {% else %}
                     {{ form_label(child, null, {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}

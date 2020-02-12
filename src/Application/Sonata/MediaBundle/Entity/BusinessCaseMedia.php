@@ -45,7 +45,7 @@ class BusinessCaseMedia extends BaseMedia
         return $this->id;
     }
 
-    public function setBinaryContent($binaryContent)
+    public function setBinaryContent( $binaryContent )
     {
         if(!$this->providerReference && $this->previousProviderReference){
             $this->providerReference = $this->previousProviderReference;

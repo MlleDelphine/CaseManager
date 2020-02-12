@@ -140,6 +140,10 @@ div[class$="-collection-actions"]{
     padding-left: 10px;
 }
 
+.add-media-doctype {
+    float: right;
+}
+
 /******** ANIMATE BLOCKS ON LOGIN PAGE ******/
 
 .pwdreset_form {
@@ -683,8 +687,7 @@ table.childDatatable td {
 .childDatatables_wrapper {
     position: relative;
     clear: both;
-    *zoom: 1;
-    zoom: 1; }
+     }
 .childDatatables_wrapper .childDatatables_length {
     float: left; }
 .childDatatables_wrapper .childDatatables_filter {

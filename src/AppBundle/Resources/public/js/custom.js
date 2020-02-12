@@ -593,7 +593,6 @@ function init_daterangepicker_reservation() {
 function init_SmartWizard() {
 
     if( typeof ($.fn.smartWizard) === 'undefined'){ return; }
-    console.log('init_SmartWizard mine');
 
     $('#wizard').smartWizard({
         // selected: 2,

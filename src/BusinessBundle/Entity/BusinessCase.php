@@ -495,5 +495,6 @@ class BusinessCase
     {
         return $this->businessCaseGalleries;
     }
+
 }
 

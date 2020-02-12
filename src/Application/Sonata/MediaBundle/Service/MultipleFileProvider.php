@@ -76,6 +76,8 @@ class MultipleFileProvider extends FileProvider
         //$media instanceof BusinessCaseMedia
         foreach ($media->getBinaryContent() as $k => $mediaFile) {
             dump("Loop over mediaFile");
+            dump( $mediaFile);
+            dump( $mediaFile instanceof File );
             echo $k;
             if ($media->getBinaryContent() === null || empty($media->getBinaryContent()) || $mediaFile instanceof File) {
                 return;
@@ -143,6 +145,37 @@ class MultipleFileProvider extends FileProvider
 //    }
 
     /**
+     * @param MediaInterface $media
+     *
+     * @throws \RuntimeException
+     */
+    protected function fixFilename(MediaInterface $media)
+    {
+        dump( $media ); // BusinessCaseMedia : OK
+        $mediaFile = $media;
+       // foreach ($media->getBinaryContent() as $k => $mediaFile) {
+            dump($mediaFile); // BusinessCaseMedia : OK
+
+            if ($mediaFile->getBinaryContent() instanceof UploadedFile) {
+                $mediaFile->setName($media->getName() ?: $mediaFile->getBinaryContent()->getClientOriginalName());
+                $mediaFile->setMetadataValue('filename', $mediaFile->getBinaryContent()->getClientOriginalName());
+            } elseif ($mediaFile->getBinaryContent() instanceof File) {
+                $mediaFile->setName($media->getName() ?: $mediaFile->getBinaryContent()->getBasename());
+                $mediaFile->setMetadataValue('filename', $mediaFile->getBinaryContent()->getBasename());
+            }
+
+            dump( $mediaFile->getName() );
+
+            // this is the original name
+            if (!$mediaFile->getName()) {
+//            throw new \RuntimeException('Please define a valid media\'s name');
+                throw new \RuntimeException('Please define a valid media\'s name instead of a ' . get_class($mediaFile) . ' type');
+
+        //    }
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function doTransform(MediaInterface $media)
@@ -172,4 +205,6 @@ class MultipleFileProvider extends FileProvider
 
         $media->setProviderStatus(MediaInterface::STATUS_OK);
     }
+
+
 }

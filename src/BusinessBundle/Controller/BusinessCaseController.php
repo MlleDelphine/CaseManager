@@ -2,7 +2,9 @@
 
 namespace BusinessBundle\Controller;
 
+use Application\Sonata\MediaBundle\Entity\BusinessCaseMedia;
 use BusinessBundle\Entity\BusinessCase;
+use BusinessBundle\Entity\BusinessCaseGallery;
 use BusinessBundle\Form\BusinessCaseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -118,6 +120,7 @@ class BusinessCaseController extends Controller
 
             return $this->redirectToRoute('business_case_index');
         }
+
 
         return $this->render('BusinessBundle:businesscase:edit.html.twig', array(
             'businessCase' => $businessCase,

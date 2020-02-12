@@ -45,7 +45,8 @@ class BusinessCaseMediaTransformer implements DataTransformerInterface
      */
     public function transform($businessCaseMedia)
     {
-        dump("BusinessCaseMedia TRANSFORM");
+//        dump("BusinessCaseMedia TRANSFORM");
+//        dump($businessCaseMedia);
         return ($businessCaseMedia === null) ? "" : $businessCaseMedia;
         // TODO: Implement transform() method.
     }
@@ -76,14 +77,18 @@ class BusinessCaseMediaTransformer implements DataTransformerInterface
      */
     public function reverseTransform($businessCaseGalleries)
     {
-        dump($businessCaseGalleries);
-        dump("BusinessCaseMedia reverseTranform");
-
         foreach ($businessCaseGalleries as $key => $businessCaseGallery) {
             foreach ($businessCaseGallery->getBusinessCaseMedias() as $k => $businessMedia) {
-                foreach ($businessMedia->getBinaryContent() as $i => $uploadedFile) {
+                if (is_array($businessMedia->getBinaryContent()))  {
+                    foreach ($businessMedia->getBinaryContent() as $i => $uploadedFile) {
+                        $clonedBusinessMedia = clone $businessMedia;
+                        $clonedBusinessMedia->setBinaryContent($uploadedFile);
+
+                        $businessCaseGallery->getBusinessCaseMedias()->add($clonedBusinessMedia);
+                    }
+                } else {
                     $clonedBusinessMedia = clone $businessMedia;
-                    $clonedBusinessMedia->setBinaryContent($uploadedFile);
+                    $clonedBusinessMedia->setBinaryContent($businessMedia->getBinaryContent());
 
                     $businessCaseGallery->getBusinessCaseMedias()->add($clonedBusinessMedia);
                 }

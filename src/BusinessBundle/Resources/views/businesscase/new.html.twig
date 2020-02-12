@@ -223,6 +223,7 @@
                     '</button>';
 
                 console.log("Load Multiple File Input");
+                console.log(inputField);
 
                 inputField.fileinput({
                     //initialPreviewAsData: true,
@@ -285,7 +286,7 @@
                     allow_duplicate: false,
                     after_add: function (collection, element) {
                         $("select").select2({ width: '100%' });
-                        //console.log(collection);
+                        console.log("After add");
                         console.log(element);
                         mediasCollection = element.find(':file.multiple-media');
                         //loadMediasCollection(mediasCollection);
@@ -304,7 +305,9 @@
                     children: [{
                         prefix: 'child',
                         after_add: function (collection, element) {
-                            loadMultipleFileInput(element.find(":file.multiple-media"));
+                            console.log("After add on child");
+                            console.log(element);
+                          //  loadMultipleFileInput(element.find(":file.multiple-media"));
                            // $("textarea.tinymce-textarea").tinymce();
                             $("select").select2({ width: '100%' });
                             //element.addClass("col-md-6");
