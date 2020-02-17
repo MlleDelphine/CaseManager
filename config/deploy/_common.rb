@@ -136,7 +136,7 @@ namespace :server_config do
       execute "sudo chown -R #{web_server_user}:#{web_server_user} #{deploy_to}"
 
       puts "----> Reloading PHP-FPM service to reset cache"
-      execute "sudo /usr/sbin/service php7.2-fpm reload"
+      execute "sudo /usr/sbin/service php7.3-fpm reload"
 
       #the config file can be used by an attacker to know we use symfony
       execute "/usr/bin/env rm #{deploy_to}/current/web/config.php"
