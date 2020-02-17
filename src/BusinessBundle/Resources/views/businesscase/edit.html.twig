@@ -215,7 +215,6 @@
                         $("select").select2({ width: '100%' });
                         mediasCollection = element.find(':file.multiple-media');
                         loadMultipleFileInputForBlock(mediasCollection);
-                        //  loadMultipleFileInput(mediasCollection);
                         return true;
                     },
                     allow_up: false,
@@ -224,15 +223,17 @@
                     allow_remove: true,
                     min: 1,
                     // max: 200,
-                    add: '<a href="#" class="collection-add btn btn-default btn-success" title="Ajouter un élément"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-                    remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet élément"><span class="glyphicon glyphicon-trash"></span></a>',
+                    add: '<a href="#" class="collection-add-block btn btn-default btn-success" title="Ajouter un bloc"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+                    remove: '<a href="#" class="collection-remove btn btn-default btn-danger" title="Supprimer cet bloc"><span class="glyphicon glyphicon-trash"></span></a>',
                     prefix: "parent",
+                    add_at_the_end: true,
                     children: [{
                         prefix: 'child',
                         after_add: function (collection, element) {
                             console.log("Children after_add --> Add a BLOCK");
                             loadMultipleFileInput(element.find(":file.multiple-media"));
                             $("select").select2({ width: '100%' });
+                            console.log(element);
                             element.addClass("col-md-offset-3 col-md-6");
                             return true;
                         },
@@ -257,15 +258,15 @@
             });
 
             /**
-             * FUnction to add new file input at add action : both for FULL BLOCK & for new file inside a block (edition)
+             * Function to add new file input at add action : both for FULL BLOCK & for new file inside a block (edition)
              * @param inputField
              */
             function loadMultipleFileInput(inputField){
                 console.log('FILE : step 2');
-                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
-                    'onclick="alert(\'Call your custom code here.\')">' +
-                    '<i class="glyphicon glyphicon-tag"></i>' +
-                    '</button>';
+                // var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                //     'onclick="alert(\'Call your custom code here.\')">' +
+                //     '<i class="glyphicon glyphicon-tag"></i>' +
+                //     '</button>';
 
                 inputField.fileinput({
                     msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
@@ -291,10 +292,10 @@
              */
             function loadMultipleFileInputForBlock(inputField){
                 console.log('FILE : step 2');
-                var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
-                    'onclick="alert(\'Call your custom code here.\')">' +
-                    '<i class="glyphicon glyphicon-tag"></i>' +
-                    '</button>';
+                // var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                //     'onclick="alert(\'Call your custom code here.\')">' +
+                //     '<i class="glyphicon glyphicon-tag"></i>' +
+                //     '</button>';
 
                 inputField.fileinput({
                     msgPlaceholder: '{{ "select_files_capitalize"|trans }}',
@@ -314,8 +315,13 @@
                 });
             };
 
+            /**
+             * Function to load already existing medias (one fileinput per medai, no multi uplaode)
+             * @TODO : one multiupload field
+             * @param inputField
+             */
             function loadExistingMedias(inputField){
-                inputField.addClass('col-md-offset-3 col-md-6');
+                inputField.closest("div[id^='businessbundle_businesscase_businessCaseGalleries']").addClass('col-md-offset-3 col-md-6');
                 inputField.fileinput({
                     initialPreview: ['' + inputField.data('src') + ''],
                     overwriteInitial: true,
@@ -324,7 +330,7 @@
                     defaultPreviewContent: '<i class="fa fa-camera-retro" aria-hidden="true" style="font-size:35px"></i>',
                     showBrowse: true,
                     browseOnZoneClick: true,
-                    browseLabel: '{{ "browse_capitalize"|trans }}',
+                    browseLabel: '{{ "browse_replace_capitalize"|trans }}',
                     showRemove: true,
                     showCaption: true,
                     initialPreviewShowDelete: false,

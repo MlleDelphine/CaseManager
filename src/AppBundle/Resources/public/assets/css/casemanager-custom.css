@@ -144,6 +144,14 @@ div[class$="-collection-actions"]{
     float: right;
 }
 
+.actionbar {
+    border: none;
+}
+
+.collection-add-block {
+    float: right;
+    margin: 2px 50% 50% 2px;
+}
 /******** ANIMATE BLOCKS ON LOGIN PAGE ******/
 
 .pwdreset_form {
@@ -867,4 +875,9 @@ table.childDatatable td {
     color: red;
     font-family: monospace;
     font-weight: normal;
+}
+
+/******** FILE INPUT ********/
+.file-drop-zone.clickable:hover {
+    border: 1px dashed #5BA2B6;
 }

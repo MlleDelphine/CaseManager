@@ -530,6 +530,7 @@ down_media: Descendre
 delete_media: Supprimer
 browse: parcourir
 browse_capitalize: Parcourir
+browse_replace_capitalize: Parcourir & remplacer
 select_files: sélectionner des fichiers
 select_files_capitalize: Sélectionner des fichiers
 
