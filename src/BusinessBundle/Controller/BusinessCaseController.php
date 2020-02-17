@@ -2,9 +2,14 @@
 
 namespace BusinessBundle\Controller;
 
-use Application\Sonata\MediaBundle\Entity\BusinessCaseMedia;
+use AppBundle\Services\CSVExport;
+use AppBundle\Services\CustomGridRowAction;
+use AppBundle\Services\ExcelExport;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
+use APY\DataGridBundle\Grid\Export\JSONExport;
+use APY\DataGridBundle\Grid\Source\Entity;
 use BusinessBundle\Entity\BusinessCase;
-use BusinessBundle\Entity\BusinessCaseGallery;
 use BusinessBundle\Form\BusinessCaseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -22,10 +27,10 @@ class BusinessCaseController extends Controller
      * Lists all businessCase entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
         $error = false;
         if ($request->isMethod('POST')) {
 
@@ -42,12 +47,87 @@ class BusinessCaseController extends Controller
             }
         }
 
-        $businessCases = $em->getRepository('BusinessBundle:BusinessCase')->findAll();
+        /*** GRID ***/
+        $routeAtSubmit = $this->get("router")->generate("business_case_index");
 
-        return $this->render('BusinessBundle:businesscase:index.html.twig', array(
-            'businessCases' => $businessCases,
-            "error" => $error
-        ));
+        //concatenated_full_name
+        $source = new Entity("BusinessBundle:BusinessCase", "general");
+
+
+        // Get a grid instance
+        $grid = $this->get('grid');
+
+        // Attach the source to the grid
+        $grid->setSource($source);
+        $grid->setRouteUrl($routeAtSubmit);
+        $grid->setDefaultOrder('name', 'ASC');
+        $grid->setDefaultLimit(20);
+
+        /***
+         * ACTIONS
+         */
+        $rowAction1 = new CustomGridRowAction('modify', 'business_case_edit');
+        $rowAction1->addRouteParameters(array('slug'));
+        $rowAction1->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction1->setConfirm(true);
+        $rowAction1->setConfirmMessage("Sure ?");
+        $rowAction1->setTarget("_blank");
+        $rowAction1->setAttributes(["class" =>"btn btn-sm btn-info"]);
+        $rowAction1->setPrevIcon("fa-pencil-square-o");
+
+        $rowAction2 = new CustomGridRowAction('export', 'business_case_export');
+        $rowAction2->addRouteParameters(array('slug'));
+        $rowAction2->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction2->setAttributes(["class" =>"btn btn-sm btn-warning"]);
+        $rowAction2->setPrevIcon("fa-download");
+
+        $rowAction3 = new CustomGridRowAction('delete', 'business_case_delete');
+        $rowAction3->setIsButton(true);
+        $rowAction3->addRouteParameters(array('slug'));
+        $rowAction3->setRouteParametersMapping(array('slug' => 'slug'));
+        $rowAction3->setAttributes(["class" => "btn btn-sm btn-danger delete-entity", "data-toggle" => "modal", "data-target" => "#deleteModal", "data-slug" => "slug"]);
+        $rowAction3->setPrevIcon("fa-download");
+
+        $actionsColumn = new ActionsColumn("actions_column", "ACTIONS", [
+            $rowAction1,
+            $rowAction2,
+            $rowAction3]);
+        $actionsColumn->setAlign("center");
+
+        $grid->addColumn($actionsColumn);
+
+        $date = date('Y-m-d H:i:s');
+        $grid->addExport(new ExcelExport("Export Excel", "[CaseManager][BusinessCase] - Dossiers d'affaire - $date"));
+        $grid->addExport(new CSVExport("Export CSV", "[CaseManager][BusinessCase] - Dossiers d'affaire - $date"));
+        $grid->addExport(new JSONExport("Export JSON", "[CaseManager][BusinessCase] - Dossiers d'affaire - $date"));
+
+        $grid->setLimits(array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100));
+        $grid->isReadyForRedirect();
+
+        $returnParams = [
+            "grid" => $grid,
+            "error" => $error,
+            "childrenRow" => "Media",
+            "childrenProperties" => ["name_capitalize"],
+            "childrenRouteName" => "business_case_get_children"
+        ];
+
+        if($request->isXmlHttpRequest()){
+            return $grid->getGridResponse(':common:index_datatable_grid_common.html.twig', $returnParams);
+        }else{
+            return $grid->getGridResponse("BusinessBundle:businesscase:index.html.twig", $returnParams);
+        }
+
+//
+//
+//
+//
+//        $businessCases = $em->getRepository('BusinessBundle:BusinessCase')->findAll();
+//
+//        return $this->render('BusinessBundle:businesscase:index.html.twig', array(
+//            'businessCases' => $businessCases,
+//            "error" => $error
+//        ));
     }
 
     /**
@@ -60,9 +140,6 @@ class BusinessCaseController extends Controller
         $businessCase = new BusinessCase();
         $form = $this->createForm(BusinessCaseType::class, $businessCase);
         $form->handleRequest($request);
-//
-//        dump($request);
-//        die;
 
         if($request->isXmlHttpRequest()){
             return $this->render("BusinessBundle:businesscase:business_case_form.html.twig",['businessCase' => $businessCase,
@@ -177,12 +254,14 @@ class BusinessCaseController extends Controller
 
     /**
      * @param Request $request
-     * @param BusinessCase $equipment
+     * @param BusinessCase $businessCase
      * @return StreamedResponse
      */
-    public function exportBusinessCaseAction(Request $request, BusinessCase $equipment){
+    public function exportBusinessCaseAction(Request $request, BusinessCase $businessCase){
 
-        $response = $this->get("object.eximportdatas")->export('admin_export_business_case', $equipment)->prepare($request);
+        $response = $this->get("object.eximportdatas")
+            ->export('admin_export_business_case', $businessCase)
+            ->prepare($request);
 
         return $response;
     }

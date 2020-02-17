@@ -3,8 +3,6 @@
 namespace BusinessBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\BusinessCaseDocument;
-//use Application\Sonata\MediaBundle\Entity\BusinessCaseGallery;
-use BusinessBundle\Entity\BusinessCaseGallery;
 use CustomerBundle\Entity\AbstractClass\Customer;
 use CustomerBundle\Entity\CustomerContact;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use SecurityAppBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMSSer;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * BusinessCase
@@ -34,7 +33,10 @@ class BusinessCase
      * @ORM\GeneratedValue(strategy="AUTO")
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
+     *
+     * @GRID\Column(title="ID", operators={"eq", "neq", "gt", "lt", "gte", "lte"}, defaultOperator="eq", type="number", visible=false, align="left")
+     *
      */
     private $id;
 
@@ -46,7 +48,10 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
+     *
+     * @GRID\Column(title="name_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"default"})
+     * @GRID\Column(title="name_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"general"})
      */
     private $name;
 
@@ -55,7 +60,10 @@ class BusinessCase
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
+     *
+     * @GRID\Column(title="description_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
+     * @GRID\Column(title="description_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
      */
     private $description;
 
@@ -65,6 +73,7 @@ class BusinessCase
      * @Gedmo\Slug(fields={"name"}, separator="-", updatable=true, unique=true)
      * @ORM\Column(length=128, unique=true)
      *
+     * @GRID\Column(title="Slug", type="text", visible=false, groups={"default", "general"})
      */
     protected $slug;
 
@@ -75,7 +84,10 @@ class BusinessCase
      *
      * @Assert\NotBlank()
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
+     *
+     * @GRID\Column(title="external_reference_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
+     * @GRID\Column(title="external_reference_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
      */
     private $externalReference;
 
@@ -83,6 +95,12 @@ class BusinessCase
      * @var string
      *
      * @ORM\Column(name="internalReference", type="string", length=255, nullable=true, unique=true)
+     *
+     * @JMSSer\Expose()
+     * @JMSSer\Groups({"admin_export_business_case"})
+     *
+     * @GRID\Column(title="internal_reference_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=true, align="center", groups={"default"})
+     * @GRID\Column(title="internal_reference_capitalize", operators={"like", "nlike"}, defaultOperator="like", visible=false, align="center", groups={"general"})
      */
     private $internalReference;
 
@@ -93,7 +111,7 @@ class BusinessCase
 //     *
 //     * @Assert\NotBlank()
 //     * @JMSSer\Expose()
-//     * @JMSSer\Groups({"business_export_business_case"})
+//     * @JMSSer\Groups({"admin_export_business_case"})
 //     */
 //    private $customerType;
 
@@ -103,7 +121,7 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
      */
     protected $customer;
 
@@ -113,7 +131,7 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
      */
     protected $customerContact;
 
@@ -123,7 +141,7 @@ class BusinessCase
      * @Assert\NotBlank()
      *
      * @JMSSer\Expose()
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
      */
     protected $user;
 
@@ -131,7 +149,7 @@ class BusinessCase
      * @var BusinessCaseDocument
      * @ORM\OneToMany(targetEntity="Application\Sonata\MediaBundle\Entity\BusinessCaseDocument", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
      * @JMSSer\Expose
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
      */
     protected $documents;
 
@@ -139,7 +157,7 @@ class BusinessCase
      * @var ArrayCollection[BusinessCaseGallery]
      * @ORM\OneToMany(targetEntity="BusinessBundle\Entity\BusinessCaseGallery", mappedBy="businessCase", cascade={"all"}, orphanRemoval=true)
      * @JMSSer\Expose
-     * @JMSSer\Groups({"business_export_business_case"})
+     * @JMSSer\Groups({"admin_export_business_case"})
      */
     protected $businessCaseGalleries;
 
@@ -157,6 +175,9 @@ class BusinessCase
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     *
+     * @GRID\Column(title="creation", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $created;
 
@@ -164,6 +185,9 @@ class BusinessCase
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
+     *
+     * @GRID\Column(title="updated_f_s", operators={"eq", "neq", "gt", "lt", "gte", "lte", "btw", "btwe"}, defaultOperator="eq", type="datetime", format="d-m-Y H:i:s", visible=true, align="center")
+     *
      */
     protected $updated;
 

@@ -46,6 +46,7 @@ class CustomGridRowAction extends RowAction
     }
 
     /**
+     * Do not display <a/> with href attribute but a button (e.g. to open a modal instead of go for action)
      * @param bool $isSubRow
      */
     public function setIsSubRow(bool $isSubRow)

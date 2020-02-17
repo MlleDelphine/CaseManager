@@ -34,3 +34,11 @@ business_case_export:
 
 business_case_export_all:
     path: /export
+
+
+#business_case_get_children:
+#    path:     /{id}/children/{childElement}
+#    defaults: { _controller: "BusinessBundle:BusinessCase:getChildFromParent" }
+#    methods:  POST
+#    options:
+#        expose: true

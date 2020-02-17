@@ -11,7 +11,6 @@ use APY\DataGridBundle\Grid\Export\JSONExport;
 use APY\DataGridBundle\Grid\Source\Entity;
 use SecurityAppBundle\Entity\User;
 use SecurityAppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
